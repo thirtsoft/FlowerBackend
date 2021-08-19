@@ -1,7 +1,7 @@
 package com.flowers.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.flowers.enums.Role;
+import com.flowers.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -34,7 +34,7 @@ public class Utilisateur implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private Role role;
+    private RoleName roleName;
 
     @JsonIgnore
     @OneToMany(mappedBy = "utilisateur",
