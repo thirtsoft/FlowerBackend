@@ -1,6 +1,9 @@
 package com.flowers.controllers.api;
 
 import com.flowers.models.Address;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,13 @@ public interface AddressApi {
 
     @PostMapping(value = APP_ROOT + "/addresses/create",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Enregistrer une Address",
+            notes = "Cette méthode permet d'ajouter un article", response = Address.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "L'Address a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Address  crée / modifié")
+
+    })
     ResponseEntity<Address> saveAddress(@RequestBody Address address);
 
     @PutMapping(value = APP_ROOT + "/addresses/update/{catId}",

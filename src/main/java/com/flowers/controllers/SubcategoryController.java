@@ -3,6 +3,7 @@ package com.flowers.controllers;
 import com.flowers.controllers.api.SubcategoryApi;
 import com.flowers.models.Subcategory;
 import com.flowers.services.SubcategoryService;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,10 @@ public class SubcategoryController implements SubcategoryApi {
 
     private final SubcategoryService subcategoryService;
 
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "La Scategory a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Scategory  crée / modifié")
+    })
     @Override
     public ResponseEntity<Subcategory> save(Subcategory subcategory) {
         return null;
