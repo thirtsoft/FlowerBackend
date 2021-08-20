@@ -1,36 +1,41 @@
 package com.flowers.services;
 
 import com.flowers.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
 
-    Optional<Product> findProductById(Long prodId);
-
     Product saveProduct(Product product);
 
-    Product updateProduct(Long prodId, Product product);
+    Product saveProductWithFile(String product, MultipartFile photoProduct) throws IOException;
 
-    void deleteProduct(Long prodId);
+    Product update(Long id, Product product);
+
+    Product findById(Long id);
 
     Product findByReference(String reference);
 
-    Product findByDesignation(String designation);
+    List<Product> findAll();
 
-    Product findByPrixAchat(double prixAchat);
+    List<Product> findListProductBySubCategories(Long subCatId);
 
-    List<Product> findAllProducts();
+    List<Product> findListProductByKeyword(String keyword);
 
-    List<Product> findListProductByDesignation(String designation);
+    List<Product> findListProductGroupByPrice(double price);
 
-    List<?> countNumberOfProductWithStock();
+    List<Product> findListProductBySelected();
 
-    Integer countNumbersOfProductsByStock();
+    Page<Product> findProductByPageable(Pageable pageable);
 
-    Integer countNumbersOfProductsWhenQStockEqualStockInit();
+    Page<Product> findProductBySubCategoryPageables(Long scatId, Pageable pageable);
 
-    Integer countNumbersOfProductsWhenQStockInfStockInit();
+    Page<Product> findProductBySamePricePageables(double price, Pageable pageable);
+
+    void delete(Long id);
 
 }

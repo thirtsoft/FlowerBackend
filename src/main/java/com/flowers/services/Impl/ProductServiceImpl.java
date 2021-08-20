@@ -4,11 +4,14 @@ import com.flowers.models.Product;
 import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,10 +20,6 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    @Override
-    public Optional<Product> findProductById(Long prodId) {
-        return Optional.empty();
-    }
 
     @Override
     public Product saveProduct(Product product) {
@@ -28,13 +27,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long prodId, Product product) {
+    public Product saveProductWithFile(String product, MultipartFile photoProduct) throws IOException {
         return null;
     }
 
     @Override
-    public void deleteProduct(Long prodId) {
+    public Product update(Long id, Product product) {
+        return null;
+    }
 
+    @Override
+    public Product findById(Long id) {
+        return null;
     }
 
     @Override
@@ -43,42 +47,47 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findByDesignation(String designation) {
+    public List<Product> findAll() {
         return null;
     }
 
     @Override
-    public Product findByPrixAchat(double prixAchat) {
+    public List<Product> findListProductBySubCategories(Long subCatId) {
         return null;
     }
 
     @Override
-    public List<Product> findAllProducts() {
+    public List<Product> findListProductByKeyword(String keyword) {
         return null;
     }
 
     @Override
-    public List<Product> findListProductByDesignation(String designation) {
+    public List<Product> findListProductGroupByPrice(double price) {
         return null;
     }
 
     @Override
-    public List<?> countNumberOfProductWithStock() {
+    public List<Product> findListProductBySelected() {
         return null;
     }
 
     @Override
-    public Integer countNumbersOfProductsByStock() {
+    public Page<Product> findProductByPageable(Pageable pageable) {
         return null;
     }
 
     @Override
-    public Integer countNumbersOfProductsWhenQStockEqualStockInit() {
+    public Page<Product> findProductBySubCategoryPageables(Long scatId, Pageable pageable) {
         return null;
     }
 
     @Override
-    public Integer countNumbersOfProductsWhenQStockInfStockInit() {
+    public Page<Product> findProductBySamePricePageables(double price, Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+
     }
 }
