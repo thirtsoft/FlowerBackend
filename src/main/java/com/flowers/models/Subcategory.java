@@ -15,8 +15,10 @@ public class Subcategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "subCategoryName", nullable = false, length = 30)
     private String subCategoryName;
+
     @Column(name = "description", nullable = false, length = 150)
     @Lob
     private String description;
@@ -24,4 +26,6 @@ public class Subcategory implements Serializable {
     @ManyToOne
     @JoinColumn(name = "catId", nullable = false)
     private Category category;
+
+
 }

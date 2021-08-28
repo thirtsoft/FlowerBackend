@@ -17,15 +17,18 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "reference", nullable = false, length = 30, unique = true)
+
+    @Column(name = "reference", length = 30)
     private String reference;
+
     @Column(name = "totalPrice")
     private double totalPrice;
+
     @Column(name = "orderDate")
     private Date orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private Utilisateur utilisateur;
 
     @JsonIgnore

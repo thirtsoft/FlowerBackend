@@ -14,19 +14,22 @@ public class OrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "reference")
     private String reference;
+
     @Column(name = "quantity")
     private int quantity;
+
     @Column(name = "price")
     private double price;
 
 
     @ManyToOne
-    @JoinColumn(name = "orderId", nullable = false)
+    @JoinColumn(name = "orderId")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "prodId", nullable = false)
+    @JoinColumn(name = "prodId")
     private Product product;
 }

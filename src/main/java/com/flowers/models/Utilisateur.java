@@ -17,18 +17,25 @@ public class Utilisateur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "firstName", length = 90)
     private String firstName;
+
     @Column(name = "lastName", length = 50)
     private String lastName;
-    @Column(name = "username", length = 100, unique = true)
+
+    @Column(name = "username", length = 100)
     private String username;
-    @Column(name = "email", length = 30, unique = true)
+
+    @Column(name = "email", length = 30)
     private String email;
+
     @Column(name = "mobile", length = 20)
     private String mobile;
+
     @Column(name = "address")
     private String address;
+
     @Column(name = "password", length = 100)
     private String password;
 
