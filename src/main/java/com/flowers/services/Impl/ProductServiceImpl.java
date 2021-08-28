@@ -46,8 +46,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Long id, Product product) {
-        product.setId(id);
-        return productRepository.save(product);
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product that id is" + id + "is not found");
+        }
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (!optionalProduct.isPresent()) {
+            throw new ResourceNotFoundException("Product not found");
+        }
+
+        Product productResult = optionalProduct.get();
+        productResult.setReference(product.getReference());
+        productResult.setProductName(product.getProductName());
+        productResult.setQuantity(product.getQuantity());
+        productResult.setPrice(product.getPrice());
+        productResult.setInstock(product.isInstock());
+        productResult.setSelected(product.isSelected());
+        productResult.setPromo(product.isPromo());
+        productResult.setDescription(product.getDescription());
+        productResult.setManufactured(product.getManufactured());
+        productResult.setSubcategory(product.getSubcategory());
+
+
+        return productRepository.save(productResult);
     }
 
     @Override

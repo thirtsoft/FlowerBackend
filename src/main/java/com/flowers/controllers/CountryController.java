@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.CountryApi;
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Country;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
@@ -15,48 +16,32 @@ public class CountryController implements CountryApi {
 
     private final CountryService countryService;
 
+
     @Override
-    public ResponseEntity<Country> saveCountry(Country Country) {
-        return null;
+    public ResponseEntity<Country> saveCountry(Country country) {
+        return ResponseEntity.ok(countryService.saveCountry(country));
     }
 
     @Override
-    public ResponseEntity<Country> updateCountry(Long catId, Country Country) {
-        return null;
+    public ResponseEntity<Country> updateCountry(Long countId, Country country) {
+        country.setIdCountry(countId);
+        return ResponseEntity.ok(countryService.saveCountry(country));
     }
 
     @Override
-    public ResponseEntity<Country> findCountryById(Long catId) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Country> findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Country> findByDesignation(String designation) {
-        return null;
+    public ResponseEntity<Country> getCountryById(Long countId) throws ResourceNotFoundException {
+        Country country = countryService.findCountryById(countId)
+                .orElseThrow(() -> new ResourceNotFoundException("Country not found"));
+        return ResponseEntity.ok().body(country);
     }
 
     @Override
     public ResponseEntity<List<Country>> getAllCountries() {
-        return null;
+        return ResponseEntity.ok(countryService.findAllCountries());
     }
 
     @Override
-    public ResponseEntity<List<Country>> getListCountriesByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<Country>> getListCountriesByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public void deleteCountry(Long catId) {
-
+    public void deleteCountry(Long countId) {
+        countryService.deleteCountry(countId);
     }
 }

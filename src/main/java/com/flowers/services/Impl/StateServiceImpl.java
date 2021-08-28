@@ -25,8 +25,20 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public State updateState(Long stateId, State state) {
-        state.setIdState(stateId);
-        return stateRepository.save(state);
+        if (!stateRepository.existsById(stateId)) {
+            throw new ResourceNotFoundException("State that id is" + stateId + "is not found");
+        }
+        Optional<State> optionalState = stateRepository.findById(stateId);
+
+        if (!optionalState.isPresent()) {
+            throw new ResourceNotFoundException("State not found");
+        }
+
+        State stateResult = optionalState.get();
+        stateResult.setName(state.getName());
+        stateResult.setCountry(state.getCountry());
+
+        return stateRepository.save(stateResult);
     }
 
     @Override

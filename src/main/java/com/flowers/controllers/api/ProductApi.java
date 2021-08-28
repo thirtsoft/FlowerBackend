@@ -1,10 +1,12 @@
 package com.flowers.controllers.api;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Product;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +60,7 @@ public interface ProductApi {
             @ApiResponse(code = 404, message = "Aucun Artilce n'existe avec cette ID pas dans la BD")
 
     })
-    ResponseEntity<Product> findById(@PathVariable("idProduct") Long id);
+    ResponseEntity<Product> getProductById(@PathVariable("idProduct") Long id) throws ResourceNotFoundException;
 
     @GetMapping(value = APP_ROOT + "/products/searchProductbyReference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Artilce par Reference",
@@ -68,7 +70,7 @@ public interface ProductApi {
             @ApiResponse(code = 200, message = "L'Artilce a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Artilce n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<Product> findByReference(@PathVariable("reference") String reference);
+    ResponseEntity<Product> getProductByReference(@PathVariable("reference") String reference);
 
     @GetMapping(value = APP_ROOT + "/products/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products",
@@ -76,7 +78,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products / une liste vide")
     })
-    List<Product> findAll();
+    ResponseEntity<List<Product>> getAllProducts();
 
     @GetMapping(value = APP_ROOT + "/products/productsByScategories/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par Scategory",
@@ -84,7 +86,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par Scategory / une liste vide")
     })
-    List<Product> findListProductByScategories(@PathVariable("subCatId") Long subCatId);
+    ResponseEntity<List<Product>> getListProductBySubCategory(@PathVariable("subCatId") Long subCatId);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductByKeyword", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par mot Clé",
@@ -92,7 +94,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par Scategory / une liste vide")
     })
-    List<Product> getListProductByKeyword(@RequestParam(name = "keyword") String keyword);
+    ResponseEntity<List<Product>> getListProductByKeyword(@RequestParam(name = "keyword") String keyword);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductByPrice/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par price",
@@ -100,7 +102,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par price / une liste vide")
     })
-    List<Product> getListProductByPrice(@PathVariable("price") double price);
+    ResponseEntity<List<Product>> getListProductByPrice(@PathVariable("price") double price);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductByselectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products selectionner",
@@ -108,7 +110,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products selectionner / une liste vide")
     })
-    List<Product> getListProductBySelected();
+    ResponseEntity<List<Product>> getListProductBySelected();
 
     @GetMapping(value = APP_ROOT + "/products/searchProductByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par pages",
@@ -116,7 +118,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par pages / une liste vide")
     })
-    Page<Product> getListProductByPageable(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size);
+    Page<Product> getListProductByPageable(Pageable pageable);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductByScategoryByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par Scategory",
@@ -124,16 +126,16 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par Scategory par pages / une liste vide")
     })
-    Page<Product> getListProductByScategoryByPageable(@RequestParam("id") Long scatId, @RequestParam(name = "page") int page,
-                                                      @RequestParam(name = "size") int size);
+    Page<Product> getListProductBySubCategoryByPageable(@RequestParam("id") Long scatId, Pageable pageable);
+
     @GetMapping(value = APP_ROOT + "/products/searchProductBySamePriceByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par price",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products qui ont le meme price par pages", responseContainer = "Page<Product>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par price par pages / une liste vide")
     })
-    Page<Product> getListProductBySamePriceyByPageable(@RequestParam("price") double price, @RequestParam(name = "page") int page,
-                                                       @RequestParam(name = "size") int size);
+    Page<Product> getListProductBySamePriceyByPageable(@RequestParam("price") double price, Pageable pageable);
+
     @DeleteMapping(value = APP_ROOT + "/products/delete/{idProduct}")
     @ApiOperation(value = "Supprimer un Product par son ID",
             notes = "Cette méthode permet de supprimer une Product par son ID", response = Product.class)

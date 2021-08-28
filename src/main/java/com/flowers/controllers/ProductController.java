@@ -1,15 +1,18 @@
 package com.flowers.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowers.controllers.api.ProductApi;
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Product;
-import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,74 +22,87 @@ public class ProductController implements ProductApi {
 
     private final ProductService productService;
 
+    private final String productPhotosDir = "C://Users//Folio9470m//flowers//photos//";
+
     @Override
     public ResponseEntity<Product> save(Product product) {
-        return null;
+        return ResponseEntity.ok(productService.saveProduct(product));
     }
 
     @Override
     public ResponseEntity<Product> saveProductWithFile(String product, MultipartFile photoProduct) throws IOException {
-        return null;
+        Product productMapper = new ObjectMapper().readValue(product, Product.class);
+        if (photoProduct != null && !photoProduct.isEmpty()) {
+            productMapper.setImageUrl(photoProduct.getOriginalFilename());
+            photoProduct.transferTo(new File(productPhotosDir + photoProduct.getOriginalFilename()));
+        }
+
+        return ResponseEntity.ok(productService.saveProduct(productMapper));
     }
 
     @Override
     public ResponseEntity<Product> update(Long id, Product product) {
-        return null;
+        product.setId(id);
+        return ResponseEntity.ok(productService.saveProduct(product));
     }
 
     @Override
-    public ResponseEntity<Product> findById(Long id) {
-        return null;
+    public ResponseEntity<Product> getProductById(Long id) throws ResourceNotFoundException {
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        return ResponseEntity.ok().body(product);
     }
 
     @Override
-    public ResponseEntity<Product> findByReference(String reference) {
-        return null;
+    public ResponseEntity<Product> getProductByReference(String reference) {
+        Product product = productService.findByReference(reference)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        return ResponseEntity.ok().body(product);
     }
 
     @Override
-    public List<Product> findAll() {
-        return null;
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @Override
-    public List<Product> findListProductByScategories(Long subCatId) {
-        return null;
+    public ResponseEntity<List<Product>> getListProductBySubCategory(Long subCatId) {
+        return ResponseEntity.ok(productService.findListProductBySubCategories(subCatId));
     }
 
     @Override
-    public List<Product> getListProductByKeyword(String keyword) {
-        return null;
+    public ResponseEntity<List<Product>> getListProductByKeyword(String keyword) {
+        return ResponseEntity.ok(productService.findListProductByKeyword(keyword));
     }
 
     @Override
-    public List<Product> getListProductByPrice(double price) {
-        return null;
+    public ResponseEntity<List<Product>> getListProductByPrice(double price) {
+        return ResponseEntity.ok(productService.findListProductGroupByPrice(price));
     }
 
     @Override
-    public List<Product> getListProductBySelected() {
-        return null;
+    public ResponseEntity<List<Product>> getListProductBySelected() {
+        return ResponseEntity.ok(productService.findListProductBySelected());
     }
 
     @Override
-    public Page<Product> getListProductByPageable(int page, int size) {
-        return null;
+    public Page<Product> getListProductByPageable(Pageable pageable) {
+        return productService.findProductByPageable(pageable);
     }
 
     @Override
-    public Page<Product> getListProductByScategoryByPageable(Long scatId, int page, int size) {
-        return null;
+    public Page<Product> getListProductBySubCategoryByPageable(Long scatId, Pageable pageable) {
+        return productService.findProductBySubCategoryPageable(scatId, pageable);
     }
 
     @Override
-    public Page<Product> getListProductBySamePriceyByPageable(double price, int page, int size) {
-        return null;
+    public Page<Product> getListProductBySamePriceyByPageable(double price, Pageable pageable) {
+        return productService.findProductBySamePricePageable(price, pageable);
     }
 
     @Override
     public void delete(Long id) {
-
+        productService.delete(id);
     }
 
     @Override

@@ -42,8 +42,21 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Override
     public Subcategory updateSubcategory(Long subCatId, Subcategory subcategory) {
-        subcategory.setId(subCatId);
-        return subcategoryRepository.save(subcategory);
+        if (!subcategoryRepository.existsById(subCatId)) {
+            throw new ResourceNotFoundException("Subcategory that id is" + subCatId + "is not found");
+        }
+        Optional<Subcategory> optionalSubcategory = subcategoryRepository.findById(subCatId);
+
+        if (!optionalSubcategory.isPresent()) {
+            throw new ResourceNotFoundException("Subcategory not found");
+        }
+
+        Subcategory subcategoryResult = optionalSubcategory.get();
+        subcategoryResult.setSubCategoryName(subcategory.getSubCategoryName());
+        subcategoryResult.setCategory(subcategory.getCategory());
+        subcategoryResult.setDescription(subcategory.getDescription());
+
+        return subcategoryRepository.save(subcategoryResult);
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.flowers.controllers.api;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.State;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,36 +18,50 @@ public interface StateApi {
 
     @PostMapping(value = APP_ROOT + "/states/create",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<State> saveState(@RequestBody State State);
+    @ApiOperation(value = "Enregistrer une State",
+            notes = "Cette méthode permet d'ajouter un State", response = State.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Le State a été crée"),
+            @ApiResponse(code = 400, message = "Aucun State  crée / modifié")
 
-    @PutMapping(value = APP_ROOT + "/states/update/{catId}",
+    })
+    ResponseEntity<State> saveState(@RequestBody State state);
+
+    @PutMapping(value = APP_ROOT + "/states/update/{stateId}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<State> updateState(@PathVariable(value = "catId") Long catId, @RequestBody State State);
+    @ApiOperation(value = "Modifier une State",
+            notes = "Cette méthode permet de modifier une State", response = State.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le State a été crée"),
+            @ApiResponse(code = 400, message = "Aucun State  crée / modifié")
 
-    @GetMapping(value = APP_ROOT + "/states/{catId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<State> findStateById(@PathVariable(value = "catId") Long catId);
+    })
+    ResponseEntity<State> updateState(@PathVariable(value = "stateId") Long stateId, @RequestBody State state);
 
-    @GetMapping(value = APP_ROOT + "/states/searchStateByCode", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<State> findByCode(@RequestParam(name = "code") String code);
+    @GetMapping(value = APP_ROOT + "/states/{stateId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Chercher une State",
+            notes = "Cette méthode permet de chercher et de renvoyer une State", response = State.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le State a été trouvé")
 
-    @GetMapping(value = APP_ROOT + "/states/searchStateByDesignation", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<State> findByDesignation(@RequestParam(name = "designation") String designation);
+    })
+    ResponseEntity<State> getStateById(@PathVariable(value = "stateId") Long stateId) throws ResourceNotFoundException;
+
 
     @GetMapping(value = APP_ROOT + "/states/all", produces = MediaType.APPLICATION_JSON_VALUE)
-   /* @ApiOperation(value = "Renvoi la liste des approvisonnement",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des approvisionnements", responseContainer = "List<Approvisionnement>")
+    @ApiOperation(value = "Renvoi la liste des State",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des State", responseContainer = "List<State>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des approvisionnements / une liste vide")
-    })*/
+            @ApiResponse(code = 200, message = "La liste des State / une liste vide")
+    })
     ResponseEntity<List<State>> getAllStates();
 
-    @GetMapping(value = APP_ROOT + "/states/searchListstatesByCode", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<State>> getListStatesByCode(@RequestParam(name = "code") String code);
-
-    @GetMapping(value = APP_ROOT + "/states/searchListstatesByDesignation", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<State>> getListstatesByDesignation(@RequestParam(name = "designation") String designation);
-
-    @DeleteMapping(value = APP_ROOT + "/states/delete/{catId}")
-    void deleteState(@PathVariable(name = "catId") Long catId);
+    @DeleteMapping(value = APP_ROOT + "/states/delete/{stateId}")
+    @ApiOperation(value = "Supprimer un State par son ID",
+            notes = "Cette méthode permet de supprimer une Country par son ID", response = State.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le State a été supprimé")
+    })
+    void deleteState(@PathVariable(name = "stateId") Long stateId);
 
 }

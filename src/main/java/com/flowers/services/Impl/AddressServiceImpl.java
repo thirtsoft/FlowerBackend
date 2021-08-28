@@ -26,8 +26,25 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address updateAddress(Long addId, Address address) {
-        address.setId(addId);
-        return addressRepository.save(address);
+        if (!addressRepository.existsById(addId)) {
+            throw new ResourceNotFoundException("Address that id is " + addId + "not found");
+        }
+
+        Optional<Address> optionalAddress = addressRepository.findById(addId);
+
+        if (!optionalAddress.isPresent()) {
+            throw new ResourceNotFoundException("Address not found");
+        }
+
+        Address addressResult = optionalAddress.get();
+        addressResult.setReference(address.getReference());
+        addressResult.setCity(address.getCity());
+        addressResult.setPhone(address.getPhone());
+        addressResult.setQuartier(address.getQuartier());
+        addressResult.setRue(address.getRue());
+        addressResult.setState(address.getState());
+
+        return addressRepository.save(addressResult);
     }
 
     @Override

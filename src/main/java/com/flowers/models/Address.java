@@ -33,9 +33,6 @@ public class Address implements Serializable {
     @Column(name = "rue", length = 90)
     private String rue;
 
-    @Column(name = "pays", length = 70)
-    private String country;
-
     @ManyToOne
     @JoinColumn(name = "stateId")
     private State state;

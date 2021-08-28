@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.StateApi;
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.State;
 import com.flowers.services.StateService;
 import lombok.AllArgsConstructor;
@@ -15,48 +16,32 @@ public class StateController implements StateApi {
 
     private final StateService stateService;
 
+
     @Override
-    public ResponseEntity<State> saveState(State State) {
-        return null;
+    public ResponseEntity<State> saveState(State state) {
+        return ResponseEntity.ok(stateService.saveState(state));
     }
 
     @Override
-    public ResponseEntity<State> updateState(Long catId, State State) {
-        return null;
+    public ResponseEntity<State> updateState(Long stateId, State state) {
+        state.setIdState(stateId);
+        return ResponseEntity.ok(stateService.saveState(state));
     }
 
     @Override
-    public ResponseEntity<State> findStateById(Long catId) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<State> findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<State> findByDesignation(String designation) {
-        return null;
+    public ResponseEntity<State> getStateById(Long stateId) throws ResourceNotFoundException {
+        State state = stateService.findStateById(stateId)
+                .orElseThrow(() -> new ResourceNotFoundException("State not found"));
+        return ResponseEntity.ok().body(state);
     }
 
     @Override
     public ResponseEntity<List<State>> getAllStates() {
-        return null;
+        return ResponseEntity.ok(stateService.findAllStates());
     }
 
     @Override
-    public ResponseEntity<List<State>> getListStatesByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<State>> getListstatesByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public void deleteState(Long catId) {
-
+    public void deleteState(Long stateId) {
+        stateService.deleteState(stateId);
     }
 }

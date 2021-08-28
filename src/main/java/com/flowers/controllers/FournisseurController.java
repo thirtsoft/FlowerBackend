@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.FournisseurApi;
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Fournisseur;
 import com.flowers.services.FournisseurService;
 import lombok.AllArgsConstructor;
@@ -15,28 +16,32 @@ public class FournisseurController implements FournisseurApi {
 
     private final FournisseurService fournisseurService;
 
+
     @Override
     public ResponseEntity<Fournisseur> save(Fournisseur fournisseur) {
-        return null;
+        return ResponseEntity.ok(fournisseurService.saveFournisseur(fournisseur));
     }
 
     @Override
     public ResponseEntity<Fournisseur> update(Long id, Fournisseur fournisseur) {
-        return null;
+        fournisseur.setId(id);
+        return ResponseEntity.ok(fournisseurService.saveFournisseur(fournisseur));
     }
 
     @Override
-    public ResponseEntity<Fournisseur> findById(Long id) {
-        return null;
+    public ResponseEntity<Fournisseur> getFournisseurById(Long id) throws ResourceNotFoundException {
+        Fournisseur fournisseur = fournisseurService.findFournisseurById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Fournisseur not found"));
+        return ResponseEntity.ok().body(fournisseur);
     }
 
     @Override
-    public List<Fournisseur> findAll() {
-        return null;
+    public ResponseEntity<List<Fournisseur>> getAllFournisseurs() {
+        return ResponseEntity.ok(fournisseurService.findAllFournisseurs());
     }
 
     @Override
     public void delete(Long id) {
-
+        fournisseurService.deleteFournisseur(id);
     }
 }

@@ -33,7 +33,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Optional<Category> findCategoryById(Long catId) {
-
         if (!categoryRepository.existsById(catId)) {
             throw new ResourceNotFoundException("Category that id is" + catId + "is not found");
         }
@@ -42,7 +41,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category updateCategory(Long catId, Category category) {
-        category.setId(catId);
+        if (!categoryRepository.existsById(catId)) {
+            throw new ResourceNotFoundException("Category that id is" + catId + "is not found");
+        }
+        Optional<Category> optionalCategory = categoryRepository.findById(catId);
+
+        if (!optionalCategory.isPresent()) {
+            throw new ResourceNotFoundException("Category not found");
+        }
+
+        Category categoryResult = optionalCategory.get();
+        categoryResult.setCategoryName(category.getCategoryName());
+        categoryResult.setDescription(category.getDescription());
+
         return categoryRepository.save(category);
     }
 

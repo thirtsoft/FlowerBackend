@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Category;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -43,7 +44,7 @@ public interface CategoryApi {
             @ApiResponse(code = 200, message = "La Category a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Category n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<Category> findCategoryById(@PathVariable(value = "catId") Long catId);
+    ResponseEntity<Category> getCategoryById(@PathVariable(value = "catId") Long catId) throws ResourceNotFoundException;
 
     @GetMapping(value = APP_ROOT + "/categories/searchCategoryByCode", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Category par Code",
@@ -53,7 +54,7 @@ public interface CategoryApi {
             @ApiResponse(code = 200, message = "La Category a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Category n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<Category> findByCode(@RequestParam(name = "code") String code);
+    ResponseEntity<Category> getCategoryByCode(@RequestParam(name = "code") String code);
 
     @GetMapping(value = APP_ROOT + "/categories/searchCategoryByDesignation", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Category par Designation",
@@ -63,7 +64,7 @@ public interface CategoryApi {
             @ApiResponse(code = 200, message = "La Category a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Category n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<Category> findByDesignation(@RequestParam(name = "designation") String designation);
+    ResponseEntity<Category> getCategoryByDesignation(@RequestParam(name = "designation") String designation);
 
     @GetMapping(value = APP_ROOT + "/categories/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Categories",

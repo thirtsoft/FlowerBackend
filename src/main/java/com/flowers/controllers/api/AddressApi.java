@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Address;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -18,7 +19,7 @@ public interface AddressApi {
     @PostMapping(value = APP_ROOT + "/addresses/create",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une Address",
-            notes = "Cette méthode permet d'ajouter un article", response = Address.class)
+            notes = "Cette méthode permet d'ajouter un addresse", response = Address.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "L'Address a été crée"),
             @ApiResponse(code = 400, message = "Aucun Address  crée / modifié")
@@ -26,34 +27,42 @@ public interface AddressApi {
     })
     ResponseEntity<Address> saveAddress(@RequestBody Address address);
 
-    @PutMapping(value = APP_ROOT + "/addresses/update/{catId}",
+    @PutMapping(value = APP_ROOT + "/addresses/update/{addId}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Address> updateAddress(@PathVariable(value = "catId") Long catId, @RequestBody Address address);
+    @ApiOperation(value = "Modifier une Address",
+            notes = "Cette méthode permet de modifier une addresse", response = Address.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Address a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Address  crée / modifié")
 
-    @GetMapping(value = APP_ROOT + "/addresses/{catId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Address> findAddressById(@PathVariable(value = "catId") Long catId);
+    })
+    ResponseEntity<Address> updateAddress(@PathVariable(value = "addId") Long addId, @RequestBody Address address);
 
-    @GetMapping(value = APP_ROOT + "/addresses/searchAddressByCode", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Address> findByCode(@RequestParam(name = "code") String code);
+    @GetMapping(value = APP_ROOT + "/addresses/{addId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Chercher une Address",
+            notes = "Cette méthode permet de chercher et de renvoyer une addresse", response = Address.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Address a été trouvé")
 
-    @GetMapping(value = APP_ROOT + "/addresses/searchAddressByDesignation", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Address> findByDesignation(@RequestParam(name = "designation") String designation);
+    })
+    ResponseEntity<Address> getAddressById(@PathVariable(value = "addId") Long addId) throws ResourceNotFoundException;
+
 
     @GetMapping(value = APP_ROOT + "/addresses/all", produces = MediaType.APPLICATION_JSON_VALUE)
-   /* @ApiOperation(value = "Renvoi la liste des approvisonnement",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des approvisionnements", responseContainer = "List<Approvisionnement>")
+    @ApiOperation(value = "Renvoi la liste des addresses",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des addresses", responseContainer = "List<Address>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des approvisionnements / une liste vide")
-    })*/
-    ResponseEntity<List<Address>> getAlladdresses();
+            @ApiResponse(code = 200, message = "La liste des Address / une liste vide")
+    })
+    ResponseEntity<List<Address>> getAllAddresses();
 
-    @GetMapping(value = APP_ROOT + "/addresses/searchListaddressesByCode", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Address>> getListaddressesByCode(@RequestParam(name = "code") String code);
 
-    @GetMapping(value = APP_ROOT + "/addresses/searchListaddressesByDesignation", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Address>> getListaddressesByDesignation(@RequestParam(name = "designation") String designation);
-
-    @DeleteMapping(value = APP_ROOT + "/addresses/delete/{catId}")
-    void deleteAddress(@PathVariable(name = "catId") Long catId);
+    @DeleteMapping(value = APP_ROOT + "/addresses/delete/{addId}")
+    @ApiOperation(value = "Supprimer une addresses",
+            notes = "Cette méthode permet de supprimer une addresses")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Address est supprimé / une liste vide")
+    })
+    ResponseEntity<?> deleteAddress(@PathVariable(name = "addId") Long addId);
 
 }

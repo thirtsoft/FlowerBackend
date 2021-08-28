@@ -42,8 +42,25 @@ public class FournisseurServiceImpl implements FournisseurService {
 
     @Override
     public Fournisseur updateFournisseur(Long fourId, Fournisseur fournisseur) {
-        fournisseur.setId(fourId);
-        return fournisseurRepository.save(fournisseur);
+        if (!fournisseurRepository.existsById(fourId)) {
+            throw new ResourceNotFoundException("Fournisseur that id is" + fourId + "is not found");
+        }
+        Optional<Fournisseur> optionalFournisseur = fournisseurRepository.findById(fourId);
+
+        if (!optionalFournisseur.isPresent()) {
+            throw new ResourceNotFoundException("Fournisseur not found");
+        }
+
+        Fournisseur fournisseurResult = optionalFournisseur.get();
+        fournisseurResult.setFirstName(fournisseur.getFirstName());
+        fournisseurResult.setLastName(fournisseur.getLastName());
+        fournisseurResult.setTelephone(fournisseur.getTelephone());
+        fournisseurResult.setEmail(fournisseur.getEmail());
+        fournisseurResult.setAddress(fournisseur.getAddress());
+        fournisseurResult.setReference(fournisseur.getReference());
+        fournisseurResult.setProduct(fournisseur.getProduct());
+
+        return fournisseurRepository.save(fournisseurResult);
     }
 
     @Override
