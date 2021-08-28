@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -16,9 +17,9 @@ public interface ProductService {
 
     Product update(Long id, Product product);
 
-    Product findById(Long id);
+    Optional<Product> findById(Long id);
 
-    Product findByReference(String reference);
+    Optional<Product> findByReference(String reference);
 
     List<Product> findAll();
 
@@ -32,10 +33,13 @@ public interface ProductService {
 
     Page<Product> findProductByPageable(Pageable pageable);
 
-    Page<Product> findProductBySubCategoryPageables(Long scatId, Pageable pageable);
+    Page<Product> findProductBySubCategoryPageable(Long scatId, Pageable pageable);
 
-    Page<Product> findProductBySamePricePageables(double price, Pageable pageable);
+    Page<Product> findProductBySamePricePageable(double price, Pageable pageable);
 
     void delete(Long id);
+
+
+
 
 }

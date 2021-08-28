@@ -1,5 +1,6 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Subcategory;
 import com.flowers.reposiory.SubcategoryRepository;
 import com.flowers.services.SubcategoryService;
@@ -19,51 +20,43 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Override
     public List<Subcategory> findAllSubcategories() {
-        return null;
+        return subcategoryRepository.findAll();
     }
 
     @Override
     public Optional<Subcategory> findSubcategoryById(Long subCatId) {
-        return Optional.empty();
+        if (!subcategoryRepository.existsById(subCatId)) {
+            throw new ResourceNotFoundException("SubCategory that id is " + subCatId + "not found");
+        }
+        return subcategoryRepository.findById(subCatId);
     }
 
-    @Override
-    public Subcategory findByCode(String code) {
-        return null;
-    }
 
     @Override
-    public List<Subcategory> findListSubcategoryByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public Subcategory findByLibelle(String libelle) {
-        return null;
-    }
-
-    @Override
-    public List<Subcategory> findListSubcategoryByLibelle(String libelle) {
-        return null;
-    }
-
-    @Override
-    public List<Subcategory> findSubcategoryByCateoryId(Long subCatId) {
-        return null;
-    }
-
-    @Override
-    public Subcategory saveSubcategory(Subcategory Subcategory) {
-        return null;
+    public Subcategory saveSubcategory(Subcategory subcategory) {
+        if (subcategory.getSubCategoryName() != null) {
+            throw new ResourceNotFoundException("Subcategory already exists");
+        }
+        return subcategoryRepository.save(subcategory);
     }
 
     @Override
     public Subcategory updateSubcategory(Long subCatId, Subcategory subcategory) {
-        return null;
+        subcategory.setId(subCatId);
+        return subcategoryRepository.save(subcategory);
+    }
+
+    @Override
+    public List<Subcategory> findSubcategoryByCateoryId(Long catId) {
+        return subcategoryRepository.findSubcategoryByCateoryId(catId);
     }
 
     @Override
     public void deleteSubcategory(Long subCatId) {
+        if (!subcategoryRepository.existsById(subCatId)) {
+            throw new ResourceNotFoundException("Subcategory not found");
+        }
+        subcategoryRepository.deleteById(subCatId);
 
     }
 }

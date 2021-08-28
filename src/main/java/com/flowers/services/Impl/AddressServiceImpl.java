@@ -1,11 +1,9 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Address;
-import com.flowers.models.Category;
 import com.flowers.reposiory.AddressRepository;
-import com.flowers.reposiory.CategoryRepository;
 import com.flowers.services.AddressService;
-import com.flowers.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,47 +20,36 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public Address saveAddress(Address Address) {
-        return null;
+    public Address saveAddress(Address address) {
+        return addressRepository.save(address);
     }
 
     @Override
-    public Address updateAddress(Long catId, Address Address) {
-        return null;
+    public Address updateAddress(Long addId, Address address) {
+        address.setId(addId);
+        return addressRepository.save(address);
     }
 
     @Override
-    public Optional<Address> findAddressById(Long catId) {
-        return Optional.empty();
+    public Optional<Address> findAddressById(Long addId) {
+        if (!addressRepository.existsById(addId)) {
+            throw new ResourceNotFoundException("Address that id is " + addId + "not found");
+        }
+        return addressRepository.findById(addId);
     }
 
-    @Override
-    public Address findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public Address findByDesignation(String designation) {
-        return null;
-    }
 
     @Override
     public List<Address> findAllAddresses() {
-        return null;
+        return addressRepository.findAll();
     }
 
     @Override
-    public void deleteAddress(Long catId) {
-
+    public void deleteAddress(Long addId) {
+        if (!addressRepository.existsById(addId)) {
+            throw new ResourceNotFoundException("Address not found");
+        }
+        addressRepository.deleteById(addId);
     }
 
-    @Override
-    public List<Address> ListAddressByCode(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Address> ListAddressByDesignation(String designation) {
-        return null;
-    }
 }

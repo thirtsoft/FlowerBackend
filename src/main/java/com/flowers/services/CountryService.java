@@ -13,17 +13,9 @@ public interface CountryService {
 
     Optional<Country> findCountryById(Long countryId);
 
-    Country findByCode(String code);
-
-    Country findByDesignation(String designation);
-
     List<Country> findAllCountries();
 
     void deleteCountry(Long countryId);
-
-    List<Country> ListCountryByCode(String designation);
-
-    List<Country> ListCountryByDesignation(String designation);
 
 
 }

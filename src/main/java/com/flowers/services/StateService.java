@@ -13,17 +13,9 @@ public interface StateService {
 
     Optional<State> findStateById(Long stateId);
 
-    State findByCode(String code);
-
-    State findByDesignation(String designation);
 
     List<State> findAllStates();
 
     void deleteState(Long stateId);
-
-    List<State> ListStateByCode(String designation);
-
-    List<State> ListStateByDesignation(String designation);
-
 
 }

@@ -7,23 +7,15 @@ import java.util.Optional;
 
 public interface AddressService {
 
-    Address saveAddress(Address Address);
+    Address saveAddress(Address address);
 
-    Address updateAddress(Long catId, Address Address);
+    Address updateAddress(Long catId, Address address);
 
-    Optional<Address> findAddressById(Long catId);
-
-    Address findByCode(String code);
-
-    Address findByDesignation(String designation);
+    Optional<Address> findAddressById(Long addId);
 
     List<Address> findAllAddresses();
 
-    void deleteAddress(Long catId);
-
-    List<Address> ListAddressByCode(String designation);
-
-    List<Address> ListAddressByDesignation(String designation);
+    void deleteAddress(Long addId);
 
 
 }

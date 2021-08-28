@@ -1,5 +1,7 @@
 package com.flowers.services.Impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Product;
 import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,71 +26,92 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product) {
-        return null;
+
+        if (product.getReference() != null) {
+            throw new ResourceNotFoundException("Product already exists");
+        }
+        return productRepository.save(product);
+
     }
 
     @Override
     public Product saveProductWithFile(String product, MultipartFile photoProduct) throws IOException {
-        return null;
+        Product productMapper = new ObjectMapper().readValue(product, Product.class);
+        System.out.println(productMapper);
+
+        productMapper.setImageUrl(photoProduct.getOriginalFilename());
+
+        return this.saveProduct(productMapper);
     }
 
     @Override
     public Product update(Long id, Product product) {
-        return null;
+        product.setId(id);
+        return productRepository.save(product);
     }
 
     @Override
-    public Product findById(Long id) {
-        return null;
+    public Optional<Product> findById(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product that id is " + id + "not found");
+        }
+        return productRepository.findById(id);
     }
 
     @Override
-    public Product findByReference(String reference) {
-        return null;
+    public Optional<Product> findByReference(String reference) {
+        if (productRepository.findByReference(reference) != null) {
+            throw new ResourceNotFoundException("Product that id reference " + reference + "not found");
+        }
+        return productRepository.findByReference(reference);
     }
 
     @Override
     public List<Product> findAll() {
-        return null;
+        return productRepository.findAll();
     }
 
     @Override
     public List<Product> findListProductBySubCategories(Long subCatId) {
-        return null;
+        return productRepository.findProductBySubCategory(subCatId);
     }
 
     @Override
     public List<Product> findListProductByKeyword(String keyword) {
-        return null;
+        return productRepository.findProductByKeyword(keyword);
     }
 
     @Override
     public List<Product> findListProductGroupByPrice(double price) {
-        return null;
+        return productRepository.findProductGroupByPrice(price);
     }
 
     @Override
     public List<Product> findListProductBySelected() {
-        return null;
+        return productRepository.findProductBySelected();
     }
 
     @Override
     public Page<Product> findProductByPageable(Pageable pageable) {
-        return null;
+        return productRepository.findProductByPageable(pageable);
     }
 
     @Override
-    public Page<Product> findProductBySubCategoryPageables(Long scatId, Pageable pageable) {
-        return null;
+    public Page<Product> findProductBySubCategoryPageable(Long scatId, Pageable pageable) {
+        return productRepository.findProductBySubCategoryByPageable(scatId, pageable);
     }
 
     @Override
-    public Page<Product> findProductBySamePricePageables(double price, Pageable pageable) {
-        return null;
+    public Page<Product> findProductBySamePricePageable(double price, Pageable pageable) {
+        return productRepository.findProductPageableGroupByPrice(price, pageable);
     }
+
 
     @Override
     public void delete(Long id) {
-
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found");
+        }
+        productRepository.deleteById(id);
     }
 }

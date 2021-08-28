@@ -1,10 +1,8 @@
 package com.flowers.services.Impl;
 
-import com.flowers.models.Category;
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Country;
-import com.flowers.reposiory.CategoryRepository;
 import com.flowers.reposiory.CountryRepository;
-import com.flowers.services.CategoryService;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,46 +20,38 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country saveCountry(Country country) {
-        return null;
+        if (country.getName() != null) {
+            throw new ResourceNotFoundException("Country already exists");
+        }
+        return countryRepository.save(country);
     }
 
     @Override
     public Country updateCountry(Long countryId, Country country) {
-        return null;
+        country.setIdCountry(countryId);
+        return countryRepository.save(country);
     }
 
     @Override
     public Optional<Country> findCountryById(Long countryId) {
-        return Optional.empty();
+        if (!countryRepository.existsById(countryId)) {
+            throw new ResourceNotFoundException("Country that id is " + countryId + "not found");
+        }
+        return countryRepository.findById(countryId);
     }
 
-    @Override
-    public Country findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public Country findByDesignation(String designation) {
-        return null;
-    }
 
     @Override
     public List<Country> findAllCountries() {
-        return null;
+        return countryRepository.findAll();
     }
 
     @Override
     public void deleteCountry(Long countryId) {
-
+        if (!countryRepository.existsById(countryId)) {
+            throw new ResourceNotFoundException("Country not found");
+        }
+        countryRepository.deleteById(countryId);
     }
 
-    @Override
-    public List<Country> ListCountryByCode(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Country> ListCountryByDesignation(String designation) {
-        return null;
-    }
 }

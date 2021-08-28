@@ -1,5 +1,6 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Fournisseur;
 import com.flowers.reposiory.FournisseurRepository;
 import com.flowers.services.FournisseurService;
@@ -19,46 +20,39 @@ public class FournisseurServiceImpl implements FournisseurService {
 
     @Override
     public List<Fournisseur> findAllFournisseurs() {
-        return null;
+
+        return fournisseurRepository.findAll();
     }
 
     @Override
     public Fournisseur saveFournisseur(Fournisseur fournisseur) {
-        return null;
+        if (fournisseur.getReference() != null) {
+            throw new ResourceNotFoundException("Fournisseur already exists");
+        }
+        return fournisseurRepository.save(fournisseur);
     }
 
     @Override
     public Optional<Fournisseur> findFournisseurById(Long fourId) {
-        return Optional.empty();
+        if (!fournisseurRepository.existsById(fourId)) {
+            throw new ResourceNotFoundException("Fournisseur that id is " + fourId + "not found");
+        }
+        return fournisseurRepository.findById(fourId);
     }
 
     @Override
     public Fournisseur updateFournisseur(Long fourId, Fournisseur fournisseur) {
-        return null;
+        fournisseur.setId(fourId);
+        return fournisseurRepository.save(fournisseur);
     }
 
     @Override
     public void deleteFournisseur(Long fourId) {
-
+        if (!fournisseurRepository.existsById(fourId)) {
+            throw new ResourceNotFoundException("Fournisseur not found");
+        }
+        fournisseurRepository.deleteById(fourId);
     }
 
-    @Override
-    public Fournisseur findByCode(String code) {
-        return null;
-    }
 
-    @Override
-    public Fournisseur findByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Fournisseur> ListFournisseurByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public List<Fournisseur> ListFournisseurByDesignation(String designation) {
-        return null;
-    }
 }

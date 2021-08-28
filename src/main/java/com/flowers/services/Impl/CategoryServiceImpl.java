@@ -1,5 +1,6 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Category;
 import com.flowers.reposiory.CategoryRepository;
 import com.flowers.services.CategoryService;
@@ -19,46 +20,38 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAllCategories() {
-        return null;
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category saveCategory(Category category) {
-        return null;
+        if (category.getCategoryName() != null) {
+            throw new ResourceNotFoundException("Category alredy exists");
+        }
+        return categoryRepository.save(category);
     }
 
     @Override
     public Optional<Category> findCategoryById(Long catId) {
-        return Optional.empty();
+
+        if (!categoryRepository.existsById(catId)) {
+            throw new ResourceNotFoundException("Category that id is" + catId + "is not found");
+        }
+        return categoryRepository.findById(catId);
     }
 
     @Override
     public Category updateCategory(Long catId, Category category) {
-        return null;
+        category.setId(catId);
+        return categoryRepository.save(category);
     }
 
     @Override
     public void deleteCategory(Long catId) {
-
+        if (!categoryRepository.existsById(catId)) {
+            throw new ResourceNotFoundException("Category that id is" + catId + "is not found");
+        }
+        categoryRepository.deleteById(catId);
     }
 
-    @Override
-    public Category findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public Category findByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Category> ListCategoryByCode(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Category> ListCategoryByDesignation(String designation) {
-        return null;
-    }
 }

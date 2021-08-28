@@ -11,19 +11,11 @@ public interface SubcategoryService {
 
     Optional<Subcategory> findSubcategoryById(Long subCatId);
 
-    Subcategory findByCode(String code);
-
-    List<Subcategory> findListSubcategoryByCode(String code);
-
-    Subcategory findByLibelle(String libelle);
-
-    List<Subcategory> findListSubcategoryByLibelle(String libelle);
-
-    List<Subcategory> findSubcategoryByCateoryId(Long subCatId);
-
-    Subcategory saveSubcategory(Subcategory Subcategory);
+    Subcategory saveSubcategory(Subcategory subcategory);
 
     Subcategory updateSubcategory(Long subCatId, Subcategory subcategory);
+
+    List<Subcategory> findSubcategoryByCateoryId(Long catId);
 
     void deleteSubcategory(Long subCatId);
 

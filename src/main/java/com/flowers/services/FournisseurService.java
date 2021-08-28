@@ -17,13 +17,5 @@ public interface FournisseurService {
 
     void deleteFournisseur(Long fourId);
 
-    Fournisseur findByCode(String code);
-
-    Fournisseur findByDesignation(String designation);
-
-    List<Fournisseur> ListFournisseurByCode(String code);
-
-    List<Fournisseur> ListFournisseurByDesignation(String designation);
-
 
 }

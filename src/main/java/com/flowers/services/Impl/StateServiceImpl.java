@@ -1,5 +1,6 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.State;
 import com.flowers.reposiory.StateRepository;
 import com.flowers.services.StateService;
@@ -19,46 +20,36 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public State saveState(State state) {
-        return null;
+        return stateRepository.save(state);
     }
 
     @Override
     public State updateState(Long stateId, State state) {
-        return null;
+        state.setIdState(stateId);
+        return stateRepository.save(state);
     }
 
     @Override
     public Optional<State> findStateById(Long stateId) {
-        return Optional.empty();
+        if (!stateRepository.existsById(stateId)) {
+            throw new ResourceNotFoundException("State that id is " + stateId + "not found");
+        }
+        return stateRepository.findById(stateId);
     }
 
-    @Override
-    public State findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public State findByDesignation(String designation) {
-        return null;
-    }
 
     @Override
     public List<State> findAllStates() {
-        return null;
+        return stateRepository.findAll();
     }
 
     @Override
     public void deleteState(Long stateId) {
+        if (!stateRepository.existsById(stateId)) {
+            throw new ResourceNotFoundException("State not found");
+        }
+        stateRepository.deleteById(stateId);
 
     }
 
-    @Override
-    public List<State> ListStateByCode(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<State> ListStateByDesignation(String designation) {
-        return null;
-    }
 }
