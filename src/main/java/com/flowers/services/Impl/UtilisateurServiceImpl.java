@@ -61,4 +61,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public List<Utilisateur> ListUtilisateurByDesignation(String designation) {
         return null;
     }
+
+    @Override
+    public Utilisateur findById(Long id) {
+        return null;
+    }
 }

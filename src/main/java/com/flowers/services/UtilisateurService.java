@@ -26,4 +26,5 @@ public interface UtilisateurService {
     List<Utilisateur> ListUtilisateurByDesignation(String designation);
 
 
+    Utilisateur findById(Long id);
 }

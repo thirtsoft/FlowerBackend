@@ -1,22 +1,18 @@
 package com.flowers.models;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "orderItem")
-@AllArgsConstructor
-@NoArgsConstructor
 public class OrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reference")
-    private String reference;
+    @Column(name = "numero")
+    private Long numero;
 
     @Column(name = "quantity")
     private int quantity;
@@ -32,4 +28,113 @@ public class OrderItem implements Serializable {
     @ManyToOne
     @JoinColumn(name = "prodId")
     private Product product;
+
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    private Long productId;
+
+    private String productName;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(int quantity, double price, Order order, Product product) {
+        this.quantity = quantity;
+        this.price = price;
+        this.order = order;
+        this.product = product;
+    }
+
+    public OrderItem(Long id, int quantity, double price, Order order, Product product) {
+        this.id = id;
+        this.quantity = quantity;
+        this.price = price;
+        this.order = order;
+        this.product = product;
+    }
+
+    public OrderItem(Long id, Long numero, int quantity, double price, Order order, Product product) {
+        this.id = id;
+        this.numero = numero;
+        this.quantity = quantity;
+        this.price = price;
+        this.order = order;
+        this.product = product;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Long numero) {
+        this.numero = numero;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+
 }
