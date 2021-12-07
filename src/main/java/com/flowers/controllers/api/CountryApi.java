@@ -14,7 +14,6 @@ import java.util.List;
 
 import static com.flowers.utils.Constants.APP_ROOT;
 
-
 public interface CountryApi {
 
     @PostMapping(value = APP_ROOT + "/countries/create",

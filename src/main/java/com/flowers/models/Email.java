@@ -33,4 +33,68 @@ public class Email implements Serializable {
 
     @ManyToOne
     private Newsletter newsletter;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
+
+    public Newsletter getNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(Newsletter newsletter) {
+        this.newsletter = newsletter;
+    }
 }

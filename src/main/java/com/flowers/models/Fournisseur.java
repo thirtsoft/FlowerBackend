@@ -1,8 +1,5 @@
 package com.flowers.models;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -31,6 +28,13 @@ public class Fournisseur implements Serializable {
 
     @Column(name = "telephone", length = 30)
     private String telephone;
+
+    @Column(name = "subject", length = 90)
+    private String subject;
+
+    @Column(name = "message")
+    @Lob
+    private String message;
 
     @ManyToOne
     @JoinColumn(name = "prodId", nullable = false)
@@ -121,5 +125,21 @@ public class Fournisseur implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
