@@ -19,8 +19,8 @@ public class Category implements Serializable {
     private Long id;
 
     @Column(name = "categoryName", nullable = false, length = 30)
-
     private String categoryName;
+
     @Column(name = "description", nullable = false, length = 150)
     @Lob
     private String description;

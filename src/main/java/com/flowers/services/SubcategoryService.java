@@ -15,7 +15,7 @@ public interface SubcategoryService {
 
     Subcategory updateSubcategory(Long subCatId, Subcategory subcategory);
 
-    List<Subcategory> findSubcategoryByCateoryId(Long catId);
+    List<Subcategory> findSubcategoryByCategoryId(Long catId);
 
     void deleteSubcategory(Long subCatId);
 

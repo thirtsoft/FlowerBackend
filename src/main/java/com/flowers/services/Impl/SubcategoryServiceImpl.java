@@ -60,7 +60,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
     }
 
     @Override
-    public List<Subcategory> findSubcategoryByCateoryId(Long catId) {
+    public List<Subcategory> findSubcategoryByCategoryId(Long catId) {
         return subcategoryRepository.findSubcategoryByCateoryId(catId);
     }
 

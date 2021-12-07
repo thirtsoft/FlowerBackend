@@ -14,6 +14,7 @@ public class Wishlist implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "reference", length = 30)
     private String reference;
 

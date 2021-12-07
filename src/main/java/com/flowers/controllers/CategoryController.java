@@ -6,12 +6,14 @@ import com.flowers.models.Category;
 import com.flowers.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController implements CategoryApi {
 
     private final CategoryService categoryService;

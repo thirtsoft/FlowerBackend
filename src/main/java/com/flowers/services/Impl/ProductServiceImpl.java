@@ -6,9 +6,11 @@ import com.flowers.models.Product;
 import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
@@ -19,6 +21,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -60,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
         productResult.setProductName(product.getProductName());
         productResult.setQuantity(product.getQuantity());
         productResult.setPrice(product.getPrice());
+        productResult.setCurrentPrice(product.getCurrentPrice());
         productResult.setInstock(product.isInstock());
         productResult.setSelected(product.isSelected());
         productResult.setPromo(product.isPromo());
@@ -81,10 +85,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> findByReference(String reference) {
-        if (productRepository.findByReference(reference) != null) {
-            throw new ResourceNotFoundException("Product that id reference " + reference + "not found");
+        if (!StringUtils.hasLength(reference)) {
+            log.error("Product REFERENCE is null");
         }
-        return productRepository.findByReference(reference);
+
+        return productRepository.findProductByReference(reference);
     }
 
     @Override

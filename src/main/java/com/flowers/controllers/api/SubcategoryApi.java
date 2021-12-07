@@ -55,6 +55,14 @@ public interface SubcategoryApi {
     })
     ResponseEntity<List<Subcategory>> getAllSubcategories();
 
+    @GetMapping(value = APP_ROOT + "/subcategories/searchSubcategoryByCategoryId/{catId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Subcategory par category",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Scategories par category", responseContainer = "List<Subcategory>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Subcategory / une liste vide")
+    })
+    ResponseEntity<List<Subcategory>> getSubcategoryByCategoryId(@PathVariable("catId") Long catId);
+
     @DeleteMapping(value = APP_ROOT + "/subcategories/delete/{subCatId}")
     @ApiOperation(value = "Supprimer un Subcategory par son ID",
             notes = "Cette méthode permet de supprimer une Scategory par son ID", response = Subcategory.class)

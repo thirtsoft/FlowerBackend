@@ -6,12 +6,14 @@ import com.flowers.models.Subcategory;
 import com.flowers.services.SubcategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class SubcategoryController implements SubcategoryApi {
 
     private final SubcategoryService subcategoryService;
@@ -38,6 +40,11 @@ public class SubcategoryController implements SubcategoryApi {
     @Override
     public ResponseEntity<List<Subcategory>> getAllSubcategories() {
         return ResponseEntity.ok(subcategoryService.findAllSubcategories());
+    }
+
+    @Override
+    public ResponseEntity<List<Subcategory>> getSubcategoryByCategoryId(Long catId) {
+        return ResponseEntity.ok(subcategoryService.findSubcategoryByCategoryId(catId));
     }
 
     @Override

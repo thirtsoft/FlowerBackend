@@ -29,6 +29,9 @@ public class Product implements Serializable {
     @Column(name = "price", nullable = false, length = 30)
     private double price;
 
+    @Column(name = "currentPrice", nullable = false, length = 30)
+    private double currentPrice;
+
     @Column(name = "quantity", nullable = false, length = 30)
     private int quantity;
 
@@ -69,7 +72,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(Long id, String reference, String productName, double price,
+    public Product(Long id, String reference, String productName, double price, double currentPrice,
                    int quantity, String imageUrl, boolean isSelected, boolean isPromo,
                    boolean isInstock, Date createdDate, Date updatedDated, String description,
                    String manufactured, Subcategory subcategory) {
@@ -77,6 +80,7 @@ public class Product implements Serializable {
         this.reference = reference;
         this.productName = productName;
         this.price = price;
+        this.currentPrice = currentPrice;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
         this.isSelected = isSelected;
@@ -90,19 +94,22 @@ public class Product implements Serializable {
     }
 
     public Product(Long id, String reference, String productName,
-                   double price, int quantity, String imageUrl, boolean isSelected,
+                   double price, double currentPrice, int quantity,
+                   String imageUrl, boolean isSelected,
                    boolean isPromo, boolean isInstock,
-                   String description, Subcategory subcategory) {
+                   String description, String manufactured, Subcategory subcategory) {
         this.id = id;
         this.reference = reference;
         this.productName = productName;
         this.price = price;
+        this.currentPrice = currentPrice;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
         this.isSelected = isSelected;
         this.isPromo = isPromo;
         this.isInstock = isInstock;
         this.description = description;
+        this.manufactured = manufactured;
         this.subcategory = subcategory;
     }
 
@@ -136,6 +143,14 @@ public class Product implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(double currentPrice) {
+        this.currentPrice = currentPrice;
     }
 
     public int getQuantity() {

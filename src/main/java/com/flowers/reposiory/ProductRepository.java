@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Optional<Product> findByReference(String reference);
+    Optional<Product> findProductByReference(String reference);
 
     @Query("select p from Product p where p.subcategory.id =:subCat")
     List<Product> findProductBySubCategory(@Param("subCat") Long subCatId);

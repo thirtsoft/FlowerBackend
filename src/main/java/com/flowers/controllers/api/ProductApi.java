@@ -64,7 +64,7 @@ public interface ProductApi {
 
     @GetMapping(value = APP_ROOT + "/products/searchProductbyReference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Artilce par Reference",
-            notes = "Cette méthode permet de chercher une Scategory par son Reference", response = Product.class
+            notes = "Cette méthode permet de chercher un Produit par sa Reference", response = Product.class
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Artilce a été trouver"),
@@ -120,11 +120,11 @@ public interface ProductApi {
     })
     Page<Product> getListProductByPageable(Pageable pageable);
 
-    @GetMapping(value = APP_ROOT + "/products/searchProductByScategoryByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des products par Scategory",
+    @GetMapping(value = APP_ROOT + "/products/searchProductBySubcategoryByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products par Subcategory",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products par Scategory par pages", responseContainer = "Page<Product>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des products par Scategory par pages / une liste vide")
+            @ApiResponse(code = 200, message = "La liste des products par Subcategory par pages / une liste vide")
     })
     Page<Product> getListProductBySubCategoryByPageable(@RequestParam("id") Long scatId, Pageable pageable);
 

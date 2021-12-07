@@ -9,15 +9,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController implements ProductApi {
 
     private final ProductService productService;
@@ -72,7 +76,7 @@ public class ProductController implements ProductApi {
 
     @Override
     public ResponseEntity<List<Product>> getListProductByKeyword(String keyword) {
-        return ResponseEntity.ok(productService.findListProductByKeyword(keyword));
+        return ResponseEntity.ok(productService.findListProductByKeyword("%" + keyword + "%"));
     }
 
     @Override
@@ -107,7 +111,9 @@ public class ProductController implements ProductApi {
 
     @Override
     public byte[] getPhotoProduct(Long id) throws Exception {
-        return new byte[0];
+        Product product = productService.findById(id).get();
+
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/flowers//photos/" + product.getImageUrl()));
     }
 
     @Override
