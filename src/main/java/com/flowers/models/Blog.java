@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "historiqueLogin")
+@Table(name = "blog", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "title"),
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,12 +21,14 @@ public class Blog implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date createdDate;
-
     private String title;
 
     @Lob
     private String description;
+
+    private String image;
+
+    private Date createdDate;
 
     @ManyToOne
     @JoinColumn(name = "userId")

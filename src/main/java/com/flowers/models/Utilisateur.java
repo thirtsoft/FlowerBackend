@@ -10,7 +10,10 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "utilisateur")
+@Table(name = "utilisateur", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 @AllArgsConstructor
 @NoArgsConstructor
 public class Utilisateur implements Serializable {
