@@ -6,12 +6,14 @@ import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.message.request.LoginForm;
 import com.flowers.message.request.SignUpForm;
 import com.flowers.message.response.JwtsResponse;
+import com.flowers.models.HistoriqueLogin;
 import com.flowers.models.Role;
 import com.flowers.models.Utilisateur;
 import com.flowers.reposiory.RoleRepository;
 import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.security.jwt.JwtsProvider;
 import com.flowers.security.services.UserPrinciple;
+import com.flowers.services.HistoriqueLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -24,10 +26,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -49,6 +48,9 @@ public class AuthController implements AuthApi {
     @Autowired
     JwtsProvider jwtsProvider;
 
+    @Autowired
+    private HistoriqueLoginService historiqueLoginService;
+
     @Override
     public ResponseEntity<?> authenticateUser(LoginForm loginForm) {
         Authentication authentication = authenticationManager.authenticate(
@@ -64,13 +66,13 @@ public class AuthController implements AuthApi {
 
         Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userPrinciple.getId());
         Utilisateur utilisateur = optionalUtilisateur.get();
-    /*    UtilisateurDto utilisateurDto = UtilisateurDto.fromEntityToDto(utilisateur);
-        HistoriqueLoginDto historiqueLoginDto = new HistoriqueLoginDto();
-        historiqueLoginDto.setUtilisateurDto(utilisateurDto);
-        historiqueLoginDto.setAction("Connection");
-        historiqueLoginDto.setStatus("Valider");
-        historiqueLoginDto.setCreatedDate(new Date());
-        historiqueLoginService.saveHistoriqueLogin(historiqueLoginDto);*/
+
+        HistoriqueLogin historiqueLogin = new HistoriqueLogin();
+        historiqueLogin.setUtilisateur(utilisateur);
+        historiqueLogin.setAction("Connection");
+        historiqueLogin.setStatus("Valider");
+        historiqueLogin.setCreatedDate(new Date());
+        historiqueLoginService.saveHistoriqueLogin(historiqueLogin);
 
         return ResponseEntity.ok(new JwtsResponse(jwt,
                 userPrinciple.getId(),
