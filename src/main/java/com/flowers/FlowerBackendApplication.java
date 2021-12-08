@@ -171,26 +171,16 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
 
 
-		State state1 = new State(1L, "Dakar", count1);
-		State state2 = new State(2L, "Ziguinchor", count1);
-		State state3 = new State(3L, "Thies", count1);
-		State state4 = new State(4L, "Fatick", count1);
-		State state5 = new State(5L, "California", count2);
-		State state6 = new State(6L, "Japon", count4);
-		State state7 = new State(7L, "Labe", count3);
-		State state8 = new State(8L, "Chine", count6);
-		State state9 = new State(9L, "Dalaba", count3);
-		State state10 = new State(10L, "Accra", count6);
-		stateRepository.save(state1);
-		stateRepository.save(state2);
-		stateRepository.save(state3);
-		stateRepository.save(state4);
-		stateRepository.save(state5);
-		stateRepository.save(state6);
-		stateRepository.save(state7);
-		stateRepository.save(state8);
-		stateRepository.save(state9);
-		stateRepository.save(state10);
+		State state1 = stateRepository.save(new State(1L, "Dakar", count1));
+		State state2 = stateRepository.save(new State(2L, "Ziguinchor", count1));
+		State state3 = stateRepository.save(new State(3L, "Thies", count1));
+		State state4 = stateRepository.save(new State(4L, "Fatick", count1));
+		State state5 = stateRepository.save(new State(5L, "California", count2));
+		State state6 = stateRepository.save(new State(6L, "Japon", count4));
+		State state7 = stateRepository.save(new State(7L, "Labe", count3));
+		State state8 = stateRepository.save(new State(8L, "Chine", count6));
+		State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
+		State state10 = stateRepository.save(new State(10L, "Accra", count6));
 
 		Address a1 = addressRepository.save(new Address(1L, "add1", "add1", "add1", "add1", "add1", state1));
 		Address a2 = addressRepository.save(new Address(2L, "add2", "add2", "add2", "add2", "add2", state2));

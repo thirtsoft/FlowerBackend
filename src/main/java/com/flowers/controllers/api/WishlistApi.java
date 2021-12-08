@@ -19,7 +19,7 @@ public interface WishlistApi {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Wishlist> update(@PathVariable("idWishlist") Long id, @RequestBody Wishlist wishlist);
 
-    @GetMapping(value = APP_ROOT + "/wishlists/{idWishlist}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/wishlists/findById/{idWishlist}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<Wishlist> findById(@PathVariable("idWishlist") Long id);
 
     @GetMapping(value = APP_ROOT + "/wishlists/all", produces = MediaType.APPLICATION_JSON_VALUE)

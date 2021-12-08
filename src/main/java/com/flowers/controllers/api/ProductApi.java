@@ -51,7 +51,7 @@ public interface ProductApi {
     })
     ResponseEntity<Product> update(@PathVariable("idProduct") Long id, @RequestBody Product product);
 
-    @GetMapping(value = APP_ROOT + "/products/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/products/findById/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Artilce par ID",
             notes = "Cette méthode permet de chercher un Artilce par son ID", response = Product.class
     )

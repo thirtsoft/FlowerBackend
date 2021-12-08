@@ -52,7 +52,7 @@ public class Client implements Serializable {
                   String username,
                   String password,
                   String name) {
-        Utilisateur utilisateur = new Utilisateur();
+    //    Utilisateur utilisateur = new Utilisateur();
         //    this.id = this.getId();
         this.firstName = firstName;
         this.lastName = lastName;

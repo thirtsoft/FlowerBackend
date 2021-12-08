@@ -1,5 +1,6 @@
 package com.flowers.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,20 @@ public class Address implements Serializable {
     @ManyToOne
     @JoinColumn(name = "stateId")
     private State state;
+
+
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private Order order;
+
+    public Address(Long id, String reference, String quartier, String phone, String city, String rue, State state) {
+        this.id = id;
+        this.reference = reference;
+        this.quartier = quartier;
+        this.phone = phone;
+        this.city = city;
+        this.rue = rue;
+        this.state = state;
+    }
 }

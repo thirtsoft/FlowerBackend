@@ -36,7 +36,7 @@ public interface CategoryApi {
     })
     ResponseEntity<Category> updateCategory(@PathVariable(value = "catId") Long catId, @RequestBody Category category);
 
-    @GetMapping(value = APP_ROOT + "/categories/{catId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/categories/findById/{catId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Category par ID",
             notes = "Cette méthode permet de chercher une Category par son ID", response = Category.class
     )

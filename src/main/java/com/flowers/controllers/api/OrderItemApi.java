@@ -15,7 +15,7 @@ public interface OrderItemApi {
             produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<OrderItem> save(@RequestBody OrderItem orderItem);
 
-    @GetMapping(value = APP_ROOT + "/orderItems/{idOrderItem}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/orderItems/findById/{idOrderItem}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<OrderItem> findById(@PathVariable("idOrderItem") Long id);
 
     @GetMapping(value = APP_ROOT + "/orderItems/all", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -38,7 +38,7 @@ public interface AddressApi {
     })
     ResponseEntity<Address> updateAddress(@PathVariable(value = "addId") Long addId, @RequestBody Address address);
 
-    @GetMapping(value = APP_ROOT + "/addresses/{addId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/addresses/findById/{addId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Chercher une Address",
             notes = "Cette méthode permet de chercher et de renvoyer une addresse", response = Address.class)
     @ApiResponses(value = {

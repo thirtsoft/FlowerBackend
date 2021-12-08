@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product productResult = optionalProduct.get();
         productResult.setReference(product.getReference());
-        productResult.setProductName(product.getProductName());
+        productResult.setDesignation(product.getDesignation());
         productResult.setQuantity(product.getQuantity());
         productResult.setPrice(product.getPrice());
         productResult.setCurrentPrice(product.getCurrentPrice());

@@ -16,9 +16,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import static com.flowers.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
@@ -78,64 +81,71 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/auth/signUp").permitAll()
                 .antMatchers("/**/auth/registerUser").permitAll()
                 .antMatchers("/**/auth/authenticated").permitAll()
-                .antMatchers("/**/articles/searchArticleByKeyword").permitAll()
-                .antMatchers("/**/articles/searchArticleByPrice/**").permitAll()
-                .antMatchers("/**/articles/all").permitAll()
-                .antMatchers("/**/articles/**").permitAll()
-                .antMatchers("/**/articles/searchArticleByselectedIsTrue").permitAll()
-                .antMatchers("/**/articles/searchTop12ArticleOrderByCreatedDateDesc").permitAll()
-                .antMatchers("/**/articles/searchArticleByKeyword").permitAll()
-                .antMatchers("/**/articles/articlesByScategories").permitAll()
-                .antMatchers("/**/articles/searchArticleByScategoryByPageables").permitAll()
-                .antMatchers("/**/articles/searchArticleBySamePriceByPageables").permitAll()
-                .antMatchers("/**/articles/searchArticleByPrice/**").permitAll()
-                .antMatchers("/**/articles/searchbyReference/**").permitAll()
-                .antMatchers("/**/articles/photoArticle/{idArticle}").permitAll()
-                .antMatchers("/**/articles/uploadArticlePhoto/{id}").permitAll()
-                .antMatchers("/**/categories/**").permitAll()
-                .antMatchers("/**/scategories/**").permitAll()
-                .antMatchers("/**/fournisseurs/**").permitAll()
-                .antMatchers("/**/commandes/create").permitAll()
-                .antMatchers("/**/commandes/all").permitAll()
-                .antMatchers("/**/commandes/countNumberOfCommande").permitAll()
-                .antMatchers("/**/commandes/sumTotalOfCommandeByDay").permitAll()
-                .antMatchers("/**/commandes/sumTotalOfCommandeByMonth").permitAll()
-                .antMatchers("/**/commandes/sumTotalOfCommandeByYear").permitAll()
-                .antMatchers("/**/commandes/numberOfCommandeByMonth").permitAll()
 
-                .antMatchers("/**/commandes/countNumberOfOrdersInMonth").permitAll()
-                .antMatchers("/**/commandes/countNumberOfOrdersByPendingStatus").permitAll()
-                .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/***").permitAll()
+                .antMatchers("/**/products/createWithFile/**").permitAll()
+                .antMatchers("/**/products/update/{idProduct}").permitAll()
+                .antMatchers("/**/products/findById/{idProduct}").permitAll()
+                .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
+                .antMatchers("/**/products/all").permitAll()
+                .antMatchers("/**/products/productsByScategories/{subCatId}").permitAll()
+                .antMatchers("/**/products/searchProductByKeyword/*").permitAll()
+                .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
+                .antMatchers("/**/products/productsByScategories/{subCatId}").permitAll()
+                .antMatchers("/**/products/searchProductByKeyword/*").permitAll()
+                .antMatchers("/**/products/searchProductByPrice/{price}").permitAll()
+                .antMatchers("/**/products/searchProductByselectedIsTrue").permitAll()
+                .antMatchers("/**/products/searchProductByPageables/**").permitAll()
+                .antMatchers("/**/products/searchProductBySubcategoryByPageables/**").permitAll()
+                .antMatchers("/**/products/searchProductBySamePriceByPageables/**").permitAll()
+                .antMatchers("/**/products/delete/{idProduct}").permitAll()
+                .antMatchers("/**/products/photoProduct/{idProduct}").permitAll()
+                .antMatchers("/**/products/uploadProductPhoto/{idProduct}").permitAll()
 
-                .antMatchers("/**/commandes/searchCommandeByCustomerByPageables/***").permitAll()
-                .antMatchers("/**/commandes/searchCommandeByUser/*").permitAll()
+                .antMatchers("/**/subcategories/all").permitAll()
+                .antMatchers("/**/subcategories/findById/{subCatId}").permitAll()
+                .antMatchers("/**/subcategories/searchSubcategoryByCategoryId/{catId}").permitAll()
 
-                .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
-                .antMatchers("/**/commandes/sumTotaleOfCommandeByYearList").permitAll()
+                .antMatchers("/**/categories/findById/{catId}").permitAll()
+                .antMatchers("/**/categories/searchCategoryByCode/*").permitAll()
+                .antMatchers("/**/categories/searchCategoryByDesignation/*").permitAll()
+                .antMatchers("/**/categories/all").permitAll()
+                .antMatchers("/**/categories/searchListCategoriesByCode/*").permitAll()
 
-                .antMatchers("/**/commandes/searchAllComandesOrderByIdDesc").permitAll()
-                .antMatchers("/**/commandes/findListOrderByStatuePending").permitAll()
-                .antMatchers("/**/commandes/findListOrderByStatuePayed").permitAll()
-
-                .antMatchers("/**/commandes/searchCommandeByUserIdOrderByIdDesc/*").permitAll()
-                .antMatchers("/**/commandes/searchCommandeByBillingAddressIdDesc/*").permitAll()
-                .antMatchers("/**/commandes/searchCommandeByShippingAddressIdDesc/*").permitAll()
-
-                .antMatchers("/**/commandes/searchCommandesByUtilisateurIdByPageables/***").permitAll()
-
-                .antMatchers("/**/commandes/updateStatusOfCommande/*").permitAll()
-
+                .antMatchers("/**/states/findById/{stateId}").permitAll()
+                .antMatchers("/**/states/all").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
+                .antMatchers("/**/checkout/placeToOrderWithUser/*").permitAll()
+                .antMatchers("/**/checkout/placeToOrderWithLoginUser/*").permitAll()
 
-                .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
+                .antMatchers("/**/blogs/findById/{blogId}").permitAll()
+                .antMatchers("/**/blogs/all").permitAll()
+                .antMatchers("/**/blogs/searchAllBlogsOrderByIdDesc").permitAll()
 
-                .antMatchers("/**/checkout/purchase").permitAll()
+                .antMatchers("/**/addresses/create").permitAll()
+                .antMatchers("/**/addresses/findById/{addId}").permitAll()
+                .antMatchers("/**/addresses/update/{addId}").permitAll()
 
-                .antMatchers("/**/countries/all").permitAll()
-                .antMatchers("/**/fournisseurs/all").permitAll()
-                //     .antMatchers("/**/fournisseurs/**").permitAll()
-                .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
+                .antMatchers("/**/orders/create").permitAll()
+                .antMatchers("/**/orders/findById/{idOrder}").permitAll()
+                .antMatchers("/**/orders/all").permitAll()
+                .antMatchers("/**/orders/searchOrderByCustomerByPageables/**").permitAll()
+                .antMatchers("/**/orders/searchOrderByUtilisateurByPageables/**").permitAll()
+
+                .antMatchers("/**/emails/sendMailToManager").permitAll()
+
+                .antMatchers("/**/newsletters/create").permitAll()
+
+                .antMatchers("/**/orderItems/create").permitAll()
+                .antMatchers("/**/orderItems/findById/{idOrderItem}").permitAll()
+                .antMatchers("/**/orderItems/all").permitAll()
+
+                .antMatchers("/**/wishlists/create").permitAll()
+                .antMatchers("/**/wishlists/update/{idWishlist}").permitAll()
+                .antMatchers("/**/wishlists/findById/{idWishlist}").permitAll()
+                .antMatchers("/**/wishlists/all").permitAll()
+                .antMatchers("/**/wishlists/delete/{idWishlist}").permitAll()
+
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
                 .antMatchers("/**/lignecommandes/searchAllLigneCommandeOrderByIdDesc").permitAll()

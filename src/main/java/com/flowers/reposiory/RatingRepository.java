@@ -17,10 +17,10 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Query("select count(c) from Rating c where month(c.createdDate) = month(current_date)")
     BigDecimal countNumberOfRating();
 
-    @Query("select count(c) from Rating c where c.article.reference =:prod")
+    @Query("select count(c) from Rating c where c.product.reference =:prod")
     BigDecimal countNumberOfRatingnByProductId(@Param("prod") String prodRef);
 
-    @Query("select n from Rating n where n.article.reference =:num")
+    @Query("select n from Rating n where n.product.reference =:num")
     List<Rating> findTop4ByOrderByCreatedDateDesc(@Param("num") String prodRef);
 
 }

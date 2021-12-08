@@ -25,7 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select art from Product art where art.isSelected = true")
     List<Product> findProductBySelected();
 
-    @Query("select art from Product art where art.productName like :x")
+    @Query("select art from Product art where art.designation like :x")
     List<Product> findProductByKeyword(@Param("x") String mc);
 
     @Query("select p from Product p")

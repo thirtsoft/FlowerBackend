@@ -36,6 +36,10 @@ public class Fournisseur implements Serializable {
     @Lob
     private String message;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stateId")
+    private State state;
+
     @ManyToOne
     @JoinColumn(name = "prodId", nullable = false)
     private Product product;
@@ -141,5 +145,13 @@ public class Fournisseur implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

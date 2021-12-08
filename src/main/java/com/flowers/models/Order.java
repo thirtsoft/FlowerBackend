@@ -1,9 +1,8 @@
 package com.flowers.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +24,10 @@ public class Order implements Serializable {
     @Column(name = "totalPrice")
     private double totalPrice;
 
+    @Column(name = "totalQuantity", length = 150)
+    private int totalQuantity;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT")
     @Column(name = "orderDate")
     private Date orderDate;
 
@@ -54,8 +57,8 @@ public class Order implements Serializable {
     private Address billingAddress;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<OrderItem> orderItemList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", fetch = FetchType.LAZY)
+    private List<OrderItem> orderItemList = new ArrayList<>();
 
     public Order() {
     }

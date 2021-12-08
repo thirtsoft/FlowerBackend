@@ -36,7 +36,7 @@ public interface SubcategoryApi {
     ResponseEntity<Subcategory> update(@PathVariable("subCatId") Long id, @RequestBody Subcategory subcategory);
 
 
-    @GetMapping(value = APP_ROOT + "/subcategories/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/subcategories/findById/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Subcategory par ID",
             notes = "Cette méthode permet de chercher une Subcategory par son ID", response = Subcategory.class
     )

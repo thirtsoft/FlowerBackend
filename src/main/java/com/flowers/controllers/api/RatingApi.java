@@ -37,7 +37,8 @@ public interface RatingApi {
     })
     ResponseEntity<Rating> saveRatingToArticle(@RequestParam("id") Long id, @RequestBody Rating rating);
 
-    @PostMapping(value = APP_ROOT + "/ratings/createRatingToArticle", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = APP_ROOT + "/ratings/createRatingToArticleWithUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une Rating pour un article",
             notes = "Cette méthode permet d'attribuer une note à un article", response = Rating.class)
     @ApiResponses(value = {

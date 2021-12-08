@@ -3,6 +3,8 @@ package com.flowers.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +18,7 @@ import java.util.List;
         })
 })
 public class Product implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,17 +26,20 @@ public class Product implements Serializable {
     @Column(name = "reference", nullable = false, length = 30, unique = true)
     private String reference;
 
-    @Column(name = "productName", nullable = false, length = 150)
-    private String productName;
+    @Column(name = "designation", nullable = false, length = 150)
+    private String designation;
 
-    @Column(name = "price", nullable = false, length = 30)
+    @Column(name = "price", nullable = false, length = 70)
     private double price;
 
-    @Column(name = "currentPrice", nullable = false, length = 30)
+    @Column(name = "currentPrice", nullable = false, length = 70)
     private double currentPrice;
 
     @Column(name = "quantity", nullable = false, length = 30)
     private int quantity;
+
+    @Transient
+    private int quantite = 1;
 
     @Column(name = "imageUrl")
     private String imageUrl;
@@ -47,12 +53,6 @@ public class Product implements Serializable {
     @Column(name = "isInStock")
     private boolean isInstock;
 
-    @Column(name = "createdDate")
-    private Date createdDate;
-
-    @Column(name = "updatedDated")
-    private Date updatedDated;
-
     @Column(name = "description", length = 250)
     @Lob
     private String description;
@@ -61,9 +61,22 @@ public class Product implements Serializable {
     @Lob
     private String manufactured;
 
-    @ManyToOne
-    @JoinColumn(name = "subCatId", nullable = false)
+    @Column(name = "createdDate")
+    @CreationTimestamp
+    private Date createdDate;
+
+    @Column(name = "lastUpDated")
+    @UpdateTimestamp
+    private Date lastUpDated;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "scatId")
     private Subcategory subcategory;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<Rating> ratingList;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
@@ -72,35 +85,30 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(Long id, String reference, String productName, double price, double currentPrice,
-                   int quantity, String imageUrl, boolean isSelected, boolean isPromo,
-                   boolean isInstock, Date createdDate, Date updatedDated, String description,
-                   String manufactured, Subcategory subcategory) {
+    public Product(Long id, String reference, String designation, int quantity,
+                   double price, double currentPrice, boolean isPromo, boolean isSelected,
+                   String description, String imageUrl, Subcategory subcategory) {
         this.id = id;
         this.reference = reference;
-        this.productName = productName;
+        this.designation = designation;
+        this.quantity = quantity;
         this.price = price;
         this.currentPrice = currentPrice;
-        this.quantity = quantity;
-        this.imageUrl = imageUrl;
-        this.isSelected = isSelected;
         this.isPromo = isPromo;
-        this.isInstock = isInstock;
-        this.createdDate = createdDate;
-        this.updatedDated = updatedDated;
+        this.isSelected = isSelected;
         this.description = description;
-        this.manufactured = manufactured;
+        this.imageUrl = imageUrl;
         this.subcategory = subcategory;
     }
 
-    public Product(Long id, String reference, String productName,
+    public Product(Long id, String reference, String designation,
                    double price, double currentPrice, int quantity,
                    String imageUrl, boolean isSelected,
                    boolean isPromo, boolean isInstock,
                    String description, String manufactured, Subcategory subcategory) {
         this.id = id;
         this.reference = reference;
-        this.productName = productName;
+        this.designation = designation;
         this.price = price;
         this.currentPrice = currentPrice;
         this.quantity = quantity;
@@ -129,12 +137,12 @@ public class Product implements Serializable {
         this.reference = reference;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public double getPrice() {
@@ -201,12 +209,12 @@ public class Product implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Date getUpdatedDated() {
-        return updatedDated;
+    public Date getLastUpDated() {
+        return lastUpDated;
     }
 
-    public void setUpdatedDated(Date updatedDated) {
-        this.updatedDated = updatedDated;
+    public void setLastUpDated(Date lastUpDated) {
+        this.lastUpDated = lastUpDated;
     }
 
     public String getDescription() {
@@ -231,6 +239,14 @@ public class Product implements Serializable {
 
     public void setSubcategory(Subcategory subcategory) {
         this.subcategory = subcategory;
+    }
+
+    public List<Rating> getRatingList() {
+        return ratingList;
+    }
+
+    public void setRatingList(List<Rating> ratingList) {
+        this.ratingList = ratingList;
     }
 
     public List<Wishlist> getWishlistList() {

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "product")
+@Table(name = "wishlist")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Wishlist implements Serializable {
@@ -22,7 +22,7 @@ public class Wishlist implements Serializable {
     private String nombreEtoile;
 
     private String description;
-    @Column(name = "observation", length = 250)
+    @Column(name = "observation", length = 100)
     @Lob
     private String observation;
 
