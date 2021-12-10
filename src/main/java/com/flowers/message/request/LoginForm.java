@@ -4,7 +4,8 @@ import javax.validation.constraints.Size;
 
 public class LoginForm {
 
-    @Size(min = 3, max = 30)
+
+    @Size(min = 3, max = 60)
     private String username;
 
     @Size(min = 6, max = 40)
@@ -25,4 +26,5 @@ public class LoginForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

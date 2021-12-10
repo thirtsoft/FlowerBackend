@@ -5,7 +5,8 @@ import com.flowers.enums.RoleName;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.message.request.LoginForm;
 import com.flowers.message.request.SignUpForm;
-import com.flowers.message.response.JwtsResponse;
+import com.flowers.message.response.JwtResponse;
+import com.flowers.message.response.ResponseMessage;
 import com.flowers.models.HistoriqueLogin;
 import com.flowers.models.Role;
 import com.flowers.models.Utilisateur;
@@ -14,7 +15,12 @@ import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.security.jwt.JwtsProvider;
 import com.flowers.security.services.UserPrinciple;
 import com.flowers.services.HistoriqueLoginService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,84 +28,83 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin
-@Transactional
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 public class AuthController implements AuthApi {
 
     @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UtilisateurRepository utilisateurRepository;
+    UtilisateurRepository userRepository;
 
     @Autowired
     RoleRepository roleRepository;
-
     @Autowired
     PasswordEncoder encoder;
-
     @Autowired
-    JwtsProvider jwtsProvider;
-
+    JwtsProvider jwtProvider;
     @Autowired
     private HistoriqueLoginService historiqueLoginService;
 
-    @Override
-    public ResponseEntity<?> authenticateUser(LoginForm loginForm) {
+
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtsProvider.generatedJwtToken(authentication);
 
-        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-        List<String> roles = userPrinciple.getAuthorities().stream()
+        String jwt = jwtProvider.generatedJwtToken(authentication);
+        //    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userPrinciple.getId());
+        Optional<Utilisateur> optionalUtilisateur = userRepository.findById(userDetails.getId());
         Utilisateur utilisateur = optionalUtilisateur.get();
-
         HistoriqueLogin historiqueLogin = new HistoriqueLogin();
         historiqueLogin.setUtilisateur(utilisateur);
-        historiqueLogin.setAction("Connection");
-        historiqueLogin.setStatus("Valider");
+        historiqueLogin.setAction("SE CONNECTER");
         historiqueLogin.setCreatedDate(new Date());
         historiqueLoginService.saveHistoriqueLogin(historiqueLogin);
 
-        return ResponseEntity.ok(new JwtsResponse(jwt,
-                userPrinciple.getId(),
-                userPrinciple.getUsername(),
-                userPrinciple.getEmail(),
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
                 roles));
     }
 
-    @Override
-    public ResponseEntity<?> signUp(SignUpForm signUpForm) {
-        if (utilisateurRepository.existsByUsername(signUpForm.getUsername())) {
-            throw new ResourceNotFoundException("Fail -> Error: Username is already taken!");
-        }
-        if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
-            throw new ResourceNotFoundException("Error: Email is already in use!");
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+                    HttpStatus.BAD_REQUEST);
         }
 
-        // Create new user's account
-        Utilisateur utilisateur = new Utilisateur(
-                signUpForm.getName(),
-                signUpForm.getUsername(),
-                signUpForm.getEmail(),
-                encoder.encode(signUpForm.getPassword()
-                )
-        );
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
+                    HttpStatus.BAD_REQUEST);
+        }
 
-        String[] strRoles = signUpForm.getRoles();
+        // Creating user's account
+        Utilisateur user = new Utilisateur(signUpRequest.getName(),
+                signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()));
+
+        // Set<String> strRoles = signUpRequest.getRole();
+        String[] strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
@@ -108,6 +113,7 @@ public class AuthController implements AuthApi {
             roles.add(userRole);
 
         }
+
         for (String role : strRoles) {
             switch (role.toLowerCase()) {
                 case "admin":
@@ -124,59 +130,22 @@ public class AuthController implements AuthApi {
 
                 default:
                     roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
-                    //    return ResponseEntity.badRequest().body("Specified role not found");
-
             }
         }
 
-        utilisateur.setRoles(roles);
-        return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
+        user.setRoles(roles);
+
+        user.setActive(true);
+
+        userRepository.save(user);
+
+        return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.CREATED);
+
     }
 
     @Override
     public ResponseEntity<?> registerUser(SignUpForm signUpForm) {
-        if (utilisateurRepository.existsByUsername(signUpForm.getUsername())) {
-            throw new ResourceNotFoundException("Fail -> Error: Username is already taken!");
-        }
-        if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
-            throw new ResourceNotFoundException("Error: Email is already in use!");
-        }
-        // Create new user's account
-        Utilisateur utilisateur = new Utilisateur(
-                signUpForm.getUsername(),
-                signUpForm.getEmail(),
-                encoder.encode(signUpForm.getPassword()
-                )
-        );
-        String[] strRoles = signUpForm.getRoles();
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
-        }
-
-        for (String role : strRoles) {
-            switch (role.toLowerCase()) {
-                case "admin":
-                    roles.add(roleRepository.findByName(RoleName.ROLE_ADMIN).get());
-                    break;
-
-                case "manager":
-                    roles.add(roleRepository.findByName(RoleName.ROLE_MANAGER).get());
-                    break;
-
-                case "user":
-                    roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
-                    break;
-
-                default:
-                    return ResponseEntity.badRequest().body("Specified role not found");
-
-            }
-        }
-
-        utilisateur.setRoles(roles);
-        return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
+        return null;
     }
 
     @Override
@@ -186,14 +155,11 @@ public class AuthController implements AuthApi {
 
     @Override
     public String getcurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = null;
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            currentUserName = authentication.getName();
-        }
-        System.out.println("CurrentUser " + currentUserName);
-        return currentUserName;
+        return null;
     }
 
+    public Optional<Utilisateur> getUserByUsername(@PathVariable("username") String username) {
+        return userRepository.findByUsername(username);
+    }
 
 }

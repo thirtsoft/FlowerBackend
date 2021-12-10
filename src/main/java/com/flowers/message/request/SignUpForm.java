@@ -8,21 +8,20 @@ public class SignUpForm {
     @Size(min = 3, max = 50)
     private String name;
 
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 50)
     private String username;
 
-    @Size(max = 20)
+    @Size(max = 60)
     @Email
     private String email;
 
-    //  private Set role;
-
-    //  private Set<String> role;
+    //private Set<String> role;
 
     private String[] roles;
 
-    @Size(min = 6, max = 20)
+    @Size(min = 6, max = 40)
     private String password;
+
 
     public String getName() {
         return name;
@@ -63,4 +62,6 @@ public class SignUpForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

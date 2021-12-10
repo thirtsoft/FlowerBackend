@@ -1,13 +1,16 @@
 package com.flowers;
 
+import com.flowers.enums.RoleName;
 import com.flowers.models.*;
 import com.flowers.reposiory.*;
+import com.flowers.services.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,6 +40,15 @@ public class FlowerBackendApplication implements CommandLineRunner {
 	private AddressRepository addressRepository;
 	@Autowired
 	private WishlistRepository wishlistRepository;
+
+	@Autowired
+	private ClientRepository clientRepository;
+
+	@Autowired
+	private UtilisateurRepository utilisateurRepository;
+	@Autowired
+	private UtilisateurService utilisateurService;
+
 
 
 	public static void main(String[] args) {
@@ -186,6 +198,10 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		Address a2 = addressRepository.save(new Address(2L, "add2", "add2", "add2", "add2", "add2", state2));
 		Address a3 = addressRepository.save(new Address(3L, "add3", "add3", "add3", "add3", "add3", state3));
 		Address a4 = addressRepository.save(new Address(4L, "add4", "add4", "add4", "add4", "add4", state4));
+
+		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
+		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));
+		Role adminRole = roleRepository.save(new Role(RoleName.ROLE_ADMIN));
 
 
 	}

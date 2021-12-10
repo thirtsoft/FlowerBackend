@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 public class UserPrinciple implements UserDetails {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String username;
@@ -24,7 +26,7 @@ public class UserPrinciple implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id, String username, String email, String password,
+    public UserPrinciple(Long id, String username, String email, String password, String photo,
                          Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
@@ -33,17 +35,18 @@ public class UserPrinciple implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrinciple build(Utilisateur utilisateur) {
-        List<GrantedAuthority> authorities = utilisateur.getRoles()
+    public static UserPrinciple build(Utilisateur user) {
+        List<GrantedAuthority> authorities = user.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserPrinciple(
-                utilisateur.getId(),
-                utilisateur.getUsername(),
-                utilisateur.getEmail(),
-                utilisateur.getPassword(),
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getPhoto(),
                 authorities
         );
     }
@@ -99,4 +102,6 @@ public class UserPrinciple implements UserDetails {
         UserPrinciple user = (UserPrinciple) o;
         return Objects.equals(id, user.id);
     }
+
+
 }
