@@ -25,6 +25,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select art from Product art where art.isSelected = true")
     List<Product> findProductBySelected();
 
+    @Query("select art from Product art where art.isPromo = true")
+    List<Product> findProductByPromo();
+
+    List<Product> findTop24ByOrderByCreatedDateDesc();
+
+    List<Product> findByOrderByIdDesc();
+
+    @Query("select p from Product p where p.price between :min and :max")
+    List<Product> findListProductByPriceMinMax(@Param("min") double min, @Param("max") double max);
+
     @Query("select art from Product art where art.designation like :x")
     List<Product> findProductByKeyword(@Param("x") String mc);
 

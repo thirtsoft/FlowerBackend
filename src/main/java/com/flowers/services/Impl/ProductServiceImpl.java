@@ -118,6 +118,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findListProductByPromo() {
+        return productRepository.findProductByPromo();
+    }
+
+    @Override
+    public List<Product> findTop24ByOrderByCreateDateDesc() {
+        return productRepository.findTop24ByOrderByCreatedDateDesc();
+    }
+
+    @Override
+    public List<Product> findByOrderByIdDesc() {
+        return productRepository.findByOrderByIdDesc();
+    }
+
+    @Override
+    public List<Product> findListProductByPriceMinMax(double min, double max) {
+        return productRepository.findListProductByPriceMinMax(min, max);
+    }
+
+    @Override
     public Page<Product> findProductByPageable(Pageable pageable) {
         return productRepository.findProductByPageable(pageable);
     }

@@ -112,6 +112,38 @@ public interface ProductApi {
     })
     ResponseEntity<List<Product>> getListProductBySelected();
 
+    @GetMapping(value = APP_ROOT + "/products/searchProductByPromoIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products en promo",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products en promo", responseContainer = "List<Product>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products en promo / une liste vide")
+    })
+    ResponseEntity<List<Product>> getListProductByPromo();
+
+    @GetMapping(value = APP_ROOT + "/products/searchTop24ProductByOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 24 derniers produits",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 24 derniers produits", responseContainer = "List<Product>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des 24 derniers produits / une liste vide")
+    })
+    ResponseEntity<List<Product>> getTop24ByOrderByCreatedDateDesc();
+
+    @GetMapping(value = APP_ROOT + "/products/searchAllProductOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des produits par ordre décroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des produits par ordre décroissante", responseContainer = "List<Product>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des produit spar ordre décroissante / une liste vide")
+    })
+    ResponseEntity<List<Product>> getAllProductByOrderByIdDesc();
+
+    @GetMapping(value = APP_ROOT + "/products/searchAllProductByPriceMinMax", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des produits par ordre décroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des produits par ordre décroissante", responseContainer = "List<Product>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des produit spar ordre décroissante / une liste vide")
+    })
+    ResponseEntity<List<Product>> getAllProductByPriceMinMax(@RequestParam("min") double min, @RequestParam("max") double max);
+
     @GetMapping(value = APP_ROOT + "/products/searchProductByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par pages",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products par pages", responseContainer = "Page<Product>")

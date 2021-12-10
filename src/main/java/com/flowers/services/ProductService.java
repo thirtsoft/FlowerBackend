@@ -31,6 +31,14 @@ public interface ProductService {
 
     List<Product> findListProductBySelected();
 
+    List<Product> findListProductByPromo();
+
+    List<Product> findTop24ByOrderByCreateDateDesc();
+
+    List<Product> findByOrderByIdDesc();
+
+    List<Product> findListProductByPriceMinMax(double min, double max);
+
     Page<Product> findProductByPageable(Pageable pageable);
 
     Page<Product> findProductBySubCategoryPageable(Long scatId, Pageable pageable);
@@ -38,8 +46,6 @@ public interface ProductService {
     Page<Product> findProductBySamePricePageable(double price, Pageable pageable);
 
     void delete(Long id);
-
-
 
 
 }

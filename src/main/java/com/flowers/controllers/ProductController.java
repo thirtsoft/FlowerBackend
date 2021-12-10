@@ -8,6 +8,7 @@ import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -87,6 +88,30 @@ public class ProductController implements ProductApi {
     @Override
     public ResponseEntity<List<Product>> getListProductBySelected() {
         return ResponseEntity.ok(productService.findListProductBySelected());
+    }
+
+    @Override
+    public ResponseEntity<List<Product>> getListProductByPromo() {
+        List<Product> productList = productService.findListProductByPromo();
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Product>> getTop24ByOrderByCreatedDateDesc() {
+        List<Product> productList = productService.findTop24ByOrderByCreateDateDesc();
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Product>> getAllProductByOrderByIdDesc() {
+        List<Product> productList = productService.findByOrderByIdDesc();
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Product>> getAllProductByPriceMinMax(double min, double max) {
+        List<Product> productList = productService.findListProductByPriceMinMax(min, max);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     @Override
