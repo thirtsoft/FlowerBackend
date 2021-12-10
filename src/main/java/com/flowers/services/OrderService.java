@@ -7,23 +7,29 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    List<Order> findAllOrders();
-
     Order saveOrder(Order order);
-
-    Optional<Order> findOrderById(Long id);
 
     Order updateOrder(Long Id, Order order);
 
+    Order updateStatusOfOrder(String status, String id);
+
+    Optional<Order> findOrderById(Long id);
+
+    List<Order> findAllOrders();
+
+    List<Order> findByOrderByIdDesc();
+
+    List<Order> findListOrderByStatusPending();
+
+    List<Order> findListOrderByStatusPayed();
+
+    List<Order> findListOrderByCustomerId(Long userId);
+
+    List<Order> findListOrderByAddressLivraisonId(Long addLivraison);
+
+    List<Order> findListOrderByAddressAchatId(Long addAchat);
+
     void deleteOrder(Long Id);
-
-    Order findByCode(String code);
-
-    Order findByDesignation(String designation);
-
-    List<Order> ListOrderByCode(String designation);
-
-    List<Order> ListOrderByDesignation(String designation);
 
 
 }
