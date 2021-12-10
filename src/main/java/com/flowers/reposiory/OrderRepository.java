@@ -52,7 +52,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select EXTRACT(month from(c.orderDate)), sum(c.totalPrice) from Order c group by EXTRACT(month from(c.orderDate))")
     List<?> sumTotalOfOrderByMonth();
 
-    @Query("select EXTRACT(year from(v.dateOrder)), sum(v.totalPrice) from Order v group by EXTRACT(year from(v.orderDate))")
+    @Query("select EXTRACT(year from(v.orderDate)), sum(v.totalPrice) from Order v group by EXTRACT(year from(v.orderDate))")
     List<?> sumTotalOfOrderByYears();
 
     @Query("select p from Order p where p.utilisateur.id =:user order by id Desc")

@@ -44,7 +44,6 @@ public interface OrderApi {
     })
     ResponseEntity<Order> updateStatusOfOrder(@RequestParam("status") String status, @PathVariable("id") String id);
 
-
     @GetMapping(value = APP_ROOT + "/orders/findById/{idOrder}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une commande par ID",
             notes = "Cette méthode permet de chercher une commande par son ID", response = Order.class
@@ -54,30 +53,6 @@ public interface OrderApi {
             @ApiResponse(code = 404, message = "Aucun Country n'existe avec cette ID pas dans la BD")
     })
     ResponseEntity<Order> getById(@PathVariable("idOrder") Long id);
-
-    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrder", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Compter le nombre de commande",
-            notes = "Cette méthode permet de Compter le nombre de commande", response = Order.class
-    )
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La v a été trouver"),
-            @ApiResponse(code = 404, message = "Aucun Order n'existe avec cette ID pas dans la BD")
-    })
-    BigDecimal countNumberOfOrder();
-
-    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrdersInMonth", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi le nombre de Commande du mois",
-            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande du mois")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
-    })
-    BigDecimal countNumberOfOrdersInMonth();
-
-    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
-    BigDecimal sumTotaleOfOrderByMonth();
-
-    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByYear", produces = MediaType.APPLICATION_JSON_VALUE)
-    BigDecimal sumTotaleOfOrderByYear();
 
     @GetMapping(value = APP_ROOT + "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes",
@@ -136,12 +111,85 @@ public interface OrderApi {
     })
     ResponseEntity<List<Order>> getOrdersByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
 
+    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfOrder();
+
+    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrdersInMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande du mois",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande du mois")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfOrdersInMonth();
+
+    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrdersByPendingStatus", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande encours",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfOrdersByStatusPending();
+
+    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByDay", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande du jour",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du jour encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par jour / somme nulle")
+    })
+    BigDecimal sumTotaleOfOrderByDay();
+
+    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande du moi",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par moi / somme nulle")
+    })
+    BigDecimal sumTotaleOfOrderByMonth();
+
+    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByYear", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande d'une années",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande de l'année encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par années / somme nulle")
+    })
+    BigDecimal sumTotaleOfOrderByYear();
+
+    @GetMapping(value = APP_ROOT + "/orders/numberOfOrderByDay", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste du nombre de Commandes par jour",
+            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<Order>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste du nombre de Commandes par jour / une liste vide")
+    })
+    List<?> countNumberOfOrderByDay();
 
     @GetMapping(value = APP_ROOT + "/orders/numberOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste du nombre de Commandes par moi",
+            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par moi", responseContainer = "List<Order>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste du nombre de Commandes par moi / une liste vide")
+    })
     List<?> countNumberOfOrderByMonth();
 
     @GetMapping(value = APP_ROOT + "/orders/sumTotaleOfOrderByMonthByList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des sommes des Commandes par moi",
+            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par moi", responseContainer = "List<Order>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des sommes des Commandes par moi / une liste vide")
+    })
     List<?> getSumTotaleOfOrderByMonth();
+
+    @GetMapping(value = APP_ROOT + "/orders/sumTotaleOfOrderByYearList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des sommes des Commandes par années",
+            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par années", responseContainer = "List<Order>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des sommes des Commandes par années / une liste vide")
+    })
+    List<?> getSumTotalOfOrdersByYears();
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrdersByUtilisateurIdByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -111,6 +112,56 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findListOrderByAddressAchatId(Long addAchat) {
         return orderRepository.ListOrderByAddressAchatId(addAchat);
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrder() {
+        return orderRepository.countNumberOfOrder();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersInMonth() {
+        return orderRepository.countNumberOfOrdersInMonth();
+    }
+
+    @Override
+    public BigDecimal sumTotalOfOrderByDay() {
+        return orderRepository.sumTotalOfOrderByDay();
+    }
+
+    @Override
+    public BigDecimal sumTotaleOfOrderByMonth() {
+        return orderRepository.sumTotaleOfOrderByMonth();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersByStatusPending() {
+        return orderRepository.countNumberOfOrdersByStatusPending();
+    }
+
+    @Override
+    public BigDecimal sumTotalOfOrdersByYear() {
+        return orderRepository.sumTotalOfOrdersByYear();
+    }
+
+    @Override
+    public List<?> countNumberOfOrderByDay() {
+        return orderRepository.countNumberOfOrderByDay();
+    }
+
+    @Override
+    public List<?> countNumberTotalOfOrderByMonth() {
+        return orderRepository.countNumberOfOrderByMonth();
+    }
+
+    @Override
+    public List<?> sumTotalOfOrderByMonth() {
+        return orderRepository.sumTotalOfOrderByMonth();
+    }
+
+    @Override
+    public List<?> sumTotalOfOrdersByYears() {
+        return orderRepository.sumTotalOfOrderByYears();
     }
 
     @Override

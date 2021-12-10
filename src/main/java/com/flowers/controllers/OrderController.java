@@ -46,26 +46,6 @@ public class OrderController implements OrderApi {
     }
 
     @Override
-    public BigDecimal countNumberOfOrder() {
-        return null;
-    }
-
-    @Override
-    public BigDecimal countNumberOfOrdersInMonth() {
-        return null;
-    }
-
-    @Override
-    public BigDecimal sumTotaleOfOrderByMonth() {
-        return null;
-    }
-
-    @Override
-    public BigDecimal sumTotaleOfOrderByYear() {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<List<Order>> getAll() {
         List<Order> orderList = orderService.findAllOrders();
         return new ResponseEntity<>(orderList, HttpStatus.OK);
@@ -108,14 +88,55 @@ public class OrderController implements OrderApi {
     }
 
     @Override
+    public BigDecimal countNumberOfOrder() {
+        return orderService.countNumberOfOrder();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersInMonth() {
+        return orderService.countNumberOfOrdersInMonth();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersByStatusPending() {
+        return orderService.countNumberOfOrdersByStatusPending();
+    }
+
+    @Override
+    public BigDecimal sumTotaleOfOrderByDay() {
+        return orderService.sumTotalOfOrderByDay();
+    }
+
+    @Override
+    public BigDecimal sumTotaleOfOrderByMonth() {
+        return orderService.sumTotaleOfOrderByMonth();
+    }
+
+    @Override
+    public BigDecimal sumTotaleOfOrderByYear() {
+        return orderService.sumTotalOfOrdersByYear();
+    }
+
+    @Override
+    public List<?> countNumberOfOrderByDay() {
+        return orderService.countNumberOfOrderByDay();
+    }
+
+    @Override
     public List<?> countNumberOfOrderByMonth() {
-        return null;
+        return orderService.countNumberTotalOfOrderByMonth();
     }
 
     @Override
     public List<?> getSumTotaleOfOrderByMonth() {
-        return null;
+        return orderService.sumTotalOfOrderByMonth();
     }
+
+    @Override
+    public List<?> getSumTotalOfOrdersByYears() {
+        return orderService.sumTotalOfOrdersByYears();
+    }
+
 
     @Override
     public Page<Order> getOrdersByUtilisateurIdByPageables(Long userId, int page, int size) {
