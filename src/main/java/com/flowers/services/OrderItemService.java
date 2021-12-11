@@ -7,23 +7,22 @@ import java.util.Optional;
 
 public interface OrderItemService {
 
-    List<OrderItem> findAllOrderItems();
-
     OrderItem saveOrderItem(OrderItem orderItem);
 
     Optional<OrderItem> findOrderItemById(Long id);
 
     OrderItem updateOrderItem(Long Id, OrderItem orderItem);
 
+    List<OrderItem> findAllOrderItems();
+
+    List<OrderItem> findArticlesGroupByProductId();
+
+    List<OrderItem> findByOrderByIdDesc();
+
+    List<OrderItem> ListOrderItemByOrderId(Long comId);
+
+    List<OrderItem> findTop200ByOrderByIdDesc();
+
     void deleteOrderItem(Long Id);
-
-    OrderItem findByCode(String code);
-
-    OrderItem findByDesignation(String designation);
-
-    List<OrderItem> ListOrderItemByCode(String designation);
-
-    List<OrderItem> ListOrderItemByDesignation(String designation);
-
 
 }
