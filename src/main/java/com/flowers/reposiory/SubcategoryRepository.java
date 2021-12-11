@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.State;
 import com.flowers.models.Subcategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,7 @@ public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> 
 
     @Query("select p from Subcategory p where p.category.id =:cat")
     List<Subcategory> findSubcategoryByCateoryId(@Param("cat") Long catId);
+
+    List<Subcategory> findByOrderByIdDesc();
+
 }

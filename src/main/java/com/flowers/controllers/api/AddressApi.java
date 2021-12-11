@@ -56,6 +56,14 @@ public interface AddressApi {
     })
     ResponseEntity<List<Address>> getAllAddresses();
 
+    @GetMapping(value = APP_ROOT + "/addresses/searchAllAddressOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des addresses par ordre decroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des addresses par ordre decroissante", responseContainer = "List<Address>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Address / une liste vide")
+    })
+    ResponseEntity<List<Address>> getAllAddressesOrderByIdDesc();
+
 
     @DeleteMapping(value = APP_ROOT + "/addresses/delete/{addId}")
     @ApiOperation(value = "Supprimer une addresses",

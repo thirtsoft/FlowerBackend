@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.models.Subcategory;
 import com.flowers.models.Utilisateur;
 
 import java.util.List;
@@ -13,18 +14,10 @@ public interface UtilisateurService {
 
     Optional<Utilisateur> findUtilisateurById(Long userId);
 
-    Utilisateur updateUtilisateur(Long catId, Utilisateur utilisateur);
+    Utilisateur updateUtilisateur(Long userId, Utilisateur utilisateur);
+
+
+    List<Utilisateur> findUtilisateurByOrderByIdDesc();
 
     void deleteUtilisateur(Long userId);
-
-    Utilisateur findByCode(String code);
-
-    Utilisateur findByDesignation(String designation);
-
-    List<Utilisateur> ListUtilisateurByCode(String designation);
-
-    List<Utilisateur> ListUtilisateurByDesignation(String designation);
-
-
-    Utilisateur findById(Long id);
 }

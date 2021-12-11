@@ -47,12 +47,20 @@ public interface CountryApi {
     ResponseEntity<Country> getCountryById(@PathVariable(value = "countId") Long countId) throws ResourceNotFoundException;
 
     @GetMapping(value = APP_ROOT + "/countries/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Country par ordre decroissante ",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Countries par ordre decroissante", responseContainer = "List<Country>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Countries / une liste vide")
+    })
+    ResponseEntity<List<Country>> getAllCountries();
+
+    @GetMapping(value = APP_ROOT + "/countries/searchAllCountriesOderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Country",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Countries", responseContainer = "List<Country>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Countries / une liste vide")
     })
-    ResponseEntity<List<Country>> getAllCountries();
+    ResponseEntity<List<Country>> getAllCountriesOderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/countries/delete/{countId}")
     @ApiOperation(value = "Supprimer un Country par son ID",

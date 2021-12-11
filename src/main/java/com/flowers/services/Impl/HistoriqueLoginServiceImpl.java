@@ -38,7 +38,9 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
     @Override
     public HistoriqueLogin saveHistoriqueLoginWithConnectedUser(HistoriqueLogin historiqueLogin, Long userId) {
 
-        Utilisateur utilisateur = utilisateurService.findById(userId);
+        Optional<Utilisateur> optionalUtilisateur = utilisateurService.findUtilisateurById(userId);
+
+        Utilisateur utilisateur = optionalUtilisateur.get();
 
         historiqueLogin.setUtilisateur(utilisateur);
         historiqueLogin.setCreatedDate(new Date());

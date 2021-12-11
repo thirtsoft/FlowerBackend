@@ -2,9 +2,11 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.SubcategoryApi;
 import com.flowers.exceptions.ResourceNotFoundException;
+import com.flowers.models.State;
 import com.flowers.models.Subcategory;
 import com.flowers.services.SubcategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +42,12 @@ public class SubcategoryController implements SubcategoryApi {
     @Override
     public ResponseEntity<List<Subcategory>> getAllSubcategories() {
         return ResponseEntity.ok(subcategoryService.findAllSubcategories());
+    }
+
+    @Override
+    public ResponseEntity<List<Subcategory>> getAllSubcategoriesOrderByIdDesc() {
+        List<Subcategory> subcategoryList = subcategoryService.findSubcategoryByOrderByIdDesc();
+        return new ResponseEntity<>(subcategoryList, HttpStatus.OK);
     }
 
     @Override

@@ -15,4 +15,5 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
     BigDecimal countNumberOfNewsletters();
 
     List<Blog> findByOrderByIdDesc();
+
 }

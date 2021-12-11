@@ -13,8 +13,9 @@ public interface StateService {
 
     Optional<State> findStateById(Long stateId);
 
-
     List<State> findAllStates();
+
+    List<State> findStateByOrderByIdDesc();
 
     void deleteState(Long stateId);
 

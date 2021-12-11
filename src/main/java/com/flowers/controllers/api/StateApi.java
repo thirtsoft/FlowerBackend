@@ -47,7 +47,6 @@ public interface StateApi {
     })
     ResponseEntity<State> getStateById(@PathVariable(value = "stateId") Long stateId) throws ResourceNotFoundException;
 
-
     @GetMapping(value = APP_ROOT + "/states/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des State",
             notes = "Cette méthode permet de chercher et renvoyer la liste des State", responseContainer = "List<State>")
@@ -55,6 +54,14 @@ public interface StateApi {
             @ApiResponse(code = 200, message = "La liste des State / une liste vide")
     })
     ResponseEntity<List<State>> getAllStates();
+
+    @GetMapping(value = APP_ROOT + "/states/searchAllStatesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des State par ordre decroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des State par ordre decroissante", responseContainer = "List<State>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des State / une liste vide")
+    })
+    ResponseEntity<List<State>> getAllStatesOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/states/delete/{stateId}")
     @ApiOperation(value = "Supprimer un State par son ID",

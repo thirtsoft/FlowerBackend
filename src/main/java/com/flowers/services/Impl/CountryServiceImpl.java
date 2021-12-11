@@ -58,6 +58,11 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    public List<Country> findCountryByOrderByIdDesc() {
+        return countryRepository.findByOrderByIdDesc();
+    }
+
+    @Override
     public void deleteCountry(Long countryId) {
         if (!countryRepository.existsById(countryId)) {
             throw new ResourceNotFoundException("Country not found");

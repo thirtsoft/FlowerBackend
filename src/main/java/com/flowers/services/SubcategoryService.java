@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.models.State;
 import com.flowers.models.Subcategory;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface SubcategoryService {
     Subcategory updateSubcategory(Long subCatId, Subcategory subcategory);
 
     List<Subcategory> findSubcategoryByCategoryId(Long catId);
+
+    List<Subcategory> findSubcategoryByOrderByIdDesc();
 
     void deleteSubcategory(Long subCatId);
 

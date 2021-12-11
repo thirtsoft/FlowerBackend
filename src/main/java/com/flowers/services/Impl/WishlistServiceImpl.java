@@ -1,5 +1,6 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Wishlist;
 import com.flowers.reposiory.WishlistRepository;
 import com.flowers.services.WishlistService;
@@ -18,47 +19,58 @@ public class WishlistServiceImpl implements WishlistService {
     private final WishlistRepository wishlistRepository;
 
     @Override
-    public List<Wishlist> findAllWishlists() {
-        return null;
-    }
-
-    @Override
     public Wishlist saveWhishlist(Wishlist whishlist) {
-        return null;
+        return wishlistRepository.save(whishlist);
     }
 
     @Override
     public Optional<Wishlist> findWhishlistById(Long id) {
-        return Optional.empty();
+        if (!wishlistRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Wishlist that id is " + id + "not found");
+        }
+        return wishlistRepository.findById(id);
     }
 
     @Override
-    public Wishlist updateWhishlist(Long catId, Wishlist whishlist) {
-        return null;
+    public Wishlist updateWhishlist(Long whishlistId, Wishlist whishlist) {
+        if (!wishlistRepository.existsById(whishlistId)) {
+            throw new ResourceNotFoundException("Wishlist that id is" + whishlistId + "is not found");
+        }
+        Optional<Wishlist> optionalWishlist = wishlistRepository.findById(whishlistId);
+
+        if (!optionalWishlist.isPresent()) {
+            throw new ResourceNotFoundException("Wishlist not found");
+        }
+
+        Wishlist wishlistResult = optionalWishlist.get();
+        wishlistResult.setReference(whishlist.getReference());
+        wishlistResult.setNombreEtoile(whishlist.getNombreEtoile());
+        wishlistResult.setObservation(whishlist.getObservation());
+        wishlistResult.setDescription(whishlist.getDescription());
+        wishlistResult.setUtilisateur(whishlist.getUtilisateur());
+        wishlistResult.setProduct(whishlist.getProduct());
+
+        return wishlistRepository.save(wishlistResult);
     }
 
     @Override
-    public void deleteWhishlist(Long catId) {
-
+    public List<Wishlist> findAllWishlists() {
+        return wishlistRepository.findAll();
     }
 
     @Override
-    public Wishlist findByCode(String code) {
-        return null;
+    public List<Wishlist> findWishlistByOrderByIdDesc() {
+        return wishlistRepository.findByOrderByIdDesc();
     }
 
     @Override
-    public Wishlist findByDesignation(String designation) {
-        return null;
+    public void deleteWhishlist(Long whishlistId) {
+        if (!wishlistRepository.existsById(whishlistId)) {
+            throw new ResourceNotFoundException("Wishlist that id is" + whishlistId + "is not found");
+        }
+        wishlistRepository.deleteById(whishlistId);
+
     }
 
-    @Override
-    public List<Wishlist> ListWhishlistByCode(String designation) {
-        return null;
-    }
 
-    @Override
-    public List<Wishlist> ListWhishlistByDesignation(String designation) {
-        return null;
-    }
 }

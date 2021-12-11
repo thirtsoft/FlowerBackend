@@ -58,6 +58,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> findCategoryByOrderByIdDesc() {
+        return categoryRepository.findByOrderByIdDesc();
+    }
+
+    @Override
     public void deleteCategory(Long catId) {
         if (!categoryRepository.existsById(catId)) {
             throw new ResourceNotFoundException("Category that id is" + catId + "is not found");

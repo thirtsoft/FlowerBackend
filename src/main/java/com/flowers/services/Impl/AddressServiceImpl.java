@@ -62,6 +62,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public List<Address> findAddressByOrderByIdDesc() {
+        return addressRepository.findByOrderByIdDesc();
+    }
+
+    @Override
     public void deleteAddress(Long addId) {
         if (!addressRepository.existsById(addId)) {
             throw new ResourceNotFoundException("Address not found");

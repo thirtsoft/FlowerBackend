@@ -35,7 +35,6 @@ public interface SubcategoryApi {
     })
     ResponseEntity<Subcategory> update(@PathVariable("subCatId") Long id, @RequestBody Subcategory subcategory);
 
-
     @GetMapping(value = APP_ROOT + "/subcategories/findById/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Subcategory par ID",
             notes = "Cette méthode permet de chercher une Subcategory par son ID", response = Subcategory.class
@@ -46,7 +45,6 @@ public interface SubcategoryApi {
     })
     ResponseEntity<Subcategory> getSubcategoryById(@PathVariable("subCatId") Long id) throws ResourceNotFoundException;
 
-
     @GetMapping(value = APP_ROOT + "/subcategories/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Subcategory",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Scategories", responseContainer = "List<Subcategory>")
@@ -54,6 +52,14 @@ public interface SubcategoryApi {
             @ApiResponse(code = 200, message = "La liste des Subcategory / une liste vide")
     })
     ResponseEntity<List<Subcategory>> getAllSubcategories();
+
+    @GetMapping(value = APP_ROOT + "/subcategories/searchAllSubCategoriesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Subcategory par ordre decroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Scategories par ordre decroissante", responseContainer = "List<Subcategory>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Subcategory / une liste vide")
+    })
+    ResponseEntity<List<Subcategory>> getAllSubcategoriesOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/subcategories/searchSubcategoryByCategoryId/{catId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Subcategory par category",

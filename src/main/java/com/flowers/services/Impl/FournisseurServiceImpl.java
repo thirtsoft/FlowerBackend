@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,16 @@ public class FournisseurServiceImpl implements FournisseurService {
         fournisseurResult.setProduct(fournisseur.getProduct());
 
         return fournisseurRepository.save(fournisseurResult);
+    }
+
+    @Override
+    public BigDecimal countNumberOfFournisseur() {
+        return fournisseurRepository.countNumberOfFournisseur();
+    }
+
+    @Override
+    public List<Fournisseur> findFournisseurByOrderByIdDesc() {
+        return fournisseurRepository.findByOrderByIdDesc();
     }
 
     @Override

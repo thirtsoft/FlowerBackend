@@ -5,9 +5,11 @@ import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Fournisseur;
 import com.flowers.services.FournisseurService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -38,6 +40,17 @@ public class FournisseurController implements FournisseurApi {
     @Override
     public ResponseEntity<List<Fournisseur>> getAllFournisseurs() {
         return ResponseEntity.ok(fournisseurService.findAllFournisseurs());
+    }
+
+    @Override
+    public ResponseEntity<List<Fournisseur>> getAllFournisseursOrderByIdDesc() {
+        List<Fournisseur> fournisseurList = fournisseurService.findFournisseurByOrderByIdDesc();
+        return new ResponseEntity<>(fournisseurList, HttpStatus.OK);
+    }
+
+    @Override
+    public BigDecimal countNumberOfFournisseur() {
+        return fournisseurService.countNumberOfFournisseur();
     }
 
     @Override

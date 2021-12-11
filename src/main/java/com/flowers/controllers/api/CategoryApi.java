@@ -74,6 +74,14 @@ public interface CategoryApi {
     })
     ResponseEntity<List<Category>> getAllCategories();
 
+    @GetMapping(value = APP_ROOT + "/categories/searchAllCategoriesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Categories par ordre decroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Categories par ordre decroissante", responseContainer = "List<Category>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Categories / une liste vide")
+    })
+    ResponseEntity<List<Category>> getAllCategoriesOrderByIdDesc();
+
     @GetMapping(value = APP_ROOT + "/categories/searchListCategoriesByCode", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Category>> getListCategoriesByCode(@RequestParam(name = "code") String code);
 

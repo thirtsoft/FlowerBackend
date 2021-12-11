@@ -41,6 +41,11 @@ public class AddressController implements AddressApi {
     }
 
     @Override
+    public ResponseEntity<List<Address>> getAllAddressesOrderByIdDesc() {
+        return ResponseEntity.ok(addressService.findAddressByOrderByIdDesc());
+    }
+
+    @Override
     public ResponseEntity<?> deleteAddress(Long addId) {
         addressService.deleteAddress(addId);
         return ResponseEntity.ok().build();

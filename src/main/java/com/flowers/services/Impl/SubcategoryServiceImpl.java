@@ -65,6 +65,11 @@ public class SubcategoryServiceImpl implements SubcategoryService {
     }
 
     @Override
+    public List<Subcategory> findSubcategoryByOrderByIdDesc() {
+        return subcategoryRepository.findByOrderByIdDesc();
+    }
+
+    @Override
     public void deleteSubcategory(Long subCatId) {
         if (!subcategoryRepository.existsById(subCatId)) {
             throw new ResourceNotFoundException("Subcategory not found");

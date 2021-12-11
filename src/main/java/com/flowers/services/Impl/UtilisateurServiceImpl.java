@@ -1,5 +1,6 @@
 package com.flowers.services.Impl;
 
+import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Utilisateur;
 import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.services.UtilisateurService;
@@ -16,54 +17,58 @@ import java.util.Optional;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
-    
-    @Override
-    public List<Utilisateur> findAllUtilisateurs() {
-        return null;
-    }
 
     @Override
     public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
-        return null;
+        return utilisateurRepository.save(utilisateur);
     }
 
     @Override
     public Optional<Utilisateur> findUtilisateurById(Long userId) {
-        return Optional.empty();
+        if (!utilisateurRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("Utilisateur that id is " + userId + "not found");
+        }
+        return utilisateurRepository.findById(userId);
+
     }
 
     @Override
-    public Utilisateur updateUtilisateur(Long catId, Utilisateur utilisateur) {
-        return null;
+    public Utilisateur updateUtilisateur(Long userId, Utilisateur utilisateur) {
+        if (!utilisateurRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("Utilisateur that id is" + userId + "is not found");
+        }
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userId);
+
+        if (!optionalUtilisateur.isPresent()) {
+            throw new ResourceNotFoundException("Utilisateur not found");
+        }
+
+        Utilisateur utilisateurResult = optionalUtilisateur.get();
+        utilisateurResult.setName(utilisateur.getName());
+        utilisateurResult.setUsername(utilisateur.getUsername());
+        utilisateurResult.setEmail(utilisateur.getEmail());
+        utilisateurResult.setActive(utilisateur.isActive());
+        utilisateurResult.setPassword(utilisateur.getPassword());
+
+        return utilisateurRepository.save(utilisateurResult);
+    }
+
+    @Override
+    public List<Utilisateur> findAllUtilisateurs() {
+        return utilisateurRepository.findAll();
+    }
+
+    @Override
+    public List<Utilisateur> findUtilisateurByOrderByIdDesc() {
+        return utilisateurRepository.findByOrderByIdDesc();
     }
 
     @Override
     public void deleteUtilisateur(Long userId) {
-
+        if (!utilisateurRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("Utilisateur that id is" + userId + "is not found");
+        }
+        utilisateurRepository.deleteById(userId);
     }
 
-    @Override
-    public Utilisateur findByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public Utilisateur findByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Utilisateur> ListUtilisateurByCode(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<Utilisateur> ListUtilisateurByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public Utilisateur findById(Long id) {
-        return null;
-    }
 }

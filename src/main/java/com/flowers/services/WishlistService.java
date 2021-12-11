@@ -7,23 +7,17 @@ import java.util.Optional;
 
 public interface WishlistService {
 
-    List<Wishlist> findAllWishlists();
-
     Wishlist saveWhishlist(Wishlist whishlist);
 
     Optional<Wishlist> findWhishlistById(Long id);
 
-    Wishlist updateWhishlist(Long catId, Wishlist whishlist);
+    Wishlist updateWhishlist(Long whishlistId, Wishlist whishlist);
 
-    void deleteWhishlist(Long catId);
+    List<Wishlist> findAllWishlists();
 
-    Wishlist findByCode(String code);
+    List<Wishlist> findWishlistByOrderByIdDesc();
 
-    Wishlist findByDesignation(String designation);
-
-    List<Wishlist> ListWhishlistByCode(String designation);
-
-    List<Wishlist> ListWhishlistByDesignation(String designation);
+    void deleteWhishlist(Long whishlistId);
 
 
 }

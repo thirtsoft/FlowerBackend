@@ -56,6 +56,11 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
+    public List<State> findStateByOrderByIdDesc() {
+        return stateRepository.findByOrderByIdDesc();
+    }
+
+    @Override
     public void deleteState(Long stateId) {
         if (!stateRepository.existsById(stateId)) {
             throw new ResourceNotFoundException("State not found");

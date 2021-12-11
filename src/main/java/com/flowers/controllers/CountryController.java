@@ -2,9 +2,11 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.CountryApi;
 import com.flowers.exceptions.ResourceNotFoundException;
+import com.flowers.models.Category;
 import com.flowers.models.Country;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +40,12 @@ public class CountryController implements CountryApi {
     @Override
     public ResponseEntity<List<Country>> getAllCountries() {
         return ResponseEntity.ok(countryService.findAllCountries());
+    }
+
+    @Override
+    public ResponseEntity<List<Country>> getAllCountriesOderByIdDesc() {
+        List<Country> countryList = countryService.findCountryByOrderByIdDesc();
+        return new ResponseEntity<>(countryList, HttpStatus.OK);
     }
 
     @Override

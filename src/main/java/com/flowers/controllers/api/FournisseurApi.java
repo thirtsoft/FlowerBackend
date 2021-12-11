@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.flowers.utils.Constants.APP_ROOT;
@@ -53,6 +54,22 @@ public interface FournisseurApi {
             @ApiResponse(code = 200, message = "La liste des Countries / une liste vide")
     })
     ResponseEntity<List<Fournisseur>> getAllFournisseurs();
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/searchAllFournisseurOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Fournisseurs par ordre decroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Fournisseurs par ordre decroissante", responseContainer = "List<Fournisseur>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Countries / une liste vide")
+    })
+    ResponseEntity<List<Fournisseur>> getAllFournisseursOrderByIdDesc();
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/countNumberOfFournisseur", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Fournisseur",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Fournisseur")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Fournisseur / le nombre est nulle")
+    })
+    BigDecimal countNumberOfFournisseur();
 
     @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
     @ApiOperation(value = "Supprimer un Fournisseur par son ID",

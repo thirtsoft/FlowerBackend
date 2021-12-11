@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.models.Category;
 import com.flowers.models.Country;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface CountryService {
     Optional<Country> findCountryById(Long countryId);
 
     List<Country> findAllCountries();
+
+    List<Country> findCountryByOrderByIdDesc();
 
     void deleteCountry(Long countryId);
 
