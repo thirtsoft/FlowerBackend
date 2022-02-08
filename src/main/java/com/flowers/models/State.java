@@ -16,7 +16,7 @@ public class State implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idState;
+    private Long id;
 
     @Column(name = "code", length = 90)
     private String code;
@@ -28,8 +28,8 @@ public class State implements Serializable {
     @JoinColumn(name = "countryId")
     private Country country;
 
-    public State(Long idState, String name, Country country) {
-        this.idState = idState;
+    public State(Long id, String name, Country country) {
+        this.id = id;
         this.name = name;
         this.country = country;
     }

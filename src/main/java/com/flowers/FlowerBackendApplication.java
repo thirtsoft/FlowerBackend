@@ -174,12 +174,12 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
 
 
-		Country count1 = countryRepository.save(new Country(1L, "SENEGAL"));
-		Country count2 = countryRepository.save(new Country(2L, "Mali"));
-		Country count3 = countryRepository.save(new Country(3L, "Japon"));
-		Country count4 = countryRepository.save(new Country(4L, "Gambie"));
-		Country count5 = countryRepository.save(new Country(5L, "Guinée Conakry"));
-		Country count6 = countryRepository.save(new Country(6L, "Etas-Unis"));
+		Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
+		Country count2 = countryRepository.save(new Country(2L, "MAL", "Mali"));
+		Country count3 = countryRepository.save(new Country(3L,"JP", "Japon"));
+		Country count4 = countryRepository.save(new Country(4L, "GB", "Gambie"));
+		Country count5 = countryRepository.save(new Country(5L, "GC", "Guinée Conakry"));
+		Country count6 = countryRepository.save(new Country(6L, "USA","Etas-Unis"));
 
 
 

@@ -17,6 +17,8 @@ public interface StateService {
 
     List<State> findStateByOrderByIdDesc();
 
+    List<State> findAllStateByCountryCode(String code);
+
     void deleteState(Long stateId);
 
 }

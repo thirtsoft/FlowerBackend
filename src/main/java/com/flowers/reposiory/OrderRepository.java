@@ -43,7 +43,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByOrderByIdDesc();
 
-    @Query("select EXTRACT(day from(c.orderDate)), count(c) from Order c group by EXTRACT(day from(c.dateOrder))")
+    @Query("select EXTRACT(day from(c.orderDate)), count(c) from Order c group by EXTRACT(day from(c.orderDate))")
     List<?> countNumberOfOrderByDay();
 
     @Query("select EXTRACT(month from(c.orderDate)), count(c) from Order c group by EXTRACT(month from(c.orderDate))")

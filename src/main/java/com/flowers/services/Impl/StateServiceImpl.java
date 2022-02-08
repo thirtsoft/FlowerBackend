@@ -61,6 +61,11 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
+    public List<State> findAllStateByCountryCode(String code) {
+        return stateRepository.findAllStateByCountryCode(code);
+    }
+
+    @Override
     public void deleteState(Long stateId) {
         if (!stateRepository.existsById(stateId)) {
             throw new ResourceNotFoundException("State not found");

@@ -1,6 +1,5 @@
 package com.flowers.services;
 
-import com.flowers.models.Category;
 import com.flowers.models.Country;
 
 import java.util.List;

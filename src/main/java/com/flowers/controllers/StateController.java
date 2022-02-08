@@ -2,7 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.StateApi;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Fournisseur;
 import com.flowers.models.State;
 import com.flowers.services.StateService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class StateController implements StateApi {
 
     @Override
     public ResponseEntity<State> updateState(Long stateId, State state) {
-        state.setIdState(stateId);
+        state.setId(stateId);
         return ResponseEntity.ok(stateService.saveState(state));
     }
 
@@ -45,6 +44,12 @@ public class StateController implements StateApi {
     @Override
     public ResponseEntity<List<State>> getAllStatesOrderByIdDesc() {
         List<State> stateList = stateService.findStateByOrderByIdDesc();
+        return new ResponseEntity<>(stateList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<State>> getAllStateByCountryCode(String code) {
+        List<State> stateList = stateService.findAllStateByCountryCode(code);
         return new ResponseEntity<>(stateList, HttpStatus.OK);
     }
 

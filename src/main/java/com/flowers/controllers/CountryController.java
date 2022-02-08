@@ -2,7 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.CountryApi;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Category;
 import com.flowers.models.Country;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class CountryController implements CountryApi {
 
     @Override
     public ResponseEntity<Country> updateCountry(Long countId, Country country) {
-        country.setIdCountry(countId);
+        country.setId(countId);
         return ResponseEntity.ok(countryService.saveCountry(country));
     }
 

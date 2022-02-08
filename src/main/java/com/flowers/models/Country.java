@@ -1,9 +1,7 @@
 package com.flowers.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,13 +10,11 @@ import java.util.List;
 @Entity
 @Table(name = "country")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Country implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCountry;
+    private Long id;
 
     @Column(name = "code", length = 30)
     private String code;
@@ -30,13 +26,17 @@ public class Country implements Serializable {
     @JsonIgnore
     private List<State> stateList;
 
-    public Country(Long idCountry, String name) {
-        this.idCountry = idCountry;
+    public Country() {
+
+    }
+
+    public Country(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Country(Long idCountry, String code, String name) {
-        this.idCountry = idCountry;
+    public Country(Long id, String code, String name) {
+        this.id = id;
         this.code = code;
         this.name = name;
     }

@@ -37,7 +37,7 @@ public class CheckoutController implements CheckoutApi {
 
     @Override
     public ResponseEntity<PurchaseResponse> purchaseWithUser(Purchase purchase, Long id) {
-        Utilisateur utilisateur = Optional.of(utilisateurService.findById(id)).get();
+        Utilisateur utilisateur = utilisateurService.findUtilisateurById(id).get();
 
         purchase.setUtilisateur(utilisateur);
 
@@ -49,7 +49,7 @@ public class CheckoutController implements CheckoutApi {
     @Override
     public ResponseEntity<PurchaseResponse> purchaseWithLoginUser(Purchase purchase, Long id) {
 
-        Utilisateur utilisateur = Optional.of(utilisateurService.findById(id)).get();
+        Utilisateur utilisateur = utilisateurService.findUtilisateurById(id).get();
         
         purchase.setUtilisateur(utilisateur);
 
