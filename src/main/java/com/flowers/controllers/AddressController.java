@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.AddressApi;
+import com.flowers.dtos.AddressDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Address;
 import com.flowers.services.AddressService;
@@ -18,36 +19,32 @@ public class AddressController implements AddressApi {
 
 
     @Override
-    public ResponseEntity<Address> saveAddress(Address address) {
-        return ResponseEntity.ok(addressService.saveAddress(address));
+    public ResponseEntity<AddressDto> saveAddress(AddressDto addressDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Address> updateAddress(Long addId, Address address) {
-        address.setId(addId);
-        return ResponseEntity.ok(addressService.saveAddress(address));
+    public ResponseEntity<AddressDto> updateAddress(Long addId, AddressDto addressDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Address> getAddressById(Long addId) throws ResourceNotFoundException {
-        Address address = addressService.findAddressById(addId)
-                .orElseThrow(() -> new ResourceNotFoundException("Address not found"));
-        return ResponseEntity.ok().body(address);
+    public ResponseEntity<AddressDto> getAddressById(Long addId) throws ResourceNotFoundException {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Address>> getAllAddresses() {
-        return ResponseEntity.ok(addressService.findAllAddresses());
+    public ResponseEntity<List<AddressDto>> getAllAddresses() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Address>> getAllAddressesOrderByIdDesc() {
-        return ResponseEntity.ok(addressService.findAddressByOrderByIdDesc());
+    public ResponseEntity<List<AddressDto>> getAllAddressesOrderByIdDesc() {
+        return null;
     }
 
     @Override
     public ResponseEntity<?> deleteAddress(Long addId) {
-        addressService.deleteAddress(addId);
-        return ResponseEntity.ok().build();
+        return null;
     }
 }

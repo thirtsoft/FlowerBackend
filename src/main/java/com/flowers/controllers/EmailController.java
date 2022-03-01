@@ -1,6 +1,9 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.EmailApi;
+import com.flowers.dtos.EmailDto;
+import com.flowers.dtos.FournisseurDto;
+import com.flowers.dtos.NewsletterDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Email;
 import com.flowers.models.Fournisseur;
@@ -29,72 +32,47 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<Email> sendEmailToManager(Email email) {
-        try {
-            email.setCreateDate(new Date());
-            emailService.sendEmailToManager(email);
-            return new ResponseEntity<>(email, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<EmailDto> sendEmailToManager(EmailDto emailDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Fournisseur> sendMailToFournisseur(Fournisseur fournisseur) {
-        try {
-            emailService.sendEmailToProvider(fournisseur);
-            return new ResponseEntity<>(fournisseur, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<FournisseurDto> sendMailToFournisseur(FournisseurDto fournisseurDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Newsletter> sendMailToCustomer(Newsletter newsletter) {
-        try {
-            emailService.sendEmailToNewsletter(newsletter);
-            return new ResponseEntity<>(newsletter, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<NewsletterDto> sendMailToCustomer(NewsletterDto newsletterDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Newsletter> sendMailToAllCustomers(Newsletter newsletter) {
-        try {
-            emailService.sendMailToAllNewsletters(newsletter);
-            return new ResponseEntity<>(newsletter, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<NewsletterDto> sendMailToAllCustomers(NewsletterDto newsletterDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Email> getEmailById(Long id) {
-        Email email = emailService.findEmailById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Email not found"));
-        return ResponseEntity.ok().body(email);
+    public ResponseEntity<EmailDto> getEmailById(Long id) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Email>> getAllEmails() {
-        List<Email> emailList = emailService.findAll();
-        return new ResponseEntity<>(emailList, HttpStatus.OK);
+    public ResponseEntity<List<EmailDto>> getAllEmails() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Email>> getAllEmailOrderByIdDesc() {
-        List<Email> emailList = emailService.findByOrderByIdDesc();
-        return new ResponseEntity<>(emailList, HttpStatus.OK);
+    public ResponseEntity<List<EmailDto>> getAllEmailOrderByIdDesc() {
+        return null;
     }
 
     @Override
     public BigDecimal countNumberOfEmail() {
-        return emailService.countNumberOfEmailInMonth();
+        return null;
     }
 
     @Override
     public void delete(Long id) {
-        emailService.delete(id);
+
     }
 }

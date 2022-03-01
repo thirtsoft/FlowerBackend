@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.SubcategoryApi;
+import com.flowers.dtos.SubCategoryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.State;
 import com.flowers.models.Subcategory;
@@ -22,37 +23,33 @@ public class SubcategoryController implements SubcategoryApi {
 
 
     @Override
-    public ResponseEntity<Subcategory> save(Subcategory subcategory) {
-        return ResponseEntity.ok(subcategoryService.saveSubcategory(subcategory));
+    public ResponseEntity<SubCategoryDto> saveSubCategory(SubCategoryDto subCategoryDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Subcategory> update(Long id, Subcategory subcategory) {
-        subcategory.setId(id);
-        return ResponseEntity.ok(subcategoryService.saveSubcategory(subcategory));
+    public ResponseEntity<SubCategoryDto> update(Long id, SubCategoryDto subCategoryDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Subcategory> getSubcategoryById(Long id) throws ResourceNotFoundException {
-        Subcategory subcategory = subcategoryService.findSubcategoryById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Subcategory not found"));
-        return ResponseEntity.ok().body(subcategory);
+    public ResponseEntity<SubCategoryDto> getSubcategoryById(Long id) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Subcategory>> getAllSubcategories() {
-        return ResponseEntity.ok(subcategoryService.findAllSubcategories());
+    public ResponseEntity<List<SubCategoryDto>> getAllSubcategories() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Subcategory>> getAllSubcategoriesOrderByIdDesc() {
-        List<Subcategory> subcategoryList = subcategoryService.findSubcategoryByOrderByIdDesc();
-        return new ResponseEntity<>(subcategoryList, HttpStatus.OK);
+    public ResponseEntity<List<SubCategoryDto>> getAllSubcategoriesOrderByIdDesc() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Subcategory>> getSubcategoryByCategoryId(Long catId) {
-        return ResponseEntity.ok(subcategoryService.findSubcategoryByCategoryId(catId));
+    public ResponseEntity<List<SubCategoryDto>> getSubcategoryByCategoryId(Long catId) {
+        return null;
     }
 
     @Override

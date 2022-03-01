@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.UtilisateurApi;
+import com.flowers.dtos.UtilisateurDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Utilisateur;
 import com.flowers.services.UtilisateurService;
@@ -19,39 +20,28 @@ public class UtilisateurController implements UtilisateurApi {
 
 
     @Override
-    public ResponseEntity<Utilisateur> saveUtilisateur(Utilisateur utilisateur) {
-        return ResponseEntity.ok(utilisateurService.saveUtilisateur(utilisateur));
+    public ResponseEntity<UtilisateurDto> saveUtilisateur(UtilisateurDto utilisateurDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Utilisateur> updateUtilisateur(Long userId, Utilisateur utilisateur) {
-        utilisateur.setId(userId);
-        return ResponseEntity.ok(utilisateurService.saveUtilisateur(utilisateur));
+    public ResponseEntity<UtilisateurDto> updateUtilisateur(Long userId, UtilisateurDto utilisateurDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Utilisateur> getUtilisateurById(Long userId) throws ResourceNotFoundException {
-        Utilisateur utilisateur = utilisateurService.findUtilisateurById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur not found"));
-        return ResponseEntity.ok().body(utilisateur);
-    }
-
-
- /*   @Override
-    public ResponseEntity<Utilisateur> getUtilisateurById(Long userId) {
-        return ResponseEntity.ok(utilisateurService.findUtilisateurById(userId));
-    }*/
-
-    @Override
-    public ResponseEntity<List<Utilisateur>> getAllUtilisateurs() {
-        List<Utilisateur> utilisateurList = utilisateurService.findAllUtilisateurs();
-        return new ResponseEntity<>(utilisateurList, HttpStatus.OK);
+    public ResponseEntity<UtilisateurDto> getUtilisateurById(Long userId) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Utilisateur>> getAllUtilisateursOrderByIdDesc() {
-        List<Utilisateur> utilisateurList = utilisateurService.findUtilisateurByOrderByIdDesc();
-        return new ResponseEntity<>(utilisateurList, HttpStatus.OK);
+    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateurs() {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateursOrderByIdDesc() {
+        return null;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.AuthApi;
+import com.flowers.dtos.HistoriqueLoginDto;
+import com.flowers.dtos.UtilisateurDto;
 import com.flowers.enums.RoleName;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.message.request.LoginForm;
@@ -73,8 +75,9 @@ public class AuthController implements AuthApi {
 
         Optional<Utilisateur> optionalUtilisateur = userRepository.findById(userDetails.getId());
         Utilisateur utilisateur = optionalUtilisateur.get();
-        HistoriqueLogin historiqueLogin = new HistoriqueLogin();
-        historiqueLogin.setUtilisateur(utilisateur);
+        UtilisateurDto utilisateurDto = UtilisateurDto.fromEntityToDto(utilisateur);
+        HistoriqueLoginDto historiqueLogin = new HistoriqueLoginDto();
+        historiqueLogin.setUtilisateurDto(utilisateurDto);
         historiqueLogin.setAction("SE CONNECTER");
         historiqueLogin.setCreatedDate(new Date());
         historiqueLoginService.saveHistoriqueLogin(historiqueLogin);

@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.CountryApi;
+import com.flowers.dtos.CountryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Country;
 import com.flowers.services.CountryService;
@@ -19,36 +20,32 @@ public class CountryController implements CountryApi {
 
 
     @Override
-    public ResponseEntity<Country> saveCountry(Country country) {
-        return ResponseEntity.ok(countryService.saveCountry(country));
+    public ResponseEntity<CountryDto> saveCountry(CountryDto countryDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Country> updateCountry(Long countId, Country country) {
-        country.setId(countId);
-        return ResponseEntity.ok(countryService.saveCountry(country));
+    public ResponseEntity<CountryDto> updateCountry(Long countId, CountryDto countryDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Country> getCountryById(Long countId) throws ResourceNotFoundException {
-        Country country = countryService.findCountryById(countId)
-                .orElseThrow(() -> new ResourceNotFoundException("Country not found"));
-        return ResponseEntity.ok().body(country);
+    public ResponseEntity<CountryDto> getCountryById(Long countId) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Country>> getAllCountries() {
-        return ResponseEntity.ok(countryService.findAllCountries());
+    public ResponseEntity<List<CountryDto>> getAllCountries() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Country>> getAllCountriesOderByIdDesc() {
-        List<Country> countryList = countryService.findCountryByOrderByIdDesc();
-        return new ResponseEntity<>(countryList, HttpStatus.OK);
+    public ResponseEntity<List<CountryDto>> getAllCountriesOderByIdDesc() {
+        return null;
     }
 
     @Override
     public void deleteCountry(Long countId) {
-        countryService.deleteCountry(countId);
+
     }
 }

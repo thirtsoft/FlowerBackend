@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.FournisseurApi;
+import com.flowers.dtos.FournisseurDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Fournisseur;
 import com.flowers.services.FournisseurService;
@@ -20,32 +21,28 @@ public class FournisseurController implements FournisseurApi {
 
 
     @Override
-    public ResponseEntity<Fournisseur> save(Fournisseur fournisseur) {
-        return ResponseEntity.ok(fournisseurService.saveFournisseur(fournisseur));
+    public ResponseEntity<FournisseurDto> saveFournisseur(FournisseurDto fournisseurDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Fournisseur> update(Long id, Fournisseur fournisseur) {
-        fournisseur.setId(id);
-        return ResponseEntity.ok(fournisseurService.saveFournisseur(fournisseur));
+    public ResponseEntity<FournisseurDto> updateFournisseur(Long id, FournisseurDto fournisseurDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Fournisseur> getFournisseurById(Long id) throws ResourceNotFoundException {
-        Fournisseur fournisseur = fournisseurService.findFournisseurById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Fournisseur not found"));
-        return ResponseEntity.ok().body(fournisseur);
+    public ResponseEntity<FournisseurDto> getFournisseurById(Long id) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Fournisseur>> getAllFournisseurs() {
-        return ResponseEntity.ok(fournisseurService.findAllFournisseurs());
+    public ResponseEntity<List<FournisseurDto>> getAllFournisseurs() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Fournisseur>> getAllFournisseursOrderByIdDesc() {
-        List<Fournisseur> fournisseurList = fournisseurService.findFournisseurByOrderByIdDesc();
-        return new ResponseEntity<>(fournisseurList, HttpStatus.OK);
+    public ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc() {
+        return null;
     }
 
     @Override

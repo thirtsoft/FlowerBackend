@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.NewsletterApi;
+import com.flowers.dtos.NewsletterDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Newsletter;
 import com.flowers.services.NewsletterService;
@@ -24,28 +25,25 @@ public class NewsletterController implements NewsletterApi {
         this.newsletterService = newsletterService;
     }
 
+
     @Override
-    public ResponseEntity<Newsletter> save(Newsletter newsletter) {
-        return ResponseEntity.ok(newsletterService.save(newsletter));
+    public ResponseEntity<NewsletterDto> saveNewsletter(NewsletterDto newsletterDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Newsletter> getNewsletterById(Long id) throws ResourceNotFoundException {
-        Newsletter newsletter = newsletterService.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Newsletter not found"));
-        return ResponseEntity.ok().body(newsletter);
+    public ResponseEntity<NewsletterDto> getNewsletterById(Long id) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Newsletter>> findAll() {
-        List<Newsletter> newsletterList = newsletterService.findAll();
-        return new ResponseEntity<>(newsletterList, HttpStatus.OK);
+    public ResponseEntity<List<NewsletterDto>> getAllNewsletters() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Newsletter>> getAllNewslettersOrderByIdDesc() {
-        List<Newsletter> newsletterList = newsletterService.findByOrderByIdDesc();
-        return new ResponseEntity<>(newsletterList, HttpStatus.OK);
+    public ResponseEntity<List<NewsletterDto>> getAllNewslettersOrderByIdDesc() {
+        return null;
     }
 
     @Override

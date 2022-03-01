@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.CommandeDto;
 import com.flowers.models.Commande;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,102 +15,102 @@ import java.util.List;
 
 import static com.flowers.utils.Constants.APP_ROOT;
 
-public interface OrderApi {
+public interface CommandeApi {
 
     @PostMapping(value = APP_ROOT + "/orders/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une commande",
-            notes = "Cette méthode permet d'ajouter une commande", response = Commande.class)
+            notes = "Cette méthode permet d'ajouter une commande", response = CommandeDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "La Country a été crée"),
             @ApiResponse(code = 400, message = "Aucun Country  crée / modifié")
     })
-    ResponseEntity<Commande> save(@RequestBody Commande commande);
+    ResponseEntity<CommandeDto> saveCommande(@RequestBody CommandeDto commandeDto);
 
     @PutMapping(value = APP_ROOT + "/orders/update/{idOrder}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une commande par son ID",
-            notes = "Cette méthode permet de modifier une commande par son ID", response = Commande.class)
+            notes = "Cette méthode permet de modifier une commande par son ID", response = CommandeDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Country a été modifiée"),
             @ApiResponse(code = 400, message = "La Country a n'est pas modifiée")
     })
-    ResponseEntity<Commande> update(@PathVariable("idOrder") Long id, @RequestBody Commande commande);
+    ResponseEntity<CommandeDto> updateCommande(@PathVariable("idOrder") Long id, @RequestBody CommandeDto commandeDto);
 
     @PatchMapping(value = APP_ROOT + "/orders/updateStatusOfOrder/{id}")
     @ApiOperation(value = "Modifier une Commande par son Status",
-            notes = "Cette méthode permet de modifier une Commande par son Status", response = Commande.class)
+            notes = "Cette méthode permet de modifier une Commande par son Status", response = CommandeDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
     })
-    ResponseEntity<Commande> updateStatusOfOrder(@RequestParam("status") String status, @PathVariable("id") String id);
+    ResponseEntity<CommandeDto> updateStatusOfOrder(@RequestParam("status") String status, @PathVariable("id") String id);
 
     @GetMapping(value = APP_ROOT + "/orders/findById/{idOrder}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une commande par ID",
-            notes = "Cette méthode permet de chercher une commande par son ID", response = Commande.class
+            notes = "Cette méthode permet de chercher une commande par son ID", response = CommandeDto.class
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La commande a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Country n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<Commande> getById(@PathVariable("idOrder") Long id);
+    ResponseEntity<CommandeDto> getCommandeById(@PathVariable("idOrder") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
     })
-    ResponseEntity<List<Commande>> getAll();
+    ResponseEntity<List<CommandeDto>> getAllCommandes();
 
     @GetMapping(value = APP_ROOT + "/orders/searchAllOrdersOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
-            responseContainer = "List<Order>")
+            responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<Commande>> getAllOrdersOrderByIdDesc();
+    ResponseEntity<List<CommandeDto>> getAllCommandesOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/orders/findListOrderByStatuePending", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes dont le status encours",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes dont le status est encours", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes dont le status est encours", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
     })
-    ResponseEntity<List<Commande>> getListOrderByStatusPending();
+    ResponseEntity<List<CommandeDto>> getAllCommandesByStatusPending();
 
     @GetMapping(value = APP_ROOT + "/orders/findListOrderByStatuePayed", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes payees",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes payees", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes payees", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes payees / une liste vide")
     })
-    ResponseEntity<List<Commande>> getListOrderByStatusPayed();
+    ResponseEntity<List<CommandeDto>> getAllCommandesByStatusPayed();
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrderByUserIdOrderByIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<Commande>> getOrdersByUserOrderByIdDesc(@PathVariable(name = "id") Long id);
+    ResponseEntity<List<CommandeDto>> getAllCommandesByUserOrderByIdDesc(@PathVariable(name = "id") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrderByBillingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<Commande>> getOrdersByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
+    ResponseEntity<List<CommandeDto>> getAllCommandessByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrderByShippingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<Commande>> getOrdersByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
+    ResponseEntity<List<CommandeDto>> getAllCommandesByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Commande",
@@ -133,7 +134,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
     })
-    BigDecimal countNumberOfOrdersByStatusPending();
+    BigDecimal countNumberOfCommandesByStatusPending();
 
     @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByDay", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande du jour",
@@ -141,7 +142,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le montant des Commande par jour / somme nulle")
     })
-    BigDecimal sumTotaleOfOrderByDay();
+    BigDecimal sumTotaleOfCommandesByDay();
 
     @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande du moi",
@@ -149,7 +150,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le montant des Commande par moi / somme nulle")
     })
-    BigDecimal sumTotaleOfOrderByMonth();
+    BigDecimal sumTotaleOfCommandesByMonth();
 
     @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByYear", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande d'une années",
@@ -157,11 +158,11 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le montant des Commande par années / somme nulle")
     })
-    BigDecimal sumTotaleOfOrderByYear();
+    BigDecimal sumTotaleOfCommandesByYear();
 
     @GetMapping(value = APP_ROOT + "/orders/numberOfOrderByDay", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par jour",
-            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste du nombre de Commandes par jour / une liste vide")
     })
@@ -169,7 +170,7 @@ public interface OrderApi {
 
     @GetMapping(value = APP_ROOT + "/orders/numberOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par moi",
-            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par moi", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par moi", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste du nombre de Commandes par moi / une liste vide")
     })
@@ -177,7 +178,7 @@ public interface OrderApi {
 
     @GetMapping(value = APP_ROOT + "/orders/sumTotaleOfOrderByMonthByList", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des sommes des Commandes par moi",
-            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par moi", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par moi", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des sommes des Commandes par moi / une liste vide")
     })
@@ -185,7 +186,7 @@ public interface OrderApi {
 
     @GetMapping(value = APP_ROOT + "/orders/sumTotaleOfOrderByYearList", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des sommes des Commandes par années",
-            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par années", responseContainer = "List<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par années", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des sommes des Commandes par années / une liste vide")
     })
@@ -193,16 +194,16 @@ public interface OrderApi {
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrdersByUtilisateurIdByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<Order>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
     })
-    Page<Commande> getOrdersByUtilisateurIdByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
+    Page<CommandeDto> getOrdersByUtilisateurIdByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
                                                        @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/orders/delete/{idOrder}")
     @ApiOperation(value = "Supprimer une Commande par son ID",
-            notes = "Cette méthode permet de supprimer une Commande par son ID", response = Commande.class)
+            notes = "Cette méthode permet de supprimer une Commande par son ID", response = CommandeDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La CommandeDto a été supprimé")
     })

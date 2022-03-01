@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.BlogApi;
+import com.flowers.dtos.BlogDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Blog;
 import com.flowers.services.BlogService;
@@ -25,33 +26,28 @@ public class BlogController implements BlogApi {
     }
 
     @Override
-    public ResponseEntity<Blog> saveBlog(Blog blog) {
-        return ResponseEntity.ok(blogService.saveBlog(blog));
+    public ResponseEntity<BlogDto> saveBlog(BlogDto blogDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Blog> updateBlog(Long blogId, Blog blog) {
-        blog.setId(blogId);
-        return ResponseEntity.ok(blogService.saveBlog(blog));
+    public ResponseEntity<BlogDto> updateBlog(Long blogId, BlogDto blogDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Blog> getBlogById(Long blogId) throws ResourceNotFoundException {
-        Blog blog = blogService.findBlogById(blogId)
-                .orElseThrow(() -> new ResourceNotFoundException("Blog not found"));
-        return ResponseEntity.ok().body(blog);
+    public ResponseEntity<BlogDto> getBlogById(Long blogId) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Blog>> getAllBlogs() {
-        List<Blog> blogList = blogService.findAllBlog();
-        return new ResponseEntity<>(blogList, HttpStatus.OK);
+    public ResponseEntity<List<BlogDto>> getAllBlogs() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Blog>> getAllBlogsOrderByIdDesc() {
-        List<Blog> blogList = blogService.findBlogByOrderByIdDesc();
-        return new ResponseEntity<>(blogList, HttpStatus.OK);
+    public ResponseEntity<List<BlogDto>> getAllBlogsOrderByIdDesc() {
+        return null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.RatingApi;
+import com.flowers.dtos.RatingDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Product;
 import com.flowers.models.Rating;
@@ -39,73 +40,48 @@ public class RatingController implements RatingApi {
     }
 
     @Override
-    public ResponseEntity<Rating> save(Rating rating) {
-        return ResponseEntity.ok(ratingService.save(rating));
+    public ResponseEntity<RatingDto> saveRating(RatingDto ratingDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Rating> saveRatingToArticle(Long id, Rating rating) {
-        return ResponseEntity.ok(ratingService.saveRatingToArticle(id, rating));
+    public ResponseEntity<RatingDto> saveRatingToArticle(Long id, RatingDto ratingDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Rating> saveRating(Rating rating, String reference, Long id) {
-
-        Optional<Product> optionalProduct = productService.findByReference(reference);
-
-        //    Optional<Utilisateur> optionalUtilisateur = utilisateurService.findUtilisateurById(id);
-
-        Utilisateur utilisateur = utilisateurService.findUtilisateurById(id).get();
-
-        Product productResult = optionalProduct.get();
-
-        //    Utilisateur utilisateur = optionalUtilisateur.get();
-
-        rating.setProduct(productResult);
-        rating.setUtilisateur(utilisateur);
-
-        rating.setCreatedDate(new Date());
-
-        Rating ratingResult = ratingService.save(rating);
-
-
-        return new ResponseEntity<>(ratingResult, HttpStatus.CREATED);
+    public ResponseEntity<RatingDto> saveRating(RatingDto ratingDto, String reference, Long id) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<Rating> getRatingById(Long id) throws ResourceNotFoundException {
-        Rating rating = ratingService.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Rating not found"));
-        return ResponseEntity.ok().body(rating);
+    public ResponseEntity<RatingDto> getRatingById(Long id) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Rating>> findAll() {
-        List<Rating> ratingList = ratingService.findAll();
-
-        return new ResponseEntity(ratingList, HttpStatus.OK);
+    public ResponseEntity<List<RatingDto>> getAllRatings() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Rating>> getAllratingsOrderByIdDesc() {
-        List<Rating> ratingList = ratingService.findByOrderByIdDesc();
-        return new ResponseEntity(ratingList, HttpStatus.OK);
+    public ResponseEntity<List<RatingDto>> getAllRatingsOrderByIdDesc() {
+        return null;
     }
 
     @Override
     public BigDecimal countNumberOfRating() {
-        return ratingService.countNumberOfRating();
+        return null;
     }
 
     @Override
     public BigDecimal countNumberOfRatingByProductId(String prodRef) {
-        return ratingService.countNumberOfRatingByProductId(prodRef);
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<Rating>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
-        List<Rating> ratingList = ratingService.findTop4ByOrderByCreatedDateDescByProductId(prodRef);
-        return new ResponseEntity(ratingList, HttpStatus.OK);
+    public ResponseEntity<List<RatingDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
+        return null;
     }
 
     @Override

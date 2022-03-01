@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.models.HistoriqueLogin;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -16,39 +17,39 @@ public interface HistoriqueLoginApi {
 
     @PostMapping(value = APP_ROOT + "/historiqueLogins/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un HistoriqueLogin",
-            notes = "Cette méthode permet d'ajouter un HistoriqueLogin", response = HistoriqueLogin.class)
+            notes = "Cette méthode permet d'ajouter un HistoriqueLogin", response = HistoriqueLoginDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Le HistoriqueLogin a été crée"),
             @ApiResponse(code = 400, message = "Aucun HistoriqueLogin  crée / modifié")
     })
-    ResponseEntity<HistoriqueLogin> save(@RequestBody HistoriqueLogin historiqueLogin);
+    ResponseEntity<HistoriqueLoginDto> saveHistoriqueLogin(@RequestBody HistoriqueLoginDto historiqueLoginDto);
 
-    @GetMapping(value = APP_ROOT + "/historiqueLogins/findById/{idHisotiqueLogin}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/historiqueLogins/findById/{idHistLog}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une HistoriqueLogin par ID",
-            notes = "Cette méthode permet de chercher une HistoriqueLogin par son ID", response = HistoriqueLogin.class
+            notes = "Cette méthode permet de chercher une HistoriqueLogin par son ID", response = HistoriqueLoginDto.class
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La HistoriqueLogin a été trouver"),
             @ApiResponse(code = 404, message = "Aucun HistoriqueLogin n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<HistoriqueLogin> findById(@PathVariable("idHisotiqueLogin") Long id);
+    ResponseEntity<HistoriqueLoginDto> getHistoriqueLoginById(@PathVariable("idHistLog") Long id);
 
     @GetMapping(value = APP_ROOT + "/historiqueLogins/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des HistoriqueLogin",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des HistoriqueLogin", responseContainer = "List<HistoriqueLogin>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des HistoriqueLogin", responseContainer = "List<HistoriqueLoginDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des HistoriqueLogin / une liste vide")
     })
-    ResponseEntity<List<HistoriqueLogin>> findAll();
+    ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLogins();
 
     @GetMapping(value = APP_ROOT + "/historiqueLogins/searchAllHistoriqueLoginsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des HistoriqueLogin par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des HistoriqueLogin par ordre descroissante",
-            responseContainer = "List<HistoriqueLogin>")
+            responseContainer = "List<HistoriqueLoginDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des HistoriqueLogin  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<HistoriqueLogin> > getAllHistoriqueLoginOrderByIdDesc();
+    ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLoginOrderByIdDesc();
 
 
     @GetMapping(value = APP_ROOT + "/historiqueLogins/countNumberOfHistoriqueLogin", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,11 +60,11 @@ public interface HistoriqueLoginApi {
     })
     BigDecimal countNumberOfHistoriqueLogins();
 
-    @DeleteMapping(value = APP_ROOT + "/historiqueLogins/delete/{idHisotiqueLogin}")
+    @DeleteMapping(value = APP_ROOT + "/historiqueLogins/delete/{idHistLog}")
     @ApiOperation(value = "Supprimer un HistoriqueLogin par son ID",
-            notes = "Cette méthode permet de supprimer une HistoriqueLogin par son ID", response = HistoriqueLogin.class)
+            notes = "Cette méthode permet de supprimer une HistoriqueLogin par son ID", response = HistoriqueLoginDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La HistoriqueLogin a été supprimé")
     })
-    void delete(@PathVariable("idHisotiqueLogin") Long id);
+    void delete(@PathVariable("idHistLog") Long id);
 }

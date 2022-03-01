@@ -44,7 +44,7 @@ public interface BlogApi {
             @ApiResponse(code = 200, message = "La Blog a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Blog n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<BlogDto> getBlogById(@PathVariable(value = "blogId") Long blogId) throws ResourceNotFoundException;
+    ResponseEntity<BlogDto> getBlogById(@PathVariable(value = "blogId") Long blogId);
 
 
     @GetMapping(value = APP_ROOT + "/blogs/all", produces = MediaType.APPLICATION_JSON_VALUE)

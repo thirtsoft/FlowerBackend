@@ -1,6 +1,7 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.StateApi;
+import com.flowers.dtos.StateDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.State;
 import com.flowers.services.StateService;
@@ -19,38 +20,33 @@ public class StateController implements StateApi {
 
 
     @Override
-    public ResponseEntity<State> saveState(State state) {
-        return ResponseEntity.ok(stateService.saveState(state));
+    public ResponseEntity<StateDto> saveState(StateDto stateDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<State> updateState(Long stateId, State state) {
-        state.setId(stateId);
-        return ResponseEntity.ok(stateService.saveState(state));
+    public ResponseEntity<StateDto> updateState(Long stateId, StateDto stateDto) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<State> getStateById(Long stateId) throws ResourceNotFoundException {
-        State state = stateService.findStateById(stateId)
-                .orElseThrow(() -> new ResourceNotFoundException("State not found"));
-        return ResponseEntity.ok().body(state);
+    public ResponseEntity<StateDto> getStateById(Long stateId) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<State>> getAllStates() {
-        return ResponseEntity.ok(stateService.findAllStates());
+    public ResponseEntity<List<StateDto>> getAllStates() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<State>> getAllStatesOrderByIdDesc() {
-        List<State> stateList = stateService.findStateByOrderByIdDesc();
-        return new ResponseEntity<>(stateList, HttpStatus.OK);
+    public ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc() {
+        return null;
     }
 
     @Override
-    public ResponseEntity<List<State>> getAllStateByCountryCode(String code) {
-        List<State> stateList = stateService.findAllStateByCountryCode(code);
-        return new ResponseEntity<>(stateList, HttpStatus.OK);
+    public ResponseEntity<List<StateDto>> getAllStateByCountryCode(String code) {
+        return null;
     }
 
     @Override
