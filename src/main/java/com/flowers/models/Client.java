@@ -45,7 +45,7 @@ public class Client implements Serializable {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Order> orderList = new ArrayList<>();
+    private List<Commande> commandeList = new ArrayList<>();
 
     public Client(String firstName, String lastName, String mobile,
                   String email,
@@ -70,13 +70,13 @@ public class Client implements Serializable {
 
     }
 
-    public void add(Order order) {
-        if (order != null) {
-            if (orderList == null) {
-                orderList = new ArrayList<>();
+    public void add(Commande commande) {
+        if (commande != null) {
+            if (commandeList == null) {
+                commandeList = new ArrayList<>();
             }
-            orderList.add(order);
-            order.setClient(this);
+            commandeList.add(commande);
+            commande.setClient(this);
         }
     }
 

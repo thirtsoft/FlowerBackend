@@ -1,35 +1,41 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.CountryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Country;
 import com.flowers.reposiory.CountryRepository;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
 
+
     @Override
-    public Country saveCountry(Country country) {
-        if (country.getName() != null) {
-            throw new ResourceNotFoundException("Country already exists");
-        }
-        return countryRepository.save(country);
+    public CountryDto saveCountry(CountryDto countryDto) {
+        return CountryDto.fromEntityToDto(
+                countryRepository.save(
+                        CountryDto.fromDtoToEntity(countryDto)
+                )
+        );
     }
 
     @Override
-    public Country updateCountry(Long countryId, Country country) {
+    public CountryDto updateCountry(Long countryId, CountryDto countryDto) {
         if (!countryRepository.existsById(countryId)) {
-            throw new ResourceNotFoundException("Country that id is" + countryId + "is not found");
+            throw new ResourceNotFoundException("Country not found");
         }
         Optional<Country> optionalCountry = countryRepository.findById(countryId);
 
@@ -37,37 +43,53 @@ public class CountryServiceImpl implements CountryService {
             throw new ResourceNotFoundException("Country not found");
         }
 
-        Country countryResult = optionalCountry.get();
-        countryResult.setName(country.getName());
+        CountryDto countryDtoResult = CountryDto.fromEntityToDto(optionalCountry.get());
+        countryDtoResult.setCode(countryDto.getCode());
+        countryDtoResult.setName(countryDto.getName());
 
-        return countryRepository.save(countryResult);
+        return CountryDto.fromEntityToDto(
+                countryRepository.save(
+                        CountryDto.fromDtoToEntity(countryDtoResult)
+                )
+        );
     }
 
     @Override
-    public Optional<Country> findCountryById(Long countryId) {
-        if (!countryRepository.existsById(countryId)) {
-            throw new ResourceNotFoundException("Country that id is " + countryId + "not found");
+    public CountryDto findCountryById(Long countryId) {
+        if (countryId == null) {
+            log.error("Country Id is null");
+            return null;
         }
-        return countryRepository.findById(countryId);
+
+        Optional<Country> optionalCountry = countryRepository.findById(countryId);
+
+        return Optional.of(CountryDto.fromEntityToDto(optionalCountry.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Country avec l'Id = " + countryId + "n'a été trouvé")
+        );
     }
 
-
     @Override
-    public List<Country> findAllCountries() {
-        return countryRepository.findAll();
+    public List<CountryDto> findAllCountries() {
+        return countryRepository.findAll().stream()
+                .map(CountryDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Country> findCountryByOrderByIdDesc() {
-        return countryRepository.findByOrderByIdDesc();
+    public List<CountryDto> findCountryByOrderByIdDesc() {
+        return countryRepository.findByOrderByIdDesc().stream()
+                .map(CountryDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteCountry(Long countryId) {
-        if (!countryRepository.existsById(countryId)) {
-            throw new ResourceNotFoundException("Country not found");
+        if (countryId == null) {
+            log.error("Country Id is null");
+            return;
         }
         countryRepository.deleteById(countryId);
-    }
 
+    }
 }

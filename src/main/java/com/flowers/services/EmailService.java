@@ -1,31 +1,30 @@
 package com.flowers.services;
 
-import com.flowers.models.Email;
-import com.flowers.models.Fournisseur;
-import com.flowers.models.Newsletter;
+import com.flowers.dtos.EmailDto;
+import com.flowers.dtos.FournisseurDto;
+import com.flowers.dtos.NewsletterDto;
 import org.springframework.mail.MailException;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 public interface EmailService {
 
-    void sendEmailToManager(Email email) throws MailException;
+    void sendEmailToManager(EmailDto emailDto) throws MailException;
 
-    void sendEmailToProvider(Fournisseur fournisseur) throws MailException;
+    void sendEmailToProvider(FournisseurDto fournisseurDto) throws MailException;
 
-    void sendEmailToNewsletter(Newsletter newsletter) throws MailException;
+    void sendEmailToNewsletter(NewsletterDto newsletterDto) throws MailException;
 
-    void sendMailToAllNewsletters(Newsletter newsletter);
+    void sendMailToAllNewsletters(NewsletterDto newsletterDto);
 
-    Optional<Email> findEmailById(Long mailId);
+    EmailDto findEmailById(Long mailId);
 
     BigDecimal countNumberOfEmailInMonth();
 
-    List<Email> findAll();
+    List<EmailDto> findAll();
 
-    List<Email> findByOrderByIdDesc();
+    List<EmailDto> findByOrderByIdDesc();
 
     void delete(Long id);
 }

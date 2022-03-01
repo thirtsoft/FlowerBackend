@@ -21,21 +21,21 @@ public interface ProductApi {
 
     @PostMapping(value = APP_ROOT + "/products/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Enregistrer un Artilce",
+    @ApiOperation(value = "Enregistrer un Product",
             notes = "Cette méthode permet d'ajouter un Product", response = Product.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "L'Artilce a été crée"),
-            @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
+            @ApiResponse(code = 201, message = "L'Product a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Product  crée / modifié")
 
     })
     ResponseEntity<Product> save(@RequestBody Product product);
 
     @PostMapping(value = APP_ROOT + "/products/createWithFile")
-    @ApiOperation(value = "Enregistrer un Artilce avec une photo",
+    @ApiOperation(value = "Enregistrer un Product avec une photo",
             notes = "Cette méthode permet d'ajouter un Product une photo", response = Product.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "L'Artilce a été crée"),
-            @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
+            @ApiResponse(code = 201, message = "L'Product a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Product  crée / modifié")
 
     })
     ResponseEntity<Product> saveProductWithFile(@RequestParam(name = "Product") String product,
@@ -46,29 +46,29 @@ public interface ProductApi {
     @ApiOperation(value = "Modifier un Product par son ID",
             notes = "Cette méthode permet de modifier un Product par son ID", response = Product.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'Artilce a été modifiée"),
-            @ApiResponse(code = 400, message = "L'Artilce a n'est pas modifiée")
+            @ApiResponse(code = 200, message = "L'Product a été modifiée"),
+            @ApiResponse(code = 400, message = "L'Product a n'est pas modifiée")
     })
     ResponseEntity<Product> update(@PathVariable("idProduct") Long id, @RequestBody Product product);
 
     @GetMapping(value = APP_ROOT + "/products/findById/{idProduct}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Rechercher une Artilce par ID",
-            notes = "Cette méthode permet de chercher un Artilce par son ID", response = Product.class
+    @ApiOperation(value = "Rechercher une Product par ID",
+            notes = "Cette méthode permet de chercher un Product par son ID", response = Product.class
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'Artilce a été trouver"),
-            @ApiResponse(code = 404, message = "Aucun Artilce n'existe avec cette ID pas dans la BD")
+            @ApiResponse(code = 200, message = "L'Product a été trouver"),
+            @ApiResponse(code = 404, message = "Aucun Product n'existe avec cette ID pas dans la BD")
 
     })
     ResponseEntity<Product> getProductById(@PathVariable("idProduct") Long id) throws ResourceNotFoundException;
 
     @GetMapping(value = APP_ROOT + "/products/searchProductbyReference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Rechercher un Artilce par Reference",
+    @ApiOperation(value = "Rechercher un Product par Reference",
             notes = "Cette méthode permet de chercher un Produit par sa Reference", response = Product.class
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'Artilce a été trouver"),
-            @ApiResponse(code = 404, message = "Aucun Artilce n'existe avec cette ID pas dans la BD")
+            @ApiResponse(code = 200, message = "L'Product a été trouver"),
+            @ApiResponse(code = 404, message = "Aucun Product n'existe avec cette ID pas dans la BD")
     })
     ResponseEntity<Product> getProductByReference(@PathVariable("reference") String reference);
 
@@ -80,7 +80,7 @@ public interface ProductApi {
     })
     ResponseEntity<List<Product>> getAllProducts();
 
-    @GetMapping(value = APP_ROOT + "/products/productsByScategories/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/products/productsBySubCategories/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par Scategory",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products par Scategory", responseContainer = "List<Product>")
     @ApiResponses(value = {
@@ -104,8 +104,8 @@ public interface ProductApi {
     })
     ResponseEntity<List<Product>> getListProductByPrice(@PathVariable("price") double price);
 
-    @GetMapping(value = APP_ROOT + "/products/searchProductByselectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des products selectionner",
+    @GetMapping(value = APP_ROOT + "/products/searchProductBySelectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products Selectionner",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products selectionner", responseContainer = "List<Product>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products selectionner / une liste vide")

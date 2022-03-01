@@ -53,11 +53,13 @@ public class RatingController implements RatingApi {
 
         Optional<Product> optionalProduct = productService.findByReference(reference);
 
-        Optional<Utilisateur> optionalUtilisateur = utilisateurService.findUtilisateurById(id);
+        //    Optional<Utilisateur> optionalUtilisateur = utilisateurService.findUtilisateurById(id);
+
+        Utilisateur utilisateur = utilisateurService.findUtilisateurById(id).get();
 
         Product productResult = optionalProduct.get();
 
-        Utilisateur utilisateur = optionalUtilisateur.get();
+        //    Utilisateur utilisateur = optionalUtilisateur.get();
 
         rating.setProduct(productResult);
         rating.setUtilisateur(utilisateur);

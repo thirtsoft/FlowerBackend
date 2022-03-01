@@ -1,6 +1,6 @@
 package com.flowers.controllers.api;
 
-import com.flowers.models.Order;
+import com.flowers.models.Commande;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -19,40 +19,40 @@ public interface OrderApi {
     @PostMapping(value = APP_ROOT + "/orders/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une commande",
-            notes = "Cette méthode permet d'ajouter une commande", response = Order.class)
+            notes = "Cette méthode permet d'ajouter une commande", response = Commande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "La Country a été crée"),
             @ApiResponse(code = 400, message = "Aucun Country  crée / modifié")
     })
-    ResponseEntity<Order> save(@RequestBody Order order);
+    ResponseEntity<Commande> save(@RequestBody Commande commande);
 
     @PutMapping(value = APP_ROOT + "/orders/update/{idOrder}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une commande par son ID",
-            notes = "Cette méthode permet de modifier une commande par son ID", response = Order.class)
+            notes = "Cette méthode permet de modifier une commande par son ID", response = Commande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Country a été modifiée"),
             @ApiResponse(code = 400, message = "La Country a n'est pas modifiée")
     })
-    ResponseEntity<Order> update(@PathVariable("idOrder") Long id, @RequestBody Order order);
+    ResponseEntity<Commande> update(@PathVariable("idOrder") Long id, @RequestBody Commande commande);
 
     @PatchMapping(value = APP_ROOT + "/orders/updateStatusOfOrder/{id}")
     @ApiOperation(value = "Modifier une Commande par son Status",
-            notes = "Cette méthode permet de modifier une Commande par son Status", response = Order.class)
+            notes = "Cette méthode permet de modifier une Commande par son Status", response = Commande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
     })
-    ResponseEntity<Order> updateStatusOfOrder(@RequestParam("status") String status, @PathVariable("id") String id);
+    ResponseEntity<Commande> updateStatusOfOrder(@RequestParam("status") String status, @PathVariable("id") String id);
 
     @GetMapping(value = APP_ROOT + "/orders/findById/{idOrder}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une commande par ID",
-            notes = "Cette méthode permet de chercher une commande par son ID", response = Order.class
+            notes = "Cette méthode permet de chercher une commande par son ID", response = Commande.class
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La commande a été trouver"),
             @ApiResponse(code = 404, message = "Aucun Country n'existe avec cette ID pas dans la BD")
     })
-    ResponseEntity<Order> getById(@PathVariable("idOrder") Long id);
+    ResponseEntity<Commande> getById(@PathVariable("idOrder") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes",
@@ -60,7 +60,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
     })
-    ResponseEntity<List<Order>> getAll();
+    ResponseEntity<List<Commande>> getAll();
 
     @GetMapping(value = APP_ROOT + "/orders/searchAllOrdersOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
@@ -69,7 +69,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<Order>> getAllOrdersOrderByIdDesc();
+    ResponseEntity<List<Commande>> getAllOrdersOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/orders/findListOrderByStatuePending", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes dont le status encours",
@@ -77,7 +77,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
     })
-    ResponseEntity<List<Order>> getListOrderByStatusPending();
+    ResponseEntity<List<Commande>> getListOrderByStatusPending();
 
     @GetMapping(value = APP_ROOT + "/orders/findListOrderByStatuePayed", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes payees",
@@ -85,7 +85,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes payees / une liste vide")
     })
-    ResponseEntity<List<Order>> getListOrderByStatusPayed();
+    ResponseEntity<List<Commande>> getListOrderByStatusPayed();
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrderByUserIdOrderByIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
@@ -93,7 +93,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<Order>> getOrdersByUserOrderByIdDesc(@PathVariable(name = "id") Long id);
+    ResponseEntity<List<Commande>> getOrdersByUserOrderByIdDesc(@PathVariable(name = "id") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrderByBillingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
@@ -101,7 +101,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<Order>> getOrdersByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
+    ResponseEntity<List<Commande>> getOrdersByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/searchOrderByShippingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
@@ -109,7 +109,7 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<Order>> getOrdersByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
+    ResponseEntity<List<Commande>> getOrdersByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
 
     @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrder", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Commande",
@@ -197,12 +197,12 @@ public interface OrderApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
     })
-    Page<Order> getOrdersByUtilisateurIdByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
-                                                    @RequestParam(name = "size") int size);
+    Page<Commande> getOrdersByUtilisateurIdByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
+                                                       @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/orders/delete/{idOrder}")
     @ApiOperation(value = "Supprimer une Commande par son ID",
-            notes = "Cette méthode permet de supprimer une Commande par son ID", response = Order.class)
+            notes = "Cette méthode permet de supprimer une Commande par son ID", response = Commande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La CommandeDto a été supprimé")
     })

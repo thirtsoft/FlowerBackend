@@ -1,6 +1,6 @@
 package com.flowers.services;
 
-import com.flowers.models.Product;
+import com.flowers.dtos.ProductDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,39 +11,39 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    Product saveProduct(Product product);
+    ProductDto saveProduct(ProductDto productDto);
 
-    Product saveProductWithFile(String product, MultipartFile photoProduct) throws IOException;
+    ProductDto saveProductWithFile(String product, MultipartFile photoProduct) throws IOException;
 
-    Product update(Long id, Product product);
+    ProductDto update(Long id, ProductDto productDto);
 
-    Optional<Product> findById(Long id);
+    ProductDto findById(Long id);
 
-    Optional<Product> findByReference(String reference);
+    ProductDto findByReference(String reference);
 
-    List<Product> findAll();
+    List<ProductDto> findAll();
 
-    List<Product> findListProductBySubCategories(Long subCatId);
+    List<ProductDto> findListProductBySubCategories(Long subCatId);
 
-    List<Product> findListProductByKeyword(String keyword);
+    List<ProductDto> findListProductByKeyword(String keyword);
 
-    List<Product> findListProductGroupByPrice(double price);
+    List<ProductDto> findListProductGroupByPrice(double price);
 
-    List<Product> findListProductBySelected();
+    List<ProductDto> findListProductBySelected();
 
-    List<Product> findListProductByPromo();
+    List<ProductDto> findListProductByPromo();
 
-    List<Product> findTop24ByOrderByCreateDateDesc();
+    List<ProductDto> findTop24ByOrderByCreateDateDesc();
 
-    List<Product> findByOrderByIdDesc();
+    List<ProductDto> findByOrderByIdDesc();
 
-    List<Product> findListProductByPriceMinMax(double min, double max);
+    List<ProductDto> findListProductByPriceMinMax(double min, double max);
 
-    Page<Product> findProductByPageable(Pageable pageable);
+    Page<ProductDto> findProductByPageable(Pageable pageable);
 
-    Page<Product> findProductBySubCategoryPageable(Long scatId, Pageable pageable);
+    Page<ProductDto> findProductBySubCategoryPageable(Long scatId, Pageable pageable);
 
-    Page<Product> findProductBySamePricePageable(double price, Pageable pageable);
+    Page<ProductDto> findProductBySamePricePageable(double price, Pageable pageable);
 
     void delete(Long id);
 

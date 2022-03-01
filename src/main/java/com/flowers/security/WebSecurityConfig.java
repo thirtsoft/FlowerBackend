@@ -116,9 +116,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/states/searchStateByCountryCode?{code}").permitAll()
                 .antMatchers("/**/countries/all").permitAll()
 
-                .antMatchers("/**/checkout/placeToOrder").permitAll()
-                .antMatchers("/**/checkout/placeToOrderWithUser/*").permitAll()
                 .antMatchers("/**/checkout/placeToOrderWithLoginUser/*").permitAll()
+                .antMatchers("/**/checkout/placeToOrder").permitAll()
+                .antMatchers("/**/checkout/placeToOrderWithUser/{id}").permitAll()
+                .antMatchers("/**/checkout/purchase").permitAll()
 
                 .antMatchers("/**/blogs/findById/{blogId}").permitAll()
                 .antMatchers("/**/blogs/all").permitAll()

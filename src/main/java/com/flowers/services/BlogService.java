@@ -1,6 +1,6 @@
 package com.flowers.services;
 
-import com.flowers.models.Blog;
+import com.flowers.dtos.BlogDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,15 +8,15 @@ import java.util.Optional;
 
 public interface BlogService {
 
-    Blog saveBlog(Blog blog);
+    BlogDto saveBlog(BlogDto blogDto);
 
-    Blog updateBlog(Long blogId, Blog blog);
+    BlogDto updateBlog(Long blogId, BlogDto blogDto);
 
-    Optional<Blog> findBlogById(Long id);
+    BlogDto findBlogById(Long id);
 
-    List<Blog> findAllBlog();
+    List<BlogDto> findAllBlog();
 
-    List<Blog> findBlogByOrderByIdDesc();
+    List<BlogDto> findBlogByOrderByIdDesc();
 
     BigDecimal countNumberOfBlogs();
 

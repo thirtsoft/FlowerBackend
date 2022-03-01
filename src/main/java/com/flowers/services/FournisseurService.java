@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.FournisseurDto;
 import com.flowers.models.Fournisseur;
 
 import java.math.BigDecimal;
@@ -8,17 +9,17 @@ import java.util.Optional;
 
 public interface FournisseurService {
 
-    List<Fournisseur> findAllFournisseurs();
+    List<FournisseurDto> findAllFournisseurs();
 
-    Fournisseur saveFournisseur(Fournisseur fournisseur);
+    FournisseurDto saveFournisseur(FournisseurDto fournisseurDto);
 
-    Optional<Fournisseur> findFournisseurById(Long fourId);
+    FournisseurDto findFournisseurById(Long fourId);
 
-    Fournisseur updateFournisseur(Long fourId, Fournisseur fournisseur);
+    FournisseurDto updateFournisseur(Long fourId, FournisseurDto fournisseurDto);
 
     BigDecimal countNumberOfFournisseur();
 
-    List<Fournisseur> findFournisseurByOrderByIdDesc();
+    List<FournisseurDto> findFournisseurByOrderByIdDesc();
 
     void deleteFournisseur(Long fourId);
 

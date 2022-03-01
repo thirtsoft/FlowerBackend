@@ -1,7 +1,10 @@
 package com.flowers.services.Impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flowers.dtos.NewsletterDto;
+import com.flowers.dtos.ProductDto;
 import com.flowers.exceptions.ResourceNotFoundException;
+import com.flowers.models.Newsletter;
 import com.flowers.models.Product;
 import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
@@ -17,6 +20,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,135 +32,175 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Product saveProduct(Product product) {
-
-        if (product.getReference() != null) {
-            throw new ResourceNotFoundException("Product already exists");
-        }
-        return productRepository.save(product);
-
+    public ProductDto saveProduct(ProductDto productDto) {
+        return ProductDto.fromEntityToDto(
+                productRepository.save(
+                        ProductDto.fromDtoToEntity(productDto)
+                )
+        );
     }
 
     @Override
-    public Product saveProductWithFile(String product, MultipartFile photoProduct) throws IOException {
-        Product productMapper = new ObjectMapper().readValue(product, Product.class);
-        System.out.println(productMapper);
+    public ProductDto saveProductWithFile(String product, MultipartFile photoProduct) throws IOException {
+        ProductDto productDto = new ObjectMapper().readValue(product, ProductDto.class);
+        System.out.println(productDto);
 
-        productMapper.setImageUrl(photoProduct.getOriginalFilename());
+        productDto.setPhoto(photoProduct.getOriginalFilename());
 
-        return this.saveProduct(productMapper);
+        return ProductDto.fromEntityToDto(
+                productRepository.save(
+                        ProductDto.fromDtoToEntity(productDto)
+                )
+        );
     }
 
     @Override
-    public Product update(Long id, Product product) {
+    public ProductDto update(Long id, ProductDto productDto) {
         if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product that id is" + id + "is not found");
+            throw new ResourceNotFoundException("Product not found");
         }
+
         Optional<Product> optionalProduct = productRepository.findById(id);
 
         if (!optionalProduct.isPresent()) {
             throw new ResourceNotFoundException("Product not found");
         }
 
-        Product productResult = optionalProduct.get();
-        productResult.setReference(product.getReference());
-        productResult.setDesignation(product.getDesignation());
-        productResult.setQuantity(product.getQuantity());
-        productResult.setPrice(product.getPrice());
-        productResult.setCurrentPrice(product.getCurrentPrice());
-        productResult.setInstock(product.isInstock());
-        productResult.setSelected(product.isSelected());
-        productResult.setPromo(product.isPromo());
-        productResult.setDescription(product.getDescription());
-        productResult.setManufactured(product.getManufactured());
-        productResult.setSubcategory(product.getSubcategory());
+        ProductDto productDtoResult = ProductDto.fromEntityToDto(optionalProduct.get());
+        productDtoResult.setReference(productDto.getReference());
+        productDtoResult.setDesignation(productDto.getDesignation());
+        productDtoResult.setPrice(productDto.getPrice());
+        productDtoResult.setCurrentPrice(productDto.getCurrentPrice());
+        productDtoResult.setQuantity(productDto.getQuantity());
+        productDtoResult.setPhoto(productDto.getPhoto());
+        productDtoResult.setSelected(productDto.isSelected());
+        productDtoResult.setPromo(productDto.isPromo());
+        productDtoResult.setDescription(productDto.getDescription());
+        productDtoResult.setManufactured(productDto.getManufactured());
+        productDtoResult.setSubCategoryDto(productDto.getSubCategoryDto());
 
-
-        return productRepository.save(productResult);
+        return ProductDto.fromEntityToDto(
+                productRepository.save(
+                        ProductDto.fromDtoToEntity(productDtoResult)
+                )
+        );
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
+    public ProductDto findById(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product that id is " + id + "not found");
+            throw new ResourceNotFoundException("Product not found");
         }
-        return productRepository.findById(id);
+
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        return Optional.of(ProductDto.fromEntityToDto(optionalProduct.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Product avec l'Id = " + id + "n'a été trouvé")
+        );
     }
 
     @Override
-    public Optional<Product> findByReference(String reference) {
+    public ProductDto findByReference(String reference) {
+
         if (!StringUtils.hasLength(reference)) {
-            log.error("Product REFERENCE is null");
+            log.error("Article REFERENCE is null");
         }
 
-        return productRepository.findProductByReference(reference);
+        Optional<Product> optionalProduct = productRepository.findProductByReference(reference);
+
+        return Optional.of(ProductDto.fromEntityToDto(optionalProduct.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Product avec l'Id = " + reference + "n'a été trouvé")
+        );
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<ProductDto> findAll() {
+        return productRepository.findAll().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findListProductBySubCategories(Long subCatId) {
-        return productRepository.findProductBySubCategory(subCatId);
+    public List<ProductDto> findListProductBySubCategories(Long subCatId) {
+        return productRepository.findProductBySubCategory(subCatId).stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findListProductByKeyword(String keyword) {
-        return productRepository.findProductByKeyword(keyword);
+    public List<ProductDto> findListProductByKeyword(String keyword) {
+        return productRepository.findProductByKeyword(keyword).stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findListProductGroupByPrice(double price) {
-        return productRepository.findProductGroupByPrice(price);
+    public List<ProductDto> findListProductGroupByPrice(double price) {
+        return productRepository.findProductGroupByPrice(price).stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findListProductBySelected() {
-        return productRepository.findProductBySelected();
+    public List<ProductDto> findListProductBySelected() {
+        return productRepository.findProductBySelected().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findListProductByPromo() {
-        return productRepository.findProductByPromo();
+    public List<ProductDto> findListProductByPromo() {
+        return productRepository.findProductByPromo().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findTop24ByOrderByCreateDateDesc() {
-        return productRepository.findTop24ByOrderByCreatedDateDesc();
+    public List<ProductDto> findTop24ByOrderByCreateDateDesc() {
+        return productRepository.findTop24ByOrderByCreatedDateDesc().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findByOrderByIdDesc() {
-        return productRepository.findByOrderByIdDesc();
+    public List<ProductDto> findByOrderByIdDesc() {
+        return productRepository.findByOrderByIdDesc().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> findListProductByPriceMinMax(double min, double max) {
-        return productRepository.findListProductByPriceMinMax(min, max);
+    public List<ProductDto> findListProductByPriceMinMax(double min, double max) {
+        return productRepository.findListProductByPriceMinMax(min, max).stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Page<Product> findProductByPageable(Pageable pageable) {
-        return productRepository.findProductByPageable(pageable);
+    public Page<ProductDto> findProductByPageable(Pageable pageable) {
+        return productRepository.findProductByPageable(pageable)
+                .map(ProductDto::fromEntityToDto);
     }
 
     @Override
-    public Page<Product> findProductBySubCategoryPageable(Long scatId, Pageable pageable) {
-        return productRepository.findProductBySubCategoryByPageable(scatId, pageable);
+    public Page<ProductDto> findProductBySubCategoryPageable(Long scatId, Pageable pageable) {
+        return productRepository.findProductBySubCategoryByPageable(scatId, pageable)
+                .map(ProductDto::fromEntityToDto);
     }
 
     @Override
-    public Page<Product> findProductBySamePricePageable(double price, Pageable pageable) {
-        return productRepository.findProductPageableGroupByPrice(price, pageable);
+    public Page<ProductDto> findProductBySamePricePageable(double price, Pageable pageable) {
+        return productRepository.findProductPageableGroupByPrice(price, pageable)
+                .map(ProductDto::fromEntityToDto);
     }
-
 
     @Override
     public void delete(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product not found");
+        if (id == null) {
+            log.error("Product not found");
+            return;
         }
         productRepository.deleteById(id);
     }

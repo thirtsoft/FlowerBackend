@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,6 +49,9 @@ public class FlowerBackendApplication implements CommandLineRunner {
 	private UtilisateurRepository utilisateurRepository;
 	@Autowired
 	private UtilisateurService utilisateurService;
+
+	@Autowired
+	PasswordEncoder encoder;
 
 
 
@@ -202,6 +206,15 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
 		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));
 		Role adminRole = roleRepository.save(new Role(RoleName.ROLE_ADMIN));
+
+		Utilisateur admin = new Utilisateur();
+		admin.setId(3L);
+		admin.setUsername("Admin");
+		admin.setName("Admin");
+		admin.setPassword(encoder.encode("admin1234"));
+		utilisateurRepository.save(admin);
+
+		utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
 
 
 	}

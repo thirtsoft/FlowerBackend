@@ -36,6 +36,12 @@ public class UtilisateurController implements UtilisateurApi {
         return ResponseEntity.ok().body(utilisateur);
     }
 
+
+ /*   @Override
+    public ResponseEntity<Utilisateur> getUtilisateurById(Long userId) {
+        return ResponseEntity.ok(utilisateurService.findUtilisateurById(userId));
+    }*/
+
     @Override
     public ResponseEntity<List<Utilisateur>> getAllUtilisateurs() {
         List<Utilisateur> utilisateurList = utilisateurService.findAllUtilisateurs();

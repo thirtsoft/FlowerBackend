@@ -1,21 +1,20 @@
 package com.flowers.services;
 
-import com.flowers.models.Wishlist;
+import com.flowers.dtos.WishlistDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface WishlistService {
 
-    Wishlist saveWhishlist(Wishlist whishlist);
+    WishlistDto saveWhishlist(WishlistDto wishlistDto);
 
-    Optional<Wishlist> findWhishlistById(Long id);
+    WishlistDto findWhishlistById(Long id);
 
-    Wishlist updateWhishlist(Long whishlistId, Wishlist whishlist);
+    WishlistDto updateWhishlist(Long whishlistId, WishlistDto wishlistDto);
 
-    List<Wishlist> findAllWishlists();
+    List<WishlistDto> findAllWishlists();
 
-    List<Wishlist> findWishlistByOrderByIdDesc();
+    List<WishlistDto> findWishlistByOrderByIdDesc();
 
     void deleteWhishlist(Long whishlistId);
 

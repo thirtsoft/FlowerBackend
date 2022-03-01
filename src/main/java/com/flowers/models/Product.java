@@ -169,6 +169,14 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }

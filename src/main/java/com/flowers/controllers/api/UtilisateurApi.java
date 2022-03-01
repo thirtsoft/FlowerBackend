@@ -46,6 +46,17 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Utilisateur> getUtilisateurById(@PathVariable(value = "userId") Long userId) throws ResourceNotFoundException;
 
+/*
+    @GetMapping(value = APP_ROOT + "/utilisateurs/findById/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Chercher une Utilisateur",
+            notes = "Cette méthode permet de chercher et de renvoyer une Utilisateur", response = Utilisateur.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le Utilisateur a été trouvé")
+
+    })
+    ResponseEntity<Utilisateur> getUtilisateurById(@PathVariable(value = "userId") Long userId);
+*/
+
     @GetMapping(value = APP_ROOT + "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Utilisateur",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Utilisateur", responseContainer = "List<Utilisateur>")

@@ -1,6 +1,6 @@
 package com.flowers.services;
 
-import com.flowers.models.HistoriqueLogin;
+import com.flowers.dtos.HistoriqueLoginDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,15 +8,15 @@ import java.util.Optional;
 
 public interface HistoriqueLoginService {
 
-    HistoriqueLogin saveHistoriqueLogin(HistoriqueLogin historiqueLogin);
+    HistoriqueLoginDto saveHistoriqueLogin(HistoriqueLoginDto historiqueLoginDto);
 
-    HistoriqueLogin saveHistoriqueLoginWithConnectedUser(HistoriqueLogin historiqueLogin, Long userId);
+    HistoriqueLoginDto saveHistoriqueLoginWithConnectedUser(HistoriqueLoginDto historiqueLoginDto, Long userId);
 
-    Optional<HistoriqueLogin> findHistoriqueLoginById(Long id);
+    HistoriqueLoginDto findHistoriqueLoginById(Long id);
 
-    List<HistoriqueLogin> findAllHistoriqueLogins();
+    List<HistoriqueLoginDto> findAllHistoriqueLogins();
 
-    List<HistoriqueLogin> findAllHistoriqueLoginsOrderDesc();
+    List<HistoriqueLoginDto> findAllHistoriqueLoginsOrderDesc();
 
     BigDecimal countNumberOfHistoriqueLogins();
 

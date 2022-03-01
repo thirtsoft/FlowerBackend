@@ -1,6 +1,7 @@
 package com.flowers.services;
 
-import com.flowers.models.Subcategory;
+import com.flowers.dtos.UtilisateurDto;
+import com.flowers.enums.RoleName;
 import com.flowers.models.Utilisateur;
 
 import java.util.List;
@@ -8,16 +9,29 @@ import java.util.Optional;
 
 public interface UtilisateurService {
 
-    List<Utilisateur> findAllUtilisateurs();
+    List<UtilisateurDto> findAllUtilisateurs();
 
-    Utilisateur saveUtilisateur(Utilisateur utilisateur);
+    UtilisateurDto saveUtilisateur(UtilisateurDto utilisateurDto);
 
-    Optional<Utilisateur> findUtilisateurById(Long userId);
+    void addRoleToUser(String username, RoleName roleName);
 
-    Utilisateur updateUtilisateur(Long userId, Utilisateur utilisateur);
+    UtilisateurDto findUtilisateurById(Long userId);
 
+    UtilisateurDto findByUsername(String username);
 
-    List<Utilisateur> findUtilisateurByOrderByIdDesc();
+    UtilisateurDto updateUtilisateur(Long userId, UtilisateurDto utilisateurDto);
+
+    List<UtilisateurDto> findUtilisateurByOrderByIdDesc();
+
+    boolean updateUsernameOfUtilisateurByUsername(String username, String newUsername);
+
+    boolean updateUsernameOfUtilisateurByUserId(String id, String newUsername);
+
+    boolean updateCustomerPasswordByUsername(String username, String oldPass, String newPass);
+
+    boolean updateCustomerPasswordByUserId(String id, String oldPass, String newPass);
+
+    boolean updateCustomerProfileByUsername(String username, String name, String newUsername, String email, String mobile);
 
     void deleteUtilisateur(Long userId);
 }

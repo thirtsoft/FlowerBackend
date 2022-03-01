@@ -1,76 +1,99 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.WishlistDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Wishlist;
 import com.flowers.reposiory.WishlistRepository;
 import com.flowers.services.WishlistService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class WishlistServiceImpl implements WishlistService {
 
     private final WishlistRepository wishlistRepository;
 
     @Override
-    public Wishlist saveWhishlist(Wishlist whishlist) {
-        return wishlistRepository.save(whishlist);
+    public WishlistDto saveWhishlist(WishlistDto wishlistDto) {
+        return WishlistDto.fromEntityToDto(
+                wishlistRepository.save(
+                        WishlistDto.fromDtoToEntity(wishlistDto)
+                )
+        );
     }
 
     @Override
-    public Optional<Wishlist> findWhishlistById(Long id) {
-        if (!wishlistRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Wishlist that id is " + id + "not found");
-        }
-        return wishlistRepository.findById(id);
-    }
-
-    @Override
-    public Wishlist updateWhishlist(Long whishlistId, Wishlist whishlist) {
+    public WishlistDto updateWhishlist(Long whishlistId, WishlistDto wishlistDto) {
         if (!wishlistRepository.existsById(whishlistId)) {
-            throw new ResourceNotFoundException("Wishlist that id is" + whishlistId + "is not found");
+            throw new ResourceNotFoundException("Wishlist not found");
         }
+
         Optional<Wishlist> optionalWishlist = wishlistRepository.findById(whishlistId);
 
         if (!optionalWishlist.isPresent()) {
             throw new ResourceNotFoundException("Wishlist not found");
         }
 
-        Wishlist wishlistResult = optionalWishlist.get();
-        wishlistResult.setReference(whishlist.getReference());
-        wishlistResult.setNombreEtoile(whishlist.getNombreEtoile());
-        wishlistResult.setObservation(whishlist.getObservation());
-        wishlistResult.setDescription(whishlist.getDescription());
-        wishlistResult.setUtilisateur(whishlist.getUtilisateur());
-        wishlistResult.setProduct(whishlist.getProduct());
+        WishlistDto wishlistDtoResult = WishlistDto.fromEntityToDto(optionalWishlist.get());
 
-        return wishlistRepository.save(wishlistResult);
+        wishlistDtoResult.setReference(wishlistDto.getReference());
+        wishlistDtoResult.setNbreEtoile(wishlistDto.getNbreEtoile());
+        wishlistDtoResult.setObservation(wishlistDto.getObservation());
+        wishlistDtoResult.setDescription(wishlistDto.getDescription());
+        wishlistDtoResult.setProductDto(wishlistDto.getProductDto());
+        wishlistDtoResult.setUtilisateurDto(wishlistDto.getUtilisateurDto());
+
+        return WishlistDto.fromEntityToDto(
+                wishlistRepository.save(
+                        WishlistDto.fromDtoToEntity(wishlistDtoResult)
+                )
+        );
     }
 
     @Override
-    public List<Wishlist> findAllWishlists() {
-        return wishlistRepository.findAll();
+    public WishlistDto findWhishlistById(Long id) {
+        if (id == null) {
+            log.error("Wishlist Id is null");
+            return null;
+        }
+
+        Optional<Wishlist> optionalWishlist = wishlistRepository.findById(id);
+
+        return Optional.of(WishlistDto.fromEntityToDto(optionalWishlist.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Wishlist avec l'Id = " + id + "n'a été trouvé")
+        );
     }
 
     @Override
-    public List<Wishlist> findWishlistByOrderByIdDesc() {
-        return wishlistRepository.findByOrderByIdDesc();
+    public List<WishlistDto> findAllWishlists() {
+        return wishlistRepository.findAll().stream()
+                .map(WishlistDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WishlistDto> findWishlistByOrderByIdDesc() {
+        return wishlistRepository.findByOrderByIdDesc().stream()
+                .map(WishlistDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteWhishlist(Long whishlistId) {
-        if (!wishlistRepository.existsById(whishlistId)) {
-            throw new ResourceNotFoundException("Wishlist that id is" + whishlistId + "is not found");
+        if (whishlistId == null) {
+            log.error("Wishlist not found");
+            return;
         }
         wishlistRepository.deleteById(whishlistId);
-
     }
-
-
 }

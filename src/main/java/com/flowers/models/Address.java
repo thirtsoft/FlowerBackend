@@ -34,15 +34,17 @@ public class Address implements Serializable {
     @Column(name = "rue", length = 90)
     private String rue;
 
+    @Column(name = "zipcode", length = 90)
+    private String zipcode;
+
     @ManyToOne
     @JoinColumn(name = "stateId")
     private State state;
 
-
     @OneToOne
     @PrimaryKeyJoinColumn
     @JsonIgnore
-    private Order order;
+    private Commande commande;
 
     public Address(Long id, String reference, String quartier, String phone, String city, String rue, State state) {
         this.id = id;

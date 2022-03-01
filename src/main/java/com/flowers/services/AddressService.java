@@ -1,22 +1,21 @@
 package com.flowers.services;
 
-import com.flowers.models.Address;
-import com.flowers.models.Fournisseur;
+import com.flowers.dtos.AddressDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AddressService {
 
-    Address saveAddress(Address address);
+    AddressDto saveAddress(AddressDto addressDto);
 
-    Address updateAddress(Long catId, Address address);
+    AddressDto updateAddress(Long catId, AddressDto addressDto);
 
-    Optional<Address> findAddressById(Long addId);
+    AddressDto findAddressById(Long addId);
 
-    List<Address> findAllAddresses();
+    List<AddressDto> findAllAddresses();
 
-    List<Address> findAddressByOrderByIdDesc();
+    List<AddressDto> findAddressesByOrderByIdDesc();
 
     void deleteAddress(Long addId);
 

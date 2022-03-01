@@ -1,11 +1,13 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.HistoriqueLoginDto;
+import com.flowers.dtos.UtilisateurDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.HistoriqueLogin;
-import com.flowers.models.Utilisateur;
 import com.flowers.reposiory.HistoriqueLoginRepository;
 import com.flowers.services.HistoriqueLoginService;
 import com.flowers.services.UtilisateurService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
 
     private final HistoriqueLoginRepository historiqueLoginRepository;
@@ -30,41 +34,58 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
         this.utilisateurService = utilisateurService;
     }
 
+
     @Override
-    public HistoriqueLogin saveHistoriqueLogin(HistoriqueLogin historiqueLogin) {
-        return historiqueLoginRepository.save(historiqueLogin);
+    public HistoriqueLoginDto saveHistoriqueLogin(HistoriqueLoginDto historiqueLoginDto) {
+        return HistoriqueLoginDto.fromEntityToDto(
+                historiqueLoginRepository.save(
+                        HistoriqueLoginDto.fromDtoToEntity(historiqueLoginDto)
+                )
+        );
     }
 
     @Override
-    public HistoriqueLogin saveHistoriqueLoginWithConnectedUser(HistoriqueLogin historiqueLogin, Long userId) {
+    public HistoriqueLoginDto saveHistoriqueLoginWithConnectedUser(HistoriqueLoginDto historiqueLoginDto, Long userId) {
 
-        Optional<Utilisateur> optionalUtilisateur = utilisateurService.findUtilisateurById(userId);
+        UtilisateurDto utilisateurDto = utilisateurService.findUtilisateurById(userId);
 
-        Utilisateur utilisateur = optionalUtilisateur.get();
+        historiqueLoginDto.setUtilisateurDto(utilisateurDto);
+        historiqueLoginDto.setCreatedDate(new Date());
 
-        historiqueLogin.setUtilisateur(utilisateur);
-        historiqueLogin.setCreatedDate(new Date());
-
-        return historiqueLoginRepository.save(historiqueLogin);
+        return HistoriqueLoginDto.fromEntityToDto(
+                historiqueLoginRepository.save(
+                        HistoriqueLoginDto.fromDtoToEntity(historiqueLoginDto)
+                )
+        );
     }
 
     @Override
-    public Optional<HistoriqueLogin> findHistoriqueLoginById(Long id) {
-        if (!historiqueLoginRepository.existsById(id)) {
-            throw new ResourceNotFoundException("HistoriqueLogin that id is " + id + "not found");
+    public HistoriqueLoginDto findHistoriqueLoginById(Long id) {
+        if (id == null) {
+            log.error("HistoriqueLogin Id is null");
+            return null;
         }
-        return historiqueLoginRepository.findById(id);
+
+        Optional<HistoriqueLogin> historiqueLogin = historiqueLoginRepository.findById(id);
+
+        return Optional.of(HistoriqueLoginDto.fromEntityToDto(historiqueLogin.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Fournisseur avec l'Id = " + id + "n'a été trouvé")
+        );
     }
 
-
     @Override
-    public List<HistoriqueLogin> findAllHistoriqueLogins() {
-        return historiqueLoginRepository.findAll();
+    public List<HistoriqueLoginDto> findAllHistoriqueLogins() {
+        return historiqueLoginRepository.findAll().stream()
+                .map(HistoriqueLoginDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<HistoriqueLogin> findAllHistoriqueLoginsOrderDesc() {
-        return historiqueLoginRepository.findByOrderByIdDesc();
+    public List<HistoriqueLoginDto> findAllHistoriqueLoginsOrderDesc() {
+        return historiqueLoginRepository.findByOrderByIdDesc().stream()
+                .map(HistoriqueLoginDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -74,8 +95,9 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
 
     @Override
     public void deleteHistoriqueLogin(Long id) {
-        if (!historiqueLoginRepository.existsById(id)) {
-            throw new ResourceNotFoundException("HistoriqueLogin that id is " + id + "not found");
+        if (id == null) {
+            log.error("Fournisseur Id is null");
+            return;
         }
         historiqueLoginRepository.deleteById(id);
     }

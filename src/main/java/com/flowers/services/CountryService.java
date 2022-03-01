@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.CountryDto;
 import com.flowers.models.Country;
 
 import java.util.List;
@@ -7,15 +8,15 @@ import java.util.Optional;
 
 public interface CountryService {
 
-    Country saveCountry(Country country);
+    CountryDto saveCountry(CountryDto countryDto);
 
-    Country updateCountry(Long countryId, Country country);
+    CountryDto updateCountry(Long countryId, CountryDto countryDto);
 
-    Optional<Country> findCountryById(Long countryId);
+    CountryDto findCountryById(Long countryId);
 
-    List<Country> findAllCountries();
+    List<CountryDto> findAllCountries();
 
-    List<Country> findCountryByOrderByIdDesc();
+    List<CountryDto> findCountryByOrderByIdDesc();
 
     void deleteCountry(Long countryId);
 

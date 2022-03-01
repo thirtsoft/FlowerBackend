@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "orderItem")
-public class OrderItem implements Serializable {
+public class LigneCommande implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,42 +32,43 @@ public class OrderItem implements Serializable {
     private String productName;
 
     @ManyToOne
-    @JoinColumn(name = "orderId", referencedColumnName = "id")
+    @JoinColumn(name = "comId", referencedColumnName = "id")
     @JsonIgnore
-    private Order order;
+    private Commande commande;
 
     @ManyToOne
     @JoinColumn(name = "prodId", referencedColumnName = "id")
     private Product product;
 
-    public OrderItem() {
+    public LigneCommande() {
     }
 
-
-    public OrderItem(int quantity, double price, Order order, Product product) {
+    public LigneCommande(Commande commande, Product product, int quantity, double price) {
+        this.product = product;
         this.quantity = quantity;
         this.price = price;
-        this.order = order;
-        this.product = product;
+        this.commande = commande;
         this.createdDate = new Date();
+
     }
 
-    public OrderItem(Long id, Long numero, int quantity, double price, Date createdDate, Order order, Product product) {
+    public LigneCommande(Long id, int quantity, double price, Commande commande, Product product) {
         this.id = id;
-        this.numero = order.getNumeroOrder();
+        this.numero = commande.getNumeroCommande();
         this.quantity = quantity;
         this.price = price;
-        this.createdDate = createdDate;
-        this.order = order;
+        this.createdDate = new Date();
+        this.commande = commande;
         this.product = product;
     }
 
-    public OrderItem(Long id, Long numero, int quantity, double price, Order order, Product product) {
+    public LigneCommande(Long id, Long numero, int quantity, double price, Commande commande, Product product) {
         this.id = id;
         this.numero = numero;
         this.quantity = quantity;
         this.price = price;
-        this.order = order;
+        this.createdDate = new Date();
+        this.commande = commande;
         this.product = product;
     }
 
@@ -111,12 +112,12 @@ public class OrderItem implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Order getOrder() {
-        return order;
+    public Commande getCommande() {
+        return commande;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setCommande(Commande commande) {
+        this.commande = commande;
     }
 
     public Product getProduct() {

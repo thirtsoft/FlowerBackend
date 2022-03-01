@@ -2,8 +2,8 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.OrderApi;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Order;
-import com.flowers.services.OrderService;
+import com.flowers.models.Commande;
+import com.flowers.services.CommandeService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,132 +19,132 @@ import java.util.List;
 @CrossOrigin
 public class OrderController implements OrderApi {
 
-    private final OrderService orderService;
+    private final CommandeService commandeService;
 
     @Override
-    public ResponseEntity<Order> save(Order order) {
-        return ResponseEntity.ok(orderService.saveOrder(order));
+    public ResponseEntity<Commande> save(Commande commande) {
+        return ResponseEntity.ok(commandeService.saveOrder(commande));
     }
 
     @Override
-    public ResponseEntity<Order> update(Long id, Order order) {
-        order.setId(id);
-        return ResponseEntity.ok(orderService.saveOrder(order));
+    public ResponseEntity<Commande> update(Long id, Commande commande) {
+        commande.setId(id);
+        return ResponseEntity.ok(commandeService.saveOrder(commande));
     }
 
     @Override
-    public ResponseEntity<Order> updateStatusOfOrder(String status, String id) {
-        Order newOrder = orderService.updateStatusOfOrder(status, id);
-        return new ResponseEntity<>(newOrder, HttpStatus.OK);
+    public ResponseEntity<Commande> updateStatusOfOrder(String status, String id) {
+        Commande newCommande = commandeService.updateStatusOfOrder(status, id);
+        return new ResponseEntity<>(newCommande, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Order> getById(Long id) {
-        Order order = orderService.findOrderById(id)
+    public ResponseEntity<Commande> getById(Long id) {
+        Commande commande = commandeService.findOrderById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-        return ResponseEntity.ok().body(order);
+        return ResponseEntity.ok().body(commande);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getAll() {
-        List<Order> orderList = orderService.findAllOrders();
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getAll() {
+        List<Commande> commandeList = commandeService.findAllOrders();
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getAllOrdersOrderByIdDesc() {
-        List<Order> orderList = orderService.findByOrderByIdDesc();
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getAllOrdersOrderByIdDesc() {
+        List<Commande> commandeList = commandeService.findByOrderByIdDesc();
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getListOrderByStatusPending() {
-        List<Order> orderList = orderService.findListOrderByStatusPending();
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getListOrderByStatusPending() {
+        List<Commande> commandeList = commandeService.findListOrderByStatusPending();
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getListOrderByStatusPayed() {
-        List<Order> orderList = orderService.findListOrderByStatusPayed();
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getListOrderByStatusPayed() {
+        List<Commande> commandeList = commandeService.findListOrderByStatusPayed();
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getOrdersByUserOrderByIdDesc(Long id) {
-        List<Order> orderList = orderService.findListOrderByCustomerId(id);
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getOrdersByUserOrderByIdDesc(Long id) {
+        List<Commande> commandeList = commandeService.findListOrderByCustomerId(id);
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getOrdersByBillingAddressOrderByIdDesc(Long id) {
-        List<Order> orderList = orderService.findListOrderByAddressLivraisonId(id);
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getOrdersByBillingAddressOrderByIdDesc(Long id) {
+        List<Commande> commandeList = commandeService.findListOrderByAddressLivraisonId(id);
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<List<Order>> getOrdersByShippingAddressByIdDesc(Long id) {
-        List<Order> orderList = orderService.findListOrderByAddressAchatId(id);
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+    public ResponseEntity<List<Commande>> getOrdersByShippingAddressByIdDesc(Long id) {
+        List<Commande> commandeList = commandeService.findListOrderByAddressAchatId(id);
+        return new ResponseEntity<>(commandeList, HttpStatus.OK);
     }
 
     @Override
     public BigDecimal countNumberOfOrder() {
-        return orderService.countNumberOfOrder();
+        return commandeService.countNumberOfOrder();
     }
 
     @Override
     public BigDecimal countNumberOfOrdersInMonth() {
-        return orderService.countNumberOfOrdersInMonth();
+        return commandeService.countNumberOfOrdersInMonth();
     }
 
     @Override
     public BigDecimal countNumberOfOrdersByStatusPending() {
-        return orderService.countNumberOfOrdersByStatusPending();
+        return commandeService.countNumberOfOrdersByStatusPending();
     }
 
     @Override
     public BigDecimal sumTotaleOfOrderByDay() {
-        return orderService.sumTotalOfOrderByDay();
+        return commandeService.sumTotalOfOrderByDay();
     }
 
     @Override
     public BigDecimal sumTotaleOfOrderByMonth() {
-        return orderService.sumTotaleOfOrderByMonth();
+        return commandeService.sumTotaleOfOrderByMonth();
     }
 
     @Override
     public BigDecimal sumTotaleOfOrderByYear() {
-        return orderService.sumTotalOfOrdersByYear();
+        return commandeService.sumTotalOfOrdersByYear();
     }
 
     @Override
     public List<?> countNumberOfOrderByDay() {
-        return orderService.countNumberOfOrderByDay();
+        return commandeService.countNumberOfOrderByDay();
     }
 
     @Override
     public List<?> countNumberOfOrderByMonth() {
-        return orderService.countNumberTotalOfOrderByMonth();
+        return commandeService.countNumberTotalOfOrderByMonth();
     }
 
     @Override
     public List<?> getSumTotaleOfOrderByMonth() {
-        return orderService.sumTotalOfOrderByMonth();
+        return commandeService.sumTotalOfOrderByMonth();
     }
 
     @Override
     public List<?> getSumTotalOfOrdersByYears() {
-        return orderService.sumTotalOfOrdersByYears();
+        return commandeService.sumTotalOfOrdersByYears();
     }
 
 
     @Override
-    public Page<Order> getOrdersByUtilisateurIdByPageables(Long userId, int page, int size) {
+    public Page<Commande> getOrdersByUtilisateurIdByPageables(Long userId, int page, int size) {
         return null;
     }
 
     @Override
     public void delete(Long id) {
-        orderService.deleteOrder(id);
+        commandeService.deleteOrder(id);
     }
 }

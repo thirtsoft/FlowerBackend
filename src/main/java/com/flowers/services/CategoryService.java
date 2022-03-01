@@ -1,22 +1,21 @@
 package com.flowers.services;
 
-import com.flowers.models.Blog;
-import com.flowers.models.Category;
+import com.flowers.dtos.CategoryDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {
 
-    List<Category> findAllCategories();
+    List<CategoryDto> findAllCategories();
 
-    Category saveCategory(Category category);
+    CategoryDto saveCategory(CategoryDto categoryDto);
 
-    Optional<Category> findCategoryById(Long catId);
+    CategoryDto findCategoryById(Long catId);
 
-    Category updateCategory(Long catId, Category category);
+    CategoryDto updateCategory(Long catId, CategoryDto categoryDto);
 
-    List<Category> findCategoryByOrderByIdDesc();
+    List<CategoryDto> findCategoryByOrderByIdDesc();
 
     void deleteCategory(Long catId);
 

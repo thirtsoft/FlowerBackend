@@ -1,4 +1,4 @@
-package com.flowers.models.checkout;
+package com.flowers.dtos.checkout;
 
 import lombok.Data;
 import lombok.NonNull;

@@ -1,13 +1,15 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.EmailDto;
+import com.flowers.dtos.FournisseurDto;
+import com.flowers.dtos.NewsletterDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Email;
-import com.flowers.models.Fournisseur;
-import com.flowers.models.Newsletter;
 import com.flowers.reposiory.EmailRepository;
 import com.flowers.services.EmailService;
 import com.flowers.services.NewsletterService;
 import com.flowers.utils.EmailConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -19,9 +21,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     private final EmailRepository emailRepository;
@@ -39,80 +43,85 @@ public class EmailServiceImpl implements EmailService {
         this.newsletterService = newsletterService;
     }
 
+
     @Override
-    public void sendEmailToManager(Email email) throws MailException {
+    public void sendEmailToManager(EmailDto emailDto) throws MailException {
         StringBuilder sb = new StringBuilder();
-        sb.append("Nom : " + email.getCustomerName()).append(System.lineSeparator());
-        sb.append("\n Subject : " + email.getSubject());
-        sb.append("\n Message : " + email.getMessage());
+        sb.append("Nom : " + emailDto.getCustomerName()).append(System.lineSeparator());
+        sb.append("\n Subject : " + emailDto.getSubject());
+        sb.append("\n Message : " + emailDto.getMessage());
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
         mail.setTo(EmailConstants.to);
-        mail.setFrom(email.getRecipient());
-        mail.setSubject(email.getSubject());
-        mail.setText(email.getMessage());
+        mail.setFrom(emailDto.getRecipient());
+        mail.setSubject(emailDto.getSubject());
+        mail.setText(emailDto.getMessage());
 
-        email.setCreateDate(new Date());
-        email.setCustomerName(email.getCustomerName());
+        emailDto.setCreateDate(new Date());
+        emailDto.setCustomerName(emailDto.getCustomerName());
 
-        System.out.println(email);
+        System.out.println(emailDto);
 
         javaMailSender.send(mail);
 
-        emailRepository.save(email);
-
+        EmailDto.fromEntityToDto(
+                emailRepository.save(
+                        EmailDto.fromDtoToEntity(emailDto)
+                )
+        );
     }
 
     @Override
-    public void sendEmailToProvider(Fournisseur fournisseur) throws MailException {
+    public void sendEmailToProvider(FournisseurDto fournisseurDto) throws MailException {
         StringBuilder sb = new StringBuilder();
         sb.append("Nom : " + EmailConstants.managerName).append(System.lineSeparator());
-        sb.append("\n Subject : " + fournisseur.getSubject());
-        sb.append("\n Message : " + fournisseur.getMessage());
+        sb.append("\n Subject : " + fournisseurDto.getSubject());
+        sb.append("\n Message : " + fournisseurDto.getMessage());
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(fournisseur.getEmail());
+        mail.setTo(fournisseurDto.getEmail());
         mail.setFrom(EmailConstants.from);
-        mail.setSubject(fournisseur.getSubject());
-        mail.setText(fournisseur.getMessage());
+        mail.setSubject(fournisseurDto.getSubject());
+        mail.setText(fournisseurDto.getMessage());
+
 
         javaMailSender.send(mail);
     }
 
     @Override
-    public void sendEmailToNewsletter(Newsletter newsletter) throws MailException {
+    public void sendEmailToNewsletter(NewsletterDto newsletterDto) throws MailException {
         StringBuilder sb = new StringBuilder();
         sb.append("Nom : " + EmailConstants.managerName).append(System.lineSeparator());
-        sb.append("\n Subject : " + newsletter.getSubject());
-        sb.append("\n Message : " + newsletter.getMessage());
+        sb.append("\n Subject : " + newsletterDto.getSubject());
+        sb.append("\n Message : " + newsletterDto.getMessage());
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(newsletter.getCustomerEmail());
+
+        mail.setTo(newsletterDto.getCustomerEmail());
         mail.setFrom(EmailConstants.from);
-        mail.setSubject(newsletter.getSubject());
-        mail.setText(newsletter.getMessage());
-
+        mail.setSubject(newsletterDto.getSubject());
+        mail.setText(newsletterDto.getMessage());
 
         javaMailSender.send(mail);
     }
 
     @Override
-    public void sendMailToAllNewsletters(Newsletter newsletter) {
+    public void sendMailToAllNewsletters(NewsletterDto newsletterDto) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nom : " + EmailConstants.managerName).append(System.lineSeparator());
-        sb.append("\n Subject : " + newsletter.getSubject());
-        sb.append("\n Message : " + newsletter.getMessage());
+        sb.append("\n Subject : " + newsletterDto.getSubject());
+        sb.append("\n Message : " + newsletterDto.getMessage());
 
-        List<Newsletter> newsletterList = newsletterService.findAll();
+        List<NewsletterDto> newsletterDtos = newsletterService.findAll();
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        for (int i = 0; i < newsletterList.size(); i++) {
-            Newsletter newsletterResult = newsletterList.get(i);
-            mail.setTo(newsletterResult.getCustomerEmail());
-            mail.setSubject(newsletterResult.getSubject());
-            mail.setText(newsletterResult.getMessage());
+        for (int i = 0; i < newsletterDtos.size(); i++) {
+            NewsletterDto newsletterDtoResult = newsletterDtos.get(i);
+            mail.setTo(newsletterDtoResult.getCustomerEmail());
+            mail.setSubject(newsletterDtoResult.getSubject());
+            mail.setText(newsletterDtoResult.getMessage());
             mail.setFrom(EmailConstants.from);
         }
 
@@ -120,11 +129,18 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Optional<Email> findEmailById(Long mailId) {
-        if (!emailRepository.existsById(mailId)) {
-            throw new ResourceNotFoundException("Email that id is " + mailId + "not found");
+    public EmailDto findEmailById(Long mailId) {
+        if (mailId == null) {
+            log.error("mail Id is null");
+            return null;
         }
-        return emailRepository.findById(mailId);
+
+        Optional<Email> optionalEmail = emailRepository.findById(mailId);
+
+        return Optional.of(EmailDto.fromEntityToDto(optionalEmail.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Email avec l'Id = " + mailId + "n'a été trouvé")
+        );
     }
 
     @Override
@@ -133,19 +149,24 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public List<Email> findAll() {
-        return emailRepository.findAll();
+    public List<EmailDto> findAll() {
+        return emailRepository.findAll().stream()
+                .map(EmailDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Email> findByOrderByIdDesc() {
-        return emailRepository.findByOrderByIdDesc();
+    public List<EmailDto> findByOrderByIdDesc() {
+        return emailRepository.findByOrderByIdDesc().stream()
+                .map(EmailDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void delete(Long id) {
-        if (!emailRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Email that id is " + id + "not found");
+        if (id == null) {
+            log.error("Email avec cet id existe pas !!");
+            return;
         }
         emailRepository.deleteById(id);
     }

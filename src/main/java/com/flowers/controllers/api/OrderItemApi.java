@@ -1,7 +1,6 @@
 package com.flowers.controllers.api;
 
-import com.flowers.models.Fournisseur;
-import com.flowers.models.OrderItem;
+import com.flowers.models.LigneCommande;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,33 +16,33 @@ public interface OrderItemApi {
 
     @PostMapping(value = APP_ROOT + "/orderItems/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une Ligne de commande",
-            notes = "Cette méthode permet d'ajouter une Ligne de commande", response = OrderItem.class)
+            notes = "Cette méthode permet d'ajouter une Ligne de commande", response = LigneCommande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "La Ligne de commande a été crée"),
             @ApiResponse(code = 400, message = "Aucun Ligne de commande  crée / modifié")
 
     })
-    ResponseEntity<OrderItem> save(@RequestBody OrderItem orderItem);
+    ResponseEntity<LigneCommande> save(@RequestBody LigneCommande ligneCommande);
 
     @PutMapping(value = APP_ROOT + "/orderItems/update/{idOrderItem}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une Ligne de commande",
-            notes = "Cette méthode permet de modifier une Ligne de commande", response = OrderItem.class)
+            notes = "Cette méthode permet de modifier une Ligne de commande", response = LigneCommande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Ligne de commande a été crée"),
             @ApiResponse(code = 400, message = "Aucun Ligne de commande  crée / modifié")
 
     })
-    ResponseEntity<OrderItem> update(@PathVariable("idOrderItem") Long id, @RequestBody OrderItem orderItem);
+    ResponseEntity<LigneCommande> update(@PathVariable("idOrderItem") Long id, @RequestBody LigneCommande ligneCommande);
 
     @GetMapping(value = APP_ROOT + "/orderItems/findById/{idOrderItem}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Chercher une ligne de commande",
-            notes = "Cette méthode permet de chercher et de renvoyer une ligne de commande", response = OrderItem.class)
+            notes = "Cette méthode permet de chercher et de renvoyer une ligne de commande", response = LigneCommande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Address a été trouvé")
 
     })
-    ResponseEntity<OrderItem> getOrderItemById(@PathVariable("idOrderItem") Long id);
+    ResponseEntity<LigneCommande> getOrderItemById(@PathVariable("idOrderItem") Long id);
 
     @GetMapping(value = APP_ROOT + "/orderItems/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des ligne de commande",
@@ -51,7 +50,7 @@ public interface OrderItemApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Countries / une liste vide")
     })
-    ResponseEntity<List<OrderItem>> getAllOrderItems();
+    ResponseEntity<List<LigneCommande>> getAllOrderItems();
 
     @GetMapping(value = APP_ROOT + "/orderItems/searchAllOrderItemOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des orderItems par ordre descroissante",
@@ -60,7 +59,7 @@ public interface OrderItemApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des orderItems  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<OrderItem>> getAllOrderItemOrderByIdDesc();
+    ResponseEntity<List<LigneCommande>> getAllOrderItemOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/orderItems/findAllOrderItemsGroupByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des orderItems par ordre descroissante",
@@ -69,7 +68,7 @@ public interface OrderItemApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<OrderItem>> getAllOrderItemsGroupByProductIdDesc();
+    ResponseEntity<List<LigneCommande>> getAllOrderItemsGroupByProductIdDesc();
 
     @GetMapping(value = APP_ROOT + "/orderItems/searchAllorderItemsByOrderId/{comId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des orderItems  par commande ID",
@@ -78,7 +77,7 @@ public interface OrderItemApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des orderItems  par commande ID / une liste vide")
     })
-    ResponseEntity<List<OrderItem>> getAllOrderItemsByOrderId(@PathVariable("comId") Long comId);
+    ResponseEntity<List<LigneCommande>> getAllOrderItemsByOrderId(@PathVariable("comId") Long comId);
 
     @GetMapping(value = APP_ROOT + "/orderItems/searchTop200OrderItemsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 200 dernières orderItems  par ordre décroissant",
@@ -87,11 +86,11 @@ public interface OrderItemApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des 200 dernières orderItems  par ID décroissant / une liste vide")
     })
-    ResponseEntity<List<OrderItem>> getTop200OrderItemsOrderByIdDesc();
+    ResponseEntity<List<LigneCommande>> getTop200OrderItemsOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/orderItems/delete/{idOrderItem}")
     @ApiOperation(value = "Supprimer un Ligne de Commande par son ID",
-            notes = "Cette méthode permet de supprimer une Ligne de Commande par son ID", response = OrderItem.class)
+            notes = "Cette méthode permet de supprimer une Ligne de Commande par son ID", response = LigneCommande.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La LigneCommande a été supprimé")
     })

@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.StateDto;
 import com.flowers.models.State;
 
 import java.util.List;
@@ -7,17 +8,17 @@ import java.util.Optional;
 
 public interface StateService {
 
-    State saveState(State state);
+    StateDto saveState(StateDto stateDto);
 
-    State updateState(Long stateId, State state);
+    StateDto updateState(Long stateId, StateDto stateDto);
 
-    Optional<State> findStateById(Long stateId);
+    StateDto findStateById(Long stateId);
 
-    List<State> findAllStates();
+    List<StateDto> findAllStates();
 
-    List<State> findStateByOrderByIdDesc();
+    List<StateDto> findStateByOrderByIdDesc();
 
-    List<State> findAllStateByCountryCode(String code);
+    List<StateDto> findAllStateByCountryCode(String code);
 
     void deleteState(Long stateId);
 

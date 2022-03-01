@@ -1,12 +1,13 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.ProductDto;
+import com.flowers.dtos.RatingDto;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Category;
-import com.flowers.models.Product;
 import com.flowers.models.Rating;
 import com.flowers.reposiory.RatingRepository;
 import com.flowers.services.ProductService;
 import com.flowers.services.RatingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class RatingServiceImpl implements RatingService {
 
 
@@ -34,34 +36,53 @@ public class RatingServiceImpl implements RatingService {
 
 
     @Override
-    public Rating save(Rating rating) {
-        return ratingRepository.save(rating);
+    public RatingDto save(RatingDto ratingDto) {
+        return RatingDto.fromEntityToDto(
+                ratingRepository.save(
+                        RatingDto.fromDtoToEntity(ratingDto)
+                )
+        );
     }
 
     @Override
-    public Rating saveRatingToArticle(Long id, Rating rating) {
-        Optional<Product> productOptional = productService.findById(id);
-        Product productResult = productOptional.get();
-        rating.setProduct(productResult);
-        return ratingRepository.save(rating);
+    public RatingDto saveRatingToArticle(Long id, RatingDto ratingDto) {
+        ProductDto productDTOOptional = productService.findById(id);
+        ratingDto.setProductDto(productDTOOptional);
+
+        return RatingDto.fromEntityToDto(
+                ratingRepository.save(
+                        RatingDto.fromDtoToEntity(ratingDto)
+                )
+        );
     }
 
     @Override
-    public Optional<Rating>  findById(Long id) {
-        if (!ratingRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Rating that id is" + id + "is not found");
+    public RatingDto findById(Long id) {
+        if (id == null) {
+            log.error("Rating Id is null");
+            return null;
         }
-        return ratingRepository.findById(id);
+
+        Optional<Rating> optionalRating = ratingRepository.findById(id);
+
+        return Optional.of(RatingDto.fromEntityToDto(optionalRating.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun categorie avec l'Id = " + id + "n'a été trouvé")
+        );
     }
 
     @Override
-    public List<Rating> findAll() {
-        return ratingRepository.findAll();
+    public List<RatingDto> findAll() {
+        return ratingRepository.findAll().stream()
+                .map(RatingDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Rating> findByOrderByIdDesc() {
-        return ratingRepository.findByOrderByIdDesc();
+    public List<RatingDto> findByOrderByIdDesc() {
+        return ratingRepository.findByOrderByIdDesc().stream()
+                .map(RatingDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -75,14 +96,17 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public List<Rating> findTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
-        return ratingRepository.findTop4ByOrderByCreatedDateDesc(prodRef);
+    public List<RatingDto> findTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
+        return ratingRepository.findTop4ByOrderByCreatedDateDesc(prodRef).stream()
+                .map(RatingDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void delete(Long id) {
-        if (!ratingRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Rating that id is" + id + "is not found");
+        if (id == null) {
+            log.error("Rating not found");
+            return;
         }
         ratingRepository.deleteById(id);
     }

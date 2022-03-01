@@ -32,11 +32,14 @@ public class Utilisateur implements Serializable {
     @Size(min = 3, max = 50)
     private String username;
 
+    @Column(name = "mobile", length = 30)
+    private String mobile;
+
     @Size(max = 50)
     @Email
     private String email;
 
-    @Size(min = 6, max = 100)
+    @Size(min = 6, max = 255)
     private String password;
 
     private String photo = "avatar.jpg";
@@ -134,5 +137,12 @@ public class Utilisateur implements Serializable {
         this.roles = roles;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
 }

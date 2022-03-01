@@ -1,77 +1,103 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.AddressDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Address;
 import com.flowers.reposiory.AddressRepository;
 import com.flowers.services.AddressService;
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@Slf4j
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
 
-
-    @Override
-    public Address saveAddress(Address address) {
-        return addressRepository.save(address);
+    @Autowired
+    public AddressServiceImpl(AddressRepository addressRepository) {
+        this.addressRepository = addressRepository;
     }
 
     @Override
-    public Address updateAddress(Long addId, Address address) {
-        if (!addressRepository.existsById(addId)) {
-            throw new ResourceNotFoundException("Address that id is " + addId + "not found");
+    public AddressDto saveAddress(AddressDto addressDto) {
+        return AddressDto.fromEntityToDto(
+                addressRepository.save(
+                        AddressDto.fromDtoToEntity(addressDto)
+                )
+        );
+    }
+
+    @Override
+    public AddressDto updateAddress(Long catId, AddressDto addressDto) {
+        if (!addressRepository.existsById(catId)) {
+            throw new ResourceNotFoundException("Address not found");
         }
 
-        Optional<Address> optionalAddress = addressRepository.findById(addId);
+        Optional<Address> optionalAddress = addressRepository.findById(catId);
 
         if (!optionalAddress.isPresent()) {
             throw new ResourceNotFoundException("Address not found");
         }
 
-        Address addressResult = optionalAddress.get();
-        addressResult.setReference(address.getReference());
-        addressResult.setCity(address.getCity());
-        addressResult.setPhone(address.getPhone());
-        addressResult.setQuartier(address.getQuartier());
-        addressResult.setRue(address.getRue());
-        addressResult.setState(address.getState());
+        AddressDto blogDtoResult = AddressDto.fromEntityToDto(optionalAddress.get());
+        blogDtoResult.setReference(addressDto.getReference());
+        blogDtoResult.setQuartier(addressDto.getQuartier());
+        blogDtoResult.setCity(addressDto.getCity());
+        blogDtoResult.setRue(addressDto.getRue());
+        blogDtoResult.setZipcode(addressDto.getZipcode());
+        blogDtoResult.setStateDto(addressDto.getStateDto());
 
-        return addressRepository.save(addressResult);
+
+        return AddressDto.fromEntityToDto(
+                addressRepository.save(
+                        AddressDto.fromDtoToEntity(blogDtoResult)
+                )
+        );
     }
 
     @Override
-    public Optional<Address> findAddressById(Long addId) {
-        if (!addressRepository.existsById(addId)) {
-            throw new ResourceNotFoundException("Address that id is " + addId + "not found");
+    public AddressDto findAddressById(Long addId) {
+        if (addId == null) {
+            log.error("Address Id is null");
+            return null;
         }
-        return addressRepository.findById(addId);
+
+        Optional<Address> address = addressRepository.findById(addId);
+
+        return Optional.of(AddressDto.fromEntityToDto(address.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Not address with l'Id = " + addId + "n'a été found")
+        );
     }
 
-
     @Override
-    public List<Address> findAllAddresses() {
-        return addressRepository.findAll();
+    public List<AddressDto> findAllAddresses() {
+        return addressRepository.findAll().stream()
+                .map(AddressDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Address> findAddressByOrderByIdDesc() {
-        return addressRepository.findByOrderByIdDesc();
+    public List<AddressDto> findAddressesByOrderByIdDesc() {
+        return addressRepository.findByOrderByIdDesc().stream()
+                .map(AddressDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void deleteAddress(Long addId) {
-        if (!addressRepository.existsById(addId)) {
-            throw new ResourceNotFoundException("Address not found");
+        if (addId == null) {
+            log.error("Address Id is null");
+            return;
         }
         addressRepository.deleteById(addId);
     }
-
 }

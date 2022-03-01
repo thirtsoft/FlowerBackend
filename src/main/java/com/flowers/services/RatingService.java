@@ -1,6 +1,6 @@
 package com.flowers.services;
 
-import com.flowers.models.Rating;
+import com.flowers.dtos.RatingDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,21 +8,21 @@ import java.util.Optional;
 
 public interface RatingService {
 
-    Rating save(Rating rating);
+    RatingDto save(RatingDto ratingDto);
 
-    Rating saveRatingToArticle(Long id, Rating rating);
+    RatingDto saveRatingToArticle(Long id, RatingDto ratingDto);
 
-    Optional<Rating> findById(Long id);
+    RatingDto findById(Long id);
 
-    List<Rating> findAll();
+    List<RatingDto> findAll();
 
-    List<Rating> findByOrderByIdDesc();
+    List<RatingDto> findByOrderByIdDesc();
 
     BigDecimal countNumberOfRating();
 
     BigDecimal countNumberOfRatingByProductId(String prodRef);
 
-    List<Rating> findTop4ByOrderByCreatedDateDescByProductId(String prodRef);
+    List<RatingDto> findTop4ByOrderByCreatedDateDescByProductId(String prodRef);
 
     void delete(Long id);
 }

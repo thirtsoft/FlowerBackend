@@ -1,7 +1,6 @@
 package com.flowers.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,25 +10,26 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "commande")
 @Data
-public class Order implements Serializable {
+public class Commande implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "numeroOrder", length = 70)
-    private Long numeroOrder;
+    @Column(name = "numeroCommande", length = 70)
+    private Long numeroCommande;
 
-    @Column(name = "totalPrice")
-    private double totalPrice;
+    @Column(name = "totalCommande")
+    private double totalCommande;
 
     @Column(name = "totalQuantity", length = 150)
     private int totalQuantity;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT")
-    @Column(name = "orderDate")
-    private Date orderDate;
+    @Column(name = "dateCommande")
+    private Date dateCommande;
 
     @Column(name = "status")
     private String status;
@@ -56,20 +56,19 @@ public class Order implements Serializable {
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private Address billingAddress;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", fetch = FetchType.LAZY)
-    private List<OrderItem> orderItemList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch = FetchType.LAZY)
+    private List<LigneCommande> lcomms = new ArrayList<>();
 
-    public Order() {
+    public Commande() {
     }
 
-    public void add(OrderItem orderItem) {
-        if (orderItem != null) {
-            if (orderItemList == null) {
-                orderItemList = new ArrayList<>();
+    public void add(LigneCommande ligneCommande) {
+        if (ligneCommande != null) {
+            if (lcomms == null) {
+                lcomms = new ArrayList<>();
             }
-            orderItemList.add(orderItem);
-            orderItem.setOrder(this);
+            lcomms.add(ligneCommande);
+            ligneCommande.setCommande(this);
         }
     }
 

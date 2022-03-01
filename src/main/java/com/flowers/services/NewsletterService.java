@@ -1,7 +1,6 @@
 package com.flowers.services;
 
-import com.flowers.models.Fournisseur;
-import com.flowers.models.Newsletter;
+import com.flowers.dtos.NewsletterDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,13 +8,13 @@ import java.util.Optional;
 
 public interface NewsletterService {
 
-    Newsletter save(Newsletter newsletter);
+    NewsletterDto save(NewsletterDto newsletterDto);
 
-    Optional<Newsletter> findById(Long id);
+    NewsletterDto findById(Long id);
 
-    List<Newsletter> findAll();
+    List<NewsletterDto> findAll();
 
-    List<Newsletter> findByOrderByIdDesc();
+    List<NewsletterDto> findByOrderByIdDesc();
 
     BigDecimal countNumberOfNewsletters();
 
