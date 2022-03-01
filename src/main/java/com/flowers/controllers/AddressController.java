@@ -2,10 +2,9 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.AddressApi;
 import com.flowers.dtos.AddressDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Address;
 import com.flowers.services.AddressService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,31 +19,37 @@ public class AddressController implements AddressApi {
 
     @Override
     public ResponseEntity<AddressDto> saveAddress(AddressDto addressDto) {
-        return null;
+        AddressDto addressDtoResult = addressService.saveAddress(addressDto);
+        return new ResponseEntity<>(addressDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<AddressDto> updateAddress(Long addId, AddressDto addressDto) {
-        return null;
+        addressDto.setId(addId);
+        AddressDto addressDtoResult = addressService.saveAddress(addressDto);
+        return new ResponseEntity<>(addressDtoResult, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<AddressDto> getAddressById(Long addId) throws ResourceNotFoundException {
-        return null;
+    public ResponseEntity<AddressDto> getAddressById(Long addId) {
+        AddressDto addressDtoResult = addressService.findAddressById(addId);
+        return new ResponseEntity<>(addressDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<AddressDto>> getAllAddresses() {
-        return null;
+        List<AddressDto> addressDtoList = addressService.findAllAddresses();
+        return new ResponseEntity<>(addressDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<AddressDto>> getAllAddressesOrderByIdDesc() {
-        return null;
+        List<AddressDto> addressDtoList = addressService.findAddressesByOrderByIdDesc();
+        return new ResponseEntity<>(addressDtoList, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> deleteAddress(Long addId) {
-        return null;
+    public void deleteAddress(Long addId) {
+        addressService.deleteAddress(addId);
     }
 }

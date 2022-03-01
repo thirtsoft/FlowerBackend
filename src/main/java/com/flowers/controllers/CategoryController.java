@@ -2,9 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.CategoryApi;
 import com.flowers.dtos.CategoryDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Blog;
-import com.flowers.models.Category;
 import com.flowers.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,17 +21,21 @@ public class CategoryController implements CategoryApi {
 
     @Override
     public ResponseEntity<CategoryDto> saveCategory(CategoryDto categoryDto) {
-        return null;
+        CategoryDto categoryDtoResult = categoryService.saveCategory(categoryDto);
+        return new ResponseEntity<>(categoryDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<CategoryDto> updateCategory(Long catId, CategoryDto categoryDto) {
-        return null;
+        categoryDto.setId(catId);
+        CategoryDto categoryDtoResult = categoryService.saveCategory(categoryDto);
+        return new ResponseEntity<>(categoryDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<CategoryDto> getCategoryById(Long catId) {
-        return null;
+        CategoryDto categoryDtoResult = categoryService.findCategoryById(catId);
+        return new ResponseEntity<>(categoryDtoResult, HttpStatus.OK);
     }
 
     @Override
@@ -49,12 +50,14 @@ public class CategoryController implements CategoryApi {
 
     @Override
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
-        return null;
+        List<CategoryDto> categoryDtoList = categoryService.findAllCategories();
+        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<CategoryDto>> getAllCategoriesOrderByIdDesc() {
-        return null;
+        List<CategoryDto> categoryDtoList = categoryService.findCategoryByOrderByIdDesc();
+        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -69,6 +72,6 @@ public class CategoryController implements CategoryApi {
 
     @Override
     public void deleteCategory(Long catId) {
-
+        categoryService.deleteCategory(catId);
     }
 }

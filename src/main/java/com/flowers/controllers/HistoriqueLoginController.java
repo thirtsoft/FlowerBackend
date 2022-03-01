@@ -28,22 +28,26 @@ public class HistoriqueLoginController implements HistoriqueLoginApi {
 
     @Override
     public ResponseEntity<HistoriqueLoginDto> saveHistoriqueLogin(HistoriqueLoginDto historiqueLoginDto) {
-        return null;
+        HistoriqueLoginDto historiqueLoginDtoResult = historiqueLoginService.saveHistoriqueLogin(historiqueLoginDto);
+        return new ResponseEntity<>(historiqueLoginDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<HistoriqueLoginDto> getHistoriqueLoginById(Long id) {
-        return null;
+        HistoriqueLoginDto historiqueLoginDtoResult = historiqueLoginService.findHistoriqueLoginById(id);
+        return new ResponseEntity<>(historiqueLoginDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLogins() {
-        return null;
+        List<HistoriqueLoginDto> historiqueLoginDtoList = historiqueLoginService.findAllHistoriqueLogins();
+        return new ResponseEntity<>(historiqueLoginDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLoginOrderByIdDesc() {
-        return null;
+        List<HistoriqueLoginDto> historiqueLoginDtoList = historiqueLoginService.findAllHistoriqueLoginsOrderDesc();
+        return new ResponseEntity<>(historiqueLoginDtoList, HttpStatus.OK);
     }
 
     @Override

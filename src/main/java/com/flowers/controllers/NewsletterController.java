@@ -28,22 +28,26 @@ public class NewsletterController implements NewsletterApi {
 
     @Override
     public ResponseEntity<NewsletterDto> saveNewsletter(NewsletterDto newsletterDto) {
-        return null;
+        NewsletterDto newsletterDtoResult = newsletterService.save(newsletterDto);
+        return new ResponseEntity<>(newsletterDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<NewsletterDto> getNewsletterById(Long id) {
-        return null;
+        NewsletterDto newsletterDtoResult = newsletterService.findById(id);
+        return new ResponseEntity<>(newsletterDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<NewsletterDto>> getAllNewsletters() {
-        return null;
+        List<NewsletterDto> newsletterDtoList = newsletterService.findAll();
+        return new ResponseEntity<>(newsletterDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<NewsletterDto>> getAllNewslettersOrderByIdDesc() {
-        return null;
+        List<NewsletterDto> newsletterDtoList = newsletterService.findByOrderByIdDesc();
+        return new ResponseEntity<>(newsletterDtoList, HttpStatus.OK);
     }
 
     @Override

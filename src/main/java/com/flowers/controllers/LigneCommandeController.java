@@ -20,42 +20,51 @@ public class LigneCommandeController implements LigneCommandeApi {
 
     @Override
     public ResponseEntity<LigneCommandeDto> saveLigneCommande(LigneCommandeDto ligneCommandeDto) {
-        return null;
+        LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.saveOrderItem(ligneCommandeDto);
+        return new ResponseEntity<>(ligneCommandeDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<LigneCommandeDto> updateLigneCommande(Long id, LigneCommandeDto ligneCommandeDto) {
-        return null;
+        ligneCommandeDto.setId(id);
+        LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.saveOrderItem(ligneCommandeDto);
+        return new ResponseEntity<>(ligneCommandeDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<LigneCommandeDto> getOrderItemById(Long id) {
-        return null;
+        LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.findOrderItemById(id);
+        return new ResponseEntity<>(ligneCommandeDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllOrderItems() {
-        return null;
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllOrderItems();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllOrderItemOrderByIdDesc() {
-        return null;
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findByOrderByIdDesc();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllOrderItemsGroupByProductIdDesc() {
-        return null;
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findArticlesGroupByProductId();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllOrderItemsByOrderId(Long comId) {
-        return null;
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.ListOrderItemByOrderId(comId);
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getTop200OrderItemsOrderByIdDesc() {
-        return null;
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findTop200ByOrderByIdDesc();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override

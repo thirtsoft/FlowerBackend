@@ -151,7 +151,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par pages / une liste vide")
     })
-    Page<ProductDto> getListProductByPageable(Pageable pageable);
+    Page<ProductDto> getListProductByPageable(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductBySubcategoryByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par Subcategory",
@@ -159,7 +159,8 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par Subcategory par pages / une liste vide")
     })
-    Page<ProductDto> getListProductBySubCategoryByPageable(@RequestParam("id") Long scatId, Pageable pageable);
+    Page<ProductDto> getListProductBySubCategoryByPageable(@RequestParam("id") Long scatId, @RequestParam(name = "page") int page,
+                                                         @RequestParam(name = "size") int size);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductBySamePriceByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par price",
@@ -167,7 +168,8 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par price par pages / une liste vide")
     })
-    Page<ProductDto> getListProductBySamePriceyByPageable(@RequestParam("price") double price, Pageable pageable);
+    Page<ProductDto> getListProductBySamePriceyByPageable(@RequestParam("price") double price, @RequestParam(name = "page") int page,
+                                                          @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/products/delete/{idProduct}")
     @ApiOperation(value = "Supprimer un Product par son ID",

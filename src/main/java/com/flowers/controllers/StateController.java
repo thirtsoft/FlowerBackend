@@ -21,32 +21,39 @@ public class StateController implements StateApi {
 
     @Override
     public ResponseEntity<StateDto> saveState(StateDto stateDto) {
-        return null;
+        StateDto stateDtoResult = stateService.saveState(stateDto);
+        return new ResponseEntity<>(stateDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<StateDto> updateState(Long stateId, StateDto stateDto) {
-        return null;
+        stateDto.setId(stateId);
+        StateDto stateDtoResult = stateService.saveState(stateDto);
+        return new ResponseEntity<>(stateDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<StateDto> getStateById(Long stateId) {
-        return null;
+        StateDto stateDtoResult = stateService.findStateById(stateId);
+        return new ResponseEntity<>(stateDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<StateDto>> getAllStates() {
-        return null;
+        List<StateDto> stateDtoList = stateService.findAllStates();
+        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc() {
-        return null;
+        List<StateDto> stateDtoList = stateService.findStateByOrderByIdDesc();
+        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<StateDto>> getAllStateByCountryCode(String code) {
-        return null;
+        List<StateDto> stateDtoList = stateService.findAllStateByCountryCode("%" + code + "%");
+        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
     }
 
     @Override

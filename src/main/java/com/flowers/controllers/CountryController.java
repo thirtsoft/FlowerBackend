@@ -2,8 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.CountryApi;
 import com.flowers.dtos.CountryDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Country;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,31 +19,38 @@ public class CountryController implements CountryApi {
 
     @Override
     public ResponseEntity<CountryDto> saveCountry(CountryDto countryDto) {
-        return null;
+        CountryDto countryDtoResult = countryService.saveCountry(countryDto);
+        return new ResponseEntity<>(countryDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<CountryDto> updateCountry(Long countId, CountryDto countryDto) {
-        return null;
+        countryDto.setId(countId);
+        CountryDto countryDtoResult = countryService.saveCountry(countryDto);
+
+        return new ResponseEntity<>(countryDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<CountryDto> getCountryById(Long countId) {
-        return null;
+        CountryDto countryDtoResult = countryService.findCountryById(countId);
+        return new ResponseEntity<>(countryDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<CountryDto>> getAllCountries() {
-        return null;
+        List<CountryDto> countryDtoList = countryService.findAllCountries();
+        return new ResponseEntity<>(countryDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<CountryDto>> getAllCountriesOderByIdDesc() {
-        return null;
+        List<CountryDto> countryDtoList = countryService.findCountryByOrderByIdDesc();
+        return new ResponseEntity<>(countryDtoList, HttpStatus.OK);
     }
 
     @Override
     public void deleteCountry(Long countId) {
-
+        countryService.deleteCountry(countId);
     }
 }

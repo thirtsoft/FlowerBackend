@@ -45,7 +45,7 @@ public interface AddressApi {
             @ApiResponse(code = 200, message = "L'Address a été trouvé")
 
     })
-    ResponseEntity<AddressDto> getAddressById(@PathVariable(value = "addId") Long addId) throws ResourceNotFoundException;
+    ResponseEntity<AddressDto> getAddressById(@PathVariable(value = "addId") Long addId);
 
 
     @GetMapping(value = APP_ROOT + "/addresses/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,6 +71,6 @@ public interface AddressApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Address est supprimé / une liste vide")
     })
-    ResponseEntity<?> deleteAddress(@PathVariable(name = "addId") Long addId);
+    void deleteAddress(@PathVariable(name = "addId") Long addId);
 
 }

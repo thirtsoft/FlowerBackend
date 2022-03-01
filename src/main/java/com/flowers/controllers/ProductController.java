@@ -3,11 +3,10 @@ package com.flowers.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flowers.controllers.api.ProductApi;
 import com.flowers.dtos.ProductDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Product;
 import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,101 +32,141 @@ public class ProductController implements ProductApi {
 
     @Override
     public ResponseEntity<ProductDto> saveProduct(ProductDto productDto) {
-        return null;
+        ProductDto productDtoResult = productService.saveProduct(productDto);
+        return new ResponseEntity<>(productDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<ProductDto> saveProductWithFile(String product, MultipartFile photoProduct) throws IOException {
-        return null;
+        ProductDto productDto = new ObjectMapper().readValue(product, ProductDto.class);
+        if (photoProduct != null && !photoProduct.isEmpty()) {
+            productDto.setPhoto(photoProduct.getOriginalFilename());
+            photoProduct.transferTo(new File(productPhotosDir + photoProduct.getOriginalFilename()));
+        }
+
+        ProductDto productDtoResult = productService.saveProduct(productDto);
+
+        return new ResponseEntity<>(productDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<ProductDto> updateProduct(Long id, ProductDto productDto) {
-        return null;
+        productDto.setId(id);
+        ProductDto productDtoResult = productService.saveProduct(productDto);
+        return new ResponseEntity<>(productDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ProductDto> getProductById(Long id) {
-        return null;
+        ProductDto productDtoResult = productService.findById(id);
+        return new ResponseEntity<>(productDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ProductDto> getProductByReference(String reference) {
-        return null;
+        ProductDto productDtoResult = productService.findByReference(reference);
+        return new ResponseEntity<>(productDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getAllProducts() {
-        return null;
+        List<ProductDto> productDtoList = productService.findAll();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getListProductBySubCategory(Long subCatId) {
-        return null;
+        List<ProductDto> productDtoList = productService.findListProductBySubCategories(subCatId);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getListProductByKeyword(String keyword) {
-        return null;
+        List<ProductDto> productDtoList = productService.findListProductByKeyword("%" + keyword + "%");
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getListProductByPrice(double price) {
-        return null;
+        List<ProductDto> productDtoList = productService.findListProductGroupByPrice(price);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getListProductBySelected() {
-        return null;
+        List<ProductDto> productDtoList = productService.findListProductBySelected();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getListProductByPromo() {
-        return null;
+        List<ProductDto> productDtoList = productService.findListProductByPromo();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getTop24ByOrderByCreatedDateDesc() {
-        return null;
+        List<ProductDto> productDtoList = productService.findTop24ByOrderByCreateDateDesc();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getAllProductByOrderByIdDesc() {
-        return null;
+        List<ProductDto> productDtoList = productService.findByOrderByIdDesc();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<ProductDto>> getAllProductByPriceMinMax(double min, double max) {
-        return null;
+        List<ProductDto> productDtoList = productService.findListProductByPriceMinMax(min, max);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 
     @Override
-    public Page<ProductDto> getListProductByPageable(Pageable pageable) {
-        return null;
+    public Page<ProductDto> getListProductByPageable(int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return productService.findProductByPageable(pageable);
     }
 
     @Override
-    public Page<ProductDto> getListProductBySubCategoryByPageable(Long scatId, Pageable pageable) {
-        return null;
+    public Page<ProductDto> getListProductBySubCategoryByPageable(Long scatId, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return productService.findProductBySubCategoryPageable(scatId, pageable);
     }
 
     @Override
-    public Page<ProductDto> getListProductBySamePriceyByPageable(double price, Pageable pageable) {
-        return null;
+    public Page<ProductDto> getListProductBySamePriceyByPageable(double price, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return productService.findProductBySamePricePageable(price, pageable);
     }
+
 
     @Override
     public void delete(Long id) {
-
+        productService.delete(id);
     }
 
     @Override
     public byte[] getPhotoProduct(Long id) throws Exception {
-        return new byte[0];
+
+        ProductDto productDto = productService.findById(id);
+
+        System.out.println("Article DTO -- " + productDto);
+        System.out.println("Article DTO Designation -- " + productDto.getDesignation());
+        System.out.println("Article DTO Price -- " + productDto.getPrice());
+        System.out.println("Article DTO Photo -- " + productDto.getPhoto());
+
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/flowers/photos/" + productDto.getPhoto()));
     }
 
     @Override
     public void uploadPhotoProduct(MultipartFile photoProduct, Long idProduct) throws IOException {
+        ProductDto productDto = productService.findById(idProduct);
+        productDto.setPhoto(photoProduct.getOriginalFilename());
+        Files.write(Paths.get(System.getProperty("user.home") + "/flowers/photos/" + productDto.getPhoto()), photoProduct.getBytes());
+
+        productService.saveProduct(productDto);
 
     }
+
 }

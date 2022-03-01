@@ -22,27 +22,33 @@ public class FournisseurController implements FournisseurApi {
 
     @Override
     public ResponseEntity<FournisseurDto> saveFournisseur(FournisseurDto fournisseurDto) {
-        return null;
+        FournisseurDto fournisseurDtoResult = fournisseurService.saveFournisseur(fournisseurDto);
+        return new ResponseEntity<>(fournisseurDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<FournisseurDto> updateFournisseur(Long id, FournisseurDto fournisseurDto) {
-        return null;
+        fournisseurDto.setId(id);
+        FournisseurDto fournisseurDtoResult = fournisseurService.saveFournisseur(fournisseurDto);
+        return new ResponseEntity<>(fournisseurDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<FournisseurDto> getFournisseurById(Long id) {
-        return null;
+        FournisseurDto fournisseurDtoResult = fournisseurService.findFournisseurById(id);
+        return new ResponseEntity<>(fournisseurDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<FournisseurDto>> getAllFournisseurs() {
-        return null;
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findAllFournisseurs();
+        return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc() {
-        return null;
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findFournisseurByOrderByIdDesc();
+        return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.flowers.services;
 
 import com.flowers.dtos.CommandeDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -49,6 +51,8 @@ public interface CommandeService {
     List<?> sumTotalOfOrderByMonth();
 
     List<?> sumTotalOfOrdersByYears();
+
+    Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable);
 
     void deleteOrder(Long Id);
 

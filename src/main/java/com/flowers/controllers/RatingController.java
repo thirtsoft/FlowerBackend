@@ -1,7 +1,9 @@
 package com.flowers.controllers;
 
 import com.flowers.controllers.api.RatingApi;
+import com.flowers.dtos.ProductDto;
 import com.flowers.dtos.RatingDto;
+import com.flowers.dtos.UtilisateurDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Product;
 import com.flowers.models.Rating;
@@ -41,37 +43,57 @@ public class RatingController implements RatingApi {
 
     @Override
     public ResponseEntity<RatingDto> saveRating(RatingDto ratingDto) {
-        return null;
+        RatingDto ratingDtoResult = ratingService.save(ratingDto);
+        return new ResponseEntity<>(ratingDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<RatingDto> saveRatingToArticle(Long id, RatingDto ratingDto) {
-        return null;
+        RatingDto ratingDtoResult = ratingService.saveRatingToArticle(id, ratingDto);
+        return new ResponseEntity<>(ratingDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<RatingDto> saveRating(RatingDto ratingDto, String reference, Long id) {
-        return null;
+
+    //    Product product = Optional.of(ProductDto.fromDtoToEntity(productService.findByReference(reference))).get();
+
+        ProductDto productDto = productService.findByReference(reference);
+
+    //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findUtilisateurById(id))).get();
+
+        UtilisateurDto utilisateurDto = utilisateurService.findUtilisateurById(id);
+
+        ratingDto.setProductDto(productDto);
+        ratingDto.setUtilisateurDto(utilisateurDto);
+        ratingDto.setCreatedDate(new Date());
+
+        RatingDto ratingDtoResult = ratingService.save(ratingDto);
+
+        return new ResponseEntity<>(ratingDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<RatingDto> getRatingById(Long id) {
-        return null;
+        RatingDto ratingDtoResult = ratingService.findById(id);
+        return new ResponseEntity<>(ratingDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<RatingDto>> getAllRatings() {
-        return null;
+        List<RatingDto> ratingDtoList = ratingService.findAll();
+        return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<RatingDto>> getAllRatingsOrderByIdDesc() {
-        return null;
+        List<RatingDto> ratingDtoList = ratingService.findByOrderByIdDesc();
+        return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
     }
 
     @Override
     public BigDecimal countNumberOfRating() {
-        return null;
+        return ratingService.countNumberOfRating();
     }
 
     @Override
@@ -81,7 +103,8 @@ public class RatingController implements RatingApi {
 
     @Override
     public ResponseEntity<List<RatingDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
-        return null;
+        List<RatingDto> ratingDtoList = ratingService.findTop4ByOrderByCreatedDateDescByProductId("%" + prodRef + "%");
+        return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
     }
 
     @Override

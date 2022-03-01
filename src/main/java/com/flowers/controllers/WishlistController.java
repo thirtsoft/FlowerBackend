@@ -2,8 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.WishlistApi;
 import com.flowers.dtos.WishlistDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Wishlist;
 import com.flowers.services.WishlistService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,27 +19,33 @@ public class WishlistController implements WishlistApi {
 
     @Override
     public ResponseEntity<WishlistDto> saveWishlist(WishlistDto wishlistDto) {
-        return null;
+        WishlistDto wishlistDtoResult = wishlistService.saveWhishlist(wishlistDto);
+        return new ResponseEntity<>(wishlistDtoResult, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<WishlistDto> updateWishlist(Long wishlistId, WishlistDto wishlistDto) {
-        return null;
+        wishlistDto.setId(wishlistId);
+        WishlistDto wishlistDtoResult = wishlistService.saveWhishlist(wishlistDto);
+        return new ResponseEntity<>(wishlistDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<WishlistDto> getWishlistById(Long wishlistId) {
-        return null;
+        WishlistDto wishlistDtoResult = wishlistService.findWhishlistById(wishlistId);
+        return new ResponseEntity<>(wishlistDtoResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<WishlistDto>> getAllWishlists() {
-        return null;
+        List<WishlistDto> wishlistDtoList = wishlistService.findAllWishlists();
+        return new ResponseEntity<>(wishlistDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<WishlistDto>> getAllWishlistsOrderByIdDesc() {
-        return null;
+        List<WishlistDto> wishlistDtoList = wishlistService.findWishlistByOrderByIdDesc();
+        return new ResponseEntity<>(wishlistDtoList, HttpStatus.OK);
     }
 
     @Override
