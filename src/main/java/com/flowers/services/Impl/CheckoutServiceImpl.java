@@ -2,11 +2,9 @@ package com.flowers.services.Impl;
 
 import com.flowers.dtos.checkout.Purchase;
 import com.flowers.dtos.checkout.PurchaseResponse;
-import com.flowers.models.Client;
-import com.flowers.models.Commande;
-import com.flowers.models.LigneCommande;
-import com.flowers.models.Utilisateur;
+import com.flowers.models.*;
 import com.flowers.reposiory.ClientRepository;
+import com.flowers.reposiory.HistoriqueCommandeRepository;
 import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.services.CheckoutService;
 import com.flowers.services.UtilisateurService;
@@ -34,15 +32,19 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final UtilisateurRepository utilisateurRepository;
 
+    private final HistoriqueCommandeRepository historiqueCommandeRepository;
+
     private final String status = "ENCOURS";
 
     @Autowired
     public CheckoutServiceImpl(ClientRepository clientRepository,
                                UtilisateurService utilisateurService,
-                               UtilisateurRepository utilisateurRepository) {
+                               UtilisateurRepository utilisateurRepository,
+                               HistoriqueCommandeRepository historiqueCommandeRepository) {
         this.clientRepository = clientRepository;
         this.utilisateurService = utilisateurService;
         this.utilisateurRepository = utilisateurRepository;
+        this.historiqueCommandeRepository = historiqueCommandeRepository;
     }
 
     @Override
@@ -63,13 +65,20 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setStatus(status);
         commande.setDateCommande(new Date());
 
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setAction("COMMANDE AJOUTE");
+        historiqueCommande.setCommande(commande);
+        historiqueCommande.setCreatedDate(new Date());
+
+        historiqueCommandeRepository.save(historiqueCommande);
+
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
         ligneCommandeList.forEach(item -> commande.add(item));
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
-        //     commande.setShippingAddress(purchase.getShippingAddress());
+        //    commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();
@@ -100,6 +109,14 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // attach loggin user to order
         commande.setUtilisateur(utilisateur);
+
+        // historique Commande
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setAction("COMMANDE AJOUTEE");
+        historiqueCommande.setCommande(commande);
+        historiqueCommande.setCreatedDate(new Date());
+
+        historiqueCommandeRepository.save(historiqueCommande);
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();

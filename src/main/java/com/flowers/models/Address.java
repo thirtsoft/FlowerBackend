@@ -22,11 +22,8 @@ public class Address implements Serializable {
     @Column(name = "reference", length = 50)
     private String reference;
 
-    @Column(name = "quartier", length = 90)
-    private String quartier;
-
-    @Column(name = "phone", length = 63)
-    private String phone;
+    @Column(name = "zipcode", length = 90)
+    private String zipcode;
 
     @Column(name = "ville", length = 70)
     private String city;
@@ -34,11 +31,9 @@ public class Address implements Serializable {
     @Column(name = "rue", length = 90)
     private String rue;
 
-    @Column(name = "zipcode", length = 90)
-    private String zipcode;
-
     @ManyToOne
     @JoinColumn(name = "stateId")
+    // @JsonIgnore
     private State state;
 
     @OneToOne
@@ -46,11 +41,9 @@ public class Address implements Serializable {
     @JsonIgnore
     private Commande commande;
 
-    public Address(Long id, String reference, String quartier, String phone, String city, String rue, State state) {
+    public Address(Long id, String reference, String city, String rue, State state) {
         this.id = id;
         this.reference = reference;
-        this.quartier = quartier;
-        this.phone = phone;
         this.city = city;
         this.rue = rue;
         this.state = state;

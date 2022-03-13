@@ -52,7 +52,7 @@ public class StateController implements StateApi {
 
     @Override
     public ResponseEntity<List<StateDto>> getAllStateByCountryCode(String code) {
-        List<StateDto> stateDtoList = stateService.findAllStateByCountryCode("%" + code + "%");
+        List<StateDto> stateDtoList = stateService.findAllStateByCountryCode(code);
         return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
     }
 

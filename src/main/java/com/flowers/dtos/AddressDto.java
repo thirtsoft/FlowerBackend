@@ -16,13 +16,11 @@ public class AddressDto {
 
     private String reference;
 
+    private String zipcode;
+
     private String city;
 
-    private String quartier;
-
     private String rue;
-
-    private String zipcode;
 
     private StateDto stateDto;
 

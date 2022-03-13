@@ -16,7 +16,7 @@ public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Lo
 
     List<LigneCommande> findByOrderByIdDesc();
 
-    @Query("select p from LigneCommande p where p.order.id =:num")
+    @Query("select p from LigneCommande p where p.commande.id =:num")
     List<LigneCommande> ListOrderItemByOrderId(@Param("num") Long comId);
 
     List<LigneCommande> findTop200ByOrderByIdDesc();

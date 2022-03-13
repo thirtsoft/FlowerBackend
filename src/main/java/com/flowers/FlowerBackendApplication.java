@@ -176,16 +176,16 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "f3", "f3", p3));
 		Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "f4", "f4", p4));
 
-
-
 		Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
-		Country count2 = countryRepository.save(new Country(2L, "MAL", "Mali"));
-		Country count3 = countryRepository.save(new Country(3L,"JP", "Japon"));
-		Country count4 = countryRepository.save(new Country(4L, "GB", "Gambie"));
-		Country count5 = countryRepository.save(new Country(5L, "GC", "Guinée Conakry"));
-		Country count6 = countryRepository.save(new Country(6L, "USA","Etas-Unis"));
-
-
+		Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
+		Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
+		Country count4 = countryRepository.save(new Country(4L, "JAP", "Japon"));
+		Country count5 = countryRepository.save(new Country(5L, "GB", "Gambie"));
+		Country count6 = countryRepository.save(new Country(6L, "CH", "Chine"));
+		Country count7 = countryRepository.save(new Country(7L, "AR", "Arabie-Souadite"));
+		Country count8 = countryRepository.save(new Country(8L, "FR", "France"));
+		Country count9 = countryRepository.save(new Country(9L, "NG", "Nigeria"));
+		Country count10 = countryRepository.save(new Country(10L, "Ind", "Inde"));
 
 		State state1 = stateRepository.save(new State(1L, "Dakar", count1));
 		State state2 = stateRepository.save(new State(2L, "Ziguinchor", count1));
@@ -196,12 +196,8 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		State state7 = stateRepository.save(new State(7L, "Labe", count3));
 		State state8 = stateRepository.save(new State(8L, "Chine", count6));
 		State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
-		State state10 = stateRepository.save(new State(10L, "Accra", count6));
-
-		Address a1 = addressRepository.save(new Address(1L, "add1", "add1", "add1", "add1", "add1", state1));
-		Address a2 = addressRepository.save(new Address(2L, "add2", "add2", "add2", "add2", "add2", state2));
-		Address a3 = addressRepository.save(new Address(3L, "add3", "add3", "add3", "add3", "add3", state3));
-		Address a4 = addressRepository.save(new Address(4L, "add4", "add4", "add4", "add4", "add4", state4));
+		State state10 = stateRepository.save(new State(10L, "Accra", count9));
+		
 
 		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
 		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));

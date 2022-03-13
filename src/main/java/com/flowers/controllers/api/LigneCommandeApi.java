@@ -71,7 +71,7 @@ public interface LigneCommandeApi {
     })
     ResponseEntity<List<LigneCommandeDto>> getAllOrderItemsGroupByProductIdDesc();
 
-    @GetMapping(value = APP_ROOT + "/orderItems/searchAllorderItemsByOrderId/{comId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/orderItems/searchAllOrderItemsByOrderId/{comId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des orderItems  par commande ID",
             notes = "Cette méthode permet de chercher et renvoyer la liste des orderItems par  commande ID",
             responseContainer = "List<OrderItem>")

@@ -18,20 +18,11 @@ public class State implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", length = 90)
-    private String code;
-
     @Column(name = "name", length = 90)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryId")
     private Country country;
-
-    public State(Long id, String name, Country country) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-    }
 
 }
