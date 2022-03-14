@@ -14,8 +14,6 @@ public class LigneCommandeDto {
 
     private Long id;
 
-    private Long numero;
-
     private int quantity;
 
     private double price;
@@ -36,7 +34,6 @@ public class LigneCommandeDto {
 
         return LigneCommandeDto.builder()
                 .id(ligneCommande.getId())
-                .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
                 .productId(ligneCommande.getProductId())
@@ -53,7 +50,6 @@ public class LigneCommandeDto {
 
         LigneCommande ligneCommande = new LigneCommande();
         ligneCommande.setId(ligneCommandeDto.getId());
-        ligneCommande.setNumero(ligneCommandeDto.getNumero());
         ligneCommande.setQuantity(ligneCommandeDto.getQuantity());
         ligneCommande.setPrice(ligneCommandeDto.getPrice());
         ligneCommande.setProductId(ligneCommandeDto.getProductId());

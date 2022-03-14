@@ -9,12 +9,10 @@ import java.util.Date;
 @Entity
 @Table(name = "orderItem")
 public class LigneCommande implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "numero", length = 90)
-    private Long numero;
 
     @Column(name = "quantity", length = 70)
     private int quantity;
@@ -54,17 +52,6 @@ public class LigneCommande implements Serializable {
 
     public LigneCommande(Long id, int quantity, double price, Commande commande, Product product) {
         this.id = id;
-        this.numero = commande.getNumeroCommande();
-        this.quantity = quantity;
-        this.price = price;
-        this.createdDate = new Date();
-        this.commande = commande;
-        this.product = product;
-    }
-
-    public LigneCommande(Long id, Long numero, int quantity, double price, Commande commande, Product product) {
-        this.id = id;
-        this.numero = numero;
         this.quantity = quantity;
         this.price = price;
         this.createdDate = new Date();
@@ -78,14 +65,6 @@ public class LigneCommande implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Long numero) {
-        this.numero = numero;
     }
 
     public int getQuantity() {

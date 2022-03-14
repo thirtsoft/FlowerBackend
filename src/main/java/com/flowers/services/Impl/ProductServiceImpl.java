@@ -1,10 +1,8 @@
 package com.flowers.services.Impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flowers.dtos.NewsletterDto;
 import com.flowers.dtos.ProductDto;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Newsletter;
 import com.flowers.models.Product;
 import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
@@ -29,7 +27,6 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-
 
     @Override
     public ProductDto saveProduct(ProductDto productDto) {
@@ -113,6 +110,11 @@ public class ProductServiceImpl implements ProductService {
                 new ResourceNotFoundException(
                         "Aucnun Product avec l'Id = " + reference + "n'a été trouvé")
         );
+    }
+
+    @Override
+    public long countNumberTotalOfProduct() {
+        return productRepository.count();
     }
 
     @Override

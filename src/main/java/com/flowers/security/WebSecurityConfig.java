@@ -16,12 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import static com.flowers.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
@@ -84,23 +81,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/products/create").permitAll()
                 .antMatchers("/**/products/createWithFile").permitAll()
-           //     .antMatchers("/**/products/createWithFile/**").permitAll()
+                //     .antMatchers("/**/products/createWithFile/**").permitAll()
                 .antMatchers("/**/products/update/{idProduct}").permitAll()
                 .antMatchers("/**/products/findById/{idProduct}").permitAll()
                 .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
                 .antMatchers("/**/products/all").permitAll()
                 .antMatchers("/**/products/productsBySubCategories/{subCatId}").permitAll()
                 .antMatchers("/**/products/searchProductByKeyword").permitAll()
-          //      .antMatchers("/**/products/searchProductByKeyword/*").permitAll()
                 .antMatchers("/**/products/searchTop24ProductByOrder").permitAll()
                 .antMatchers("/**/products/searchProductByPrice/{price}").permitAll()
                 .antMatchers("/**/products/searchProductBySelectedIsTrue").permitAll()
-                .antMatchers("/**/products/searchProductByPageables/**").permitAll()
-                .antMatchers("/**/products/searchProductBySubcategoryByPageables/**").permitAll()
+                .antMatchers("/**/products/searchProductByPageables").permitAll()
+                .antMatchers("/**/products/searchProductBySubcategoryByPageables").permitAll()
                 .antMatchers("/**/products/searchProductBySamePriceByPageables/**").permitAll()
                 .antMatchers("/**/products/delete/{idProduct}").permitAll()
                 .antMatchers("/**/products/photoProduct/{idProduct}").permitAll()
                 .antMatchers("/**/products/uploadProductPhoto/{idProduct}").permitAll()
+                .antMatchers("/**/products/countNumberTotalOfProducts").permitAll()
 
                 .antMatchers("/**/subcategories/create").permitAll()
                 .antMatchers("/**/subcategories/update/*").permitAll()

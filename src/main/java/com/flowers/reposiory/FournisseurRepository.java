@@ -1,6 +1,5 @@
 package com.flowers.reposiory;
 
-import com.flowers.models.Category;
 import com.flowers.models.Fournisseur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -165,10 +165,10 @@ public class FlowerBackendApplication implements CommandLineRunner {
 				"\n" +
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", sc1));
 		Product p16 = productRepository.save(new Product(16L, "prod16", "Fleur-16", 1700.0, 1500.0, 150, "11.jpg",false, true, true, "prod1prod1prod1", "prod1prod1prod1", sc3));
-		Product p17 = productRepository.save(new Product(17L, "prod17", "Fleurs-17", 1700.0, 1400.0, 150, "17.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc4));
+		Product p17 = productRepository.save(new Product(17L, "prod17", "Fleurs-17", 1700.0, 1400.0, 150, "17.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
 		Product p18 = productRepository.save(new Product(18L, "prod18", "Fleur-18", 1700.0, 1600.0, 150, "20.jpg",false, true, true, "prod1prod1prod1", "prod1prod1prod1", sc5));
-		Product p19 = productRepository.save(new Product(19L, "prod19", "Fleur-19", 1700.0, 1300.0, 150, "28.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc6));
-		Product p20 = productRepository.save(new Product(20L, "prod20", "Fleur-20", 1700.0, 1200.0, 150, "34.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc7));
+		Product p19 = productRepository.save(new Product(19L, "prod19", "Fleur-19", 1700.0, 1300.0, 150, "28.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
+		Product p20 = productRepository.save(new Product(20L, "prod20", "Fleur-20", 1700.0, 1200.0, 150, "34.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
 
 
 		Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", p1));

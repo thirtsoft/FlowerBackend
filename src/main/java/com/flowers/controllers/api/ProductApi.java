@@ -1,13 +1,10 @@
 package com.flowers.controllers.api;
 
 import com.flowers.dtos.ProductDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Product;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +37,7 @@ public interface ProductApi {
 
     })
     ResponseEntity<ProductDto> saveProductWithFile(@RequestParam(name = "Product") String product,
-                                                @RequestParam(name = "photoProduct") MultipartFile photoProduct) throws IOException;
+                                                   @RequestParam(name = "photoProduct") MultipartFile photoProduct) throws IOException;
 
     @PutMapping(value = APP_ROOT + "/products/update/{idProduct}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -160,7 +157,7 @@ public interface ProductApi {
             @ApiResponse(code = 200, message = "La liste des products par Subcategory par pages / une liste vide")
     })
     Page<ProductDto> getListProductBySubCategoryByPageable(@RequestParam("id") Long scatId, @RequestParam(name = "page") int page,
-                                                         @RequestParam(name = "size") int size);
+                                                           @RequestParam(name = "size") int size);
 
     @GetMapping(value = APP_ROOT + "/products/searchProductBySamePriceByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par price",
@@ -196,4 +193,13 @@ public interface ProductApi {
     })
     void uploadPhotoProduct(@RequestParam(name = "photoProduct") MultipartFile photoProduct,
                             @PathVariable("idProduct") Long idProduct) throws IOException;
+
+    @GetMapping(path = APP_ROOT + "/products/countNumberTotalOfProducts")
+    @ApiOperation(value = "Compter le nombre total de produits",
+            notes = "Cette méthode permet de compter le nombre total de produits dans la base de donnees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de produits est")
+
+    })
+    long getNumberTotalOfProductInDatabase();
 }

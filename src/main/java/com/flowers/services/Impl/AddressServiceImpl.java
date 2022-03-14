@@ -48,7 +48,6 @@ public class AddressServiceImpl implements AddressService {
         }
 
         AddressDto blogDtoResult = AddressDto.fromEntityToDto(optionalAddress.get());
-        blogDtoResult.setReference(addressDto.getReference());
         blogDtoResult.setCity(addressDto.getCity());
         blogDtoResult.setRue(addressDto.getRue());
         blogDtoResult.setZipcode(addressDto.getZipcode());

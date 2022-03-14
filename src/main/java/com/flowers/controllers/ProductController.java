@@ -169,4 +169,9 @@ public class ProductController implements ProductApi {
 
     }
 
+    @Override
+    public long getNumberTotalOfProductInDatabase() {
+        return productService.countNumberTotalOfProduct();
+    }
+
 }

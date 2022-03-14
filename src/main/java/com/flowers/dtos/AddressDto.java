@@ -14,8 +14,6 @@ public class AddressDto {
 
     private Long id;
 
-    private String reference;
-
     private String zipcode;
 
     private String city;
@@ -30,7 +28,6 @@ public class AddressDto {
         }
         return AddressDto.builder()
                 .id(address.getId())
-                .reference(address.getReference())
                 .zipcode(address.getZipcode())
                 .city(address.getCity())
                 .rue(address.getRue())
@@ -44,7 +41,6 @@ public class AddressDto {
         }
         Address address = new Address();
         address.setId(addressDto.getId());
-        address.setReference(addressDto.getReference());
         address.setCity(addressDto.getCity());
         address.setRue(addressDto.getRue());
         address.setZipcode(addressDto.getZipcode());

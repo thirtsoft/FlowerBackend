@@ -1,5 +1,7 @@
 package com.flowers.services.Impl;
 
+import com.flowers.dtos.HistoriqueCommandeDto;
+import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.dtos.checkout.Purchase;
 import com.flowers.dtos.checkout.PurchaseResponse;
 import com.flowers.models.*;
@@ -65,20 +67,13 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setStatus(status);
         commande.setDateCommande(new Date());
 
-        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
-        historiqueCommande.setAction("COMMANDE AJOUTE");
-        historiqueCommande.setCommande(commande);
-        historiqueCommande.setCreatedDate(new Date());
-
-        historiqueCommandeRepository.save(historiqueCommande);
-
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
         ligneCommandeList.forEach(item -> commande.add(item));
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
-        //    commande.setShippingAddress(purchase.getShippingAddress());
+    //    commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();
@@ -110,21 +105,13 @@ public class CheckoutServiceImpl implements CheckoutService {
         // attach loggin user to order
         commande.setUtilisateur(utilisateur);
 
-        // historique Commande
-        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
-        historiqueCommande.setAction("COMMANDE AJOUTEE");
-        historiqueCommande.setCommande(commande);
-        historiqueCommande.setCreatedDate(new Date());
-
-        historiqueCommandeRepository.save(historiqueCommande);
-
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
         ligneCommandeList.forEach(item -> commande.add(item));
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
-        //    commande.setShippingAddress(purchase.getShippingAddress());
+    //    commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();

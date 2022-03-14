@@ -19,9 +19,6 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reference", length = 50)
-    private String reference;
-
     @Column(name = "zipcode", length = 90)
     private String zipcode;
 
@@ -41,9 +38,8 @@ public class Address implements Serializable {
     @JsonIgnore
     private Commande commande;
 
-    public Address(Long id, String reference, String city, String rue, State state) {
+    public Address(Long id, String city, String rue, State state) {
         this.id = id;
-        this.reference = reference;
         this.city = city;
         this.rue = rue;
         this.state = state;
