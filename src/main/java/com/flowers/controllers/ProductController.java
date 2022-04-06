@@ -174,4 +174,37 @@ public class ProductController implements ProductApi {
         return productService.countNumberTotalOfProduct();
     }
 
+    @Override
+    public ResponseEntity<List<ProductDto>> getAllProductsByPageable(int page, int size) {
+        List<ProductDto> productDtoList = productService.findProductByPageable(page, size);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryIdByPageable(Long id, int page, int size) {
+        List<ProductDto> productDtoList = productService.findProductsBySubCategoryId(id, page, size);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDto>> getAllProductsByKeywordByPageable(String keyword, int page, int size) {
+        List<ProductDto> productDtoList = productService.findProductByKeywordByPageable(keyword, page, size);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public long getProductSizes() {
+        return productService.getAllProductsSize();
+    }
+
+    @Override
+    public long getProductSizesBySubCategoryId(Long id) {
+        return productService.getProductsByCategoryIdLength(id);
+    }
+
+    @Override
+    public long getProductSizesByKeyword(String key) {
+        return productService.getProductSizeByKey(key);
+    }
+
 }

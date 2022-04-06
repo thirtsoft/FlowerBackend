@@ -39,7 +39,7 @@ public interface FournisseurApi {
     })
     ResponseEntity<FournisseurDto> updateFournisseur(@PathVariable("idFournisseur") Long id, @RequestBody FournisseurDto fournisseurDto);
 
-    @GetMapping(value = APP_ROOT + "/fournisseurs/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/fournisseurs/findById/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Chercher un Fournisseur",
             notes = "Cette méthode permet de chercher et de renvoyer un Fournisseur", response = FournisseurDto.class)
     @ApiResponses(value = {

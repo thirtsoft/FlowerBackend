@@ -9,6 +9,7 @@ import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -206,4 +207,42 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProductDto> findProductByPageable(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findAll(pageable)
+                .map(ProductDto::fromEntityToDto).getContent();
+    }
+
+    @Override
+    public List<ProductDto> findProductByKeywordByPageable(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findByDesignationContaining(keyword, pageable)
+                .map(ProductDto::fromEntityToDto).getContent();
+    }
+
+    @Override
+    public List<ProductDto> findProductsBySubCategoryId(Long scatId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findByCategoryId(scatId, pageable)
+                .map(ProductDto::fromEntityToDto).getContent();
+    }
+
+    @Override
+    public long getProductsByCategoryIdLength(Long id) {
+        return productRepository.getOrderLengthByCategoryId(id);
+    }
+
+    @Override
+    public long getProductSizeByKey(String key) {
+        return productRepository.getOrderSizeByKey(key);
+    }
+
+    @Override
+    public long getAllProductsSize() {
+        return productRepository.count();
+    }
+
+
 }

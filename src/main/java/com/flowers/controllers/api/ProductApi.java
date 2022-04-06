@@ -202,4 +202,56 @@ public interface ProductApi {
 
     })
     long getNumberTotalOfProductInDatabase();
+
+    @GetMapping(value = APP_ROOT + "/products/searchAllProductsByPageable", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des produits par pages",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des produits par pages", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des produit par pages / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getAllProductsByPageable(@RequestParam int page,@RequestParam int size);
+
+    @GetMapping(value = APP_ROOT + "/products/searchAllProductsBySubCategoryByPageable", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products par sous category Id",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products par sous category Id", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products par sous category Id / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryIdByPageable(@RequestParam Long id, @RequestParam int page, @RequestParam int size);
+
+    @GetMapping(value = APP_ROOT + "/products/searchAllProductsByKeywordByPageable", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products par price",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products qui ont le meme price par pages", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products par price par pages / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getAllProductsByKeywordByPageable(@RequestParam String keyword, @RequestParam int page, @RequestParam int size);
+
+    @GetMapping(path = APP_ROOT + "/products/productSize")
+    @ApiOperation(value = "Compter la taille des produits",
+            notes = "Cette méthode permet de compter la taille des produits dans la base de donnees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "la taille des produits")
+
+    })
+    long getProductSizes();
+
+    @GetMapping(path = APP_ROOT + "/products/productSizeBySubCategoryId")
+    @ApiOperation(value = "Compter la total de products par sous category",
+            notes = "Cette méthode permet de compter par sous category dans la base de donnees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de produits est")
+
+    })
+    long getProductSizesBySubCategoryId(@RequestParam Long id);
+
+    @GetMapping(path = APP_ROOT + "/products/productSizeByKeyword")
+    @ApiOperation(value = "Compter la taille des products par mot clé",
+            notes = "Cette méthode permet de compter la dans la base de donnees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de produits est")
+
+    })
+    long getProductSizesByKeyword(@RequestParam String key);
+
 }

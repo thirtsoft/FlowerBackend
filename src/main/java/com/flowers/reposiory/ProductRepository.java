@@ -33,6 +33,18 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByOrderByIdDesc();
 
+    Page<Product> findByCategoryId(Long id, Pageable pageable);
+
+    // Like  key%  %key  %key%
+    Page<Product> findByDesignationContaining(String designation, Pageable pageable);
+
+    @Query("select count (id) from Order where subcategory.id = ?1")
+    long getOrderLengthByCategoryId(long id);
+
+    @Query("select count (id) from Product where designation LIKE %?1%")
+    long getOrderSizeByKey(String key);
+
+
     @Query("select p from Product p where p.price between :min and :max")
     List<Product> findListProductByPriceMinMax(@Param("min") double min, @Param("max") double max);
 
