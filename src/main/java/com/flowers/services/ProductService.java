@@ -40,13 +40,15 @@ public interface ProductService {
 
     List<ProductDto> findByOrderByIdDesc();
 
+    List<ProductDto> findTop3ByOrderByIdDesc();
+
+    List<ProductDto> findTop8ByOrderByIdDesc();
+
     List<ProductDto> findListProductByPriceMinMax(double min, double max);
 
     Page<ProductDto> findProductByPageable(Pageable pageable);
 
-
     Page<ProductDto> findProductBySubCategoryPageable(Long scatId, Pageable pageable);
-
 
     Page<ProductDto> findProductBySamePricePageable(double price, Pageable pageable);
 

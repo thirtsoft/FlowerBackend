@@ -89,6 +89,24 @@ public interface LigneCommandeApi {
     })
     ResponseEntity<List<LigneCommandeDto>> getTop200OrderItemsOrderByIdDesc();
 
+    @GetMapping(value = APP_ROOT + "/orderItems/searchTop8OrderItemsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 8 produits les plus vendus par ordre décroissant",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 8 produits les plus vendus par ID décroissant",
+            responseContainer = "List<LigneCommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des 8 produits les plus vendusorderItems  par ID décroissant / une liste vide")
+    })
+    ResponseEntity<List<LigneCommandeDto>> getTop8OrderItemsOrderByIdDesc();
+
+    @GetMapping(value = APP_ROOT + "/orderItems/searchTop3OrderItemsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 3 produits les plus vendus par ordre décroissant",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 3 produits les plus vendus par ID décroissant",
+            responseContainer = "List<LigneCommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des 3 produits les plus vendusorderItems  par ID décroissant / une liste vide")
+    })
+    ResponseEntity<List<LigneCommandeDto>> getTop3OrderItemsOrderByIdDesc();
+
     @DeleteMapping(value = APP_ROOT + "/orderItems/delete/{idOrderItem}")
     @ApiOperation(value = "Supprimer un Ligne de Commande par son ID",
             notes = "Cette méthode permet de supprimer une Ligne de Commande par son ID", response = LigneCommandeDto.class)

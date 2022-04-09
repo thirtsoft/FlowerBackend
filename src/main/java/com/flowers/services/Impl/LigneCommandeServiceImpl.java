@@ -6,6 +6,7 @@ import com.flowers.models.LigneCommande;
 import com.flowers.reposiory.LigneCommandeRepository;
 import com.flowers.services.LigneCommandeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,7 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
 
     private final LigneCommandeRepository ligneCommandeRepository;
 
+    @Autowired
     public LigneCommandeServiceImpl(LigneCommandeRepository ligneCommandeRepository) {
         this.ligneCommandeRepository = ligneCommandeRepository;
     }
@@ -85,6 +87,20 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     @Override
     public List<LigneCommandeDto> findTop200ByOrderByIdDesc() {
         return ligneCommandeRepository.findTop200ByOrderByIdDesc().stream()
+                .map(LigneCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeDto> findTop8ByOrderByIdDesc() {
+        return ligneCommandeRepository.findTop8ByOrderByIdDesc().stream()
+                .map(LigneCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeDto> findTop3ByOrderByIdDesc() {
+        return ligneCommandeRepository.findTop3ByOrderByIdDesc().stream()
                 .map(LigneCommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

@@ -111,6 +111,18 @@ public class ProductController implements ProductApi {
     }
 
     @Override
+    public ResponseEntity<List<ProductDto>> getTop3ByOrderByIdDesc() {
+        List<ProductDto> productDtoList = productService.findTop3ByOrderByIdDesc();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDto>> getTop8ByOrderByIdDesc() {
+        List<ProductDto> productDtoList = productService.findTop8ByOrderByIdDesc();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<List<ProductDto>> getAllProductByOrderByIdDesc() {
         List<ProductDto> productDtoList = productService.findByOrderByIdDesc();
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);

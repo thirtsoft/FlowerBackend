@@ -7,6 +7,7 @@ import com.flowers.reposiory.FournisseurRepository;
 import com.flowers.services.FournisseurService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FournisseurServiceImpl implements FournisseurService {
 
+    @Autowired
     private final FournisseurRepository fournisseurRepository;
 
     @Override

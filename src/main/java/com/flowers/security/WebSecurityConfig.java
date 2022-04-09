@@ -81,7 +81,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/products/create").permitAll()
                 .antMatchers("/**/products/createWithFile").permitAll()
-                //     .antMatchers("/**/products/createWithFile/**").permitAll()
                 .antMatchers("/**/products/update/{idProduct}").permitAll()
                 .antMatchers("/**/products/findById/{idProduct}").permitAll()
                 .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
@@ -98,6 +97,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/products/photoProduct/{idProduct}").permitAll()
                 .antMatchers("/**/products/uploadProductPhoto/{idProduct}").permitAll()
                 .antMatchers("/**/products/countNumberTotalOfProducts").permitAll()
+
+                .antMatchers("/**/products/searchAllProductsByPageable").permitAll()
+                .antMatchers("/**/products/searchAllProductsBySubCategoryByPageable").permitAll()
+                .antMatchers("/**/products/searchAllProductsByKeywordByPageable").permitAll()
+                .antMatchers("/**/products/productSize").permitAll()
+                .antMatchers("/**/products/productSizeBySubCategoryId").permitAll()
+                .antMatchers("/**/products/productSizeByKeyword").permitAll()
+                .antMatchers("/**/products/searchTop3ProductByOrderIdDesc").permitAll()
+                .antMatchers("/**/products/searchTop8ProductByOrderIdDesc").permitAll()
 
                 .antMatchers("/**/subcategories/create").permitAll()
                 .antMatchers("/**/subcategories/update/*").permitAll()
@@ -144,6 +152,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/orderItems/searchAllOrderItemOrderByIdDesc").permitAll()
                 .antMatchers("/**/orderItems/findAllOrderItemsGroupByIdDesc").permitAll()
                 .antMatchers("/**/orderItems/searchTop200OrderItemsOrderByIdDesc").permitAll()
+                .antMatchers("/**/orderItems/searchTop8OrderItemsOrderByIdDesc").permitAll()
+                .antMatchers("/**/orderItems/searchTop3OrderItemsOrderByIdDesc").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
                 .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()

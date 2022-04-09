@@ -69,11 +69,11 @@ public interface RatingApi {
     ResponseEntity<List<RatingDto>> getAllRatings();
 
     @GetMapping(value = APP_ROOT + "/ratings/searchAllRatingsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+    @ApiOperation(value = "Renvoi la liste des Notations par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Notations par ordre descroissante",
             responseContainer = "List<RatingDto>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+            @ApiResponse(code = 200, message = "La liste des Notations  par ordre descroissante / une liste vide")
     })
     ResponseEntity<List<RatingDto>> getAllRatingsOrderByIdDesc();
 

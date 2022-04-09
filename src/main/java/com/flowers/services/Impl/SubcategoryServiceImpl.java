@@ -7,6 +7,7 @@ import com.flowers.reposiory.SubcategoryRepository;
 import com.flowers.services.SubcategoryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,8 +21,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SubcategoryServiceImpl implements SubcategoryService {
 
+    @Autowired
     private final SubcategoryRepository subcategoryRepository;
-
 
     @Override
     public SubCategoryDto saveSubcategory(SubCategoryDto subCategoryDto) {
@@ -81,7 +82,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Override
     public List<SubCategoryDto> findSubcategoryByCategoryId(Long catId) {
-        return subcategoryRepository.findSubcategoryByCateoryId(catId).stream()
+        return subcategoryRepository.findSubcategoryByCategoryId(catId).stream()
                 .map(SubCategoryDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

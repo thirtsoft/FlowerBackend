@@ -1,14 +1,13 @@
 package com.flowers.services.Impl;
 
-import com.flowers.dtos.CategoryDto;
 import com.flowers.dtos.StateDto;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Category;
 import com.flowers.models.State;
 import com.flowers.reposiory.StateRepository;
 import com.flowers.services.StateService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StateServiceImpl implements StateService {
 
+    @Autowired
     private final StateRepository stateRepository;
 
     @Override

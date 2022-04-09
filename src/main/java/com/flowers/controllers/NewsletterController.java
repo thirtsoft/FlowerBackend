@@ -2,8 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.NewsletterApi;
 import com.flowers.dtos.NewsletterDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Newsletter;
 import com.flowers.services.NewsletterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -28,6 +27,8 @@ public class NewsletterController implements NewsletterApi {
 
     @Override
     public ResponseEntity<NewsletterDto> saveNewsletter(NewsletterDto newsletterDto) {
+        newsletterDto.setCode("Inscription_" + Math.random() * 1000);
+        newsletterDto.setDateInscription(new Date());
         NewsletterDto newsletterDtoResult = newsletterService.save(newsletterDto);
         return new ResponseEntity<>(newsletterDtoResult, HttpStatus.CREATED);
     }

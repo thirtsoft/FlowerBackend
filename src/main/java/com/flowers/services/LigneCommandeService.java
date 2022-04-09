@@ -1,10 +1,8 @@
 package com.flowers.services;
 
 import com.flowers.dtos.LigneCommandeDto;
-import com.flowers.models.LigneCommande;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface LigneCommandeService {
 
@@ -23,6 +21,10 @@ public interface LigneCommandeService {
     List<LigneCommandeDto> ListOrderItemByOrderId(Long comId);
 
     List<LigneCommandeDto> findTop200ByOrderByIdDesc();
+
+    List<LigneCommandeDto> findTop8ByOrderByIdDesc();
+
+    List<LigneCommandeDto> findTop3ByOrderByIdDesc();
 
     void deleteOrderItem(Long Id);
 

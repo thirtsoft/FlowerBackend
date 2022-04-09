@@ -2,8 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.LigneCommandeApi;
 import com.flowers.dtos.LigneCommandeDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.LigneCommande;
 import com.flowers.services.LigneCommandeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -64,6 +62,18 @@ public class LigneCommandeController implements LigneCommandeApi {
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getTop200OrderItemsOrderByIdDesc() {
         List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findTop200ByOrderByIdDesc();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getTop8OrderItemsOrderByIdDesc() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findTop8ByOrderByIdDesc();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getTop3OrderItemsOrderByIdDesc() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findTop3ByOrderByIdDesc();
         return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 

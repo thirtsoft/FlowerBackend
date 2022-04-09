@@ -21,4 +21,8 @@ public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Lo
 
     List<LigneCommande> findTop200ByOrderByIdDesc();
 
+    List<LigneCommande> findTop8ByOrderByIdDesc();
+
+    List<LigneCommande> findTop3ByOrderByIdDesc();
+
 }

@@ -8,6 +8,7 @@ import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
     private final ProductRepository productRepository;
 
     @Override
@@ -127,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findListProductBySubCategories(Long subCatId) {
-        return productRepository.findProductBySubCategory(subCatId).stream()
+        return productRepository.findProductBySubcategory(subCatId).stream()
                 .map(ProductDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -175,6 +177,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> findTop3ByOrderByIdDesc() {
+        return productRepository.findTop3ByOrderByIdDesc().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> findTop8ByOrderByIdDesc() {
+        return productRepository.findTop8ByOrderByIdDesc().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ProductDto> findListProductByPriceMinMax(double min, double max) {
         return productRepository.findListProductByPriceMinMax(min, max).stream()
                 .map(ProductDto::fromEntityToDto)
@@ -189,7 +205,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductDto> findProductBySubCategoryPageable(Long scatId, Pageable pageable) {
-        return productRepository.findProductBySubCategoryByPageable(scatId, pageable)
+        return productRepository.findBySubcategory(scatId, pageable)
                 .map(ProductDto::fromEntityToDto);
     }
 
@@ -225,13 +241,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> findProductsBySubCategoryId(Long scatId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findByCategoryId(scatId, pageable)
+        return productRepository.findProductBySubcategoryByPageable(scatId, pageable)
                 .map(ProductDto::fromEntityToDto).getContent();
     }
 
     @Override
     public long getProductsByCategoryIdLength(Long id) {
-        return productRepository.getOrderLengthByCategoryId(id);
+        return productRepository.getOrderLengthBySubcategoryId(id);
     }
 
     @Override

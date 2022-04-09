@@ -126,6 +126,22 @@ public interface ProductApi {
     })
     ResponseEntity<List<ProductDto>> getTop24ByOrderByCreatedDateDesc();
 
+    @GetMapping(value = APP_ROOT + "/products/searchTop3ProductByOrderIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 3 nouveau produits",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 3 derniers produits", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des 3 derniers produits / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getTop3ByOrderByIdDesc();
+
+    @GetMapping(value = APP_ROOT + "/products/searchTop8ProductByOrderIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 8 nouveau produits",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 8 derniers produits", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des 8 derniers produits / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getTop8ByOrderByIdDesc();
+
     @GetMapping(value = APP_ROOT + "/products/searchAllProductOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des produits par ordre décroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des produits par ordre décroissante", responseContainer = "List<ProductDto>")
@@ -209,7 +225,7 @@ public interface ProductApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products des produit par pages / une liste vide")
     })
-    ResponseEntity<List<ProductDto>> getAllProductsByPageable(@RequestParam int page,@RequestParam int size);
+    ResponseEntity<List<ProductDto>> getAllProductsByPageable(@RequestParam int page, @RequestParam int size);
 
     @GetMapping(value = APP_ROOT + "/products/searchAllProductsBySubCategoryByPageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par sous category Id",
@@ -252,6 +268,6 @@ public interface ProductApi {
             @ApiResponse(code = 200, message = "Le nombre de produits est")
 
     })
-    long getProductSizesByKeyword(@RequestParam String key);
+    long getProductSizesByKeyword(@RequestParam String keyword);
 
 }

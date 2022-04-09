@@ -7,6 +7,7 @@ import com.flowers.reposiory.CountryRepository;
 import com.flowers.services.CountryService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,8 +21,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CountryServiceImpl implements CountryService {
 
+    @Autowired
     private final CountryRepository countryRepository;
-
 
     @Override
     public CountryDto saveCountry(CountryDto countryDto) {
