@@ -85,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/products/findById/{idProduct}").permitAll()
                 .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
                 .antMatchers("/**/products/all").permitAll()
+                .antMatchers("/**/products/searchAllProductOrderByIdDesc").permitAll()
                 .antMatchers("/**/products/productsBySubCategories/{subCatId}").permitAll()
                 .antMatchers("/**/products/searchProductByKeyword").permitAll()
                 .antMatchers("/**/products/searchTop24ProductByOrder").permitAll()
@@ -113,13 +114,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/subcategories/searchSubcategoryByCategoryId/{catId}").permitAll()
                 .antMatchers("/**/subcategories/all").permitAll()
                 .antMatchers("/**/subcategories/searchAllSubCategoriesOrderByIdDesc").permitAll()
+                .antMatchers("/**/subcategories/delete/*").permitAll()
 
+                .antMatchers("/**/categories/create").permitAll()
+                .antMatchers("/**/categories/update/{catId}").permitAll()
                 .antMatchers("/**/categories/findById/{catId}").permitAll()
                 .antMatchers("/**/categories/searchCategoryByCode/*").permitAll()
                 .antMatchers("/**/categories/searchCategoryByDesignation/*").permitAll()
                 .antMatchers("/**/categories/all").permitAll()
                 .antMatchers("/**/categories/searchAllCategoriesOrderByIdDesc").permitAll()
                 .antMatchers("/**/categories/searchListCategoriesByCode/*").permitAll()
+                .antMatchers("/**/categories/delete/{catId}").permitAll()
 
                 .antMatchers("/**/orders/create").permitAll()
                 .antMatchers("/**/orders/findById/{idOrder}").permitAll()
@@ -167,6 +172,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/fournisseurs/create").permitAll()
                 .antMatchers("/**/fournisseurs/findById/*").permitAll()
+                .antMatchers("/**/fournisseurs/update/{idFournisseur}").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
                 .antMatchers("/**/fournisseurs/searchAllFournisseurOrderByIdDesc").permitAll()
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseur").permitAll()
@@ -186,7 +192,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/countries/update/{idCountry}").permitAll()
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/countries/findById/{idCountry}").permitAll()
-                .antMatchers("/**/countries/searchAllCountryOrderByIdDesc").permitAll()
+                .antMatchers("/**/countries/searchAllCountriesOderByIdDesc").permitAll()
                 .antMatchers("/**/countries/delete/{idCountry}").permitAll()
 
                 .antMatchers("/**/states/create").permitAll()

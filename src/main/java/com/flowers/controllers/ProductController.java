@@ -5,6 +5,9 @@ import com.flowers.controllers.api.ProductApi;
 import com.flowers.dtos.ProductDto;
 import com.flowers.services.ProductService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +33,9 @@ public class ProductController implements ProductApi {
     private final ProductService productService;
 
     private final String productPhotosDir = "C://Users//Folio9470m//flowers//photos//";
+
+    @Autowired
+    ServletContext context;
 
 
     @Override
@@ -47,6 +55,25 @@ public class ProductController implements ProductApi {
         ProductDto productDtoResult = productService.saveProduct(productDto);
 
         return new ResponseEntity<>(productDtoResult, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<ProductDto> saveProductWithFilesInFolder(
+            String product,
+            MultipartFile photoProduct) throws IOException {
+
+        ProductDto productDto = new ObjectMapper().readValue(product, ProductDto.class);
+
+        if (photoProduct != null && !photoProduct.isEmpty()) {
+            String filename = photoProduct.getOriginalFilename();
+            String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
+            File serverFile = new File(context.getRealPath("/Fleurs/photos/" + File.separator + newFileName));
+            FileUtils.writeByteArrayToFile(serverFile, photoProduct.getBytes());
+
+            productDto.setPhoto(filename);
+        }
+
+        return ResponseEntity.ok(productService.saveProduct(productDto));
     }
 
     @Override
@@ -160,15 +187,14 @@ public class ProductController implements ProductApi {
 
     @Override
     public byte[] getPhotoProduct(Long id) throws Exception {
-
         ProductDto productDto = productService.findById(id);
-
-        System.out.println("Article DTO -- " + productDto);
-        System.out.println("Article DTO Designation -- " + productDto.getDesignation());
-        System.out.println("Article DTO Price -- " + productDto.getPrice());
-        System.out.println("Article DTO Photo -- " + productDto.getPhoto());
-
         return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/flowers/photos/" + productDto.getPhoto()));
+    }
+
+    @Override
+    public byte[] getPhotoProductInFolder(Long id) throws Exception {
+        ProductDto productDto = productService.findById(id);
+        return Files.readAllBytes(Paths.get(context.getRealPath("/Fleurs/photos/") + productDto.getPhoto()));
     }
 
     @Override
@@ -178,6 +204,25 @@ public class ProductController implements ProductApi {
         Files.write(Paths.get(System.getProperty("user.home") + "/flowers/photos/" + productDto.getPhoto()), photoProduct.getBytes());
 
         productService.saveProduct(productDto);
+    }
+
+    @Override
+    public void uploadPhotoProductInFolder(MultipartFile file, Long id) throws IOException {
+        ProductDto productDto = productService.findById(id);
+        String filename = file.getOriginalFilename();
+        String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
+        File serverFile = new File(context.getRealPath("/Fleurs/photos/" + File.separator + newFileName));
+        try {
+            System.out.println("Image");
+            FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
+
+            productDto.setPhoto(filename);
+
+            productService.saveProduct(productDto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

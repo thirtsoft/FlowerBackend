@@ -36,8 +36,20 @@ public interface ProductApi {
             @ApiResponse(code = 400, message = "Aucun Product  crée / modifié")
 
     })
-    ResponseEntity<ProductDto> saveProductWithFile(@RequestParam(name = "Product") String product,
+    ResponseEntity<ProductDto> saveProductWithFile(@RequestParam(name = "product") String product,
                                                    @RequestParam(name = "photoProduct") MultipartFile photoProduct) throws IOException;
+
+    @PostMapping(value = APP_ROOT + "/products/createWithFilesInFolder")
+    @ApiOperation(value = "Enregistrer un Product avec une photo",
+            notes = "Cette méthode permet d'ajouter un Product une photo", response = ProductDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Le Product a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Product  crée / modifié")
+
+    })
+    ResponseEntity<ProductDto> saveProductWithFilesInFolder(
+            @RequestParam(name = "product") String product,
+            @RequestParam(name = "photoProduct") MultipartFile photoProduct) throws IOException;
 
     @PutMapping(value = APP_ROOT + "/products/update/{idProduct}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -200,6 +212,15 @@ public interface ProductApi {
     })
     byte[] getPhotoProduct(@PathVariable("idProduct") Long id) throws Exception;
 
+    @GetMapping(value = APP_ROOT + "/products/photoProductInFolder/{idProduct}")
+    @ApiOperation(value = "Recupérer une photo par ID dans webapp",
+            notes = "Cette méthode permet de recuperer et d'afficher la photo d'un Product depuis le dossier webapp")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo a été recuperer depuis le dossier webapp")
+
+    })
+    byte[] getPhotoProductInFolder(@PathVariable("idProduct") Long id) throws Exception;
+
     @PostMapping(path = APP_ROOT + "/products/uploadProductPhoto/{idProduct}")
     @ApiOperation(value = "Enregistrer une photo dans un dossier",
             notes = "Cette méthode permet d'enregistrer la photo d'un Product dans un dossier externe utilisateur")
@@ -209,6 +230,15 @@ public interface ProductApi {
     })
     void uploadPhotoProduct(@RequestParam(name = "photoProduct") MultipartFile photoProduct,
                             @PathVariable("idProduct") Long idProduct) throws IOException;
+
+    @PostMapping(path = APP_ROOT + "/products/uploadProductPhotoInFolder/{id}")
+    @ApiOperation(value = "Enregistrer la photo d'un produit dans webapp",
+            notes = "Cette méthode permet d'enregistrer la photo d'un chauffeur dans un dossier webapp")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier webapp")
+
+    })
+    void uploadPhotoProductInFolder(MultipartFile file, @PathVariable("id") Long id) throws IOException;
 
     @GetMapping(path = APP_ROOT + "/products/countNumberTotalOfProducts")
     @ApiOperation(value = "Compter le nombre total de produits",
