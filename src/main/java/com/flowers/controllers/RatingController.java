@@ -98,12 +98,12 @@ public class RatingController implements RatingApi {
 
     @Override
     public BigDecimal countNumberOfRatingByProductId(String prodRef) {
-        return null;
+        return ratingService.countNumberOfRatingByProductId(prodRef);
     }
 
     @Override
     public ResponseEntity<List<RatingDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
-        List<RatingDto> ratingDtoList = ratingService.findTop4ByOrderByCreatedDateDescByProductId("%" + prodRef + "%");
+        List<RatingDto> ratingDtoList = ratingService.findTop4ByOrderByCreatedDateDescByProductId(prodRef);
         return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
     }
 

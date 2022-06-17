@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RatingServiceImpl implements RatingService {
 
-
+    @Autowired
     private final RatingRepository ratingRepository;
 
+    @Autowired
     private final ProductService productService;
 
-    @Autowired
     public RatingServiceImpl(RatingRepository ratingRepository,
                              ProductService productService) {
         this.ratingRepository = ratingRepository;

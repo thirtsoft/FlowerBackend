@@ -39,7 +39,7 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<FournisseurDto> sendMailToFournisseur(FournisseurDto fournisseurDto) {
+    public ResponseEntity<FournisseurDto> sendMailToProvider(FournisseurDto fournisseurDto) {
         try {
             emailService.sendEmailToProvider(fournisseurDto);
             return new ResponseEntity<>(fournisseurDto, HttpStatus.OK);

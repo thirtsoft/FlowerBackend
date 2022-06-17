@@ -39,7 +39,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<FournisseurDto> sendMailToFournisseur(@RequestBody FournisseurDto fournisseurDto);
+    ResponseEntity<FournisseurDto> sendMailToProvider(@RequestBody FournisseurDto fournisseurDto);
 
     @PostMapping(value = APP_ROOT + "/emails/sendToNewsletter")
     @ApiOperation(value = "Envoyer un email à un client",

@@ -175,6 +175,12 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
+    public ResponseEntity<?> activatedUser(String isActive, String id) {
+        UtilisateurDto activatedUserDTO = utilisateurService.activatedUser(isActive, id);
+        return new ResponseEntity<>(activatedUserDTO, HttpStatus.OK);
+    }
+
+    @Override
     public byte[] getPhoto(Long id) throws Exception {
         UtilisateurDto user = utilisateurService.findUtilisateurById(id);
         return Files.readAllBytes(Paths.get(context.getRealPath("/Images/") + user.getPhoto()));

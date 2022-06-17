@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static com.flowers.utils.Constants.APP_ROOT;
 public interface CheckoutApi {
 
+    /*
     @PostMapping(value = APP_ROOT + "/checkout/placeToOrder",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<PurchaseResponse> purchase(@RequestBody Purchase purchase);
 
-    @PostMapping(value = APP_ROOT + "/checkout/placeToOrderWithUser/{id}",
+    @PostMapping(value = APP_ROOT + "/checkout/placeToOrderWithUser",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<PurchaseResponse> purchaseWithUser(@RequestBody Purchase purchase, @PathVariable Long id);
+    ResponseEntity<PurchaseResponse> purchaseWithUser(@RequestBody Purchase purchase, @RequestParam Long id);
+    */
 
 
     @PostMapping(value = APP_ROOT + "/checkout/placeToOrderWithLoginUser",

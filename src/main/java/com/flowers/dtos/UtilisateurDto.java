@@ -1,5 +1,6 @@
 package com.flowers.dtos;
 
+import com.flowers.models.Role;
 import com.flowers.models.Utilisateur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,9 @@ public class UtilisateurDto {
 
     private String photo = "avatar.jpg";
 
-    private Set<RoleDto> roles = new HashSet<>();
+    private boolean isActive;
+
+    private Set<Role> roles = new HashSet<>();
 
     public UtilisateurDto(String username, String email, String password) {
         this.username = username;
@@ -51,6 +54,8 @@ public class UtilisateurDto {
                 .email(utilisateur.getEmail())
                 .password(utilisateur.getPassword())
                 .photo(utilisateur.getPhoto())
+                .isActive(utilisateur.isActive())
+                .roles(utilisateur.getRoles())
                 .build();
 
     }
@@ -68,6 +73,7 @@ public class UtilisateurDto {
         utilisateur.setEmail(utilisateurDto.getEmail());
         utilisateur.setPassword(utilisateurDto.getPassword());
         utilisateur.setPhoto(utilisateurDto.getPhoto());
+        utilisateur.setActive(utilisateur.isActive());
         utilisateur.setRoles(utilisateur.getRoles());
 
         return utilisateur;

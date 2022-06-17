@@ -122,6 +122,15 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Boolean> updateCustomerProfileByUsername(@RequestBody ObjectNode json);
 
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/activatedUser/{id}")
+    @ApiOperation(value = "Activer un utilisateur",
+            notes = "Cette méthode permet d'activer le compter d'un utilisateur pour se connecter")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le compte utlisateur a été été activer"),
+            @ApiResponse(code = 400, message = "Aucun compte utilisateur activer")
+    })
+    ResponseEntity<?> activatedUser(@RequestParam("isActive") String isActive, @PathVariable("id") String id);
+
     @GetMapping(value = APP_ROOT + "/utilisateurs/avatar/{id}")
     @ApiOperation(value = "Recupérer une photo par ID",
             notes = "Cette méthode permet de chercher et d'afficher la photo d'un Utilisateur par son ID"

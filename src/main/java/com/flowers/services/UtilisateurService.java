@@ -33,5 +33,7 @@ public interface UtilisateurService {
 
     boolean updateCustomerProfileByUsername(String username, String name, String newUsername, String email, String mobile);
 
+    UtilisateurDto activatedUser(String isActive, String id);
+
     void deleteUtilisateur(Long userId);
 }

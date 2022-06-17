@@ -137,7 +137,6 @@ public class AuthController implements AuthApi {
         }
 
         user.setRoles(roles);
-
         user.setActive(true);
 
         userRepository.save(user);

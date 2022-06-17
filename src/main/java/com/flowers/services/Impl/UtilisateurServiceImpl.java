@@ -211,6 +211,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public UtilisateurDto activatedUser(String isActive, String id) {
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(Long.valueOf(id));
+        Utilisateur utilisateur = optionalUtilisateur.get();
+        utilisateur.setActive(Boolean.valueOf(isActive));
+
+        return UtilisateurDto.fromEntityToDto(utilisateurRepository.save(utilisateur));
+    }
+
+    @Override
     public void deleteUtilisateur(Long userId) {
         if (userId == null) {
             log.error("Utilisateur not found");

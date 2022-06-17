@@ -63,7 +63,7 @@ public class EmailServiceImpl implements EmailService {
 
         System.out.println(emailDto);
 
-        javaMailSender.send(mail);
+    //    javaMailSender.send(mail);
 
         EmailDto.fromEntityToDto(
                 emailRepository.save(

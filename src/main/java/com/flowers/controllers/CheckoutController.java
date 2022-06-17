@@ -31,6 +31,7 @@ public class CheckoutController implements CheckoutApi {
         this.utilisateurService = utilisateurService;
     }
 
+    /*
     @Override
     public ResponseEntity<PurchaseResponse> purchase(Purchase purchase) {
         PurchaseResponse response = this.checkoutService.placeToOrder(purchase);
@@ -48,6 +49,7 @@ public class CheckoutController implements CheckoutApi {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    */
 
     @Override
     public ResponseEntity<PurchaseResponse> purchaseWithLoginUser(Purchase purchase, Long id) {

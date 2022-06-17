@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> {
 
-    @Query("select count(p) from Fournisseur")
+    @Query("select count(*) from Fournisseur")
     BigDecimal countNumberOfFournisseur();
 
     List<Fournisseur> findByOrderByIdDesc();
