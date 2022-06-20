@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.flowers.utils.Constants.APP_ROOT;
@@ -149,6 +150,22 @@ public interface UtilisateurApi {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
     })
     void uploadUserPhoto(MultipartFile file, @PathVariable("id") Long id) throws IOException;
+
+    @GetMapping(value = APP_ROOT + "/utilisateurs/countNumberOfRegisterInMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre d'inscrit dans le moi",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre d'inscrit dans e moi")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre d'inscrit / le nombre est nulle")
+    })
+    BigDecimal countNumberOfRegisterInMonth();
+
+    @GetMapping(value = APP_ROOT + "/utilisateurs/countNumberOfRegisterPeerMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre d'inscrit par mois",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre d'inscrit par mois")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre d'inscrit par mois / le nombre est nulle")
+    })
+    List<?> countNumberOfRegisterUsersPeerMonth();
 
     @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete/{userId}")
     @ApiOperation(value = "Supprimer un Utilisateur par son ID",

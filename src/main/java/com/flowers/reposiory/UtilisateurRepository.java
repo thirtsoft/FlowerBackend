@@ -3,7 +3,6 @@ package com.flowers.reposiory;
 import com.flowers.models.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -21,8 +20,11 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
 
     Boolean existsByEmail(String email);
 
-  //  @Query("select count(c) from Utilisateur c where c.Role.name =='ROLE_USER'")
-  //  BigDecimal countNumberOfNewRegister();
+    @Query("select count(u) from Utilisateur u where month(u.createdDate) = month(current_date)")
+    BigDecimal countNumberOfRegisterInMonth();
+
+    @Query("select EXTRACT(month from(c.createdDate)), count(c) from Utilisateur c group by EXTRACT(month from(c.createdDate))")
+    List<?> countNumberOfRegisterUserByMonth();
 
     List<Utilisateur> findByOrderByIdDesc();
 }

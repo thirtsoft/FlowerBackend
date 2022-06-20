@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -217,6 +218,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         utilisateur.setActive(Boolean.valueOf(isActive));
 
         return UtilisateurDto.fromEntityToDto(utilisateurRepository.save(utilisateur));
+    }
+
+    @Override
+    public BigDecimal countNumberOfRegisterInMonth() {
+        return utilisateurRepository.countNumberOfRegisterInMonth();
+    }
+
+    @Override
+    public List<?> countNumberOfRegisterUsersPeerMonth() {
+        return utilisateurRepository.countNumberOfRegisterUserByMonth();
     }
 
     @Override

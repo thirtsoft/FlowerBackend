@@ -90,6 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/products/productsBySubCategories/{subCatId}").permitAll()
                 .antMatchers("/**/products/searchProductByKeyword").permitAll()
                 .antMatchers("/**/products/searchTop24ProductByOrder").permitAll()
+                .antMatchers("/**/products/searchTop4ProductByOrderIdDesc").permitAll()
                 .antMatchers("/**/products/searchProductByPrice/{price}").permitAll()
                 .antMatchers("/**/products/searchProductBySelectedIsTrue").permitAll()
                 .antMatchers("/**/products/searchProductByPageables").permitAll()
@@ -257,6 +258,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/utilisateurs/uploadUserPhoto/{id}").permitAll()
                 .antMatchers("/**/utilisateurs/*").permitAll()
                 .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
+                .antMatchers("/**/utilisateurs/countNumberOfRegisterInMonth").permitAll()
+                .antMatchers("/**/utilisateurs/countNumberOfRegisterPeerMonth").permitAll()
 
                 .antMatchers("/**/historiqueCommandes/searchAllHistoriqueCommandesOrderByIdDesc").permitAll()
                 .antMatchers("/**/historiqueCommandes/delete/{idHistCom}").permitAll()

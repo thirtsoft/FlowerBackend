@@ -184,6 +184,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> findTop4ByOrderByIdDesc() {
+        return productRepository.findTop4ByOrderByIdDesc().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ProductDto> findTop8ByOrderByIdDesc() {
         return productRepository.findTop8ByOrderByIdDesc().stream()
                 .map(ProductDto::fromEntityToDto)

@@ -4,6 +4,7 @@ import com.flowers.dtos.UtilisateurDto;
 import com.flowers.enums.RoleName;
 import com.flowers.models.Utilisateur;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,10 @@ public interface UtilisateurService {
     boolean updateCustomerProfileByUsername(String username, String name, String newUsername, String email, String mobile);
 
     UtilisateurDto activatedUser(String isActive, String id);
+
+    BigDecimal countNumberOfRegisterInMonth();
+
+    List<?> countNumberOfRegisterUsersPeerMonth();
 
     void deleteUtilisateur(Long userId);
 }

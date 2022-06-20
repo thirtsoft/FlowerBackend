@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,8 @@ public class UtilisateurDto {
 
     private boolean isActive;
 
+    private Date createdDate;
+
     private Set<Role> roles = new HashSet<>();
 
     public UtilisateurDto(String username, String email, String password) {
@@ -55,6 +58,7 @@ public class UtilisateurDto {
                 .password(utilisateur.getPassword())
                 .photo(utilisateur.getPhoto())
                 .isActive(utilisateur.isActive())
+                .createdDate(utilisateur.getCreatedDate())
                 .roles(utilisateur.getRoles())
                 .build();
 
@@ -73,7 +77,8 @@ public class UtilisateurDto {
         utilisateur.setEmail(utilisateurDto.getEmail());
         utilisateur.setPassword(utilisateurDto.getPassword());
         utilisateur.setPhoto(utilisateurDto.getPhoto());
-        utilisateur.setActive(utilisateur.isActive());
+        utilisateur.setActive(utilisateurDto.isActive());
+        utilisateur.setCreatedDate(utilisateurDto.getCreatedDate());
         utilisateur.setRoles(utilisateur.getRoles());
 
         return utilisateur;

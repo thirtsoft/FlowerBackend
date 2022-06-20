@@ -146,6 +146,14 @@ public interface ProductApi {
     })
     ResponseEntity<List<ProductDto>> getTop3ByOrderByIdDesc();
 
+    @GetMapping(value = APP_ROOT + "/products/searchTop4ProductByOrderIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 4 nouveau produits",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 4 derniers produits", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products des 4 derniers produits / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getTop4ByOrderByIdDesc();
+
     @GetMapping(value = APP_ROOT + "/products/searchTop8ProductByOrderIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 8 nouveau produits",
             notes = "Cette méthode permet de chercher et renvoyer la liste des 8 derniers produits", responseContainer = "List<ProductDto>")

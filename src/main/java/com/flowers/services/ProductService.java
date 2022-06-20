@@ -42,6 +42,8 @@ public interface ProductService {
 
     List<ProductDto> findTop3ByOrderByIdDesc();
 
+    List<ProductDto> findTop4ByOrderByIdDesc();
+
     List<ProductDto> findTop8ByOrderByIdDesc();
 
     List<ProductDto> findListProductByPriceMinMax(double min, double max);

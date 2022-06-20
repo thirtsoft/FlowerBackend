@@ -1,6 +1,7 @@
 package com.flowers.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flowers.enums.RoleName;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +47,10 @@ public class Utilisateur implements Serializable {
     private String photo = "avatar.jpg";
 
     private boolean isActive;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT")
+    @Column(name = "createdDate")
+    private Date createdDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -145,5 +151,11 @@ public class Utilisateur implements Serializable {
         this.mobile = mobile;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 }

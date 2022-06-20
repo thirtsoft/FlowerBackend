@@ -4,12 +4,10 @@ import com.flowers.controllers.api.AuthApi;
 import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.dtos.UtilisateurDto;
 import com.flowers.enums.RoleName;
-import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.message.request.LoginForm;
 import com.flowers.message.request.SignUpForm;
 import com.flowers.message.response.JwtResponse;
 import com.flowers.message.response.ResponseMessage;
-import com.flowers.models.HistoriqueLogin;
 import com.flowers.models.Role;
 import com.flowers.models.Utilisateur;
 import com.flowers.reposiory.RoleRepository;
@@ -17,20 +15,18 @@ import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.security.jwt.JwtsProvider;
 import com.flowers.security.services.UserPrinciple;
 import com.flowers.services.HistoriqueLoginService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -138,6 +134,7 @@ public class AuthController implements AuthApi {
 
         user.setRoles(roles);
         user.setActive(true);
+        user.setCreatedDate(new Date());
 
         userRepository.save(user);
 

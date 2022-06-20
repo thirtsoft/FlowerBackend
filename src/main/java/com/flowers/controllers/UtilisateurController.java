@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -203,6 +204,16 @@ public class UtilisateurController implements UtilisateurApi {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public BigDecimal countNumberOfRegisterInMonth() {
+        return utilisateurService.countNumberOfRegisterInMonth();
+    }
+
+    @Override
+    public List<?> countNumberOfRegisterUsersPeerMonth() {
+        return utilisateurService.countNumberOfRegisterUsersPeerMonth();
     }
 
     @Override
