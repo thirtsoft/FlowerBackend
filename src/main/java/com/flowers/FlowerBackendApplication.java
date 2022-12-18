@@ -23,20 +23,21 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
 
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    PasswordEncoder encoder;
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private SubcategoryRepository subcategoryRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    /*
-    @Autowired
-    private FournisseurRepository fournisseurRepository;
-    */
+	/*
+   @Autowired
+   RoleRepository roleRepository;
+   @Autowired
+   PasswordEncoder encoder;
+   @Autowired
+   private CategoryRepository categoryRepository;
+   @Autowired
+   private SubcategoryRepository subcategoryRepository;
+   @Autowired
+   private ProductRepository productRepository;
+
+   @Autowired
+   private FournisseurRepository fournisseurRepository;
+
     @Autowired
     private CountryRepository countryRepository;
     @Autowired
@@ -48,7 +49,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
     private WishlistRepository wishlistRepository;
     @Autowired
     private ClientRepository clientRepository;
-    */
+
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -57,6 +58,8 @@ public class FlowerBackendApplication implements CommandLineRunner {
     @Autowired
     private UtilisateurService utilisateurService;
 
+
+	 */
     public static void main(String[] args) {
         SpringApplication.run(FlowerBackendApplication.class, args);
         createDirectoryIfItDoesntExist();
@@ -85,6 +88,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+		/*
 		Category c1 = categoryRepository.save(new Category(1L, "Accessoire", "cat1"));
 		Category c2 = categoryRepository.save(new Category(1L, "Artificielle", "cat2"));
 		Category c3 = categoryRepository.save(new Category(2L, "Anniversaire", "cat3"));
@@ -174,14 +178,14 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		Product p20 = productRepository.save(new Product(20L, "prod20", "Fleur-20", 14000.0, 1200.0, 150, "34.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
 
 
-/*
+
 		Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", p1));
 		Fournisseur f2 = fournisseurRepository.save(new Fournisseur(2L, "f2", "f2", "f2", "f2", "f2", "f2", p2));
 		Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "f3", "f3", p3));
 		Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "f4", "f4", p4));
 
 
- */
+
 		Country count1 = countryRepository.save(new Country(1L, "DK", "Dakar"));
 		Country count2 = countryRepository.save(new Country(2L, "DL", "Diourbel"));
 		Country count3 = countryRepository.save(new Country(3L, "FT", "Fatick"));
@@ -267,6 +271,8 @@ public class FlowerBackendApplication implements CommandLineRunner {
         utilisateurService.addRoleToUser("Adama", RoleName.ROLE_MANAGER);
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
 
+
+		 */
 
 
     }

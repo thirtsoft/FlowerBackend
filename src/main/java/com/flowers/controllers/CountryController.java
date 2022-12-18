@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
 public class CountryController implements CountryApi {

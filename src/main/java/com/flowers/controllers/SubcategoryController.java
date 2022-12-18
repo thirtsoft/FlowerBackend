@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class SubcategoryController implements SubcategoryApi {
 
     private final SubcategoryService subcategoryService;

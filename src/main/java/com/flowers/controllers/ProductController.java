@@ -25,9 +25,10 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController implements ProductApi {
 
     private final ProductService productService;

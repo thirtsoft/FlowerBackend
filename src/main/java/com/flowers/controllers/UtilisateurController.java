@@ -24,7 +24,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
 @RestController
 @AllArgsConstructor
 public class UtilisateurController implements UtilisateurApi {

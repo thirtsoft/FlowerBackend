@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
+//@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
+@CrossOrigin(origins = "https://fleurpourtous.com")
 @RestController
 @AllArgsConstructor
 public class ClientController implements ClientApi {

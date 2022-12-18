@@ -33,7 +33,8 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class AuthController implements AuthApi {
 

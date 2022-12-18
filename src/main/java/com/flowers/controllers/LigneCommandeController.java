@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin
 @RestController
 @AllArgsConstructor
-@CrossOrigin
 public class LigneCommandeController implements LigneCommandeApi {
 
     private final LigneCommandeService ligneCommandeService;

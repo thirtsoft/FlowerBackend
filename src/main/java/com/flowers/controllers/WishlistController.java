@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @AllArgsConstructor
 public class WishlistController implements WishlistApi {

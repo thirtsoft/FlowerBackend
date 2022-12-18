@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "https://fleurpourtous.com")
 @RestController
 public class BlogController implements BlogApi {
 

@@ -20,7 +20,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "https://fleurpourtous.com")
+//@CrossOrigin
 @RestController
 public class EmailController implements EmailApi {
 
