@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
 public class LigneCommandeController implements LigneCommandeApi {
 
     private final LigneCommandeService ligneCommandeService;

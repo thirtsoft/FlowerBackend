@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class ClientController implements ClientApi {
 
     private final ClientService clientService;

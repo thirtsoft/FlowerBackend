@@ -85,7 +85,7 @@ public class AuthController implements AuthApi {
                 roles));
     }
 
-    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpRequest) {
+    public ResponseEntity<?> signUp(SignUpForm signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
@@ -121,6 +121,10 @@ public class AuthController implements AuthApi {
 
                 case "manager":
                     roles.add(roleRepository.findByName(RoleName.ROLE_MANAGER).get());
+                    break;
+
+                case "vendor":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_VENDOR).get());
                     break;
 
                 case "user":

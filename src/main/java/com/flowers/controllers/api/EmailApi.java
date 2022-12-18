@@ -30,6 +30,27 @@ public interface EmailApi {
     })
     ResponseEntity<EmailDto> sendEmailToManager(@RequestBody EmailDto emailDto);
 
+    @GetMapping(value = APP_ROOT + "/emails/sendConfirmOrderToManager/{id}")
+    @ApiOperation(value = "Envoyer un email de confirmation de commande au Manager du site",
+            notes = "Cette méthode permet d'envoyer un email au Manager du site",
+            response = EmailDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
+            @ApiResponse(code = 400, message = "Aucun Email  envoyé")
+    })
+    ResponseEntity<String> sendConfirmOrderedToManager(@PathVariable("id") Long id);
+
+    @GetMapping(value = APP_ROOT + "/emails/sendConfirmOrderedToCustomer/{id}")
+    @ApiOperation(value = "Envoyer un email de confirmation de commande au Manager du site",
+            notes = "Cette méthode permet d'envoyer un email au Manager du site",
+            response = EmailDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
+            @ApiResponse(code = 400, message = "Aucun Email  envoyé")
+    })
+    ResponseEntity<String>  sendConfirmOrderedToCustomer(@PathVariable("id") Long id);
+
+
 
     @PostMapping(value = APP_ROOT + "/emails/sendToFournisseur")
     @ApiOperation(value = "Envoyer un email à un Fournisseurs",

@@ -44,6 +44,7 @@ public class CommandeDto {
 
     private List<LigneCommande> lcomms = new ArrayList<>();
 
+
     public static CommandeDto fromEntityToDto(Commande commande) {
         if (commande == null) {
             return null;

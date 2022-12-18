@@ -54,8 +54,6 @@ public interface ProductService {
 
     Page<ProductDto> findProductBySamePricePageable(double price, Pageable pageable);
 
-    void delete(Long id);
-
     List<ProductDto> findProductByPageable(int page, int size);
 
     List<ProductDto> findProductByKeywordByPageable(String keyword, int page, int size);
@@ -67,6 +65,8 @@ public interface ProductService {
     long getProductSizeByKey(String key);
 
     long getAllProductsSize();
+
+    void delete(Long id);
 
 
 

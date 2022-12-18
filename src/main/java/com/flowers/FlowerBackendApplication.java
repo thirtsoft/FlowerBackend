@@ -21,97 +21,98 @@ import java.nio.file.Paths;
 @SpringBootApplication
 public class FlowerBackendApplication implements CommandLineRunner {
 
-	private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
 
-	@Autowired
-	RoleRepository roleRepository;
-	@Autowired
-	private CategoryRepository categoryRepository;
-	@Autowired
-	private SubcategoryRepository subcategoryRepository;
-	@Autowired
-	private ProductRepository productRepository;
-	@Autowired
-	private FournisseurRepository fournisseurRepository;
-	@Autowired
-	private CountryRepository countryRepository;
-	@Autowired
-	private StateRepository stateRepository;
-	@Autowired
-	private AddressRepository addressRepository;
-	@Autowired
-	private WishlistRepository wishlistRepository;
+    @Autowired
+    RoleRepository roleRepository;
+    @Autowired
+    PasswordEncoder encoder;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private SubcategoryRepository subcategoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    /*
+    @Autowired
+    private FournisseurRepository fournisseurRepository;
+    */
+    @Autowired
+    private CountryRepository countryRepository;
+    @Autowired
+    private StateRepository stateRepository;
+    /*
+    @Autowired
+    private AddressRepository addressRepository;
+    @Autowired
+    private WishlistRepository wishlistRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    */
 
-	@Autowired
-	private ClientRepository clientRepository;
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UtilisateurService utilisateurService;
 
-	@Autowired
-	private UtilisateurRepository utilisateurRepository;
-	@Autowired
-	private UtilisateurService utilisateurService;
-
-	@Autowired
-	PasswordEncoder encoder;
-
-
-
-	public static void main(String[] args) {
-		SpringApplication.run(FlowerBackendApplication.class, args);
-		createDirectoryIfItDoesntExist();
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FlowerBackendApplication.class, args);
+        createDirectoryIfItDoesntExist();
+    }
 
 
-	private static void createDirectoryIfItDoesntExist() {
-		Path path = Paths.get(System.getProperty("user.home") + "/flowers/photos/");
+    private static void createDirectoryIfItDoesntExist() {
+        Path path = Paths.get(System.getProperty("user.home") + "/flowers/photos/");
 
-		if (Files.notExists(path)) {
-			try {
-				Files.createDirectories(path);
-			} catch (IOException ie) {
-				LOG.error(String.format("Problem creating directory %s", path));
-			}
-		}
-	}
+        if (Files.notExists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException ie) {
+                LOG.error(String.format("Problem creating directory %s", path));
+            }
+        }
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
+    /*
+    @Bean
+    PasswordEncoder passwordEncoder() { // NEEDED TO ALLOW PASSWORD ENCODER INSIDE SECURITY
+        return new BCryptPasswordEncoder();
+    }
 
-/*
+    */
+    @Override
+    public void run(String... args) throws Exception {
 
-		Category c1 = categoryRepository.save(new Category(1L, "SIDE TABLE", "cat1"));
-		Category c2 = categoryRepository.save(new Category(2L, "FIREPLACE", "cat2"));
-		Category c3 = categoryRepository.save(new Category(3L, "TABLE LAMP", "cat3"));
-		Category c4 = categoryRepository.save(new Category(4L, "OTTOMAN", "cat4"));
-		Category c5 = categoryRepository.save(new Category(5L, "ARMCHAIR", "cat5"));
-		Category c6 = categoryRepository.save(new Category(6L, "CUSHION", "cat6"));
-		Category c7 = categoryRepository.save(new Category(7L, "COFFEE TABLE", "cat7"));
-		Category c8 = categoryRepository.save(new Category(8L, "SHELF", "cat8"));
-		Category c9 = categoryRepository.save(new Category(9L, "SOFA", "cat9"));
-		Category c10 = categoryRepository.save(new Category(10L, "DRESSING TABLE", "cat10"));
-		Category c11 = categoryRepository.save(new Category(11L, "WINDOWN CURTAIN", "cat11"));
-		Category c12 = categoryRepository.save(new Category(12L, "CHANDELIER", "cat12"));
-		Category c13 = categoryRepository.save(new Category(13L, "CEILING FAN", "cat13"));
+		Category c1 = categoryRepository.save(new Category(1L, "Accessoire", "cat1"));
+		Category c2 = categoryRepository.save(new Category(1L, "Artificielle", "cat2"));
+		Category c3 = categoryRepository.save(new Category(2L, "Anniversaire", "cat3"));
+		Category c4 = categoryRepository.save(new Category(3L, "Decoration", "cat4"));
+		Category c5 = categoryRepository.save(new Category(4L, "Mariage", "cat5"));
+		Category c6 = categoryRepository.save(new Category(5L, "Jardinage", "cat6"));
+		Category c7 = categoryRepository.save(new Category(6L, "Naissance", "cat7"));
+		Category c8 = categoryRepository.save(new Category(7L, "Tropical", "cat8"));
+		Category c9 = categoryRepository.save(new Category(8L, "Gerbe accueil", "cat9"));
+		Category c10 = categoryRepository.save(new Category(10L, "Plante exterieure", "cat10"));
+		Category c11 = categoryRepository.save(new Category(11L, "Remise diplome", "cat11"));
+		Category c12 = categoryRepository.save(new Category(12L, "Saint valentin", "cat12"));
 
-		Subcategory sc1 = subcategoryRepository.save(new Subcategory(1L, "Aliquam lobortis", "Fashion & Beauty", c1));
-		Subcategory sc2 = subcategoryRepository.save(new Subcategory(2L, "Duis Reprehenderit", "Fashion & Beauty", c1));
-		Subcategory sc3 = subcategoryRepository.save(new Subcategory(3L, "Voluptate", "Fashion & Beauty", c1));
-		Subcategory sc4 = subcategoryRepository.save(new Subcategory(4L, "Tongue Est", "Fashion & Beauty", c1));
-		Subcategory sc5 = subcategoryRepository.save(new Subcategory(5L, "Venison Andouille", "Fashion & Beauty", c1));
-		Subcategory sc6 = subcategoryRepository.save(new Subcategory(6L, "Aliquam lobortis", "Fashion & Beauty", c2));
-		Subcategory sc7 = subcategoryRepository.save(new Subcategory(7L, "Duis Reprehenderit", "Fashion & Beauty", c2));
-		Subcategory sc8 = subcategoryRepository.save(new Subcategory(8L, "Voluptate", "Fashion & Beauty", c2));
-		Subcategory sc9 = subcategoryRepository.save(new Subcategory(9L, "Tongue Est", "Fashion & Beauty", c2));
-		Subcategory sc10 = subcategoryRepository.save(new Subcategory(10L, "Venison Andouille", "Fashion & Beauty", c2));
-		Subcategory sc11 = subcategoryRepository.save(new Subcategory(11L, "Aliquam lobortis", "Fashion & Beauty", c3));
-		Subcategory sc12 = subcategoryRepository.save(new Subcategory(12L, "Duis Reprehenderit", "Fashion & Beauty", c3));
+		Subcategory sc1 = subcategoryRepository.save(new Subcategory(1L, "Artificielle", "Fashion & Beauty", c2));
+		Subcategory sc2 = subcategoryRepository.save(new Subcategory(2L, "Bougie", "Fashion & Beauty", c1));
+		Subcategory sc3 = subcategoryRepository.save(new Subcategory(3L, "Bouquets de la marie", "Fashion & Beauty", c5));
+		Subcategory sc4 = subcategoryRepository.save(new Subcategory(4L, "Deco eglise", "Fashion & Beauty", c4));
+		Subcategory sc5 = subcategoryRepository.save(new Subcategory(5L, "Espace vert", "Fashion & Beauty", c6));
+		Subcategory sc6 = subcategoryRepository.save(new Subcategory(6L, "Fleur anniversire", "Fashion & Beauty", c3));
+		Subcategory sc7 = subcategoryRepository.save(new Subcategory(7L, "Fleur naissance", "Fashion & Beauty", c7));
+		Subcategory sc8 = subcategoryRepository.save(new Subcategory(8L, "Fleur tropical", "Fashion & Beauty", c8));
+		Subcategory sc9 = subcategoryRepository.save(new Subcategory(9L, "Gerbe accueil", "Fashion & Beauty", c9));
+		Subcategory sc10 = subcategoryRepository.save(new Subcategory(10L, "Plante exterieure", "Fashion & Beauty", c10));
+		Subcategory sc11 = subcategoryRepository.save(new Subcategory(11L, "Remise diplome", "Fashion & Beauty", c11));
+		Subcategory sc12 = subcategoryRepository.save(new Subcategory(12L, "Saint valentin", "Fashion & Beauty", c12));
 		Subcategory sc13 = subcategoryRepository.save(new Subcategory(13L, "Voluptate", "Fashion & Beauty", c3));
 		Subcategory sc14 = subcategoryRepository.save(new Subcategory(14L, "Tongue Est", "Fashion & Beauty", c3));
-
 		Subcategory sc15 = subcategoryRepository.save(new Subcategory(15L, "Voluptate", "Fashion & Beauty", c4));
-		Subcategory sc16 = subcategoryRepository.save(new Subcategory(16L, "Voluptate", "Fashion & Beauty", c5));
-		Subcategory sc17 = subcategoryRepository.save(new Subcategory(17L, "Voluptate", "Fashion & Beauty", c6));
-		Subcategory sc18 = subcategoryRepository.save(new Subcategory(18L, "Voluptate", "Fashion & Beauty", c7));
-		Subcategory sc19 = subcategoryRepository.save(new Subcategory(19L, "Voluptate", "Fashion & Beauty", c8));
 
 
 
@@ -173,52 +174,102 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		Product p20 = productRepository.save(new Product(20L, "prod20", "Fleur-20", 14000.0, 1200.0, 150, "34.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
 
 
+/*
 		Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", p1));
 		Fournisseur f2 = fournisseurRepository.save(new Fournisseur(2L, "f2", "f2", "f2", "f2", "f2", "f2", p2));
 		Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "f3", "f3", p3));
 		Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "f4", "f4", p4));
 
-		Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
-		Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
-		Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
-		Country count4 = countryRepository.save(new Country(4L, "JAP", "Japon"));
-		Country count5 = countryRepository.save(new Country(5L, "GB", "Gambie"));
-		Country count6 = countryRepository.save(new Country(6L, "CH", "Chine"));
-		Country count7 = countryRepository.save(new Country(7L, "AR", "Arabie-Souadite"));
-		Country count8 = countryRepository.save(new Country(8L, "FR", "France"));
-		Country count9 = countryRepository.save(new Country(9L, "NG", "Nigeria"));
-		Country count10 = countryRepository.save(new Country(10L, "Ind", "Inde"));
 
-		State state1 = stateRepository.save(new State(1L, "Dakar", count1));
-		State state2 = stateRepository.save(new State(2L, "Ziguinchor", count1));
-		State state3 = stateRepository.save(new State(3L, "Thies", count1));
-		State state4 = stateRepository.save(new State(4L, "Fatick", count1));
-		State state5 = stateRepository.save(new State(5L, "California", count2));
-		State state6 = stateRepository.save(new State(6L, "Japon", count4));
-		State state7 = stateRepository.save(new State(7L, "Labe", count3));
-		State state8 = stateRepository.save(new State(8L, "Chine", count6));
-		State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
-		State state10 = stateRepository.save(new State(10L, "Accra", count9));
-		
+ */
+		Country count1 = countryRepository.save(new Country(1L, "DK", "Dakar"));
+		Country count2 = countryRepository.save(new Country(2L, "DL", "Diourbel"));
+		Country count3 = countryRepository.save(new Country(3L, "FT", "Fatick"));
+		Country count4 = countryRepository.save(new Country(4L, "KF", "Kaffrine"));
+		Country count5 = countryRepository.save(new Country(5L, "KL", "Kaolack"));
+		Country count6 = countryRepository.save(new Country(6L, "KD", "Kolda"));
+		Country count7 = countryRepository.save(new Country(7L, "LG", "Louga"));
+		Country count8 = countryRepository.save(new Country(8L, "MT", "Matam"));
+		Country count9 = countryRepository.save(new Country(9L, "ST", "Saint-Louis"));
+		Country count10 = countryRepository.save(new Country(10L, "SD", "Sedhiou"));
+		Country count11 = countryRepository.save(new Country(10L, "TB", "Tambacounda"));
+		Country count12 = countryRepository.save(new Country(10L, "TH", "Thies"));
+		Country count13 = countryRepository.save(new Country(10L, "ZG", "Ziguinchor"));
+
+
+		State state1 = stateRepository.save(new State(1L, "Almadies", count1));
+		State state2 = stateRepository.save(new State(2L, "Amitie", count1));
+		State state3 = stateRepository.save(new State(3L, "Bambilor", count1));
+		State state4 = stateRepository.save(new State(4L, "Bargny", count1));
+		State state5 = stateRepository.save(new State(5L, "Bel Air", count1));
+		State state6 = stateRepository.save(new State(6L, "Bop", count1));
+		State state7 = stateRepository.save(new State(7L, "Camberene", count1));
+		State state8 = stateRepository.save(new State(8L, "Castor", count1));
+		State state9 = stateRepository.save(new State(9L, "Centenaire", count1));
+		State state10 = stateRepository.save(new State(10L, "Cite Keur Damel", count1));
+		State state11 = stateRepository.save(new State(11L, "Colobane", count1));
+		State state12 = stateRepository.save(new State(12L, "Dalifort", count1));
+		State state13 = stateRepository.save(new State(13L, "Derkle", count1));
+		State state14 = stateRepository.save(new State(14L, "Diamaguene", count1));
+		State state15 = stateRepository.save(new State(15L, "Diamalaye", count1));
+		State state16 = stateRepository.save(new State(16L, "Diamniadio", count1));
+		State state17 = stateRepository.save(new State(17L, "Diappeul", count1));
+		State state18 = stateRepository.save(new State(18L, "Fann", count1));
+		State state19 = stateRepository.save(new State(19L, "Fass", count1));
+		State state20 = stateRepository.save(new State(20L, "Golf", count1));
+
 
 		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
+        Role vendorRole = roleRepository.save(new Role(RoleName.ROLE_VENDOR));
 		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));
 		Role adminRole = roleRepository.save(new Role(RoleName.ROLE_ADMIN));
 
-		Utilisateur admin = new Utilisateur();
-		admin.setId(3L);
-		admin.setUsername("Admin");
-		admin.setName("Admin");
-		admin.setPassword(encoder.encode("admin1234"));
-		utilisateurRepository.save(admin);
 
-		utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
+		Utilisateur user = new Utilisateur();
+        user.setId(1L);
+        user.setUsername("User");
+        user.setName("User");
+        user.setPassword(bCryptPasswordEncoder.encode("userflower@2022"));
+		utilisateurRepository.save(user);
 
-		*/
+        Utilisateur vendor = new Utilisateur();
+        vendor.setId(2L);
+        vendor.setUsername("Vendor");
+        vendor.setName("Vendor");
+        vendor.setPassword(bCryptPasswordEncoder.encode("vendorflower@2022"));
+        utilisateurRepository.save(vendor);
+
+
+        Utilisateur bertin = new Utilisateur();
+        bertin.setId(3L);
+        bertin.setUsername("Bertin");
+        bertin.setName("Bertin Gbalou");
+        vendor.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        utilisateurRepository.save(bertin);
+
+        Utilisateur adama = new Utilisateur();
+        adama.setId(4L);
+        adama.setUsername("Adama");
+        adama.setName("Adama Diallo");
+        adama.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        utilisateurRepository.save(adama);
+
+        Utilisateur admin = new Utilisateur();
+        admin.setId(5L);
+        admin.setUsername("Admin");
+        admin.setName("Tairou Diallo");
+        adama.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        utilisateurRepository.save(admin);
+
+		utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
+        utilisateurService.addRoleToUser("Vendor", RoleName.ROLE_USER);
+        utilisateurService.addRoleToUser("Bertin", RoleName.ROLE_MANAGER);
+        utilisateurService.addRoleToUser("Adama", RoleName.ROLE_MANAGER);
+        utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
 
 
 
-	}
+    }
 
 
 }

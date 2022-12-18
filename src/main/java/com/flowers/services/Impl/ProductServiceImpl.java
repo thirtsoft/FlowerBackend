@@ -6,7 +6,6 @@ import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Product;
 import com.flowers.reposiory.ProductRepository;
 import com.flowers.services.ProductService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +23,15 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@AllArgsConstructor
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private final ProductRepository productRepository;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public ProductDto saveProduct(ProductDto productDto) {

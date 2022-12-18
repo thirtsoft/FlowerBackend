@@ -59,4 +59,5 @@ public class JwtsProvider {
                 .parseClaimsJws(token)
                 .getBody().getSubject();
     }
+    
 }

@@ -13,20 +13,23 @@ import java.util.stream.Collectors;
 
 public class UserPrinciple implements UserDetails {
 
+    /**
+     *
+     */
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private final Long id;
 
-    private String username;
+    private final String username;
 
-    private String email;
+    private final String email;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id, String username, String email, String password, String photo,
+    public UserPrinciple(Long id, String username, String email, String password,
                          Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
@@ -35,18 +38,17 @@ public class UserPrinciple implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrinciple build(Utilisateur user) {
-        List<GrantedAuthority> authorities = user.getRoles()
+    public static UserPrinciple build(Utilisateur utilisateur) {
+        List<GrantedAuthority> authorities = utilisateur.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserPrinciple(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getPhoto(),
+                utilisateur.getId(),
+                utilisateur.getUsername(),
+                utilisateur.getEmail(),
+                utilisateur.getPassword(),
                 authorities
         );
     }
@@ -102,6 +104,5 @@ public class UserPrinciple implements UserDetails {
         UserPrinciple user = (UserPrinciple) o;
         return Objects.equals(id, user.id);
     }
-
 
 }

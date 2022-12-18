@@ -12,6 +12,8 @@ public interface EmailService {
 
     void sendEmailToManager(EmailDto emailDto) throws MailException;
 
+    void sendEmailConfirmation(EmailDto emailDto) throws MailException;
+
     void sendEmailToProvider(FournisseurDto fournisseurDto) throws MailException;
 
     void sendEmailToNewsletter(NewsletterDto newsletterDto) throws MailException;

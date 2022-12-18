@@ -21,7 +21,7 @@ public class Subcategory implements Serializable {
     @Column(name = "subCategoryName", nullable = false, length = 30)
     private String subCategoryName;
 
-    @Column(name = "description", nullable = false, length = 150)
+    @Column(name = "description", length = 150)
     @Lob
     private String description;
 

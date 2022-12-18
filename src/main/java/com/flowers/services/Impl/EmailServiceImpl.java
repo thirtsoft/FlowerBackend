@@ -63,13 +63,36 @@ public class EmailServiceImpl implements EmailService {
 
         System.out.println(emailDto);
 
-    //    javaMailSender.send(mail);
+        //    javaMailSender.send(mail);
 
         EmailDto.fromEntityToDto(
                 emailRepository.save(
                         EmailDto.fromDtoToEntity(emailDto)
                 )
         );
+    }
+
+    @Override
+    public void sendEmailConfirmation(EmailDto emailDto) throws MailException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nom : " + emailDto.getCustomerName()).append(System.lineSeparator());
+        sb.append("\n Subject : " + emailDto.getSubject());
+        sb.append("\n Message : " + emailDto.getMessage());
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+
+        mail.setTo(EmailConstants.to);
+        mail.setFrom(emailDto.getRecipient());
+        mail.setSubject(emailDto.getSubject());
+        mail.setText(emailDto.getMessage());
+
+        emailDto.setCreateDate(new Date());
+        emailDto.setCustomerName(emailDto.getCustomerName());
+
+        System.out.println(emailDto);
+
+        javaMailSender.send(mail);
+
     }
 
     @Override

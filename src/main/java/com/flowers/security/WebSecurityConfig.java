@@ -18,15 +18,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        jsr250Enabled = true,
-        prePostEnabled = true)
+        prePostEnabled = true
+)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -41,11 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
 
     @Bean
     @Override
@@ -58,31 +55,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200","http://localhost:3200");
-
-            }
-        };
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+
+        http.csrf().disable()
+                .cors()
+                .disable()
                 .authorizeRequests()
+
                 .antMatchers("/**/auth/signUp").permitAll()
                 .antMatchers("/**/auth/registerUser").permitAll()
                 .antMatchers("/**/auth/authenticated").permitAll()
 
-                .antMatchers("/**/products/create").permitAll()
-                .antMatchers("/**/products/createWithFile").permitAll()
-                .antMatchers("/**/products/createWithFilesInFolder").permitAll()
-                .antMatchers("/**/products/update/{idProduct}").permitAll()
+
+       //         .antMatchers("/**/products/create").permitAll()
+       //         .antMatchers("/**/products/createWithFile").permitAll()
+       //         .antMatchers("/**/products/createWithFilesInFolder").permitAll()
+       //         .antMatchers("/**/products/update/{idProduct}").permitAll()
+
                 .antMatchers("/**/products/findById/{idProduct}").permitAll()
                 .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
                 .antMatchers("/**/products/all").permitAll()
@@ -166,11 +157,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/orderItems/delete/{idOrderItem}").permitAll()
 
 
+                //        .antMatchers("/**/checkout/placeToOrder").permitAll()
+                //        .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
 
-        //        .antMatchers("/**/checkout/placeToOrder").permitAll()
-        //        .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
-
-                .antMatchers("/**/checkout/placeToOrderWithLoginUser").permitAll()
+                .antMatchers("/**/checkout/placeToOrderWithLoginUser/**").permitAll()
 
                 .antMatchers("/**/clients/create").permitAll()
                 .antMatchers("/**/clients/findById/*").permitAll()
@@ -266,9 +256,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/historiqueLogins/searchAllHistoriqueLoginsOrderByIdDesc").permitAll()
                 .antMatchers("/**/historiqueLogins/delete/{idHistLog}").permitAll()
 
-                .anyRequest().authenticated();
+                .anyRequest()
+                .authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
+        ;
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        //  .allowedOrigins("**")
+                        .allowedOrigins("http://localhost:4200","http://localhost:3200")
+                       // .allowedOrigins("http://localhost:8080/MyStock")
+                        //  .allowedOrigins("https://alamine.herokuapp.com")
+                        // .allowedOrigins("https://librairiealamine.com")
+                        //   .allowedMethods("*")
+                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                        .maxAge(3600L)
+                        .allowedHeaders("*")
+                        .exposedHeaders("Authorization")
+                        .allowCredentials(true);
+
+
+            }
+        };
     }
 
 }

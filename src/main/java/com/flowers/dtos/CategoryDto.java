@@ -2,12 +2,18 @@ package com.flowers.dtos;
 
 import com.flowers.models.Category;
 
+import com.flowers.models.Subcategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -21,6 +27,8 @@ public class CategoryDto {
     private String categoryName;
 
     private String description;
+
+    private List<SubCategoryDto> subcategoryList = new ArrayList<>();
 
     public static CategoryDto fromEntityToDto(Category category) {
         if (category == null) {

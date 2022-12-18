@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
 public class CommandeController implements CommandeApi {
 
     private final CommandeService commandeService;
