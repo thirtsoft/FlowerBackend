@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 //@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
-@CrossOrigin(origins = "https://fleurpourtous.com")
+@CrossOrigin(origins = "https://portail.fleurpourtous.com")
 @RestController
 @AllArgsConstructor
 public class ClientController implements ClientApi {

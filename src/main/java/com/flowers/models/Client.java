@@ -30,15 +30,6 @@ public class Client implements Serializable {
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "username", length = 30)
-    private String username;
-
-    @Column(name = "name", length = 30)
-    private String name;
-
-    @Column(name = "password", length = 30)
-    private String password;
-
     @Column(name = "mobile", length = 30)
     private String mobile;
 
@@ -46,21 +37,6 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
-
-    public Client(String firstName, String lastName, String mobile,
-                  String email,
-                  String username,
-                  String password,
-                  String name) {
-    //    Utilisateur utilisateur = new Utilisateur();
-        //    this.id = this.getId();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.mobile = mobile;
-        this.email = email;
-
-
-    }
 
     public Client(String firstName, String lastName, String email, String mobile) {
         this.firstName = firstName;

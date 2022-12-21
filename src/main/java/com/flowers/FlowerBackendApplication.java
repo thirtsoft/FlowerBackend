@@ -23,7 +23,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
 
-	/*
    @Autowired
    RoleRepository roleRepository;
    @Autowired
@@ -35,13 +34,14 @@ public class FlowerBackendApplication implements CommandLineRunner {
    @Autowired
    private ProductRepository productRepository;
 
-   @Autowired
-   private FournisseurRepository fournisseurRepository;
+  // @Autowired
+  // private FournisseurRepository fournisseurRepository;
 
     @Autowired
     private CountryRepository countryRepository;
     @Autowired
     private StateRepository stateRepository;
+
     /*
     @Autowired
     private AddressRepository addressRepository;
@@ -49,17 +49,21 @@ public class FlowerBackendApplication implements CommandLineRunner {
     private WishlistRepository wishlistRepository;
     @Autowired
     private ClientRepository clientRepository;
-
+*/
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    /*
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    */
     @Autowired
     private UtilisateurService utilisateurService;
 
 
-	 */
+
     public static void main(String[] args) {
         SpringApplication.run(FlowerBackendApplication.class, args);
         createDirectoryIfItDoesntExist();
@@ -89,35 +93,34 @@ public class FlowerBackendApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 		/*
-		Category c1 = categoryRepository.save(new Category(1L, "Accessoire", "cat1"));
-		Category c2 = categoryRepository.save(new Category(1L, "Artificielle", "cat2"));
-		Category c3 = categoryRepository.save(new Category(2L, "Anniversaire", "cat3"));
-		Category c4 = categoryRepository.save(new Category(3L, "Decoration", "cat4"));
-		Category c5 = categoryRepository.save(new Category(4L, "Mariage", "cat5"));
-		Category c6 = categoryRepository.save(new Category(5L, "Jardinage", "cat6"));
-		Category c7 = categoryRepository.save(new Category(6L, "Naissance", "cat7"));
-		Category c8 = categoryRepository.save(new Category(7L, "Tropical", "cat8"));
-		Category c9 = categoryRepository.save(new Category(8L, "Gerbe accueil", "cat9"));
-		Category c10 = categoryRepository.save(new Category(10L, "Plante exterieure", "cat10"));
-		Category c11 = categoryRepository.save(new Category(11L, "Remise diplome", "cat11"));
-		Category c12 = categoryRepository.save(new Category(12L, "Saint valentin", "cat12"));
+		Category c1 = categoryRepository.save(new Category(1L, "Accessoire", "Categorie contenant tout fleur accessoire"));
+		Category c2 = categoryRepository.save(new Category(2L, "Artificielle", "Categorie contenant tout fleur artificielle"));
+		Category c3 = categoryRepository.save(new Category(3L, "Anniversaire", "Categorie contenant tout fleur anniversaire"));
+		Category c4 = categoryRepository.save(new Category(4L, "Decoration", "Categorie contenant tout fleur de decoration"));
+		Category c5 = categoryRepository.save(new Category(5L, "Mariage", "Categorie contenant tout fleur de mariage"));
+		Category c6 = categoryRepository.save(new Category(6L, "Jardinage", "Categorie contenant tout fleur de jardinage"));
+		Category c7 = categoryRepository.save(new Category(7L, "Naissance", "Categorie contenant tout fleur de naissance"));
+		Category c8 = categoryRepository.save(new Category(8L, "Tropical", "Categorie contenant tout fleur tropical"));
+		Category c9 = categoryRepository.save(new Category(9L, "Gerbe accueil", "Categorie contenant tout gerbe accueil"));
+		Category c10 = categoryRepository.save(new Category(10L, "Plante exterieure", "Categorie contenant tout plante exterieu"));
+		Category c11 = categoryRepository.save(new Category(11L, "Remise diplome", "Categorie contenant tout fleur pour remise de diplome"));
+		Category c12 = categoryRepository.save(new Category(12L, "Saint valentin", "Categorie contenant tout fleur saint valentin"));
 
-		Subcategory sc1 = subcategoryRepository.save(new Subcategory(1L, "Artificielle", "Fashion & Beauty", c2));
-		Subcategory sc2 = subcategoryRepository.save(new Subcategory(2L, "Bougie", "Fashion & Beauty", c1));
-		Subcategory sc3 = subcategoryRepository.save(new Subcategory(3L, "Bouquets de la marie", "Fashion & Beauty", c5));
-		Subcategory sc4 = subcategoryRepository.save(new Subcategory(4L, "Deco eglise", "Fashion & Beauty", c4));
-		Subcategory sc5 = subcategoryRepository.save(new Subcategory(5L, "Espace vert", "Fashion & Beauty", c6));
-		Subcategory sc6 = subcategoryRepository.save(new Subcategory(6L, "Fleur anniversire", "Fashion & Beauty", c3));
-		Subcategory sc7 = subcategoryRepository.save(new Subcategory(7L, "Fleur naissance", "Fashion & Beauty", c7));
-		Subcategory sc8 = subcategoryRepository.save(new Subcategory(8L, "Fleur tropical", "Fashion & Beauty", c8));
-		Subcategory sc9 = subcategoryRepository.save(new Subcategory(9L, "Gerbe accueil", "Fashion & Beauty", c9));
-		Subcategory sc10 = subcategoryRepository.save(new Subcategory(10L, "Plante exterieure", "Fashion & Beauty", c10));
-		Subcategory sc11 = subcategoryRepository.save(new Subcategory(11L, "Remise diplome", "Fashion & Beauty", c11));
-		Subcategory sc12 = subcategoryRepository.save(new Subcategory(12L, "Saint valentin", "Fashion & Beauty", c12));
-		Subcategory sc13 = subcategoryRepository.save(new Subcategory(13L, "Voluptate", "Fashion & Beauty", c3));
-		Subcategory sc14 = subcategoryRepository.save(new Subcategory(14L, "Tongue Est", "Fashion & Beauty", c3));
-		Subcategory sc15 = subcategoryRepository.save(new Subcategory(15L, "Voluptate", "Fashion & Beauty", c4));
-
+		Subcategory sc1 = subcategoryRepository.save(new Subcategory(1L, "Accessoire", "SousCategorie contenant tout fleur accessoire", c1));
+		Subcategory sc2 = subcategoryRepository.save(new Subcategory(2L, "Artificielle", "SousCategorie contenant tout fleur artificielle", c2));
+		Subcategory sc3 = subcategoryRepository.save(new Subcategory(3L, "Bougie", "SousCategorie contenant tout fleur pour bougie", c3));
+		Subcategory sc4 = subcategoryRepository.save(new Subcategory(4L, "Bouquets de la marie", "SousCategorie contenant tout fleur pour mariage", c5));
+		Subcategory sc5 = subcategoryRepository.save(new Subcategory(5L, "Deco eglise", "SousCategorie contenant tout fleur pour decoration", c4));
+		Subcategory sc6 = subcategoryRepository.save(new Subcategory(6L, "Espace vert", "SousCategorie contenant tout fleur pour espace vert", c6));
+		Subcategory sc7 = subcategoryRepository.save(new Subcategory(7L, "Fleur anniversire", "SousCategorie contenant tout fleur pour anniversaire", c6));
+		Subcategory sc8 = subcategoryRepository.save(new Subcategory(8L, "Fleur naissance", "SousCategorie contenant tout fleur de naissance", c7));
+		Subcategory sc9 = subcategoryRepository.save(new Subcategory(9L, "Fleur tropical", "SousCategorie contenant tout fleur tropical", c8));
+		Subcategory sc10 = subcategoryRepository.save(new Subcategory(10L, "Gerbe accueil", "SousCategorie contenant tout fleur gerbe accueil", c9));
+		Subcategory sc11 = subcategoryRepository.save(new Subcategory(11L, "Plante exterieure", "SousCategorie contenant tout fleur pour plante exterieur", c10));
+		Subcategory sc12 = subcategoryRepository.save(new Subcategory(12L, "Remise diplome", "SousCategorie contenant tout fleur pour remise diplome", c11));
+		Subcategory sc13 = subcategoryRepository.save(new Subcategory(13L, "Saint valentin", "SousCategorie contenant tout fleur saint valentin", c12));
+		Subcategory sc14 = subcategoryRepository.save(new Subcategory(14L, "Voluptate", "SousCategorie contenant tout fleur voluptate", c1));
+		Subcategory sc15 = subcategoryRepository.save(new Subcategory(15L, "Tongue Est", "SousCategorie contenant tout fleur tongue est", c3));
 
 
 		Product p1 = productRepository.save(new Product(1L, "prod1", "Nulla et justo non augue", 1700.0, 1600.0, 150, "product-1.jpg",true, true, true, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n" +
@@ -175,16 +178,19 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		Product p17 = productRepository.save(new Product(17L, "prod17", "Fleurs-17", 500.0, 1400.0, 150, "17.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
 		Product p18 = productRepository.save(new Product(18L, "prod18", "Fleur-18", 11000.0, 1600.0, 150, "20.jpg",false, true, true, "prod1prod1prod1", "prod1prod1prod1", sc5));
 		Product p19 = productRepository.save(new Product(19L, "prod19", "Fleur-19", 22000.0, 1300.0, 150, "28.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
-		Product p20 = productRepository.save(new Product(20L, "prod20", "Fleur-20", 14000.0, 1200.0, 150, "34.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc1));
+		Product p20 = productRepository.save(new Product(20L, "prod20", "Fleur-20", 14000.0, 1200.0, 150, "34.jpg",false, true, true, "prod1prod1prod1","prod1prod1prod1", sc6));
 
-
+		*
+		/
+/*
 
 		Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", p1));
 		Fournisseur f2 = fournisseurRepository.save(new Fournisseur(2L, "f2", "f2", "f2", "f2", "f2", "f2", p2));
 		Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "f3", "f3", p3));
 		Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "f4", "f4", p4));
 
-
+*/
+		/*
 
 		Country count1 = countryRepository.save(new Country(1L, "DK", "Dakar"));
 		Country count2 = countryRepository.save(new Country(2L, "DL", "Diourbel"));
@@ -233,6 +239,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
         user.setId(1L);
         user.setUsername("User");
         user.setName("User");
+        user.setActive(true);
         user.setPassword(bCryptPasswordEncoder.encode("userflower@2022"));
 		utilisateurRepository.save(user);
 
@@ -240,6 +247,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
         vendor.setId(2L);
         vendor.setUsername("Vendor");
         vendor.setName("Vendor");
+        vendor.setActive(true);
         vendor.setPassword(bCryptPasswordEncoder.encode("vendorflower@2022"));
         utilisateurRepository.save(vendor);
 
@@ -248,13 +256,15 @@ public class FlowerBackendApplication implements CommandLineRunner {
         bertin.setId(3L);
         bertin.setUsername("Bertin");
         bertin.setName("Bertin Gbalou");
-        vendor.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        bertin.setActive(true);
+        bertin.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
         utilisateurRepository.save(bertin);
 
         Utilisateur adama = new Utilisateur();
         adama.setId(4L);
         adama.setUsername("Adama");
         adama.setName("Adama Diallo");
+        adama.setActive(true);
         adama.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
         utilisateurRepository.save(adama);
 
@@ -262,7 +272,8 @@ public class FlowerBackendApplication implements CommandLineRunner {
         admin.setId(5L);
         admin.setUsername("Admin");
         admin.setName("Tairou Diallo");
-        adama.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        admin.setActive(true);
+        admin.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
         utilisateurRepository.save(admin);
 
 		utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
@@ -271,8 +282,20 @@ public class FlowerBackendApplication implements CommandLineRunner {
         utilisateurService.addRoleToUser("Adama", RoleName.ROLE_MANAGER);
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
 
+		*/
 
-		 */
+
+
+        /*
+        Utilisateur admin = new Utilisateur();
+        admin.setUsername("Administrator");
+        admin.setName("Tairou Diallo");
+        admin.setPassword(passwordEncoder.encode("fleurpourtous@2022"));
+        utilisateurRepository.save(admin);
+
+        utilisateurService.addRoleToUser("Administrator", RoleName.ROLE_ADMIN);
+
+        */
 
 
     }

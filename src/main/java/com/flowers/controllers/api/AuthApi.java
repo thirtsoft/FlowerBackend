@@ -19,7 +19,7 @@ import static com.flowers.utils.Constants.APP_ROOT;
 
 public interface AuthApi {
 
-    @PostMapping(value = APP_ROOT + "/auth/authenticated", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT + "/auth/authenticated")
     @ApiOperation(value = "S'authentifier",
             notes = "Cette méthode permet à un utilisateur de s'authentifier", response = LoginForm.class)
     @ApiResponses(value = {

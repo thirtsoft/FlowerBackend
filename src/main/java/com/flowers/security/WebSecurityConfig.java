@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -64,15 +65,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
 
+
+                .antMatchers("/**/auth/authenticated").permitAll()
                 .antMatchers("/**/auth/signUp").permitAll()
                 .antMatchers("/**/auth/registerUser").permitAll()
-                .antMatchers("/**/auth/authenticated").permitAll()
 
 
-       //         .antMatchers("/**/products/create").permitAll()
-       //         .antMatchers("/**/products/createWithFile").permitAll()
-       //         .antMatchers("/**/products/createWithFilesInFolder").permitAll()
-       //         .antMatchers("/**/products/update/{idProduct}").permitAll()
+                //         .antMatchers("/**/products/create").permitAll()
+                //         .antMatchers("/**/products/createWithFile").permitAll()
+                //         .antMatchers("/**/products/createWithFilesInFolder").permitAll()
+                //         .antMatchers("/**/products/update/{idProduct}").permitAll()
 
                 .antMatchers("/**/products/findById/{idProduct}").permitAll()
                 .antMatchers("/**/products/searchProductbyReference/{reference}").permitAll()
@@ -275,8 +277,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         //  .allowedOrigins("**")
-                //        .allowedOrigins("http://localhost:4200","http://localhost:3200")
-                        .allowedOrigins("https://fleurpourtous.com")
+                        //        .allowedOrigins("http://localhost:4200","http://localhost:3200")
+                        .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com")
+                    //    .allowedOrigins("https://fleurpourtous.com")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)
                         .allowedHeaders("*")

@@ -24,7 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-@CrossOrigin(origins = "https://fleurpourtous.com")
+@CrossOrigin(origins = {"https://fleurpourtous.com", "https://portail.fleurpourtous.com"})
 //@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
 @RestController
 @AllArgsConstructor

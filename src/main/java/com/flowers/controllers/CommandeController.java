@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(origins = "https://fleurpourtous.com")
+@CrossOrigin(origins = {"https://fleurpourtous.com", "https://portail.fleurpourtous.com"})
 //@CrossOrigin(origins = "http://localhost:4200, http://localhost:3200")
 @RestController
 @AllArgsConstructor

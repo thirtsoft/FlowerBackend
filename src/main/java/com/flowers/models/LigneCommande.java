@@ -20,9 +20,6 @@ public class LigneCommande implements Serializable {
     @Column(name = "price", length = 90)
     private double price;
 
-    @Column(name = "created_date")
-    private Date createdDate;
-
     @Column(name = "productId")
     private Long productId;
 
@@ -46,7 +43,6 @@ public class LigneCommande implements Serializable {
         this.quantity = quantity;
         this.price = price;
         this.commande = commande;
-        this.createdDate = new Date();
 
     }
 
@@ -54,7 +50,6 @@ public class LigneCommande implements Serializable {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
-        this.createdDate = new Date();
         this.commande = commande;
         this.product = product;
     }
@@ -81,14 +76,6 @@ public class LigneCommande implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public Commande getCommande() {

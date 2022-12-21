@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://fleurpourtous.com")
+@CrossOrigin(origins = {"https://fleurpourtous.com", "https://portail.fleurpourtous.com"})
 //@CrossOrigin
 @RestController
 public class RatingController implements RatingApi {

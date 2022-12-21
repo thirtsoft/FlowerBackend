@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-@CrossOrigin(origins = "https://fleurpourtous.com")
+@CrossOrigin(origins = "https://portail.fleurpourtous.com")
 //@CrossOrigin
 @RestController
 public class HistoriqueCommandeController implements HistoriqueCommandeApi {

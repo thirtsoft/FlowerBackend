@@ -40,7 +40,6 @@ public class CommandeRepositoryTest {
     public void save_commande_Test() {
         Client client = new Client();
         client.setId(1L);
-        client.setName("Tairou");
         client.setFirstName("Client01");
         client.setLastName("Client01");
         clientRepository.save(client);
