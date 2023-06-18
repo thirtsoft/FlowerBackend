@@ -26,6 +26,7 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public StateDto saveState(StateDto stateDto) {
+        stateDto.setActif(true);
         return StateDto.fromEntityToDto(
                 stateRepository.save(
                         StateDto.fromDtoToEntity(stateDto)
@@ -95,11 +96,29 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
-    public void deleteState(Long stateId) {
+    public void delete(Long stateId) {
         if (stateId == null) {
             log.error("State not found");
             return;
         }
         stateRepository.deleteById(stateId);
+    }
+
+    @Override
+    public List<StateDto> findAllActiveStates() {
+        return stateRepository.findAll().stream()
+                .map(StateDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteState(Long stateId) {
+        if (stateId == null) {
+            log.error("State not found");
+            return;
+        }
+        State state = stateRepository.findById(stateId).get();
+        state.setActif(false);
+        stateRepository.save(state);
     }
 }

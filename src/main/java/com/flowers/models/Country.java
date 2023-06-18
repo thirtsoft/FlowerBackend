@@ -26,6 +26,23 @@ public class Country implements Serializable {
     @JsonIgnore
     private List<State> stateList;
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public Country() {
 
     }

@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.HistoriqueCommandeDto;
 import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.models.HistoriqueLogin;
 import io.swagger.annotations.ApiOperation;
@@ -67,4 +68,21 @@ public interface HistoriqueLoginApi {
             @ApiResponse(code = 200, message = "La HistoriqueLogin a été supprimé")
     })
     void delete(@PathVariable("idHistLog") Long id);
+
+    @GetMapping(value = APP_ROOT + "/historiqueLogins/search-all-active-historiqueLogins", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des historiqueLogins actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des historiqueLogins actives",
+            responseContainer = "List<HistoriqueLoginDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des historiqueLogins par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<HistoriqueLoginDto>> getAllActiveHistoriqueLogins();
+
+    @DeleteMapping(value = APP_ROOT + "/historiqueLogins/delete-historiqueLogin/{idHistLog}")
+    @ApiOperation(value = "Supprimer un historiqueLogin par son ID",
+            notes = "Cette méthode permet de supprimer un historiqueLogin  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le historiqueLogin a été supprimé")
+    })
+    void deleteHistoriqueLogin(@PathVariable("idHistLog") Long idHistLog);
 }

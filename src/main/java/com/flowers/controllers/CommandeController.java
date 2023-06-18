@@ -193,4 +193,15 @@ public class CommandeController implements CommandeApi {
 
 
     }
+
+    @Override
+    public ResponseEntity<List<CommandeDto>> getAllActiveCommandes() {
+        List<CommandeDto> commandeDtoList = commandeService.findAllActiveCommandes();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteCommande(Long idOrder) {
+        commandeService.deleteCommande(idOrder);
+    }
 }

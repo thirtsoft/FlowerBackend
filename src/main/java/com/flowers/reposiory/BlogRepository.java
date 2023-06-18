@@ -16,4 +16,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
 
     List<Blog> findByOrderByIdDesc();
 
+    @Query("Select DISTINCT act from  Blog act where act.actif=1 ORDER BY act.id desc")
+    List<Blog> findAll();
+
 }

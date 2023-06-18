@@ -29,6 +29,22 @@ public class BlogDto {
 
     private UtilisateurDto utilisateurDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static BlogDto fromEntityToDto(Blog blog) {
         if (blog == null) {
             return null;
@@ -40,6 +56,7 @@ public class BlogDto {
                 .image(blog.getImage())
                 .description(blog.getDescription())
                 .createDate(blog.getCreatedDate())
+                .actif(blog.getActif())
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(blog.getUtilisateur()))
                 .build();
     }
@@ -54,8 +71,8 @@ public class BlogDto {
         blog.setImage(blogDto.getImage());
         blog.setDescription(blogDto.getDescription());
         blog.setCreatedDate(blogDto.getCreateDate());
+        blog.setActif(blogDto.isActif());
         blog.setUtilisateur(UtilisateurDto.fromDtoToEntity(blogDto.getUtilisateurDto()));
-
         return blog;
     }
 }

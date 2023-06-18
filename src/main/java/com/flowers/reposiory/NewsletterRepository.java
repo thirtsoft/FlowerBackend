@@ -15,4 +15,7 @@ public interface NewsletterRepository extends JpaRepository<Newsletter, Long> {
     BigDecimal countNumberOfNewsletters();
 
     List<Newsletter> findByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from Newsletter act where act.actif=1 ORDER BY act.id desc")
+    List<Newsletter> findAll();
 }

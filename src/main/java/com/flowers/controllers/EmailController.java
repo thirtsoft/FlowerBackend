@@ -151,4 +151,15 @@ public class EmailController implements EmailApi {
     public void delete(Long id) {
         emailService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<EmailDto>> getAllActiveEmails() {
+        List<EmailDto> emailDtoList = emailService.findAllActiveEmails();
+        return new ResponseEntity<>(emailDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteEmail(Long idEmail) {
+        emailService.deleteEmail(idEmail);
+    }
 }

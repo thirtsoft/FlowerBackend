@@ -71,6 +71,23 @@ public interface AddressApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Address est supprimé / une liste vide")
     })
-    void deleteAddress(@PathVariable(name = "addId") Long addId);
+    void delete(@PathVariable(name = "addId") Long addId);
+
+    @GetMapping(value = APP_ROOT + "/addresses/search-all-active-addresses", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Address Livraisons actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Address Livraisons actives",
+            responseContainer = "List<AddressDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Address Livraisons par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<AddressDto>> getAllActiveAddresses();
+
+    @DeleteMapping(value = APP_ROOT + "/addresses/delete-addresse/{addId}")
+    @ApiOperation(value = "Supprimer une addresse de livraison par son ID",
+            notes = "Cette méthode permet de supprimer une addresse de livraison  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Address a été supprimé")
+    })
+    void deleteAddress(@PathVariable("addId") Long addId);
 
 }

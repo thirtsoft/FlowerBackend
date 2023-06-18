@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.LigneCommandeDto;
 import com.flowers.dtos.NewsletterDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Newsletter;
@@ -70,4 +71,21 @@ public interface NewsletterApi {
             @ApiResponse(code = 200, message = "La Newsletter a été supprimé")
     })
     void delete(@PathVariable("idNewsletter") Long id);
+
+    @GetMapping(value = APP_ROOT + "/newsletters/search-all-active-newsletters", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des newsletters actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des newsletters actives",
+            responseContainer = "List<NewsletterDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des newsletters par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<NewsletterDto>> getAllActiveNewsletters();
+
+    @DeleteMapping(value = APP_ROOT + "/newsletters/delete-newsletter/{idNewsletter}")
+    @ApiOperation(value = "Supprimer un newsletter par son ID",
+            notes = "Cette méthode permet de supprimer un newsletter  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le newsletter a été supprimé")
+    })
+    void deleteNewsletter(@PathVariable("idNewsletter") Long idNewsletter);
 }

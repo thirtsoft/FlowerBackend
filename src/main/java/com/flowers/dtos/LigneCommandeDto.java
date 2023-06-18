@@ -27,6 +27,22 @@ public class LigneCommandeDto {
 
     private ProductDto productDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static LigneCommandeDto fromEntityToDto(LigneCommande ligneCommande) {
         if (ligneCommande == null) {
             return null;
@@ -38,6 +54,7 @@ public class LigneCommandeDto {
                 .price(ligneCommande.getPrice())
                 .productId(ligneCommande.getProductId())
                 .productName(ligneCommande.getProductName())
+                .actif(ligneCommande.getActif())
                 .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
                 .productDto(ProductDto.fromEntityToDto(ligneCommande.getProduct()))
                 .build();
@@ -53,10 +70,10 @@ public class LigneCommandeDto {
         ligneCommande.setQuantity(ligneCommandeDto.getQuantity());
         ligneCommande.setPrice(ligneCommandeDto.getPrice());
         ligneCommande.setProductId(ligneCommandeDto.getProductId());
-        ligneCommande.setProductName(ligneCommande.getProductName());
+        ligneCommande.setProductName(ligneCommandeDto.getProductName());
+        ligneCommande.setActif(ligneCommandeDto.isActif());
         ligneCommande.setProduct(ProductDto.fromDtoToEntity(ligneCommandeDto.getProductDto()));
         ligneCommande.setCommande(CommandeDto.fromDtoToEntity(ligneCommandeDto.getCommandeDto()));
-
         return ligneCommande;
     }
 

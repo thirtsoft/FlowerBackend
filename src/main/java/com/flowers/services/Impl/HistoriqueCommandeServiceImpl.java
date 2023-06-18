@@ -30,6 +30,7 @@ public class HistoriqueCommandeServiceImpl implements HistoriqueCommandeService 
 
     @Override
     public HistoriqueCommandeDto saveHistoriqueCommande(HistoriqueCommandeDto historiqueCommandeDto) {
+        historiqueCommandeDto.setActif(true);
         return HistoriqueCommandeDto.fromEntityToDto(
                 historiqueCommandeRepository.save(
                         HistoriqueCommandeDto.fromDtoToEntity(historiqueCommandeDto)
@@ -76,12 +77,30 @@ public class HistoriqueCommandeServiceImpl implements HistoriqueCommandeService 
     }
 
     @Override
-    public void deleteHistoriqueCommande(Long id) {
+    public void deleteHistorique(Long id) {
         if (id == null) {
             log.error("HistoriqueCommande Id is null");
             return;
         }
         historiqueCommandeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<HistoriqueCommandeDto> findAllActiveHistoriqueCommandes() {
+        return historiqueCommandeRepository.findAll().stream()
+                .map(HistoriqueCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteHistoriqueCommande(Long id) {
+        if (id == null) {
+            log.error("HistoriqueCommande Id is null");
+            return;
+        }
+        HistoriqueCommande historiqueCommande = historiqueCommandeRepository.findById(id).get();
+        historiqueCommande.setActif(false);
+        historiqueCommandeRepository.save(historiqueCommande);
     }
 
 }

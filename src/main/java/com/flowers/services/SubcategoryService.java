@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.StateDto;
 import com.flowers.dtos.SubCategoryDto;
 import com.flowers.models.State;
 import com.flowers.models.Subcategory;
@@ -21,7 +22,11 @@ public interface SubcategoryService {
 
     List<SubCategoryDto> findSubcategoryByOrderByIdDesc();
 
-    void deleteSubcategory(Long subCatId);
+    void delete(Long subCatId);
+
+    List<SubCategoryDto> findAllActiveSubCategories();
+
+    void deleteSubcategory(Long subcatId);
 
 
 }

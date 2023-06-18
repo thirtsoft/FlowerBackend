@@ -22,6 +22,22 @@ public class StateDto {
     @NotNull
     private CountryDto countryDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static StateDto fromEntityToDto(State state) {
         if (state == null) {
             return null;
@@ -30,6 +46,7 @@ public class StateDto {
         return StateDto.builder()
                 .id(state.getId())
                 .name(state.getName())
+                .actif(state.getActif())
                 .countryDto(CountryDto.fromEntityToDto(state.getCountry()))
                 .build();
     }
@@ -42,8 +59,8 @@ public class StateDto {
         State state = new State();
         state.setId(stateDto.getId());
         state.setName(stateDto.getName());
+        state.setActif(stateDto.isActif());
         state.setCountry(CountryDto.fromDtoToEntity(stateDto.getCountryDto()));
-
         return state;
     }
 }

@@ -1,6 +1,7 @@
 package com.flowers.controllers.api;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.flowers.dtos.SubCategoryDto;
 import com.flowers.dtos.UtilisateurDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Utilisateur;
@@ -173,6 +174,23 @@ public interface UtilisateurApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le Utilisateur a été supprimé")
     })
-    void deleteUtilisateur(@PathVariable(name = "userId") Long userId);
+    void delete(@PathVariable(name = "userId") Long userId);
+
+    @GetMapping(value = APP_ROOT + "/utilisateurs/search-all-active-utilisateurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des vutilisateurs actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des utilisateurs actives",
+            responseContainer = "List<UtilisateurDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des utilisateurs par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<UtilisateurDto>> getAllActiveUtilisateurs();
+
+    @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete-utilisateur/{userId}")
+    @ApiOperation(value = "Supprimer un utilisateur par son ID",
+            notes = "Cette méthode permet de supprimer un utilisateur  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le utilisateur a été supprimé")
+    })
+    void deleteUtilisateur(@PathVariable("userId") Long userId);
 
 }

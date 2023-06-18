@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.RatingDto;
 import com.flowers.dtos.StateDto;
 import com.flowers.models.State;
 
@@ -19,6 +20,10 @@ public interface StateService {
     List<StateDto> findStateByOrderByIdDesc();
 
     List<StateDto> findAllStateByCountryCode(String code);
+
+    void delete(Long stateId);
+
+    List<StateDto> findAllActiveStates();
 
     void deleteState(Long stateId);
 

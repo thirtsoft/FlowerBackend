@@ -52,7 +52,18 @@ public class WishlistController implements WishlistApi {
     }
 
     @Override
-    public void deleteWishlist(Long wishlistId) {
+    public void delete(Long wishlistId) {
         wishlistService.deleteWhishlist(wishlistId);
+    }
+
+    @Override
+    public ResponseEntity<List<WishlistDto>> getAllActiveWishlists() {
+        List<WishlistDto> wishlistDtoList = wishlistService.findAllActiveWishlists();
+        return new ResponseEntity<>(wishlistDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteWishlist(Long wishlistId) {
+        wishlistService.deleteWishlist(wishlistId);
     }
 }

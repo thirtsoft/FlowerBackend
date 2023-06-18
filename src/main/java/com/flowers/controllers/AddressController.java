@@ -51,6 +51,17 @@ public class AddressController implements AddressApi {
     }
 
     @Override
+    public void delete(Long addId) {
+        addressService.delete(addId);
+    }
+
+    @Override
+    public ResponseEntity<List<AddressDto>> getAllActiveAddresses() {
+        List<AddressDto> addressDtoList = addressService.findAllActiveAddress();
+        return new ResponseEntity<>(addressDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public void deleteAddress(Long addId) {
         addressService.deleteAddress(addId);
     }

@@ -28,6 +28,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDto saveAddress(AddressDto addressDto) {
+        addressDto.setActif(true);
         return AddressDto.fromEntityToDto(
                 addressRepository.save(
                         AddressDto.fromDtoToEntity(addressDto)
@@ -91,11 +92,29 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void deleteAddress(Long addId) {
+    public void delete(Long addId) {
         if (addId == null) {
             log.error("Address Id is null");
             return;
         }
         addressRepository.deleteById(addId);
+    }
+
+    @Override
+    public List<AddressDto> findAllActiveAddress() {
+        return addressRepository.findAll().stream()
+                .map(AddressDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteAddress(Long addId) {
+        if (addId == null) {
+            log.error("Address Id is null");
+            return;
+        }
+        Address address = addressRepository.findById(addId).get();
+        address.setActif(false);
+        addressRepository.save(address);
     }
 }

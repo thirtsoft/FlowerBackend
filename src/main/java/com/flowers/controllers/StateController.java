@@ -60,6 +60,17 @@ public class StateController implements StateApi {
     }
 
     @Override
+    public void delete(Long stateId) {
+     stateService.delete(stateId);
+    }
+
+    @Override
+    public ResponseEntity<List<StateDto>> getAllActiveStates() {
+        List<StateDto> stateDtoList = stateService.findAllActiveStates();
+        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public void deleteState(Long stateId) {
         stateService.deleteState(stateId);
     }

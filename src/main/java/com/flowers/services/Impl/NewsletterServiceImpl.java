@@ -30,6 +30,7 @@ public class NewsletterServiceImpl implements NewsletterService {
 
     @Override
     public NewsletterDto save(NewsletterDto newsletterDto) {
+        newsletterDto.setActif(true);
         return NewsletterDto.fromEntityToDto(
                 newsletterRepository.save(
                         NewsletterDto.fromDtoToEntity(newsletterDto)
@@ -78,5 +79,23 @@ public class NewsletterServiceImpl implements NewsletterService {
             return;
         }
         newsletterRepository.deleteById(id);
+    }
+
+    @Override
+    public List<NewsletterDto> findAllActiveNewsletters() {
+        return newsletterRepository.findAll().stream()
+                .map(NewsletterDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteNewsletter(Long newId) {
+        if (newId == null) {
+            log.error("Newsletter not found");
+            return;
+        }
+        Newsletter newsletter = newsletterRepository.findById(newId).get();
+        newsletter.setActif(false);
+        newsletterRepository.save(newsletter);
     }
 }

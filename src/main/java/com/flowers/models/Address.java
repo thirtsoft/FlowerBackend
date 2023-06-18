@@ -38,6 +38,24 @@ public class Address implements Serializable {
     @JsonIgnore
     private Commande commande;
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
+
     public Address(Long id, String city, String rue, State state) {
         this.id = id;
         this.city = city;

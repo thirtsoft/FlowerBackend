@@ -1,9 +1,12 @@
 package com.flowers.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "email")
 public class Email implements Serializable {
@@ -33,6 +36,23 @@ public class Email implements Serializable {
 
     @ManyToOne
     private Newsletter newsletter;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Long getId() {
         return id;

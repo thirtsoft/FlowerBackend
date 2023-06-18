@@ -2,14 +2,17 @@ package com.flowers.dtos;
 
 import com.flowers.models.Client;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class ClientDto {
 
@@ -25,6 +28,22 @@ public class ClientDto {
 
     @NotNull
     private String mobile;
+
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public ClientDto(Long id, String firstName,
                      String lastName, String email, String mobile) {
@@ -45,6 +64,7 @@ public class ClientDto {
                 .lastName(client.getLastName())
                 .email(client.getEmail())
                 .mobile(client.getMobile())
+                .actif(client.getActif())
                 .build();
     }
 
@@ -59,7 +79,7 @@ public class ClientDto {
         client.setLastName(clientDto.getLastName());
         client.setEmail(clientDto.getEmail());
         client.setMobile(clientDto.getMobile());
-
+        client.setActif(clientDto.isActif());
         return client;
     }
 

@@ -26,6 +26,22 @@ public class HistoriqueLoginDto {
 
     private UtilisateurDto utilisateurDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static HistoriqueLoginDto fromEntityToDto(HistoriqueLogin historiqueLogin) {
         if (historiqueLogin == null) {
             return null;
@@ -36,6 +52,7 @@ public class HistoriqueLoginDto {
                 .action(historiqueLogin.getAction())
                 .status(historiqueLogin.getStatus())
                 .createdDate(historiqueLogin.getCreatedDate())
+                .actif(historiqueLogin.getActif())
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(historiqueLogin.getUtilisateur()))
                 .build();
     }
@@ -50,8 +67,8 @@ public class HistoriqueLoginDto {
         historiqueLogin.setAction(historiqueLoginDto.getAction());
         historiqueLogin.setStatus(historiqueLoginDto.getStatus());
         historiqueLogin.setCreatedDate(historiqueLoginDto.getCreatedDate());
+        historiqueLogin.setActif(historiqueLoginDto.isActif());
         historiqueLogin.setUtilisateur(UtilisateurDto.fromDtoToEntity(historiqueLoginDto.getUtilisateurDto()));
-
         return historiqueLogin;
     }
 

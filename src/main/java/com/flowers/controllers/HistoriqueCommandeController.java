@@ -57,4 +57,15 @@ public class HistoriqueCommandeController implements HistoriqueCommandeApi {
     public void delete(Long id) {
         historiqueCommandeService.deleteHistoriqueCommande(id);
     }
+
+    @Override
+    public ResponseEntity<List<HistoriqueCommandeDto>> getAllActiveHistoriqueCommandes() {
+        List<HistoriqueCommandeDto> historiqueCommandeDtoList = historiqueCommandeService.findAllActiveHistoriqueCommandes();
+        return new ResponseEntity<>(historiqueCommandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteHistoriqueCommande(Long idHistCom) {
+        historiqueCommandeService.deleteHistoriqueCommande(idHistCom);
+    }
 }

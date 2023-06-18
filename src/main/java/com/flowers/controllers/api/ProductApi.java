@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.NewsletterDto;
 import com.flowers.dtos.ProductDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -307,5 +308,22 @@ public interface ProductApi {
 
     })
     long getProductSizesByKeyword(@RequestParam String keyword);
+
+    @GetMapping(value = APP_ROOT + "/products/search-all-active-products", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products actives",
+            responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getAllActiveProducts();
+
+    @DeleteMapping(value = APP_ROOT + "/products/delete-product/{idProduct}")
+    @ApiOperation(value = "Supprimer un product par son ID",
+            notes = "Cette méthode permet de supprimer un product  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le product a été supprimé")
+    })
+    void deleteProduct(@PathVariable("idProduct") Long idProduct);
 
 }

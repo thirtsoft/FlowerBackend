@@ -45,6 +45,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public UtilisateurDto saveUtilisateur(UtilisateurDto utilisateurDto) {
+        utilisateurDto.setActif(true);
         return UtilisateurDto.fromEntityToDto(
                 utilisateurRepository.save(
                         UtilisateurDto.fromDtoToEntity(utilisateurDto)
@@ -231,11 +232,30 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public void deleteUtilisateur(Long userId) {
+    public void delete(Long userId) {
         if (userId == null) {
             log.error("Utilisateur not found");
             return;
         }
         utilisateurRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<UtilisateurDto> findAllActiveUtilisateurs() {
+        return utilisateurRepository.findAll().stream()
+                .map(UtilisateurDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUtilisateur(Long userId) {
+        if (userId == null) {
+            log.error("Utilisateur not found");
+            return;
+        }
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).get();
+        utilisateur.setActive(false);
+        utilisateur.setActif(false);
+        utilisateurRepository.save(utilisateur);
     }
 }

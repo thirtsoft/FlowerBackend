@@ -34,4 +34,21 @@ public class Newsletter implements Serializable {
     @Column(name = "dateInscription", length = 50)
     private Date dateInscription;
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
 }

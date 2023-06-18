@@ -60,6 +60,7 @@ public class EmailServiceImpl implements EmailService {
 
         emailDto.setCreateDate(new Date());
         emailDto.setCustomerName(emailDto.getCustomerName());
+        emailDto.setActif(true);
 
         System.out.println(emailDto);
 
@@ -88,6 +89,7 @@ public class EmailServiceImpl implements EmailService {
 
         emailDto.setCreateDate(new Date());
         emailDto.setCustomerName(emailDto.getCustomerName());
+        emailDto.setActif(true);
 
         System.out.println(emailDto);
 
@@ -192,5 +194,23 @@ public class EmailServiceImpl implements EmailService {
             return;
         }
         emailRepository.deleteById(id);
+    }
+
+    @Override
+    public List<EmailDto> findAllActiveEmails() {
+        return emailRepository.findAll().stream()
+                .map(EmailDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteEmail(Long mailId) {
+        if (mailId == null) {
+            log.error("Email avec cet id existe pas !!");
+            return;
+        }
+        Email email = emailRepository.findById(mailId).get();
+        email.setActif(false);
+        emailRepository.save(email);
     }
 }

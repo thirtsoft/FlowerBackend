@@ -44,6 +44,7 @@ public class CommandeServiceImpl implements CommandeService {
     public CommandeDto saveOrder(CommandeDto commandeDto) {
         System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
         logger.info("CommandeDto {}", commandeDto);
+        commandeDto.setActif(true);
 
         Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
 
@@ -228,6 +229,24 @@ public class CommandeServiceImpl implements CommandeService {
             return;
         }
         commandeRepository.deleteById(Id);
+
+    }
+
+    @Override
+    public List<CommandeDto> findAllActiveCommandes() {
+        return commandeRepository.findAll().stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCommande(Long comId) {
+        if (comId == null) {
+            log.error("Commande Id is null");
+        }
+        Commande commande = commandeRepository.findById(comId).get();
+        commande.setActif(true);
+        commandeRepository.save(commande);
 
     }
 }

@@ -59,6 +59,17 @@ public class SubcategoryController implements SubcategoryApi {
 
     @Override
     public void delete(Long id) {
-        subcategoryService.deleteSubcategory(id);
+        subcategoryService.delete(id);
+    }
+
+    @Override
+    public ResponseEntity<List<SubCategoryDto>> getAllActiveSubCategories() {
+        List<SubCategoryDto> subCategoryDtoList = subcategoryService.findAllActiveSubCategories();
+        return new ResponseEntity<>(subCategoryDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteSubcategory(Long subCatId) {
+        subcategoryService.deleteSubcategory(subCatId);
     }
 }

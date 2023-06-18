@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.FournisseurDto;
 import com.flowers.dtos.HistoriqueCommandeDto;
 
 import java.math.BigDecimal;
@@ -20,5 +21,9 @@ public interface HistoriqueCommandeService {
 
     BigDecimal countNumberOfHistoriqueCommandes();
 
-    void deleteHistoriqueCommande(Long id);
+    void deleteHistorique(Long id);
+
+    List<HistoriqueCommandeDto> findAllActiveHistoriqueCommandes();
+
+    void deleteHistoriqueCommande(Long histComId);
 }

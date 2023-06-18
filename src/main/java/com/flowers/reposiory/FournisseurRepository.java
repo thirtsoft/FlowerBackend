@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.Email;
 import com.flowers.models.Fournisseur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,8 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> 
     BigDecimal countNumberOfFournisseur();
 
     List<Fournisseur> findByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from Fournisseur act where act.actif=1 ORDER BY act.id desc ")
+    List<Fournisseur> findAll();
 
 }

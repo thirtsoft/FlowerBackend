@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.Subcategory;
 import com.flowers.models.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,7 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
     List<?> countNumberOfRegisterUserByMonth();
 
     List<Utilisateur> findByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from Utilisateur act where act.actif=1 ORDER BY act.id desc")
+    List<Utilisateur> findAll();
 }

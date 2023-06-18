@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.HistoriqueLogin;
 import com.flowers.models.LigneCommande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,13 +17,19 @@ public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Lo
 
     List<LigneCommande> findByOrderByIdDesc();
 
-    @Query("select p from LigneCommande p where p.commande.id =:num")
+    @Query("select p from LigneCommande p where p.actif=1 and p.commande.id =:num")
     List<LigneCommande> ListOrderItemByOrderId(@Param("num") Long comId);
 
+    @Query("Select DISTINCT act from LigneCommande act where act.actif=1")
     List<LigneCommande> findTop200ByOrderByIdDesc();
 
+    @Query("Select DISTINCT act from LigneCommande act where act.actif=1")
     List<LigneCommande> findTop8ByOrderByIdDesc();
 
+    @Query("Select DISTINCT act from LigneCommande act where act.actif=1")
     List<LigneCommande> findTop3ByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from LigneCommande act where act.actif=1 ORDER BY act.id desc")
+    List<LigneCommande> findAll();
 
 }

@@ -84,4 +84,15 @@ public class LigneCommandeController implements LigneCommandeApi {
     public void delete(Long id) {
         ligneCommandeService.deleteOrderItem(id);
     }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllActiveLigneCommandes();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteLigneCommande(Long idOrderItem) {
+        ligneCommandeService.deleteLigneCommande(idOrderItem);
+    }
 }

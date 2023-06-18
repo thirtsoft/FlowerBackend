@@ -26,6 +26,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDto saveCountry(CountryDto countryDto) {
+        countryDto.setActif(true);
         return CountryDto.fromEntityToDto(
                 countryRepository.save(
                         CountryDto.fromDtoToEntity(countryDto)
@@ -85,12 +86,30 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public void deleteCountry(Long countryId) {
+    public void delete(Long countryId) {
         if (countryId == null) {
             log.error("Country Id is null");
             return;
         }
         countryRepository.deleteById(countryId);
+    }
+
+    @Override
+    public List<CountryDto> findAllActiveCountries() {
+        return countryRepository.findAll().stream()
+                .map(CountryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCountry(Long countryId) {
+        if (countryId == null) {
+            log.error("Country Id is null");
+            return;
+        }
+        Country country = countryRepository.findById(countryId).get();
+        country.setActif(false);
+        countryRepository.save(country);
 
     }
 }

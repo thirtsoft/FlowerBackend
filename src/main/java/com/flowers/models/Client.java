@@ -38,6 +38,23 @@ public class Client implements Serializable {
     @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public Client(String firstName, String lastName, String email, String mobile) {
         this.firstName = firstName;
         this.lastName = lastName;

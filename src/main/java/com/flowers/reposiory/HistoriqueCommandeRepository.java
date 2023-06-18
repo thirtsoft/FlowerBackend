@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.Fournisseur;
 import com.flowers.models.HistoriqueCommande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,8 @@ public interface HistoriqueCommandeRepository extends JpaRepository<HistoriqueCo
     BigDecimal countNumberOfHistoriqueCommandes();
 
     List<HistoriqueCommande> findByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from HistoriqueCommande act where act.actif=1 ORDER BY act.id desc ")
+    List<HistoriqueCommande> findAll();
 
 }

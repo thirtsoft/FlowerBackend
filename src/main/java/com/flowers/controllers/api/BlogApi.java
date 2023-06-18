@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.AddressDto;
 import com.flowers.dtos.BlogDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import io.swagger.annotations.ApiOperation;
@@ -78,5 +79,22 @@ public interface BlogApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Blog a été supprimé")
     })
-    void deleteBlog(@PathVariable(name = "blogId") Long blogId);
+    void delete(@PathVariable(name = "blogId") Long blogId);
+
+    @GetMapping(value = APP_ROOT + "/blogs/search-all-active-blogs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des blogs actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des blogs actives",
+            responseContainer = "List<BlogDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des blogs par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<BlogDto>> getAllActiveBlogs();
+
+    @DeleteMapping(value = APP_ROOT + "/blogs/delete-blog/{blogId}")
+    @ApiOperation(value = "Supprimer un blogs par son ID",
+            notes = "Cette méthode permet de supprimer un blogs  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le blog a été supprimé")
+    })
+    void deleteBlog(@PathVariable("blogId") Long blogId);
 }

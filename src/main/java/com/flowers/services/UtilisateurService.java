@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.SubCategoryDto;
 import com.flowers.dtos.UtilisateurDto;
 import com.flowers.enums.RoleName;
 import com.flowers.models.Utilisateur;
@@ -39,6 +40,10 @@ public interface UtilisateurService {
     BigDecimal countNumberOfRegisterInMonth();
 
     List<?> countNumberOfRegisterUsersPeerMonth();
+
+    void delete(Long userId);
+
+    List<UtilisateurDto> findAllActiveUtilisateurs();
 
     void deleteUtilisateur(Long userId);
 }

@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.CategoryDto;
 import com.flowers.dtos.ClientDto;
 
 import java.math.BigDecimal;
@@ -20,4 +21,8 @@ public interface ClientService {
     List<ClientDto> findByOrderByIdDesc();
 
     void delete(Long id);
+
+    List<ClientDto> findAllActiveClients();
+
+    void deleteClient(Long clientId);
 }

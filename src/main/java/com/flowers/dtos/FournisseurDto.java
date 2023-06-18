@@ -39,6 +39,22 @@ public class FournisseurDto {
 
     private StateDto stateDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public FournisseurDto(Long id, String reference, String firstName, String lastName,
                           String email, String telephone,
                           ProductDto productDto) {
@@ -64,6 +80,7 @@ public class FournisseurDto {
                 .telephone(fournisseur.getTelephone())
                 .subject(fournisseur.getSubject())
                 .message(fournisseur.getMessage())
+                .actif(fournisseur.getActif())
                 .productDto(ProductDto.fromEntityToDto(fournisseur.getProduct()))
                 .stateDto(StateDto.fromEntityToDto(fournisseur.getState()))
                 .build();
@@ -82,9 +99,9 @@ public class FournisseurDto {
         fournisseur.setTelephone(fournisseurDto.getTelephone());
         fournisseur.setSubject(fournisseurDto.getSubject());
         fournisseur.setMessage(fournisseurDto.getMessage());
+        fournisseur.setActif(fournisseurDto.isActif());
         fournisseur.setProduct(ProductDto.fromDtoToEntity(fournisseurDto.getProductDto()));
         fournisseur.setState(StateDto.fromDtoToEntity(fournisseurDto.getStateDto()));
-
         return fournisseur;
     }
 }

@@ -38,6 +38,23 @@ public class Rating implements Serializable {
     @JoinColumn(name = "userId")
     private Utilisateur utilisateur;
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public Rating(Long id, float nbreEtoile, String observation, Product product) {
         this.id = id;
         this.nbreEtoile = nbreEtoile;

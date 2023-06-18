@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.ProductDto;
 import com.flowers.dtos.RatingDto;
 
 import java.math.BigDecimal;
@@ -25,4 +26,8 @@ public interface RatingService {
     List<RatingDto> findTop4ByOrderByCreatedDateDescByProductId(String prodRef);
 
     void delete(Long id);
+
+    List<RatingDto> findAllActiveRatings();
+
+    void deleteRating(Long ratId);
 }

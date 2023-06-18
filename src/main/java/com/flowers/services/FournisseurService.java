@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.EmailDto;
 import com.flowers.dtos.FournisseurDto;
 import com.flowers.models.Fournisseur;
 
@@ -20,6 +21,10 @@ public interface FournisseurService {
     BigDecimal countNumberOfFournisseur();
 
     List<FournisseurDto> findFournisseurByOrderByIdDesc();
+
+    void delete(Long fourId);
+
+    List<FournisseurDto> findAllActiveFournisseurs();
 
     void deleteFournisseur(Long fourId);
 

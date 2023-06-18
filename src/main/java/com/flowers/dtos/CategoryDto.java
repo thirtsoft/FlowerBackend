@@ -30,6 +30,22 @@ public class CategoryDto {
 
     private List<SubCategoryDto> subcategoryList = new ArrayList<>();
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static CategoryDto fromEntityToDto(Category category) {
         if (category == null) {
             return null;
@@ -38,6 +54,7 @@ public class CategoryDto {
                 .id(category.getId())
                 .categoryName(category.getCategoryName())
                 .description(category.getDescription())
+                .actif(category.getActif())
                 .build();
     }
 
@@ -48,8 +65,8 @@ public class CategoryDto {
         Category category = new Category();
         category.setId(categoryDto.getId());
         category.setCategoryName(categoryDto.getCategoryName());
+        category.setActif(categoryDto.isActif());
         category.setDescription(categoryDto.getDescription());
-
         return category;
     }
 }

@@ -61,4 +61,15 @@ public class NewsletterController implements NewsletterApi {
     public void delete(Long id) {
         newsletterService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<NewsletterDto>> getAllActiveNewsletters() {
+        List<NewsletterDto> newsletterDtoList = newsletterService.findAllActiveNewsletters();
+        return new ResponseEntity<>(newsletterDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteNewsletter(Long idNewsletter) {
+        newsletterService.deleteNewsletter(idNewsletter);
+    }
 }

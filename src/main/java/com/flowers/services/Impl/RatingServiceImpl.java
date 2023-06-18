@@ -37,6 +37,7 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public RatingDto save(RatingDto ratingDto) {
+        ratingDto.setActif(true);
         return RatingDto.fromEntityToDto(
                 ratingRepository.save(
                         RatingDto.fromDtoToEntity(ratingDto)
@@ -48,7 +49,7 @@ public class RatingServiceImpl implements RatingService {
     public RatingDto saveRatingToArticle(Long id, RatingDto ratingDto) {
         ProductDto productDTOOptional = productService.findById(id);
         ratingDto.setProductDto(productDTOOptional);
-
+        ratingDto.setActif(true);
         return RatingDto.fromEntityToDto(
                 ratingRepository.save(
                         RatingDto.fromDtoToEntity(ratingDto)
@@ -109,5 +110,23 @@ public class RatingServiceImpl implements RatingService {
             return;
         }
         ratingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RatingDto> findAllActiveRatings() {
+        return ratingRepository.findAll().stream()
+                .map(RatingDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteRating(Long ratId) {
+        if (ratId == null) {
+            log.error("Rating not found");
+            return;
+        }
+        Rating rating = ratingRepository.findById(ratId).get();
+        rating.setActif(false);
+        ratingRepository.save(rating);
     }
 }

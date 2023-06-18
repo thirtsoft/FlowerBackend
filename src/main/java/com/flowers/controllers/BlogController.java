@@ -63,6 +63,17 @@ public class BlogController implements BlogApi {
     }
 
     @Override
+    public void delete(Long blogId) {
+        blogService.delete(blogId);
+    }
+
+    @Override
+    public ResponseEntity<List<BlogDto>> getAllActiveBlogs() {
+        List<BlogDto> blogDtoList = blogService.findAllActiveBlogs();
+        return new ResponseEntity<>(blogDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public void deleteBlog(Long blogId) {
         blogService.deleteBlog(blogId);
     }

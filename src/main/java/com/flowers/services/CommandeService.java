@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.ClientDto;
 import com.flowers.dtos.CommandeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,6 +56,10 @@ public interface CommandeService {
     Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable);
 
     void deleteOrder(Long Id);
+
+    List<CommandeDto> findAllActiveCommandes();
+
+    void deleteCommande(Long comId);
 
 
 }

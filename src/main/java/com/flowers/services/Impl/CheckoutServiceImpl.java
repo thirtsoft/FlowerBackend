@@ -66,10 +66,17 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setStatus(status);
         commande.setDateCommande(new Date());
+        commande.setActif(true);
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-        ligneCommandeList.forEach(item -> commande.add(item));
+       // ligneCommandeList.forEach(item -> commande.add(item));
+        if (ligneCommandeList != null) {
+            ligneCommandeList.forEach(ligCmdClt -> {
+                ligCmdClt.setActif(true);
+                commande.add(ligCmdClt);
+            });
+        }
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
@@ -77,6 +84,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate customer with order
         Client client = purchase.getClient();
+        client.setActif(true);
         client.add(commande);
 
         // save customer to database
@@ -101,13 +109,20 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setNumeroCommande(numCommande);
         commande.setStatus(status);
         commande.setDateCommande(new Date());
+        commande.setActif(true);
 
         // attach loggin user to order
         commande.setUtilisateur(utilisateur);
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-        ligneCommandeList.forEach(item -> commande.add(item));
+       // ligneCommandeList.forEach(item -> commande.add(item));
+        if (ligneCommandeList != null) {
+            ligneCommandeList.forEach(ligCmdClt -> {
+                ligCmdClt.setActif(true);
+                commande.add(ligCmdClt);
+            });
+        }
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
@@ -115,6 +130,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate customer with order
         Client client = purchase.getClient();
+        client.setActif(true);
         client.add(commande);
 
         // save customer to database

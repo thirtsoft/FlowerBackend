@@ -53,6 +53,17 @@ public class CountryController implements CountryApi {
     }
 
     @Override
+    public void delete(Long countId) {
+        countryService.delete(countId);
+    }
+
+    @Override
+    public ResponseEntity<List<CountryDto>> getAllActiveCountries() {
+        List<CountryDto> countryDtoList = countryService.findAllCountries();
+        return new ResponseEntity<>(countryDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public void deleteCountry(Long countId) {
         countryService.deleteCountry(countId);
     }

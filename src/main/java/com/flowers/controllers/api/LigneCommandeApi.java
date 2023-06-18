@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.dtos.LigneCommandeDto;
 import com.flowers.models.LigneCommande;
 import io.swagger.annotations.ApiOperation;
@@ -114,5 +115,22 @@ public interface LigneCommandeApi {
             @ApiResponse(code = 200, message = "La LigneCommande a été supprimé")
     })
     void delete(@PathVariable("idOrderItem") Long id);
+
+    @GetMapping(value = APP_ROOT + "/orderItems/search-all-active-orderItems", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des orderItems actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des orderItems actives",
+            responseContainer = "List<LigneCommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des orderItems par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes();
+
+    @DeleteMapping(value = APP_ROOT + "/orderItems/delete-orderItem/{idOrderItem}")
+    @ApiOperation(value = "Supprimer un orderItem par son ID",
+            notes = "Cette méthode permet de supprimer un orderItem  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le orderItem a été supprimé")
+    })
+    void deleteLigneCommande(@PathVariable("idOrderItem") Long idOrderItem);
 
 }

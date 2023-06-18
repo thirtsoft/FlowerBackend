@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto saveProduct(ProductDto productDto) {
+        productDto.setActif(true);
         return ProductDto.fromEntityToDto(
                 productRepository.save(
                         ProductDto.fromDtoToEntity(productDto)
@@ -48,6 +49,7 @@ public class ProductServiceImpl implements ProductService {
         System.out.println(productDto);
 
         productDto.setPhoto(photoProduct.getOriginalFilename());
+        productDto.setActif(true);
 
         return ProductDto.fromEntityToDto(
                 productRepository.save(
@@ -231,6 +233,24 @@ public class ProductServiceImpl implements ProductService {
             return;
         }
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductDto> findAllActiveProducts() {
+        return productRepository.findAll().stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteProduct(Long prodId) {
+        if (prodId == null) {
+            log.error("Product not found");
+            return;
+        }
+        Product product = productRepository.findById(prodId).get();
+        product.setActif(false);
+        productRepository.save(product);
     }
 
     @Override

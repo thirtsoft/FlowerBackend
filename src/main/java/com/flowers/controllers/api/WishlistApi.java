@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.UtilisateurDto;
 import com.flowers.dtos.WishlistDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Wishlist;
@@ -69,5 +70,22 @@ public interface WishlistApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le Wishlist a été supprimé")
     })
-    void deleteWishlist(@PathVariable(name = "wishlistId") Long wishlistId);
+    void delete(@PathVariable(name = "wishlistId") Long wishlistId);
+
+    @GetMapping(value = APP_ROOT + "/wishlists/search-all-active-wishlists", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des wishlists actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des wishlists actives",
+            responseContainer = "List<WishlistDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des wishlists par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<WishlistDto>> getAllActiveWishlists();
+
+    @DeleteMapping(value = APP_ROOT + "/wishlists/delete-wishlist/{wishlistId}")
+    @ApiOperation(value = "Supprimer un wishlist par son ID",
+            notes = "Cette méthode permet de supprimer un wishlist  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le wishlist a été supprimé")
+    })
+    void deleteWishlist(@PathVariable("wishlistId") Long wishlistId);
 }

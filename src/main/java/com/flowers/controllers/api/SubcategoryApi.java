@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.StateDto;
 import com.flowers.dtos.SubCategoryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Subcategory;
@@ -77,4 +78,21 @@ public interface SubcategoryApi {
             @ApiResponse(code = 200, message = "La Subcategory a été supprimé")
     })
     void delete(@PathVariable("subCatId") Long id);
+
+    @GetMapping(value = APP_ROOT + "/subcategories/search-all-active-subcategories", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des subcategories actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des subcategories actives",
+            responseContainer = "List<SubCategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des subcategories par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<SubCategoryDto>> getAllActiveSubCategories();
+
+    @DeleteMapping(value = APP_ROOT + "/subcategories/delete-subcategory/{subCatId}")
+    @ApiOperation(value = "Supprimer un subcategories par son ID",
+            notes = "Cette méthode permet de supprimer un subcategories  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le subcategories a été supprimé")
+    })
+    void deleteSubcategory(@PathVariable("subCatId") Long subCatId);
 }

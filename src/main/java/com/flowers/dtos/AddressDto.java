@@ -22,6 +22,22 @@ public class AddressDto {
 
     private StateDto stateDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static AddressDto fromEntityToDto(Address address) {
         if (address == null) {
             return null;
@@ -31,6 +47,7 @@ public class AddressDto {
                 .zipcode(address.getZipcode())
                 .city(address.getCity())
                 .rue(address.getRue())
+                .actif(address.getActif())
                 .stateDto(StateDto.fromEntityToDto(address.getState()))
                 .build();
     }
@@ -44,8 +61,8 @@ public class AddressDto {
         address.setCity(addressDto.getCity());
         address.setRue(addressDto.getRue());
         address.setZipcode(addressDto.getZipcode());
+        address.setActif(addressDto.isActif());
         address.setState(StateDto.fromDtoToEntity(addressDto.getStateDto()));
-
         return address;
     }
 }

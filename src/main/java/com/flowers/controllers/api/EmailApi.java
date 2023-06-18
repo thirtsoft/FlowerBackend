@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.CountryDto;
 import com.flowers.dtos.EmailDto;
 import com.flowers.dtos.FournisseurDto;
 import com.flowers.dtos.NewsletterDto;
@@ -125,4 +126,21 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "La Notification a été supprimé")
     })
     void delete(@PathVariable("idEmail") Long id);
+
+    @GetMapping(value = APP_ROOT + "/emails/search-all-active-emails", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des emails actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des emails actives",
+            responseContainer = "List<CountryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des emails par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<EmailDto>> getAllActiveEmails();
+
+    @DeleteMapping(value = APP_ROOT + "/emails/delete-email/{idEmail}")
+    @ApiOperation(value = "Supprimer un email par son ID",
+            notes = "Cette méthode permet de supprimer un email  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le email a été supprimé")
+    })
+    void deleteEmail(@PathVariable("idEmail") Long idEmail);
 }

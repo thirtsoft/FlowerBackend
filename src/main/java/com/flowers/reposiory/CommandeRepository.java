@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.Client;
 import com.flowers.models.Commande;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,10 +36,10 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select sum(c.totalCommande) from Commande c where year(c.dateCommande) = year(current_date)")
     BigDecimal sumTotalOfOrdersByYear();
 
-    @Query("select c from Commande c where c.status = 'ENCOURS' order by id Desc ")
+    @Query("select c from Commande c where c.actif=1 and c.status = 'ENCOURS' order by c.id Desc ")
     List<Commande> findListOrderByStatusPending();
 
-    @Query("select c from Commande c where c.status = 'PAYEE' order by id Desc ")
+    @Query("select c from Commande c where c.actif=1 and c.status = 'PAYEE' order by c.id Desc ")
     List<Commande> findListOrderByStatusPayed();
 
     List<Commande> findByOrderByIdDesc();
@@ -55,16 +56,19 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select EXTRACT(year from(v.dateCommande)), sum(v.totalCommande) from Commande v group by EXTRACT(year from(v.dateCommande))")
     List<?> sumTotalOfOrderByYears();
 
-    @Query("select p from Commande p where p.utilisateur.id =:user order by id Desc")
+    @Query("select p from Commande p where p.actif=1 and p.utilisateur.id =:user order by p.id Desc")
     List<Commande> ListOrderByCustomerId(@Param("user") Long userId);
 
-    @Query("select p from Commande p where p.shippingAddress.id =:addLivraison order by id Desc")
+    @Query("select p from Commande p where p.actif=1 and p.shippingAddress.id =:addLivraison order by p.id Desc")
     List<Commande> ListOrderByAddressLivraisonId(@Param("addLivraison") Long addLivraison);
 
-    @Query("select p from Commande p where p.billingAddress.id =:addAchat order by id Desc")
+    @Query("select p from Commande p where p.actif=1 and p.billingAddress.id =:addAchat order by p.id Desc")
     List<Commande> ListOrderByAddressAchatId(@Param("addAchat") Long addAchat);
 
-    @Query("select com from Commande com where com.utilisateur.id =:userId")
+    @Query("select com from Commande com where com.actif=1 and com.utilisateur.id =:userId")
     Page<Commande> findOrderByUtilisateurPageables(@Param("userId") Long userId, Pageable pageable);
+
+    @Query("Select DISTINCT act from Commande act where act.actif=1 ORDER BY act.id desc")
+    List<Commande> findAll();
 
 }

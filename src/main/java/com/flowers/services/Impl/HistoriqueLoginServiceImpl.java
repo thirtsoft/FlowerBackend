@@ -37,6 +37,7 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
 
     @Override
     public HistoriqueLoginDto saveHistoriqueLogin(HistoriqueLoginDto historiqueLoginDto) {
+        historiqueLoginDto.setActif(true);
         return HistoriqueLoginDto.fromEntityToDto(
                 historiqueLoginRepository.save(
                         HistoriqueLoginDto.fromDtoToEntity(historiqueLoginDto)
@@ -94,11 +95,29 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
     }
 
     @Override
-    public void deleteHistoriqueLogin(Long id) {
+    public void deleteHistorique(Long id) {
         if (id == null) {
             log.error("Fournisseur Id is null");
             return;
         }
         historiqueLoginRepository.deleteById(id);
+    }
+
+    @Override
+    public List<HistoriqueLoginDto> findAllActiveHistoriqueLogins() {
+        return historiqueLoginRepository.findAll().stream()
+                .map(HistoriqueLoginDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteHistoriqueLogin(Long id) {
+        if (id == null) {
+            log.error("Fournisseur Id is null");
+            return;
+        }
+        HistoriqueLogin historiqueLogin = historiqueLoginRepository.findById(id).get();
+        historiqueLogin.setActif(false);
+        historiqueLoginRepository.save(historiqueLogin);
     }
 }

@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.CountryDto;
 import com.flowers.dtos.EmailDto;
 import com.flowers.dtos.FournisseurDto;
 import com.flowers.dtos.NewsletterDto;
@@ -29,4 +30,8 @@ public interface EmailService {
     List<EmailDto> findByOrderByIdDesc();
 
     void delete(Long id);
+
+    List<EmailDto> findAllActiveEmails();
+
+    void deleteEmail(Long mailId);
 }

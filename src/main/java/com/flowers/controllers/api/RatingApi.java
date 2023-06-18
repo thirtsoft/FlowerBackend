@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.ProductDto;
 import com.flowers.dtos.RatingDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Rating;
@@ -109,4 +110,21 @@ public interface RatingApi {
             @ApiResponse(code = 200, message = "La Rating a été supprimé")
     })
     void delete(@PathVariable("idRating") Long id);
+
+    @GetMapping(value = APP_ROOT + "/ratings/search-all-active-ratings", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des ratings actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des ratings actives",
+            responseContainer = "List<RatingDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des ratings par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<RatingDto>> getAllActiveRatings();
+
+    @DeleteMapping(value = APP_ROOT + "/ratings/delete-rating/{idRating}")
+    @ApiOperation(value = "Supprimer un ratings par son ID",
+            notes = "Cette méthode permet de supprimer un ratings  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le ratings a été supprimé")
+    })
+    void deleteRating(@PathVariable("idRating") Long idRating);
 }

@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.AddressDto;
 import com.flowers.dtos.BlogDto;
 
 import java.math.BigDecimal;
@@ -20,6 +21,10 @@ public interface BlogService {
 
     BigDecimal countNumberOfBlogs();
 
-    void deleteBlog(Long id);
+    void delete(Long id);
+
+    List<BlogDto> findAllActiveBlogs();
+
+    void deleteBlog(Long blogId);
 
 }

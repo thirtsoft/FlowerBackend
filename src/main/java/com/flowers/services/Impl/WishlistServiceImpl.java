@@ -24,6 +24,7 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public WishlistDto saveWhishlist(WishlistDto wishlistDto) {
+        wishlistDto.setActif(true);
         return WishlistDto.fromEntityToDto(
                 wishlistRepository.save(
                         WishlistDto.fromDtoToEntity(wishlistDto)
@@ -95,5 +96,23 @@ public class WishlistServiceImpl implements WishlistService {
             return;
         }
         wishlistRepository.deleteById(whishlistId);
+    }
+
+    @Override
+    public List<WishlistDto> findAllActiveWishlists() {
+        return wishlistRepository.findAll().stream()
+                .map(WishlistDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteWishlist(Long wishId) {
+        if (wishId == null) {
+            log.error("Wishlist not found");
+            return;
+        }
+        Wishlist wishlist = wishlistRepository.findById(wishId).get();
+        wishlist.setActif(false);
+        wishlistRepository.save(wishlist);
     }
 }

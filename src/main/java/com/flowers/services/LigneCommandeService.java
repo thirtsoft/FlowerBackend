@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.dtos.LigneCommandeDto;
 
 import java.util.List;
@@ -27,5 +28,9 @@ public interface LigneCommandeService {
     List<LigneCommandeDto> findTop3ByOrderByIdDesc();
 
     void deleteOrderItem(Long Id);
+
+    List<LigneCommandeDto> findAllActiveLigneCommandes();
+
+    void deleteLigneCommande(Long lcomId);
 
 }

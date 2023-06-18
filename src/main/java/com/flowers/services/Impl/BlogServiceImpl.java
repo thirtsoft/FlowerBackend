@@ -29,6 +29,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public BlogDto saveBlog(BlogDto blogDto) {
+        blogDto.setActif(true);
         return BlogDto.fromEntityToDto(
                 blogRepository.save(
                         BlogDto.fromDtoToEntity(blogDto)
@@ -98,12 +99,30 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void deleteBlog(Long id) {
+    public void delete(Long id) {
         if (id == null) {
             log.error("Blog Id is null");
             return;
         }
         blogRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BlogDto> findAllActiveBlogs() {
+        return blogRepository.findAll().stream()
+                .map(BlogDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteBlog(Long id) {
+        if (id == null) {
+            log.error("Blog Id is null");
+            return;
+        }
+        Blog blog = blogRepository.findById(id).get();
+        blog.setActif(false);
+        blogRepository.save(blog);
     }
 }
 

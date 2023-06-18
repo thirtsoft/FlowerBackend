@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.CommandeDto;
 import com.flowers.dtos.CountryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Category;
@@ -69,6 +70,23 @@ public interface CountryApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Country a été supprimé")
     })
-    void deleteCountry(@PathVariable(name = "countId") Long countId);
+    void delete(@PathVariable(name = "countId") Long countId);
+
+    @GetMapping(value = APP_ROOT + "/countries/search-all-active-countries", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des countries actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des countries actives",
+            responseContainer = "List<CountryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des countries par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CountryDto>> getAllActiveCountries();
+
+    @DeleteMapping(value = APP_ROOT + "/countries/delete-countrie/{countId}")
+    @ApiOperation(value = "Supprimer un countrie par son ID",
+            notes = "Cette méthode permet de supprimer un countrie  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le countrie a été supprimé")
+    })
+    void deleteCountry(@PathVariable("countId") Long countId);
 
 }

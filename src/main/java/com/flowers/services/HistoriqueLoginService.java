@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.HistoriqueCommandeDto;
 import com.flowers.dtos.HistoriqueLoginDto;
 
 import java.math.BigDecimal;
@@ -20,5 +21,9 @@ public interface HistoriqueLoginService {
 
     BigDecimal countNumberOfHistoriqueLogins();
 
-    void deleteHistoriqueLogin(Long id);
+    void deleteHistorique(Long id);
+
+    List<HistoriqueLoginDto> findAllActiveHistoriqueLogins();
+
+    void deleteHistoriqueLogin(Long histlogId);
 }

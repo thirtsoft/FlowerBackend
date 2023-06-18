@@ -2,6 +2,7 @@ package com.flowers.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "product", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -81,6 +83,23 @@ public class Product implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Wishlist> wishlistList;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Product() {
     }

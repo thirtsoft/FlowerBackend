@@ -1,5 +1,6 @@
 package com.flowers.reposiory;
 
+import com.flowers.models.Newsletter;
 import com.flowers.models.Product;
 import com.flowers.models.Rating;
 import org.springframework.data.domain.Page;
@@ -17,18 +18,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findProductByReference(String reference);
 
-    @Query("select p from Product p where p.subcategory.id =:subCat")
+    @Query("select p from Product p where p.actif=1 and p.subcategory.id =:subCat")
     List<Product> findProductBySubcategory(@Param("subCat") Long subCatId);
 
-    @Query("select art from Product art where art.price like :price GROUP BY (art.price, art.id) ")
+    @Query("select art from Product art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
     List<Product> findProductGroupByPrice(@Param("price") double price);
 
-    @Query("select art from Product art where art.isSelected = true")
+    @Query("select art from Product art where art.actif=1 and art.isSelected = true")
     List<Product> findProductBySelected();
 
-    @Query("select art from Product art where art.isPromo = true")
+    @Query("select art from Product art where art.actif=1 and art.isPromo = true")
     List<Product> findProductByPromo();
 
+    @Query("Select DISTINCT act from Product act where act.actif=1 ORDER BY act.createdDate desc")
     List<Product> findTop24ByOrderByCreatedDateDesc();
 
     List<Product> findTop8ByOrderByIdDesc();
@@ -50,10 +52,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select count(id) from Product where designation LIKE %?1%")
     long getOrderSizeByKey(String key);
 
-    @Query("select p from Product p where p.price between :min and :max")
+    @Query("select p from Product p where p.actif=1 and p.price between :min and :max")
     List<Product> findListProductByPriceMinMax(@Param("min") double min, @Param("max") double max);
 
-    @Query("select art from Product art where art.designation like :x")
+    @Query("select art from Product art where art.actif=1 and art.designation like :x")
     List<Product> findProductByKeyword(@Param("x") String mc);
 
     @Query("select p from Product p")
@@ -64,4 +66,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select art from Product art where art.price like :price GROUP BY (art.price, art.id) ")
     Page<Product> findProductPageableGroupByPrice(@Param("price") double price, Pageable pageable);
+
+    @Query("Select DISTINCT act from Product act where act.actif=1 ORDER BY act.designation")
+    List<Product> findAll();
 }

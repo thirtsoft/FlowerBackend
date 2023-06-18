@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.RatingDto;
 import com.flowers.dtos.StateDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.State;
@@ -78,6 +79,23 @@ public interface StateApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le State a été supprimé")
     })
-    void deleteState(@PathVariable(name = "stateId") Long stateId);
+    void delete(@PathVariable(name = "stateId") Long stateId);
+
+    @GetMapping(value = APP_ROOT + "/states/search-all-active-states", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des states actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des states actives",
+            responseContainer = "List<StateDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des states par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<StateDto>> getAllActiveStates();
+
+    @DeleteMapping(value = APP_ROOT + "/states/delete-state/{stateId}")
+    @ApiOperation(value = "Supprimer un states par son ID",
+            notes = "Cette méthode permet de supprimer un states  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le states a été supprimé")
+    })
+    void deleteState(@PathVariable("stateId") Long stateId);
 
 }

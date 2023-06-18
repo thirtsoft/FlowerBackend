@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.ClientDto;
 import com.flowers.dtos.CommandeDto;
 import com.flowers.models.Commande;
 import io.swagger.annotations.ApiOperation;
@@ -208,5 +209,22 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La CommandeDto a été supprimé")
     })
     void delete(@PathVariable("idOrder") Long id);
+
+    @GetMapping(value = APP_ROOT + "/orders/search-all-active-orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des orders actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des orders actives",
+            responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des orders par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getAllActiveCommandes();
+
+    @DeleteMapping(value = APP_ROOT + "/orders/delete-order/{idOrder}")
+    @ApiOperation(value = "Supprimer un order par son ID",
+            notes = "Cette méthode permet de supprimer un order  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le order a été supprimé")
+    })
+    void deleteCommande(@PathVariable("idOrder") Long idOrder);
 
 }

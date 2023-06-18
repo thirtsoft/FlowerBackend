@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.EmailDto;
 import com.flowers.dtos.FournisseurDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Fournisseur;
@@ -79,4 +80,21 @@ public interface FournisseurApi {
             @ApiResponse(code = 200, message = "La Country a été supprimé")
     })
     void delete(@PathVariable("idFournisseur") Long id);
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/search-all-active-fournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des fournisseurs actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des fournisseurs actives",
+            responseContainer = "List<FournisseurDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des fournisseurs par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<FournisseurDto>> getAllActiveFournisseurs();
+
+    @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete-fournisseur/{idFournisseur}")
+    @ApiOperation(value = "Supprimer un fournisseur par son ID",
+            notes = "Cette méthode permet de supprimer un fournisseur  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le fournisseur a été supprimé")
+    })
+    void deleteFournisseur(@PathVariable("idFournisseur") Long idFournisseur);
 }

@@ -112,4 +112,15 @@ public class RatingController implements RatingApi {
     public void delete(Long id) {
         ratingService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<RatingDto>> getAllActiveRatings() {
+        List<RatingDto> ratingDtoList = ratingService.findAllActiveRatings();
+        return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteRating(Long idRating) {
+        ratingService.deleteRating(idRating);
+    }
 }

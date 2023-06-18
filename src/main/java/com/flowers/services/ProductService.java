@@ -1,5 +1,6 @@
 package com.flowers.services;
 
+import com.flowers.dtos.NewsletterDto;
 import com.flowers.dtos.ProductDto;
 import com.flowers.models.Product;
 import org.springframework.data.domain.Page;
@@ -68,6 +69,8 @@ public interface ProductService {
 
     void delete(Long id);
 
+    List<ProductDto> findAllActiveProducts();
 
+    void deleteProduct(Long prodId);
 
 }

@@ -25,6 +25,22 @@ public class SubCategoryDto {
     @NotNull
     private CategoryDto categoryDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static SubCategoryDto fromEntityToDto(Subcategory subcategory) {
         if (subcategory == null) {
             return null;
@@ -33,6 +49,7 @@ public class SubCategoryDto {
                 .id(subcategory.getId())
                 .subCategoryName(subcategory.getSubCategoryName())
                 .description(subcategory.getDescription())
+                .actif(subcategory.getActif())
                 .categoryDto(CategoryDto.fromEntityToDto(subcategory.getCategory()))
                 .build();
     }
@@ -45,8 +62,8 @@ public class SubCategoryDto {
         subcategory.setId(subCategoryDto.getId());
         subcategory.setSubCategoryName(subCategoryDto.getSubCategoryName());
         subcategory.setDescription(subCategoryDto.getDescription());
+        subcategory.setActif(subCategoryDto.isActif());
         subcategory.setCategory(CategoryDto.fromDtoToEntity(subCategoryDto.getCategoryDto()));
-
         return subcategory;
     }
 }

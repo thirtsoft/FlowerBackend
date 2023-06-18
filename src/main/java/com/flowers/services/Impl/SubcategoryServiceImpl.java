@@ -26,6 +26,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Override
     public SubCategoryDto saveSubcategory(SubCategoryDto subCategoryDto) {
+        subCategoryDto.setActif(true);
         return SubCategoryDto.fromEntityToDto(
                 subcategoryRepository.save(
                         SubCategoryDto.fromDtoToEntity(subCategoryDto))
@@ -95,11 +96,29 @@ public class SubcategoryServiceImpl implements SubcategoryService {
     }
 
     @Override
-    public void deleteSubcategory(Long subCatId) {
+    public void delete(Long subCatId) {
         if (subCatId == null) {
             log.error("Subcategory not found");
             return;
         }
         subcategoryRepository.deleteById(subCatId);
+    }
+
+    @Override
+    public List<SubCategoryDto> findAllActiveSubCategories() {
+        return subcategoryRepository.findAll().stream()
+                .map(SubCategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteSubcategory(Long subCatId) {
+        if (subCatId == null) {
+            log.error("Subcategory not found");
+            return;
+        }
+        Subcategory subcategory = subcategoryRepository.findById(subCatId).get();
+        subcategory.setActif(false);
+        subcategoryRepository.save(subcategory);
     }
 }

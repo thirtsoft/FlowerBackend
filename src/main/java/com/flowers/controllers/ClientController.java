@@ -2,7 +2,6 @@ package com.flowers.controllers;
 
 
 import com.flowers.controllers.api.ClientApi;
-import com.flowers.dtos.AddressDto;
 import com.flowers.dtos.ClientDto;
 import com.flowers.services.ClientService;
 import lombok.AllArgsConstructor;
@@ -54,5 +53,16 @@ public class ClientController implements ClientApi {
     @Override
     public void delete(Long id) {
         clientService.delete(id);
+    }
+
+    @Override
+    public ResponseEntity<List<ClientDto>> getAllActiveClients() {
+        List<ClientDto> clientDtoList = clientService.findAllActiveClients();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteClient(Long idClient) {
+        clientService.deleteClient(idClient);
     }
 }

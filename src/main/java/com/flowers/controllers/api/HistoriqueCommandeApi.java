@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.FournisseurDto;
 import com.flowers.dtos.HistoriqueCommandeDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -67,5 +68,22 @@ public interface HistoriqueCommandeApi {
             @ApiResponse(code = 200, message = "La HistoriqueCommande a été supprimé")
     })
     void delete(@PathVariable("idHistCom") Long id);
+
+    @GetMapping(value = APP_ROOT + "/historiqueCommandes/search-all-active-historiqueCommandes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des historiqueCommandes actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des historiqueCommandes actives",
+            responseContainer = "List<HistoriqueCommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des historiqueCommandes par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<HistoriqueCommandeDto>> getAllActiveHistoriqueCommandes();
+
+    @DeleteMapping(value = APP_ROOT + "/historiqueCommandes/delete-historiqueCommande/{idHistCom}")
+    @ApiOperation(value = "Supprimer un historiqueCommande par son ID",
+            notes = "Cette méthode permet de supprimer un historiqueCommande  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le historiqueCommande a été supprimé")
+    })
+    void deleteHistoriqueCommande(@PathVariable("idHistCom") Long idHistCom);
 
 }

@@ -24,6 +24,22 @@ public class HistoriqueCommandeDto {
 
     private CommandeDto commandeDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static HistoriqueCommandeDto fromEntityToDto(HistoriqueCommande historiqueCommande) {
         if (historiqueCommande == null) {
             return null;
@@ -32,6 +48,7 @@ public class HistoriqueCommandeDto {
                 .id(historiqueCommande.getId())
                 .action(historiqueCommande.getAction())
                 .createdDate(historiqueCommande.getCreatedDate())
+                .actif(historiqueCommande.getActif())
                 .commandeDto(CommandeDto.fromEntityToDto(historiqueCommande.getCommande()))
                 .build();
     }
@@ -44,8 +61,8 @@ public class HistoriqueCommandeDto {
         historiqueCommande.setId(historiqueCommandeDto.getId());
         historiqueCommande.setAction(historiqueCommandeDto.getAction());
         historiqueCommande.setCreatedDate(historiqueCommandeDto.getCreatedDate());
+        historiqueCommande.setActif(historiqueCommandeDto.isActif());
         historiqueCommande.setCommande(CommandeDto.fromDtoToEntity(historiqueCommandeDto.getCommandeDto()));
-
         return historiqueCommande;
     }
 }

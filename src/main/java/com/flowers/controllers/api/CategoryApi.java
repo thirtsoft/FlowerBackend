@@ -1,5 +1,6 @@
 package com.flowers.controllers.api;
 
+import com.flowers.dtos.BlogDto;
 import com.flowers.dtos.CategoryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Category;
@@ -95,6 +96,23 @@ public interface CategoryApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Category a été supprimé")
     })
-    void deleteCategory(@PathVariable(name = "catId") Long catId);
+    void delete(@PathVariable(name = "catId") Long catId);
+
+    @GetMapping(value = APP_ROOT + "/categories/search-all-active-categories", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des categories actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des categories actives",
+            responseContainer = "List<CategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des categories par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CategoryDto>> getAllActiveCategories();
+
+    @DeleteMapping(value = APP_ROOT + "/categories/delete-categorie/{catId}")
+    @ApiOperation(value = "Supprimer un categorie par son ID",
+            notes = "Cette méthode permet de supprimer un categorie  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le categorie a été supprimé")
+    })
+    void deleteCategory(@PathVariable("catId") Long catId);
 
 }

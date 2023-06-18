@@ -26,4 +26,21 @@ public class HistoriqueCommande implements Serializable {
     @ManyToOne
     @JoinColumn(name = "comId")
     private Commande commande;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 }

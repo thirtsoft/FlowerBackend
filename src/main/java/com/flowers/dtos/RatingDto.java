@@ -26,6 +26,22 @@ public class RatingDto {
 
     private UtilisateurDto utilisateurDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static RatingDto fromEntityToDto(Rating rating) {
         if (rating == null) {
             return null;
@@ -36,6 +52,7 @@ public class RatingDto {
                 .nbreEtoile(rating.getNbreEtoile())
                 .observation(rating.getObservation())
                 .createdDate(rating.getCreatedDate())
+                .actif(rating.getActif())
                 .productDto(ProductDto.fromEntityToDto(rating.getProduct()))
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(rating.getUtilisateur()))
                 .build();
@@ -51,9 +68,9 @@ public class RatingDto {
         rating.setNbreEtoile(ratingDto.getNbreEtoile());
         rating.setObservation(ratingDto.getObservation());
         rating.setCreatedDate(ratingDto.getCreatedDate());
+        rating.setActif(ratingDto.isActif());
         rating.setProduct(ProductDto.fromDtoToEntity(ratingDto.getProductDto()));
         rating.setUtilisateur(UtilisateurDto.fromDtoToEntity(ratingDto.getUtilisateurDto()));
-
         return rating;
     }
 

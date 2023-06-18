@@ -37,6 +37,22 @@ public class UtilisateurDto {
 
     private Set<Role> roles = new HashSet<>();
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public UtilisateurDto(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -60,6 +76,7 @@ public class UtilisateurDto {
                 .isActive(utilisateur.isActive())
                 .createdDate(utilisateur.getCreatedDate())
                 .roles(utilisateur.getRoles())
+                .actif(utilisateur.getActif())
                 .build();
 
     }
@@ -80,7 +97,7 @@ public class UtilisateurDto {
         utilisateur.setActive(utilisateurDto.isActive());
         utilisateur.setCreatedDate(utilisateurDto.getCreatedDate());
         utilisateur.setRoles(utilisateur.getRoles());
-
+        utilisateur.setActif(utilisateurDto.isActif());
         return utilisateur;
     }
 

@@ -26,6 +26,22 @@ public class WishlistDto {
 
     private UtilisateurDto utilisateurDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static WishlistDto fromEntityToDto(Wishlist wishlist) {
         if (wishlist == null) {
             return null;
@@ -37,6 +53,7 @@ public class WishlistDto {
                 .nbreEtoile(wishlist.getNombreEtoile())
                 .observation(wishlist.getObservation())
                 .description(wishlist.getDescription())
+                .actif(wishlist.getActif())
                 .productDto(ProductDto.fromEntityToDto(wishlist.getProduct()))
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(wishlist.getUtilisateur()))
                 .build();
@@ -53,9 +70,9 @@ public class WishlistDto {
         wishlist.setNombreEtoile(wishlistDto.getNbreEtoile());
         wishlist.setObservation(wishlistDto.getObservation());
         wishlist.setDescription(wishlistDto.getDescription());
+        wishlist.setActif(wishlistDto.isActif());
         wishlist.setProduct(ProductDto.fromDtoToEntity(wishlistDto.getProductDto()));
         wishlist.setUtilisateur(UtilisateurDto.fromDtoToEntity(wishlistDto.getUtilisateurDto()));
-
         return wishlist;
     }
 

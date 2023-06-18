@@ -46,6 +46,22 @@ public class ProductDto {
 
     private SubCategoryDto subCategoryDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public ProductDto(long id, String reference, String designation, int quantity,
                       double price, double currentPrice, boolean promo, boolean selected,
                       String description, String photo, SubCategoryDto subCategoryDto) {
@@ -99,6 +115,7 @@ public class ProductDto {
                 .description(product.getDescription())
                 .manufactured(product.getManufactured())
                 .photo(product.getImageUrl())
+                .actif(product.getActif())
                 .subCategoryDto(SubCategoryDto.fromEntityToDto(product.getSubcategory()))
                 .build();
     }
@@ -121,8 +138,8 @@ public class ProductDto {
         product.setDescription(productDto.getDescription());
         product.setManufactured(productDto.getManufactured());
         product.setImageUrl(productDto.getPhoto());
+        product.setActif(productDto.isActif());
         product.setSubcategory(SubCategoryDto.fromDtoToEntity(productDto.getSubCategoryDto()));
-
         return product;
     }
 }

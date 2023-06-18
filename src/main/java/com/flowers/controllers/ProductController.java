@@ -271,4 +271,15 @@ public class ProductController implements ProductApi {
         return productService.getProductSizeByKey(key);
     }
 
+    @Override
+    public ResponseEntity<List<ProductDto>> getAllActiveProducts() {
+        List<ProductDto> productDtoList = productService.findAllActiveProducts();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteProduct(Long idProduct) {
+        productService.deleteProduct(idProduct);
+    }
+
 }

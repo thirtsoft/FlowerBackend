@@ -3,7 +3,6 @@ package com.flowers.services;
 import com.flowers.dtos.AddressDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AddressService {
 
@@ -17,7 +16,11 @@ public interface AddressService {
 
     List<AddressDto> findAddressesByOrderByIdDesc();
 
-    void deleteAddress(Long addId);
+    void delete(Long addId);
+
+    List<AddressDto> findAllActiveAddress();
+
+    void deleteAddress(Long addressId);
 
 
 }

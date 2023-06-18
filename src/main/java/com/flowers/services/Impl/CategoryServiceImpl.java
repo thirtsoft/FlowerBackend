@@ -2,6 +2,7 @@ package com.flowers.services.Impl;
 
 import com.flowers.dtos.CategoryDto;
 import com.flowers.exceptions.ResourceNotFoundException;
+import com.flowers.models.Blog;
 import com.flowers.models.Category;
 import com.flowers.reposiory.CategoryRepository;
 import com.flowers.services.CategoryService;
@@ -29,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto saveCategory(CategoryDto categoryDto) {
+        categoryDto.setActif(true);
         return CategoryDto.fromEntityToDto(
                 categoryRepository.save(
                         CategoryDto.fromDtoToEntity(categoryDto)
@@ -91,11 +93,29 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(Long catId) {
+    public void delete(Long catId) {
         if (catId == null) {
             log.error("Category Id is null");
             return;
         }
         categoryRepository.deleteById(catId);
+    }
+
+    @Override
+    public List<CategoryDto> findAllActiveCategories() {
+        return categoryRepository.findAll().stream()
+                .map(CategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCategory(Long catId) {
+        if (catId == null) {
+            log.error("Category Id is null");
+            return;
+        }
+        Category category = categoryRepository.findById(catId).get();
+        category.setActif(false);
+        categoryRepository.save(category);
     }
 }

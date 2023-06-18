@@ -1,8 +1,11 @@
 package com.flowers.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 @Entity
 @Table(name = "fournisseur")
 public class Fournisseur implements Serializable {
@@ -43,6 +46,23 @@ public class Fournisseur implements Serializable {
     @ManyToOne
     @JoinColumn(name = "prodId", nullable = false)
     private Product product;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Fournisseur() {
     }

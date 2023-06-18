@@ -29,6 +29,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto save(ClientDto clientDto) {
+        clientDto.setActif(true);
         return ClientDto.fromEntityToDto(
                 clientRepository.save(
                         ClientDto.fromDtoToEntity(clientDto)
@@ -103,5 +104,22 @@ public class ClientServiceImpl implements ClientService {
             return;
         }
         clientRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ClientDto> findAllActiveClients() {
+        return clientRepository.findAll().stream()
+                .map(ClientDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteClient(Long clientId) {
+        if (clientId == null) {
+            log.error("Client Id is null");
+        }
+        Client client = clientRepository.findById(clientId).get();
+        client.setActif(false);
+        clientRepository.save(client);
     }
 }
