@@ -34,22 +34,8 @@ public class FlowerBackendApplication implements CommandLineRunner {
    @Autowired
    private ProductRepository productRepository;
 
-  // @Autowired
-  // private FournisseurRepository fournisseurRepository;
-
-    @Autowired
-    private CountryRepository countryRepository;
     @Autowired
     private StateRepository stateRepository;
-
-    /*
-    @Autowired
-    private AddressRepository addressRepository;
-    @Autowired
-    private WishlistRepository wishlistRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-*/
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -182,14 +168,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
 		*
 		/
-/*
 
-		Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", p1));
-		Fournisseur f2 = fournisseurRepository.save(new Fournisseur(2L, "f2", "f2", "f2", "f2", "f2", "f2", p2));
-		Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "f3", "f3", p3));
-		Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "f4", "f4", p4));
-
-*/
 		/*
 
 		Country count1 = countryRepository.save(new Country(1L, "DK", "Dakar"));
@@ -228,23 +207,15 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		State state19 = stateRepository.save(new State(19L, "Fass", count1));
 		State state20 = stateRepository.save(new State(20L, "Golf", count1));
 
-
+*/
+/*
 		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
         Role vendorRole = roleRepository.save(new Role(RoleName.ROLE_VENDOR));
 		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));
 		Role adminRole = roleRepository.save(new Role(RoleName.ROLE_ADMIN));
 
-
-		Utilisateur user = new Utilisateur();
-        user.setId(1L);
-        user.setUsername("User");
-        user.setName("User");
-        user.setActive(true);
-        user.setPassword(bCryptPasswordEncoder.encode("userflower@2022"));
-		utilisateurRepository.save(user);
-
         Utilisateur vendor = new Utilisateur();
-        vendor.setId(2L);
+        vendor.setId(1L);
         vendor.setUsername("Vendor");
         vendor.setName("Vendor");
         vendor.setActive(true);
@@ -253,7 +224,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
 
         Utilisateur bertin = new Utilisateur();
-        bertin.setId(3L);
+        bertin.setId(2L);
         bertin.setUsername("Bertin");
         bertin.setName("Bertin Gbalou");
         bertin.setActive(true);
@@ -261,41 +232,28 @@ public class FlowerBackendApplication implements CommandLineRunner {
         utilisateurRepository.save(bertin);
 
         Utilisateur adama = new Utilisateur();
-        adama.setId(4L);
-        adama.setUsername("Adama");
-        adama.setName("Adama Diallo");
+        adama.setId(3L);
+        adama.setUsername("thir");
+        adama.setName("Tairou Diallo");
         adama.setActive(true);
-        adama.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        adama.setPassword(bCryptPasswordEncoder.encode("Windev2018"));
         utilisateurRepository.save(adama);
 
         Utilisateur admin = new Utilisateur();
-        admin.setId(5L);
+        admin.setId(4L);
         admin.setUsername("Admin");
-        admin.setName("Tairou Diallo");
+        admin.setName("Administrator");
         admin.setActive(true);
-        admin.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
+        admin.setPassword(bCryptPasswordEncoder.encode("Admin123456"));
         utilisateurRepository.save(admin);
 
-		utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
-        utilisateurService.addRoleToUser("Vendor", RoleName.ROLE_USER);
+        utilisateurService.addRoleToUser("Vendor", RoleName.ROLE_VENDOR);
         utilisateurService.addRoleToUser("Bertin", RoleName.ROLE_MANAGER);
-        utilisateurService.addRoleToUser("Adama", RoleName.ROLE_MANAGER);
+        utilisateurService.addRoleToUser("thir", RoleName.ROLE_ADMIN);
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
 
-		*/
 
-
-
-        /*
-        Utilisateur admin = new Utilisateur();
-        admin.setUsername("Administrator");
-        admin.setName("Tairou Diallo");
-        admin.setPassword(passwordEncoder.encode("fleurpourtous@2022"));
-        utilisateurRepository.save(admin);
-
-        utilisateurService.addRoleToUser("Administrator", RoleName.ROLE_ADMIN);
-
-        */
+ */
 
 
     }
