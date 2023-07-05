@@ -79,35 +79,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 		/*
-		Category c1 = categoryRepository.save(new Category(1L, "Accessoire", "Categorie contenant tout fleur accessoire"));
-		Category c2 = categoryRepository.save(new Category(2L, "Artificielle", "Categorie contenant tout fleur artificielle"));
-		Category c3 = categoryRepository.save(new Category(3L, "Anniversaire", "Categorie contenant tout fleur anniversaire"));
-		Category c4 = categoryRepository.save(new Category(4L, "Decoration", "Categorie contenant tout fleur de decoration"));
-		Category c5 = categoryRepository.save(new Category(5L, "Mariage", "Categorie contenant tout fleur de mariage"));
-		Category c6 = categoryRepository.save(new Category(6L, "Jardinage", "Categorie contenant tout fleur de jardinage"));
-		Category c7 = categoryRepository.save(new Category(7L, "Naissance", "Categorie contenant tout fleur de naissance"));
-		Category c8 = categoryRepository.save(new Category(8L, "Tropical", "Categorie contenant tout fleur tropical"));
-		Category c9 = categoryRepository.save(new Category(9L, "Gerbe accueil", "Categorie contenant tout gerbe accueil"));
-		Category c10 = categoryRepository.save(new Category(10L, "Plante exterieure", "Categorie contenant tout plante exterieu"));
-		Category c11 = categoryRepository.save(new Category(11L, "Remise diplome", "Categorie contenant tout fleur pour remise de diplome"));
-		Category c12 = categoryRepository.save(new Category(12L, "Saint valentin", "Categorie contenant tout fleur saint valentin"));
-
-		Subcategory sc1 = subcategoryRepository.save(new Subcategory(1L, "Accessoire", "SousCategorie contenant tout fleur accessoire", c1));
-		Subcategory sc2 = subcategoryRepository.save(new Subcategory(2L, "Artificielle", "SousCategorie contenant tout fleur artificielle", c2));
-		Subcategory sc3 = subcategoryRepository.save(new Subcategory(3L, "Bougie", "SousCategorie contenant tout fleur pour bougie", c3));
-		Subcategory sc4 = subcategoryRepository.save(new Subcategory(4L, "Bouquets de la marie", "SousCategorie contenant tout fleur pour mariage", c5));
-		Subcategory sc5 = subcategoryRepository.save(new Subcategory(5L, "Deco eglise", "SousCategorie contenant tout fleur pour decoration", c4));
-		Subcategory sc6 = subcategoryRepository.save(new Subcategory(6L, "Espace vert", "SousCategorie contenant tout fleur pour espace vert", c6));
-		Subcategory sc7 = subcategoryRepository.save(new Subcategory(7L, "Fleur anniversire", "SousCategorie contenant tout fleur pour anniversaire", c6));
-		Subcategory sc8 = subcategoryRepository.save(new Subcategory(8L, "Fleur naissance", "SousCategorie contenant tout fleur de naissance", c7));
-		Subcategory sc9 = subcategoryRepository.save(new Subcategory(9L, "Fleur tropical", "SousCategorie contenant tout fleur tropical", c8));
-		Subcategory sc10 = subcategoryRepository.save(new Subcategory(10L, "Gerbe accueil", "SousCategorie contenant tout fleur gerbe accueil", c9));
-		Subcategory sc11 = subcategoryRepository.save(new Subcategory(11L, "Plante exterieure", "SousCategorie contenant tout fleur pour plante exterieur", c10));
-		Subcategory sc12 = subcategoryRepository.save(new Subcategory(12L, "Remise diplome", "SousCategorie contenant tout fleur pour remise diplome", c11));
-		Subcategory sc13 = subcategoryRepository.save(new Subcategory(13L, "Saint valentin", "SousCategorie contenant tout fleur saint valentin", c12));
-		Subcategory sc14 = subcategoryRepository.save(new Subcategory(14L, "Voluptate", "SousCategorie contenant tout fleur voluptate", c1));
-		Subcategory sc15 = subcategoryRepository.save(new Subcategory(15L, "Tongue Est", "SousCategorie contenant tout fleur tongue est", c3));
-
 
 		Product p1 = productRepository.save(new Product(1L, "prod1", "Nulla et justo non augue", 1700.0, 1600.0, 150, "product-1.jpg",true, true, true, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n" +
 				"\n" +
@@ -170,22 +141,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		/
 
 		/*
-
-		Country count1 = countryRepository.save(new Country(1L, "DK", "Dakar"));
-		Country count2 = countryRepository.save(new Country(2L, "DL", "Diourbel"));
-		Country count3 = countryRepository.save(new Country(3L, "FT", "Fatick"));
-		Country count4 = countryRepository.save(new Country(4L, "KF", "Kaffrine"));
-		Country count5 = countryRepository.save(new Country(5L, "KL", "Kaolack"));
-		Country count6 = countryRepository.save(new Country(6L, "KD", "Kolda"));
-		Country count7 = countryRepository.save(new Country(7L, "LG", "Louga"));
-		Country count8 = countryRepository.save(new Country(8L, "MT", "Matam"));
-		Country count9 = countryRepository.save(new Country(9L, "ST", "Saint-Louis"));
-		Country count10 = countryRepository.save(new Country(10L, "SD", "Sedhiou"));
-		Country count11 = countryRepository.save(new Country(10L, "TB", "Tambacounda"));
-		Country count12 = countryRepository.save(new Country(10L, "TH", "Thies"));
-		Country count13 = countryRepository.save(new Country(10L, "ZG", "Ziguinchor"));
-
-
 		State state1 = stateRepository.save(new State(1L, "Almadies", count1));
 		State state2 = stateRepository.save(new State(2L, "Amitie", count1));
 		State state3 = stateRepository.save(new State(3L, "Bambilor", count1));
