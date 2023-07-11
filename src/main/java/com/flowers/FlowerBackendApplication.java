@@ -163,7 +163,8 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		State state20 = stateRepository.save(new State(20L, "Golf", count1));
 
 */
-/*
+
+        /*
 		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
         Role vendorRole = roleRepository.save(new Role(RoleName.ROLE_VENDOR));
 		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));
@@ -208,7 +209,9 @@ public class FlowerBackendApplication implements CommandLineRunner {
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
 
 
- */
+
+         */
+
 
 
 
