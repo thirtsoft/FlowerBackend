@@ -11,7 +11,7 @@
 	<groupId>com.flowers</groupId>
 	<artifactId>FlowerBackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+<!--	<packaging>war</packaging>-->
 	<name>FlowerBackend</name>
 	<description>Spring boot plateforme for Selling Flowers</description>
 	<properties>

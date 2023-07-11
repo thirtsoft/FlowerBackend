@@ -10,6 +10,6 @@ RUN mvn -f /home/app/pom.xml clean package
 # Package stage
 #
 FROM openjdk:11-jre-slim
-COPY --from=build /home/app/target/FlowerBackend-0.0.1-SNAPSHOT.war /usr/local/lib/flowerbackend.war
+COPY --from=build /home/app/target/FlowerBackend-0.0.1-SNAPSHOT.jar /usr/local/lib/flowerbackend.jar
 EXPOSE 8092
-ENTRYPOINT ["java","-Xms500m","-Xmx1000m","-war","/flowerbackend.war"]
+ENTRYPOINT ["java","-Xms500m","-Xmx1000m","-jar","/flowerbackend.jar"]
