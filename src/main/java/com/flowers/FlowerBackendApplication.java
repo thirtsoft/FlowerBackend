@@ -23,24 +23,17 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
 
+    /*
    @Autowired
    RoleRepository roleRepository;
    @Autowired
    PasswordEncoder encoder;
-   @Autowired
-   private CategoryRepository categoryRepository;
-   @Autowired
-   private SubcategoryRepository subcategoryRepository;
-   @Autowired
-   private ProductRepository productRepository;
-
-    @Autowired
-    private StateRepository stateRepository;
-
     @Autowired
     private UtilisateurRepository utilisateurRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    *
+    /
     /*
     @Autowired
     private PasswordEncoder passwordEncoder;
