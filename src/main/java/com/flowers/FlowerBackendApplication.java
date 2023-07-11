@@ -38,9 +38,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
     */
-    @Autowired
-    private UtilisateurService utilisateurService;
-
 
 
     public static void main(String[] args) {
