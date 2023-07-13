@@ -141,4 +141,43 @@
 		</plugins>
 	</build>
 
+	<profiles>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>dev</activatedProperties>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>prod</id>
+			<properties>
+				<activatedProperties>prod</activatedProperties>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>test</activatedProperties>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>prod-client</activatedProperties>
+			</properties>
+		</profile>
+	</profiles>
 </project>
