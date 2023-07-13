@@ -171,7 +171,7 @@
 		</profile>
 
 		<profile>
-			<id>dev</id>
+			<id>prod-client</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
