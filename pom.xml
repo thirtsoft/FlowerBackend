@@ -161,10 +161,7 @@
 		</profile>
 
 		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+			<id>test</id>
 			<properties>
 				<activatedProperties>test</activatedProperties>
 			</properties>
@@ -172,9 +169,6 @@
 
 		<profile>
 			<id>prod-client</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<activatedProperties>prod-client</activatedProperties>
 			</properties>
