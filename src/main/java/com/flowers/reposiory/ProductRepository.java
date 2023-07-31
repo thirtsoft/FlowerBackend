@@ -21,6 +21,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.actif=1 and p.subcategory.id =:subCat")
     List<Product> findProductBySubcategory(@Param("subCat") Long subCatId);
 
+    @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName =:subCatName")
+    List<Product> findProductBySubcategoryName(@Param("subCatName") String subCatName);
+
     @Query("select art from Product art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
     List<Product> findProductGroupByPrice(@Param("price") double price);
 
@@ -63,6 +66,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.subcategory.id =:subCat")
     Page<Product> findProductBySubcategoryByPageable(@Param("subCat") Long subCat, Pageable pageable);
+
+    @Query("select p from Product p where p.subcategory.subCategoryName =:subCatName")
+    Page<Product> findProductBySubcategoryNameByPageable(@Param("subCatName") String subCatName, Pageable pageable);
 
     @Query("select art from Product art where art.price like :price GROUP BY (art.price, art.id) ")
     Page<Product> findProductPageableGroupByPrice(@Param("price") double price, Pageable pageable);

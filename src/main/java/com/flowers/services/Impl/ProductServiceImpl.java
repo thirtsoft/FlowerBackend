@@ -139,6 +139,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> findListProductBySubCategoryName(String subCatName) {
+        return productRepository.findProductBySubcategoryName(subCatName).stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ProductDto> findListProductByKeyword(String keyword) {
         return productRepository.findProductByKeyword(keyword).stream()
                 .map(ProductDto::fromEntityToDto)
@@ -273,6 +280,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findProductBySubcategoryByPageable(scatId, pageable)
                 .map(ProductDto::fromEntityToDto).getContent();
     }
+
+    @Override
+    public List<ProductDto> findProductsBySubCategoryName(String scatName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findProductBySubcategoryNameByPageable(scatName, pageable)
+                .map(ProductDto::fromEntityToDto).getContent();
+    }
+
 
     @Override
     public long getProductsByCategoryIdLength(Long id) {

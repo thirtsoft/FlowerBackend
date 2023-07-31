@@ -274,6 +274,16 @@ public interface ProductApi {
     })
     ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryIdByPageable(@RequestParam Long id, @RequestParam int page, @RequestParam int size);
 
+
+    @GetMapping(value = APP_ROOT + "/products/search-all-products-by-subcategoryname", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products par sous category Id",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products par sous category Id", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products par sous category Id / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryNameByPageable(@RequestParam String subCatName, @RequestParam int page, @RequestParam int size);
+
+
     @GetMapping(value = APP_ROOT + "/products/searchAllProductsByKeywordByPageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par price",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products qui ont le meme price par pages", responseContainer = "List<ProductDto>")
@@ -317,6 +327,14 @@ public interface ProductApi {
             @ApiResponse(code = 200, message = "La liste des products par ordre descroissante / une liste vide")
     })
     ResponseEntity<List<ProductDto>> getAllActiveProducts();
+
+    @GetMapping(value = APP_ROOT + "/products/products-by-subcategory-name/{subCatName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products par SubCategoryName",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products par SubCategoryName", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products par SubCategoryName / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getListProductBySubCategoryName(@PathVariable("subCatName") String subCatName);
 
     @DeleteMapping(value = APP_ROOT + "/products/delete-product/{idProduct}")
     @ApiOperation(value = "Supprimer un product par son ID",

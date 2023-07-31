@@ -14,11 +14,11 @@ INSERT INTO category(id,category_name,description,actif) VALUES(12,'Tropical','C
 
 /* SUBCATEGORY */
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(1,'Accessoire','SousCategorie contenant tout fleur accessoire',1,1);
-INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(1,'Fleurs Artificielles','SousCategorie contenant tout fleur artificielle',1,1);
+INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(2,'Fleurs Artificielles','SousCategorie contenant tout fleur artificielle',1,1);
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(3,'Bougie','SousCategorie contenant tout fleur pour bougie',3,1);
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(4,'Bouquets de mariage','SousCategorie contenant tout fleur pour mariage',5,1);
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(5,'Decooration','SousCategorie contenant tout fleur pour decoration',4,1);
-INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(13,'Ammeublement','SousCategorie contenant tout fleur pour decoration',4,1);
+INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(14,'Ammeublement','SousCategorie contenant tout fleur pour decoration',4,1);
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(6,'Espace vert','SousCategorie contenant tout fleur pour espace vert',6,1);
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(7,'Fleur anniversire','SousCategorie contenant tout fleur pour anniversaire',6,1);
 INSERT INTO subcategory(id,sub_category_name,description,cat_id,actif) VALUES(8,'Fleur naissance','SousCategorie contenant tout fleur de naissance',7,1);

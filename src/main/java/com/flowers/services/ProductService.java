@@ -29,6 +29,8 @@ public interface ProductService {
 
     List<ProductDto> findListProductBySubCategories(Long subCatId);
 
+    List<ProductDto> findListProductBySubCategoryName(String subCatName);
+
     List<ProductDto> findListProductByKeyword(String keyword);
 
     List<ProductDto> findListProductGroupByPrice(double price);
@@ -60,6 +62,8 @@ public interface ProductService {
     List<ProductDto> findProductByKeywordByPageable(String keyword, int page, int size);
 
     List<ProductDto> findProductsBySubCategoryId(Long scatId, int page, int size);
+
+    List<ProductDto> findProductsBySubCategoryName(String scatName, int page, int size);
 
     long getProductsByCategoryIdLength(Long id);
 

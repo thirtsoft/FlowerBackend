@@ -251,6 +251,12 @@ public class ProductController implements ProductApi {
     }
 
     @Override
+    public ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryNameByPageable(String subCatName, int page, int size) {
+        List<ProductDto> productDtoList = productService.findProductsBySubCategoryName(subCatName, page, size);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<List<ProductDto>> getAllProductsByKeywordByPageable(String keyword, int page, int size) {
         List<ProductDto> productDtoList = productService.findProductByKeywordByPageable(keyword, page, size);
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
@@ -274,6 +280,12 @@ public class ProductController implements ProductApi {
     @Override
     public ResponseEntity<List<ProductDto>> getAllActiveProducts() {
         List<ProductDto> productDtoList = productService.findAllActiveProducts();
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDto>> getListProductBySubCategoryName(String subCatName) {
+        List<ProductDto> productDtoList = productService.findListProductBySubCategoryName("%" + subCatName + "%");
         return new ResponseEntity<>(productDtoList, HttpStatus.OK);
     }
 

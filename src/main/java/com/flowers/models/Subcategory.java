@@ -18,7 +18,7 @@ public class Subcategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "subCategoryName", nullable = false, length = 30)
+    @Column(name = "subCategoryName", nullable = false, length = 90, unique = true)
     private String subCategoryName;
 
     @Column(name = "description", length = 150)
