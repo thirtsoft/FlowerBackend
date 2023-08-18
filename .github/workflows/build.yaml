@@ -25,3 +25,7 @@ jobs:
       - name: Build with Maven
         # maven build
         run: mvn clean package -DskipTests -P prod
+      - uses: actions/upload-artifact@v3
+        with:
+          name: flower-backend
+          path: target/Flowerackend*.jar
