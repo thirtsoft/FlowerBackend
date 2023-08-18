@@ -7,6 +7,7 @@ import com.flowers.services.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +24,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
 
-    /*
    @Autowired
    RoleRepository roleRepository;
    @Autowired
@@ -32,8 +32,9 @@ public class FlowerBackendApplication implements CommandLineRunner {
     private UtilisateurRepository utilisateurRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    *
-    /
+
+    @Autowired private UtilisateurService utilisateurService;
+
     /*
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,7 +48,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
 
     private static void createDirectoryIfItDoesntExist() {
-        Path path = Paths.get(System.getProperty("user.home") + "/flowers/photos/");
+        Path path = Paths.get(System.getProperty("user.home") + "flowers/photos/");
 
         if (Files.notExists(path)) {
             try {
@@ -153,13 +154,14 @@ public class FlowerBackendApplication implements CommandLineRunner {
 		State state20 = stateRepository.save(new State(20L, "Golf", count1));
 
 */
+/*
 
-        /*
 		Role useRole = roleRepository.save(new Role(RoleName.ROLE_USER));
         Role vendorRole = roleRepository.save(new Role(RoleName.ROLE_VENDOR));
 		Role managerRole = roleRepository.save(new Role(RoleName.ROLE_MANAGER));
 		Role adminRole = roleRepository.save(new Role(RoleName.ROLE_ADMIN));
 
+/*
         Utilisateur vendor = new Utilisateur();
         vendor.setId(1L);
         vendor.setUsername("Vendor");
@@ -185,6 +187,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
         adama.setPassword(bCryptPasswordEncoder.encode("Windev2018"));
         utilisateurRepository.save(adama);
 
+/*
         Utilisateur admin = new Utilisateur();
         admin.setId(4L);
         admin.setUsername("Admin");
@@ -197,12 +200,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
         utilisateurService.addRoleToUser("Bertin", RoleName.ROLE_MANAGER);
         utilisateurService.addRoleToUser("thir", RoleName.ROLE_ADMIN);
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
-
-
-
-         */
-
-
+        */
 
 
     }

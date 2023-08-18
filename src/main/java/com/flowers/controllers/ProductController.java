@@ -21,6 +21,7 @@ import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,9 @@ public class ProductController implements ProductApi {
 
     private final ProductService productService;
 
-    private final String productPhotosDir = "C://Users//Folio9470m//flowers//photos//";
+  // private final String productPhotosDir = "C://Users//Folio9470m//flowers//photos//";
+
+    private final String productPhotosDir = System.getProperty("user.home")  + "/flowers/photos/";
 
     @Autowired
     ServletContext context;
@@ -52,9 +55,7 @@ public class ProductController implements ProductApi {
             productDto.setPhoto(photoProduct.getOriginalFilename());
             photoProduct.transferTo(new File(productPhotosDir + photoProduct.getOriginalFilename()));
         }
-
         ProductDto productDtoResult = productService.saveProduct(productDto);
-
         return new ResponseEntity<>(productDtoResult, HttpStatus.CREATED);
     }
 
@@ -64,16 +65,13 @@ public class ProductController implements ProductApi {
             MultipartFile photoProduct) throws IOException {
 
         ProductDto productDto = new ObjectMapper().readValue(product, ProductDto.class);
-
         if (photoProduct != null && !photoProduct.isEmpty()) {
             String filename = photoProduct.getOriginalFilename();
             String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
             File serverFile = new File(context.getRealPath("/Fleurs/photos/" + File.separator + newFileName));
             FileUtils.writeByteArrayToFile(serverFile, photoProduct.getBytes());
-
             productDto.setPhoto(filename);
         }
-
         return ResponseEntity.ok(productService.saveProduct(productDto));
     }
 
@@ -209,7 +207,6 @@ public class ProductController implements ProductApi {
         ProductDto productDto = productService.findById(idProduct);
         productDto.setPhoto(photoProduct.getOriginalFilename());
         Files.write(Paths.get(System.getProperty("user.home") + "/flowers/photos/" + productDto.getPhoto()), photoProduct.getBytes());
-
         productService.saveProduct(productDto);
     }
 
@@ -222,11 +219,8 @@ public class ProductController implements ProductApi {
         try {
             System.out.println("Image");
             FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
-
             productDto.setPhoto(filename);
-
             productService.saveProduct(productDto);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

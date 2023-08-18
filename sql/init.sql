@@ -33,14 +33,19 @@ INSERT INTO product(id,reference,designation,price,current_price,quantity,image_
 (1,'prod1','HP-ProBooks',38000,38000.0,32,'product-1.jpg', true, true,true, 'Bouqets de fleur composé de : 4 roses Belize, 4 rosettes Teeny ','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif) VALUES
 (2,'vanille-fraise','Vanille fraise',330000,33000.0,12,'vanille-fraise.jpg', true, true,true, 'Bouquet de fleurs composé de : 4 roses rouges, 4 roses rosettes, 4 roses blanches et gipso','Fleur provenant de l\'Europe ', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif) VALUES
 (3,'le-flamingo','Le Flamingo',30000,30000,11,'le-flamingo.jpg', true, true,true, 'Bouquet de fleur composé de : 8 roses, 5 limonium','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(4,'le-bonheur','Le Bonheur',40000,40000.0,32,'le-bonheur.jpg', true, true,true, 'Bouquet de fleur composé de : 10 roses rouges, 5 limonium','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(5,'bisou','Bisou',38000,38000.0,14,'bisou.jpg', true, true,true, 'Bouquet de fleur composé de : 10 roses blanches','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(6,'venus','Venus',18000,18000,22,'venus.jpg', true, true,true, 'Bouquet de fleur composé de : 10 roses rouges, 1 gypso','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(7,'prod7','Frigo Samsung Blanc',38000,38000,23,'product-7.jpg', true, true,true, 'Bouquet de fleur composé de : 5 roses belize, 3 roses, 1 santini, 2 gypso orangés, 2 rosettes wild radish, 1 box,  rouges, 1 gypso','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
@@ -51,8 +56,10 @@ VALUES(9,'prod9','Tablettes Samsung Galaxie',73000,73000,32,'8.jpg', true, true,
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(10,'sensation','Sensation',43000,43000,32,'sensation.jpg', true, true,true, 'Bouquet de fleur composé de : 5 lys, 4 roses rouges, 2 roses blanches, 1 imonium, 2 rosettes roses, 1 rosette blanc, margerite blanc et rouge, feullle de palme, 4 santini, 3 astromeria','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',10,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(11,'le-mirage','Le mirage',43000,43000,12,'le-mirage.jpg', true, true,true, 'Bouquet de fleur composé de : 3 roses rouges, 2 roses blanches, 2 lys, 1 florinca, 1 gypso, 1 teeny weeny jaune et belize','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',11,1);
+
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
 VALUES(12,'bisous','Bisous',33000,33000,32,'bisous.jpg', true, true,true, 'Bouquet de fleur composé de : 5 pink floyd roses, 1 lysimachia eucalyptus','Fleur provenant de l\'Europe', '2023-06-17 12:36:48','2023-06-17 12:36:48',12,1);
 
@@ -84,23 +91,38 @@ INSERT INTO country(id,code,name,actif) VALUES(12,'ZG','Ziguinchor',1);
 INSERT INTO state(id,name,country_id,actif) VALUES(1,'Amitié 1', 1,1);
 INSERT INTO state(id,name,country_id,actif) VALUES(2,'Amitié 2', 1,1);
 INSERT INTO state(id,name,country_id,actif) VALUES(3,'Amitié 3', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(3,'Almadies', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(4,'Bambilor', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(5,'Bargny', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(6,'Bel Air 1', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(7,'Bop', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(7,'Camberene', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(8,'Castor', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(10,'Centenaire', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(11,'Cité Keur Damel', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(12,'Cité Keur Gorgui', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(13,'Colobane', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(14,'Castor', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(15,'Dalifort', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(15,'Dakar plateau', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(15,'Dalifort', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(16,'Derklet', 1,1);
-INSERT INTO state(id,name,country_id,actif) VALUES(17,'Diamaguene', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(4,'Almadies', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(5,'Bambilor', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(6,'Bargny', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(7,'Bel Air 1', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(8,'Bop', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(9,'Camberene', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(10,'Castor', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(11,'Centenaire', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(12,'Cité Keur Damel', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(13,'Cité Keur Gorgui', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(14,'Colobane', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(15,'Castor', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(16,'Dalifort', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(17,'Dakar plateau', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(18,'Dalifort', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(19,'Derklet', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(20,'Diamaguene', 1,1);
+
+INSERT INTO state(id,name,country_id,actif) VALUES(21,'Centre ville Dakar', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(22,'Médina', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(23,'HLM', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(24,'Hann-Mariste', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(25,'Diapeul', 1,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(26,'Colobanne', 1,1);
+
+INSERT INTO state(id,name,country_id,actif) VALUES(27,'Mbour', 11,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(28,'Thies', 11,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(29,'Tivaoune', 11,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(30,'Bignona', 12,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(31,'Oussouye', 12,1);
+INSERT INTO state(id,name,country_id,actif) VALUES(32,'Ziguichor', 12,1);
+
 
 
 INSERT INTO state(id,name,countryId,actif) VALUES(1,'Dakar', 1,1);
