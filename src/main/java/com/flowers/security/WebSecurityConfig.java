@@ -81,6 +81,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          //       .antMatchers("/**/products/all").permitAll()
          //       .antMatchers("/**/products/searchAllProductOrderByIdDesc").permitAll()
                 .antMatchers("/**/products/productsBySubCategories/{subCatId}").permitAll()
+
+                .antMatchers("/**/products/products-by-subcategory-nam/{subCatName}").permitAll()
+
                 .antMatchers("/**/products/searchProductByKeyword").permitAll()
                 .antMatchers("/**/products/searchTop24ProductByOrder").permitAll()
                 .antMatchers("/**/products/searchTop4ProductByOrderIdDesc").permitAll()
@@ -270,8 +273,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                       .allowedOrigins("http://localhost:4200","http://localhost:3200")
-                     //   .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com")
+                  //     .allowedOrigins("http://localhost:4200","http://localhost:3200")
+                        .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com")
                     //    .allowedOrigins("https://fleurpourtous.com")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)
