@@ -28,4 +28,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: flower-backend
-          path: target/Flowerackend*.jar
+          path: target/Flowerackend-0.0.1-SNAPSHOT.jar
