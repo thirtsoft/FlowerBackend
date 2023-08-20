@@ -267,6 +267,11 @@ public class ProductController implements ProductApi {
     }
 
     @Override
+    public long getProductSizesBySubCategorySubCategoryName(String subcatName) {
+        return productService.getProductsByCategoryNameLength(subcatName);
+    }
+
+    @Override
     public long getProductSizesByKeyword(String key) {
         return productService.getProductSizeByKey(key);
     }

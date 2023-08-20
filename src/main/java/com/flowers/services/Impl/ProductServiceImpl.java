@@ -295,6 +295,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public long getProductsByCategoryNameLength(String subcatName) {
+        return productRepository.getOrderLengthBySubcategoryName(subcatName);
+    }
+
+    @Override
     public long getProductSizeByKey(String key) {
         return productRepository.getOrderSizeByKey(key);
     }

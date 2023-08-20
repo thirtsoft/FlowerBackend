@@ -48,7 +48,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
 
 
     private static void createDirectoryIfItDoesntExist() {
-        Path path = Paths.get(System.getProperty("user.home") + "flowers/photos/");
+        Path path = Paths.get(System.getProperty("user.home") + "/flowers/photos/");
 
         if (Files.notExists(path)) {
             try {

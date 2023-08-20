@@ -17,8 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import static com.flowers.utils.Constants.APP_ROOT;
 
 
 @Configuration
@@ -82,7 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          //       .antMatchers("/**/products/searchAllProductOrderByIdDesc").permitAll()
                 .antMatchers("/**/products/productsBySubCategories/{subCatId}").permitAll()
 
-                .antMatchers("/**/products/products-by-subcategory-nam/{subCatName}").permitAll()
+                .antMatchers("/**/products/products-by-subcategory-name/{subCatName}").permitAll()
 
                 .antMatchers("/**/products/searchProductByKeyword").permitAll()
                 .antMatchers("/**/products/searchTop24ProductByOrder").permitAll()
@@ -97,13 +100,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/products/photoProductInFolder/{idProduct}").permitAll()
                 .antMatchers("/**/products/uploadProductPhoto/{idProduct}").permitAll()
                 .antMatchers("/**/products/uploadProductPhotoInFolder/{idProduct}").permitAll()
-       //         .antMatchers("/**/products/countNumberTotalOfProducts").permitAll()
+                .antMatchers("/**/products/countNumberTotalOfProducts").permitAll()
 
                 .antMatchers("/**/products/searchAllProductsByPageable").permitAll()
                 .antMatchers("/**/products/searchAllProductsBySubCategoryByPageable").permitAll()
+
+                .antMatchers("/**/products/search-products-by-subcategory-name-by-pageable").permitAll()
+
                 .antMatchers("/**/products/searchAllProductsByKeywordByPageable").permitAll()
                 .antMatchers("/**/products/productSize").permitAll()
                 .antMatchers("/**/products/productSizeBySubCategoryId").permitAll()
+
+                .antMatchers("/**/products/product-size-by-subcategory-name").permitAll()
                 .antMatchers("/**/products/productSizeByKeyword").permitAll()
                 .antMatchers("/**/products/searchTop3ProductByOrderIdDesc").permitAll()
                 .antMatchers("/**/products/searchTop8ProductByOrderIdDesc").permitAll()
@@ -122,6 +130,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          //       .antMatchers("/**/categories/searchCategoryByCode/*").permitAll()
          //       .antMatchers("/**/categories/searchCategoryByDesignation/*").permitAll()
                 .antMatchers("/**/categories/all").permitAll()
+                .antMatchers("/**/categories/search-all-active-categories").permitAll()
                 .antMatchers("/**/categories/searchAllCategoriesOrderByIdDesc").permitAll()
          //       .antMatchers("/**/categories/searchListCategoriesByCode/*").permitAll()
          //       .antMatchers("/**/categories/delete/{catId}").permitAll()
@@ -196,6 +205,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            //     .antMatchers("/**/countries/create").permitAll()
            //     .antMatchers("/**/countries/update/{idCountry}").permitAll()
                 .antMatchers("/**/countries/all").permitAll()
+                .antMatchers("/**/countries/search-all-active-countries").permitAll()
+
+
            //     .antMatchers("/**/countries/findById/{idCountry}").permitAll()
                 .antMatchers("/**/countries/searchAllCountriesOderByIdDesc").permitAll()
             //    .antMatchers("/**/countries/delete/{idCountry}").permitAll()
@@ -253,6 +265,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/utilisateurs/uploadUserPhoto/{id}").permitAll()
                 .antMatchers("/**/utilisateurs/*").permitAll()
                 .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
+                .antMatchers("/**/utilisateurs/delete-utilisateur/{idUtilisateur}").permitAll()
               //  .antMatchers("/**/utilisateurs/countNumberOfRegisterInMonth").permitAll()
              //   .antMatchers("/**/utilisateurs/countNumberOfRegisterPeerMonth").permitAll()
                 .anyRequest()
@@ -273,8 +286,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                  //     .allowedOrigins("http://localhost:4200","http://localhost:3200")
-                        .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com")
+                       .allowedOrigins("http://localhost:4200","http://localhost:3200")
+                  //      .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com")
                     //    .allowedOrigins("https://fleurpourtous.com")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)

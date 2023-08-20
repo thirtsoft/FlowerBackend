@@ -67,6 +67,8 @@ public interface ProductService {
 
     long getProductsByCategoryIdLength(Long id);
 
+    long getProductsByCategoryNameLength(String subcatName);
+
     long getProductSizeByKey(String key);
 
     long getAllProductsSize();

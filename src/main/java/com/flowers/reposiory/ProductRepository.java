@@ -21,8 +21,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.actif=1 and p.subcategory.id =:subCat")
     List<Product> findProductBySubcategory(@Param("subCat") Long subCatId);
 
-    @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName =:subCatName")
-    List<Product> findProductBySubcategoryName(@Param("subCatName") String subCatName);
+    @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName like :subcatName")
+    List<Product> findProductBySubcategoryName(@Param("subcatName") String subcatName);
 
     @Query("select art from Product art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
     List<Product> findProductGroupByPrice(@Param("price") double price);
@@ -52,6 +52,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select count(id) from Product where subcategory.id = ?1")
     long getOrderLengthBySubcategoryId(long id);
 
+    @Query("select count(prod.id) from Product prod  where prod.actif=1 and prod.subcategory.subCategoryName LIKE %?1%")
+    long getOrderLengthBySubcategoryName(String subcatName);
+
     @Query("select count(id) from Product where designation LIKE %?1%")
     long getOrderSizeByKey(String key);
 
@@ -64,11 +67,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p")
     Page<Product> findProductByPageable(Pageable pageable);
 
-    @Query("select p from Product p where p.subcategory.id =:subCat")
+    @Query("select p from Product p where p.actif=1 and p.subcategory.id =:subCat")
     Page<Product> findProductBySubcategoryByPageable(@Param("subCat") Long subCat, Pageable pageable);
 
-    @Query("select p from Product p where p.subcategory.subCategoryName =:subCatName")
-    Page<Product> findProductBySubcategoryNameByPageable(@Param("subCatName") String subCatName, Pageable pageable);
+    @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName =:subcatName")
+    Page<Product> findProductBySubcategoryNameByPageable(@Param("subcatName") String subcatName, Pageable pageable);
 
     @Query("select art from Product art where art.price like :price GROUP BY (art.price, art.id) ")
     Page<Product> findProductPageableGroupByPrice(@Param("price") double price, Pageable pageable);

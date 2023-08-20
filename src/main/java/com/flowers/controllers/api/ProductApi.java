@@ -274,14 +274,13 @@ public interface ProductApi {
     })
     ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryIdByPageable(@RequestParam Long id, @RequestParam int page, @RequestParam int size);
 
-
-    @GetMapping(value = APP_ROOT + "/products/search-all-products-by-subcategoryname", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/products/search-products-by-subcategory-name-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par sous category Id",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products par sous category Id", responseContainer = "List<ProductDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par sous category Id / une liste vide")
     })
-    ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryNameByPageable(@RequestParam String subCatName, @RequestParam int page, @RequestParam int size);
+    ResponseEntity<List<ProductDto>> getAllProductsBySuCategoryNameByPageable(@RequestParam String subcatName, @RequestParam int page, @RequestParam int size);
 
 
     @GetMapping(value = APP_ROOT + "/products/searchAllProductsByKeywordByPageable", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -310,6 +309,15 @@ public interface ProductApi {
     })
     long getProductSizesBySubCategoryId(@RequestParam Long id);
 
+    @GetMapping(path = APP_ROOT + "/products/product-size-by-subcategory-name")
+    @ApiOperation(value = "Compter la total de products par sous category",
+            notes = "Cette méthode permet de compter par sous category dans la base de donnees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de produits est")
+
+    })
+    long getProductSizesBySubCategorySubCategoryName(@RequestParam String subcatName);
+
     @GetMapping(path = APP_ROOT + "/products/productSizeByKeyword")
     @ApiOperation(value = "Compter la taille des products par mot clé",
             notes = "Cette méthode permet de compter la dans la base de donnees")
@@ -328,13 +336,13 @@ public interface ProductApi {
     })
     ResponseEntity<List<ProductDto>> getAllActiveProducts();
 
-    @GetMapping(value = APP_ROOT + "/products/products-by-subcategory-name/{subCatName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/products/products-by-subcategory-name/{subcatName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des products par SubCategoryName",
             notes = "Cette méthode permet de chercher et renvoyer la liste des products par SubCategoryName", responseContainer = "List<ProductDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des products par SubCategoryName / une liste vide")
     })
-    ResponseEntity<List<ProductDto>> getListProductBySubCategoryName(@PathVariable("subCatName") String subCatName);
+    ResponseEntity<List<ProductDto>> getListProductBySubCategoryName(@PathVariable("subcatName") String subCatName);
 
     @DeleteMapping(value = APP_ROOT + "/products/delete-product/{idProduct}")
     @ApiOperation(value = "Supprimer un product par son ID",
