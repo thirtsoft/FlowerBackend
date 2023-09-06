@@ -182,7 +182,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/fournisseurs/create").permitAll()
                 .antMatchers("/**/fournisseurs/findById/*").permitAll()
                 .antMatchers("/**/fournisseurs/update/{idFournisseur}").permitAll()
-//                .antMatchers("/**/fournisseurs/all").permitAll()
+                .antMatchers("/**/fournisseurs/all").permitAll()
                 .antMatchers("/**/fournisseurs/searchAllFournisseurOrderByIdDesc").permitAll()
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseur").permitAll()
                 .antMatchers("/**/fournisseurs/delete/*").permitAll()
@@ -191,7 +191,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/blogs/all").permitAll()
                 .antMatchers("/**/blogs/searchAllBlogsOrderByIdDesc").permitAll()
 
-            //    .antMatchers("/**/addresses/create").permitAll()
+                .antMatchers("/**/addresses/create").permitAll()
             //    .antMatchers("/**/addresses/findById/{addId}").permitAll()
             //    .antMatchers("/**/addresses/update/{addId}").permitAll()
                 .antMatchers("/**/addresses/all").permitAll()
@@ -286,8 +286,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                   //    .allowedOrigins("http://localhost:4200","http://localhost:3200")
-                        .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com")
+                    //   .allowedOrigins("http://localhost:4200","http://localhost:3200")
+                        .allowedOrigins("https://fleurpourtous.com", "https://portail.fleurpourtous.com/")
                     //    .allowedOrigins("https://fleurpourtous.com")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)
