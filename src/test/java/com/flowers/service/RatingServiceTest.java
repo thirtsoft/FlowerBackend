@@ -96,54 +96,6 @@ public class RatingServiceTest {
         verifyNoMoreInteractions(ratingRepository);
     }
 
-    @Test
-    public void should_find_and_return_one_rating() {
-        Product product = new Product();
-        product.setReference("PROD3");
-        product.setDesignation("Product3");
-        productRepository.save(product);
-        Rating rating = new Rating();
-        rating.setId(3L);
-        rating.setNbreEtoile(3);
-        rating.setObservation("rat3");
-        rating.setProduct(product);
-
-        when(ratingRepository.findById(anyLong())).thenReturn(Optional.of(rating));
-
-        RatingDto ratingDtoResult = ratingService.findById(anyLong());
-
-        Rating ratingResult = RatingDto.fromDtoToEntity(ratingDtoResult);
-
-        assertThat(ratingResult).usingRecursiveComparison().isEqualTo(rating);
-        verify(ratingRepository, times(1)).findById(anyLong());
-        verifyNoMoreInteractions(ratingRepository);
-    }
-
-    @Test
-    public void should_update_rating() {
-        Product product = new Product();
-        product.setReference("PROD4");
-        product.setDesignation("Product4");
-        productRepository.save(product);
-        Rating rating = new Rating();
-        rating.setId(4L);
-        rating.setNbreEtoile(2);
-        rating.setObservation("rat4");
-        rating.setProduct(product);
-
-        when(ratingRepository.findById(anyLong())).thenReturn(Optional.of(rating));
-
-        RatingDto ratingDtoResult = ratingService.findById(anyLong());
-        ratingDtoResult.setNbreEtoile(4);
-        ratingService.save(ratingDtoResult);
-
-        Rating ratingResult = RatingDto.fromDtoToEntity(ratingDtoResult);
-
-        assertThat(ratingResult).usingRecursiveComparison().isNotEqualTo(rating);
-        assertThat(ratingResult.getNbreEtoile()).isEqualTo(4);
-
-    }
-
 
     @Test
     public void should_find_and_return_all_ratings() {
@@ -154,7 +106,7 @@ public class RatingServiceTest {
 
         when(ratingRepository.findAll()).thenReturn(singletonList(rating));
 
-        List<RatingDto> ratingList = ratingService.findAll();
+        List<RatingDto> ratingList = ratingService.findAllActiveRatings();
 
         assertThat(ratingList).isNotNull();
         assertThat(ratingList).hasSize(1);
@@ -169,13 +121,13 @@ public class RatingServiceTest {
         rating.setNbreEtoile(3);
         rating.setObservation("rat6");
 
-        when(ratingRepository.findByOrderByIdDesc()).thenReturn(singletonList(rating));
+        when(ratingRepository.findAll()).thenReturn(singletonList(rating));
 
-        List<RatingDto> ratingList = ratingService.findByOrderByIdDesc();
+        List<RatingDto> ratingList = ratingService.findAllActiveRatings();
 
         assertThat(ratingList).isNotNull();
         assertThat(ratingList).hasSize(1);
-        verify(ratingRepository, times(1)).findByOrderByIdDesc();
+        verify(ratingRepository, times(1)).findAll();
         verifyNoMoreInteractions(ratingRepository);
     }
 
@@ -197,7 +149,7 @@ public class RatingServiceTest {
     public void should_delete_one_rating() {
         doNothing().when(ratingRepository).deleteById(anyLong());
 
-        ratingService.delete(anyLong());
+        ratingService.deleteRating(anyLong());
         verify(ratingRepository, times(1)).deleteById(anyLong());
         verifyNoMoreInteractions(ratingRepository);
     }

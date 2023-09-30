@@ -136,7 +136,7 @@ public class CheckoutServiceTest {
     public void should_delete_one_client() {
         doNothing().when(clientRepository).deleteById(anyLong());
 
-        clientService.delete(anyLong());
+        clientService.deleteClient(anyLong());
         verify(clientRepository, times(1)).deleteById(anyLong());
         verifyNoMoreInteractions(clientRepository);
     }

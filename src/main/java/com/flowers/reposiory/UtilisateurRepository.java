@@ -1,6 +1,5 @@
 package com.flowers.reposiory;
 
-import com.flowers.models.Subcategory;
 import com.flowers.models.Utilisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,10 +20,10 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> 
 
     Boolean existsByEmail(String email);
 
-    @Query("select count(u) from Utilisateur u where month(u.createdDate) = month(current_date)")
+    @Query("select count(u) from Utilisateur u where u.actif=1 and month(u.createdDate) = month(current_date)")
     BigDecimal countNumberOfRegisterInMonth();
 
-    @Query("select EXTRACT(month from(c.createdDate)), count(c) from Utilisateur c group by EXTRACT(month from(c.createdDate))")
+    @Query("select EXTRACT(month from(c.createdDate)), count(c) from Utilisateur c where c.actif=1 group by EXTRACT(month from(c.createdDate))")
     List<?> countNumberOfRegisterUserByMonth();
 
     List<Utilisateur> findByOrderByIdDesc();

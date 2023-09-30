@@ -118,28 +118,11 @@ public class SubCategoryServiceTest {
 
         when(subcategoryRepository.findAll()).thenReturn(singletonList(subcategory));
 
-        List<SubCategoryDto> subcategoryList = subcategoryService.findAllSubcategories();
+        List<SubCategoryDto> subcategoryList = subcategoryService.findAllActiveSubCategories();
 
         assertThat(subcategoryList).isNotNull();
         assertThat(subcategoryList).hasSize(1);
         verify(subcategoryRepository, times(1)).findAll();
-        verifyNoMoreInteractions(subcategoryRepository);
-    }
-
-    @Test
-    public void should_find_and_return_all_subcategories_by_Id_desc() {
-        Subcategory subcategory = new Subcategory();
-        subcategory.setId(5L);
-        subcategory.setSubCategoryName("Sucat05");
-        subcategory.setDescription("Subcat05");
-
-        when(subcategoryRepository.findByOrderByIdDesc()).thenReturn(singletonList(subcategory));
-
-        List<SubCategoryDto> subcategoryList = subcategoryService.findSubcategoryByOrderByIdDesc();
-
-        assertThat(subcategoryList).isNotNull();
-        assertThat(subcategoryList).hasSize(1);
-        verify(subcategoryRepository, times(1)).findByOrderByIdDesc();
         verifyNoMoreInteractions(subcategoryRepository);
     }
 

@@ -32,7 +32,6 @@ public class UtilisateurController implements UtilisateurApi {
 
     private final UtilisateurService utilisateurService;
 
-    @Autowired
     ServletContext context;
 
     @Override
@@ -57,18 +56,6 @@ public class UtilisateurController implements UtilisateurApi {
     @Override
     public ResponseEntity<UtilisateurDto> getUtilisateurByUsername(String username) {
         return null;
-    }
-
-    @Override
-    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateurs() {
-        List<UtilisateurDto> utilisateurDtoList = utilisateurService.findAllUtilisateurs();
-        return new ResponseEntity<>(utilisateurDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateursOrderByIdDesc() {
-        List<UtilisateurDto> utilisateurDtoList = utilisateurService.findUtilisateurByOrderByIdDesc();
-        return new ResponseEntity<>(utilisateurDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -215,11 +202,6 @@ public class UtilisateurController implements UtilisateurApi {
     @Override
     public List<?> countNumberOfRegisterUsersPeerMonth() {
         return utilisateurService.countNumberOfRegisterUsersPeerMonth();
-    }
-
-    @Override
-    public void delete(Long userId) {
-        utilisateurService.delete(userId);
     }
 
     @Override

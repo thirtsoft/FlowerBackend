@@ -10,9 +10,7 @@ import java.util.List;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    List<Address> findByOrderByIdDesc();
-
-    @Query("Select DISTINCT act from  Address act where act.actif=1 ORDER BY act.id desc")
+    @Query("Select act from  Address act where act.actif=1 ORDER BY act.state.name asc")
     List<Address> findAll();
 
 }

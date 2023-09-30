@@ -50,41 +50,6 @@ public class CommandeServiceTest {
     private UtilisateurRepository utilisateurRepository;
 
     @Test
-    public void should_save_one_commande() {
-        Client client = new Client();
-        client.setFirstName("Tairou");
-        client.setLastName("Diallo");
-        clientRepository.save(client);
-        Address address = new Address();
-        address.setCity("Senegale");
-        address.setZipcode("25333");
-        addressRepository.save(address);
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setName("Tairou");
-        utilisateur.setMobile("779550310");
-        utilisateurRepository.save(utilisateur);
-        Commande commande = new Commande();
-        commande.setId(1L);
-        commande.setNumeroCommande(450000L);
-        commande.setTotalCommande(500000);
-        commande.setStatus("Encours");
-        commande.setDateCommande(new Date());
-        commande.setClient(client);
-        commande.setBillingAddress(address);
-        commande.setUtilisateur(utilisateur);
-
-        when(commandeRepository.save(any(Commande.class))).thenReturn(commande);
-
-        CommandeDto commandeDto = commandeService.saveOrder(CommandeDto.fromEntityToDto(new Commande()));
-
-        Commande commandeResult = CommandeDto.fromDtoToEntity(commandeDto);
-
-        assertThat(commandeResult).usingRecursiveComparison().isEqualTo(commande);
-        verify(commandeRepository, times(1)).save(any(Commande.class));
-        verifyNoMoreInteractions(commandeRepository);
-    }
-
-    @Test
     public void should_find_and_return_one_commande() {
         Commande commande = new Commande();
         commande.setId(2L);
@@ -165,7 +130,7 @@ public class CommandeServiceTest {
 
         when(commandeRepository.findAll()).thenReturn(singletonList(commande));
 
-        List<CommandeDto> commandeList = commandeService.findAllOrders();
+        List<CommandeDto> commandeList = commandeService.findAllActiveCommandes();
 
         assertThat(commandeList).isNotNull();
         assertThat(commandeList).hasSize(1);
@@ -182,12 +147,12 @@ public class CommandeServiceTest {
         commande.setStatus("Encours");
         commande.setDateCommande(new Date());
 
-        when(commandeRepository.findByOrderByIdDesc()).thenReturn(singletonList(commande));
+        when(commandeRepository.findAll()).thenReturn(singletonList(commande));
 
-        List<CommandeDto> commandeList = commandeService.findByOrderByIdDesc();
+        List<CommandeDto> commandeList = commandeService.findAllActiveCommandes();
 
         assertThat(commandeList).hasSize(1);
-        verify(commandeRepository, times(1)).findByOrderByIdDesc();
+        verify(commandeRepository, times(1)).findAll();
         verifyNoMoreInteractions(commandeRepository);
     }
 
@@ -256,7 +221,7 @@ public class CommandeServiceTest {
     public void should_delete_one_commande() {
         doNothing().when(commandeRepository).deleteById(anyLong());
 
-        commandeService.deleteOrder(anyLong());
+        commandeService.deleteCommande(anyLong());
         verify(commandeRepository, times(1)).deleteById(anyLong());
         verifyNoMoreInteractions(commandeRepository);
     }

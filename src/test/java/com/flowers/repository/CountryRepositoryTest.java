@@ -91,7 +91,7 @@ public class CountryRepositoryTest {
         country.setName("SENEGAL");
         countryRepository.save(country);
 
-        List<Country> countryList = countryRepository.findByOrderByIdDesc();
+        List<Country> countryList = countryRepository.findAll();
 
         assertThat(countryList.size()).isNotNull();
         assertThat(countryList.size()).isGreaterThan(0);

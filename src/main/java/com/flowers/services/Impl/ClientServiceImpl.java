@@ -98,15 +98,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Client Id is null");
-            return;
-        }
-        clientRepository.deleteById(id);
-    }
-
-    @Override
     public List<ClientDto> findAllActiveClients() {
         return clientRepository.findAll().stream()
                 .map(ClientDto::fromEntityToDto)

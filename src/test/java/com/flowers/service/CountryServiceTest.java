@@ -98,7 +98,7 @@ public class CountryServiceTest {
 
         when(countryRepository.findAll()).thenReturn(singletonList(country));
 
-        List<CountryDto> countryList = countryService.findAllCountries();
+        List<CountryDto> countryList = countryService.findAllActiveCountries();
 
         assertThat(countryList).isNotNull();
         assertThat(countryList).hasSize(1);
@@ -113,12 +113,12 @@ public class CountryServiceTest {
         country.setCode("MAL");
         country.setName("MALI");
 
-        when(countryRepository.findByOrderByIdDesc()).thenReturn(singletonList(country));
+        when(countryRepository.findAll()).thenReturn(singletonList(country));
 
-        List<CountryDto> countryList = countryService.findCountryByOrderByIdDesc();
+        List<CountryDto> countryList = countryService.findAllActiveCountries();
 
         assertThat(countryList).hasSize(1);
-        verify(countryRepository, times(1)).findByOrderByIdDesc();
+        verify(countryRepository, times(1)).findAll();
         verifyNoMoreInteractions(countryRepository);
     }
 

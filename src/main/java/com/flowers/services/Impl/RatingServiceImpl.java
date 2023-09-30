@@ -22,10 +22,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RatingServiceImpl implements RatingService {
 
-    @Autowired
     private final RatingRepository ratingRepository;
 
-    @Autowired
     private final ProductService productService;
 
     public RatingServiceImpl(RatingRepository ratingRepository,
@@ -33,7 +31,6 @@ public class RatingServiceImpl implements RatingService {
         this.ratingRepository = ratingRepository;
         this.productService = productService;
     }
-
 
     @Override
     public RatingDto save(RatingDto ratingDto) {
@@ -58,35 +55,6 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public RatingDto findById(Long id) {
-        if (id == null) {
-            log.error("Rating Id is null");
-            return null;
-        }
-
-        Optional<Rating> optionalRating = ratingRepository.findById(id);
-
-        return Optional.of(RatingDto.fromEntityToDto(optionalRating.get())).orElseThrow(() ->
-                new ResourceNotFoundException(
-                        "Aucnun categorie avec l'Id = " + id + "n'a été trouvé")
-        );
-    }
-
-    @Override
-    public List<RatingDto> findAll() {
-        return ratingRepository.findAll().stream()
-                .map(RatingDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RatingDto> findByOrderByIdDesc() {
-        return ratingRepository.findByOrderByIdDesc().stream()
-                .map(RatingDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public BigDecimal countNumberOfRating() {
         return ratingRepository.countNumberOfRating();
     }
@@ -101,15 +69,6 @@ public class RatingServiceImpl implements RatingService {
         return ratingRepository.findTop4ByOrderByCreatedDateDesc(prodRef).stream()
                 .map(RatingDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Rating not found");
-            return;
-        }
-        ratingRepository.deleteById(id);
     }
 
     @Override

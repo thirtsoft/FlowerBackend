@@ -102,7 +102,7 @@ public class UtilisateurServiceTest {
 
         when(utilisateurRepository.findAll()).thenReturn(singletonList(utilisateur));
 
-        List<UtilisateurDto> utilisateurList = utilisateurService.findAllUtilisateurs();
+        List<UtilisateurDto> utilisateurList = utilisateurService.findAllActiveUtilisateurs();
 
         assertThat(utilisateurList).isNotNull();
         assertThat(utilisateurList).hasSize(1);
@@ -119,7 +119,7 @@ public class UtilisateurServiceTest {
         utilisateur.setMobile("587946308742");
         when(utilisateurRepository.findByOrderByIdDesc()).thenReturn(singletonList(utilisateur));
 
-        List<UtilisateurDto> utilisateurList = utilisateurService.findUtilisateurByOrderByIdDesc();
+        List<UtilisateurDto> utilisateurList = utilisateurService.findAllActiveUtilisateurs();
 
         assertThat(utilisateurList).isNotNull();
         assertThat(utilisateurList).hasSize(1);

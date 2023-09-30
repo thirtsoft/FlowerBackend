@@ -53,47 +53,6 @@ public class NewsletterServiceTest {
     }
 
     @Test
-    public void should_find_and_return_one_newsletter() {
-        Newsletter newsletter = new Newsletter();
-        newsletter.setId(2L);
-        newsletter.setCode("NEWSById");
-        newsletter.setCustomerEmail("mail2@gmail.com");
-        newsletter.setDateInscription(new Date());
-
-        when(newsletterRepository.findById(anyLong())).thenReturn(Optional.of(newsletter));
-
-        NewsletterDto newsletterDtoResult = newsletterService.findById(anyLong());
-
-        Newsletter newsletterResult = NewsletterDto.fromDtoToEntity(newsletterDtoResult);
-
-        assertThat(newsletterResult).usingRecursiveComparison().isEqualTo(newsletter);
-        verify(newsletterRepository, times(1)).findById(anyLong());
-        verifyNoMoreInteractions(newsletterRepository);
-    }
-
-    @Test
-    public void should_update_newsletter() {
-        Newsletter newsletter = new Newsletter();
-        newsletter.setId(3L);
-        newsletter.setCode("NEWSUpdated");
-        newsletter.setCustomerEmail("mail3@gmail.com");
-        newsletter.setDateInscription(new Date());
-
-        when(newsletterRepository.findById(anyLong())).thenReturn(Optional.of(newsletter));
-
-        NewsletterDto newsletterDtoResult = newsletterService.findById(anyLong());
-        newsletterDtoResult.setCode("Newsletter002");
-        newsletterService.save(newsletterDtoResult);
-
-        Newsletter newsletterResult = NewsletterDto.fromDtoToEntity(newsletterDtoResult);
-
-        assertThat(newsletterResult).usingRecursiveComparison().isNotEqualTo(newsletter);
-        assertThat(newsletterResult.getCode()).isEqualTo("Newsletter002");
-
-    }
-
-
-    @Test
     public void should_find_and_return_all_newsletters() {
         Newsletter newsletter = new Newsletter();
         newsletter.setId(4L);
@@ -103,7 +62,7 @@ public class NewsletterServiceTest {
 
         when(newsletterRepository.findAll()).thenReturn(singletonList(newsletter));
 
-        List<NewsletterDto> newsletterList = newsletterService.findAll();
+        List<NewsletterDto> newsletterList = newsletterService.findAllActiveNewsletters();
 
         assertThat(newsletterList).isNotNull();
         assertThat(newsletterList).hasSize(1);
@@ -119,13 +78,13 @@ public class NewsletterServiceTest {
         newsletter.setCustomerEmail("mail4@gmail.com");
         newsletter.setDateInscription(new Date());
 
-        when(newsletterRepository.findByOrderByIdDesc()).thenReturn(singletonList(newsletter));
+        when(newsletterRepository.findAll()).thenReturn(singletonList(newsletter));
 
-        List<NewsletterDto> newsletterList = newsletterService.findByOrderByIdDesc();
+        List<NewsletterDto> newsletterList = newsletterService.findAllActiveNewsletters();
 
         assertThat(newsletterList).isNotNull();
         assertThat(newsletterList).hasSize(1);
-        verify(newsletterRepository, times(1)).findByOrderByIdDesc();
+        verify(newsletterRepository, times(1)).findAll();
         verifyNoMoreInteractions(newsletterRepository);
     }
 
@@ -133,7 +92,7 @@ public class NewsletterServiceTest {
     public void should_delete_one_newsletter() {
         doNothing().when(newsletterRepository).deleteById(anyLong());
 
-        newsletterService.delete(anyLong());
+        newsletterService.deleteNewsletter(anyLong());
         verify(newsletterRepository, times(1)).deleteById(anyLong());
         verifyNoMoreInteractions(newsletterRepository);
     }

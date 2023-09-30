@@ -1,8 +1,6 @@
 package com.flowers.controllers.api;
 
-import com.flowers.dtos.ClientDto;
 import com.flowers.dtos.CommandeDto;
-import com.flowers.models.Commande;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -16,29 +14,10 @@ import java.util.List;
 
 import static com.flowers.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/orders")
 public interface CommandeApi {
 
-    @PostMapping(value = APP_ROOT + "/orders/create", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Enregistrer une commande",
-            notes = "Cette méthode permet d'ajouter une commande", response = CommandeDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "La Country a été crée"),
-            @ApiResponse(code = 400, message = "Aucun Country  crée / modifié")
-    })
-    ResponseEntity<CommandeDto> saveCommande(@RequestBody CommandeDto commandeDto);
-
-    @PutMapping(value = APP_ROOT + "/orders/update/{idOrder}",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modifier une commande par son ID",
-            notes = "Cette méthode permet de modifier une commande par son ID", response = CommandeDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La Country a été modifiée"),
-            @ApiResponse(code = 400, message = "La Country a n'est pas modifiée")
-    })
-    ResponseEntity<CommandeDto> updateCommande(@PathVariable("idOrder") Long id, @RequestBody CommandeDto commandeDto);
-
-    @PatchMapping(value = APP_ROOT + "/orders/updateStatusOfOrder/{id}")
+    @PatchMapping(value = "/update-status-of-order/{id}")
     @ApiOperation(value = "Modifier une Commande par son Status",
             notes = "Cette méthode permet de modifier une Commande par son Status", response = CommandeDto.class)
     @ApiResponses(value = {
@@ -46,7 +25,7 @@ public interface CommandeApi {
     })
     ResponseEntity<CommandeDto> updateStatusOfOrder(@RequestParam("status") String status, @PathVariable("id") String id);
 
-    @GetMapping(value = APP_ROOT + "/orders/findById/{idOrder}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findById/{idOrder}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une commande par ID",
             notes = "Cette méthode permet de chercher une commande par son ID", response = CommandeDto.class
     )
@@ -56,24 +35,7 @@ public interface CommandeApi {
     })
     ResponseEntity<CommandeDto> getCommandeById(@PathVariable("idOrder") Long id);
 
-    @GetMapping(value = APP_ROOT + "/orders/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Commandes",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes", responseContainer = "List<CommandeDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
-    })
-    ResponseEntity<List<CommandeDto>> getAllCommandes();
-
-    @GetMapping(value = APP_ROOT + "/orders/searchAllOrdersOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
-            responseContainer = "List<CommandeDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
-    })
-    ResponseEntity<List<CommandeDto>> getAllCommandesOrderByIdDesc();
-
-    @GetMapping(value = APP_ROOT + "/orders/findListOrderByStatuePending", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find-list-order-by-status-pending", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes dont le status encours",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes dont le status est encours", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -81,7 +43,7 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getAllCommandesByStatusPending();
 
-    @GetMapping(value = APP_ROOT + "/orders/findListOrderByStatuePayed", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/find-list-order-by-status-payed", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes payees",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes payees", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -89,7 +51,7 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getAllCommandesByStatusPayed();
 
-    @GetMapping(value = APP_ROOT + "/orders/searchOrderByUserIdOrderByIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-order-by-userId-order-by-IdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -97,7 +59,7 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getAllCommandesByUserOrderByIdDesc(@PathVariable(name = "id") Long id);
 
-    @GetMapping(value = APP_ROOT + "/orders/searchOrderByBillingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-order-by-billing-addressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -105,7 +67,7 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getAllCommandessByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
 
-    @GetMapping(value = APP_ROOT + "/orders/searchOrderByShippingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-order-by-shipping-addressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -113,7 +75,7 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getAllCommandesByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
 
-    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-order", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Commande",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande")
     @ApiResponses(value = {
@@ -121,7 +83,7 @@ public interface CommandeApi {
     })
     BigDecimal countNumberOfOrder();
 
-    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrdersInMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-orders-in-month", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Commande du mois",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande du mois")
     @ApiResponses(value = {
@@ -129,7 +91,7 @@ public interface CommandeApi {
     })
     BigDecimal countNumberOfOrdersInMonth();
 
-    @GetMapping(value = APP_ROOT + "/orders/countNumberOfOrdersByPendingStatus", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-orders-by-pending-status", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Commande encours",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande encours")
     @ApiResponses(value = {
@@ -137,7 +99,7 @@ public interface CommandeApi {
     })
     BigDecimal countNumberOfCommandesByStatusPending();
 
-    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByDay", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/sum-total-of-order-by-day", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande du jour",
             notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du jour encours")
     @ApiResponses(value = {
@@ -145,7 +107,7 @@ public interface CommandeApi {
     })
     BigDecimal sumTotaleOfCommandesByDay();
 
-    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/sum-total-of-order-by-month", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande du moi",
             notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")
     @ApiResponses(value = {
@@ -153,7 +115,7 @@ public interface CommandeApi {
     })
     BigDecimal sumTotaleOfCommandesByMonth();
 
-    @GetMapping(value = APP_ROOT + "/orders/sumTotalOfOrderByYear", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/sum-total-of-order-by-year", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande d'une années",
             notes = "Cette méthode permet de chercher et renvoyer le montant de Commande de l'année encours")
     @ApiResponses(value = {
@@ -161,7 +123,7 @@ public interface CommandeApi {
     })
     BigDecimal sumTotaleOfCommandesByYear();
 
-    @GetMapping(value = APP_ROOT + "/orders/numberOfOrderByDay", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/number-of-order-by-day", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par jour",
             notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -169,7 +131,7 @@ public interface CommandeApi {
     })
     List<?> countNumberOfOrderByDay();
 
-    @GetMapping(value = APP_ROOT + "/orders/numberOfOrderByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/number-of-order-by-month", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par moi",
             notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par moi", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -177,7 +139,7 @@ public interface CommandeApi {
     })
     List<?> countNumberOfOrderByMonth();
 
-    @GetMapping(value = APP_ROOT + "/orders/sumTotaleOfOrderByMonthByList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/sum-total-of-order-by-month-by-list", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des sommes des Commandes par moi",
             notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par moi", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -185,7 +147,7 @@ public interface CommandeApi {
     })
     List<?> getSumTotaleOfOrderByMonth();
 
-    @GetMapping(value = APP_ROOT + "/orders/sumTotaleOfOrderByYearList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/sum-total-of-order-by-year-list", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des sommes des Commandes par années",
             notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par années", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
@@ -193,24 +155,16 @@ public interface CommandeApi {
     })
     List<?> getSumTotalOfOrdersByYears();
 
-    @GetMapping(value = APP_ROOT + "/orders/searchOrdersByUtilisateurIdByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-orders-by-userId-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
     })
     Page<CommandeDto> getOrdersByUtilisateurIdByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
-                                                       @RequestParam(name = "size") int size);
+                                                          @RequestParam(name = "size") int size);
 
-    @DeleteMapping(value = APP_ROOT + "/orders/delete/{idOrder}")
-    @ApiOperation(value = "Supprimer une Commande par son ID",
-            notes = "Cette méthode permet de supprimer une Commande par son ID", response = CommandeDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La CommandeDto a été supprimé")
-    })
-    void delete(@PathVariable("idOrder") Long id);
-
-    @GetMapping(value = APP_ROOT + "/orders/search-all-active-orders", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-all-active-orders", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des orders actives",
             notes = "Cette méthode permet de chercher et renvoyer la liste des orders actives",
             responseContainer = "List<CommandeDto>")
@@ -219,12 +173,11 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getAllActiveCommandes();
 
-    @DeleteMapping(value = APP_ROOT + "/orders/delete-order/{idOrder}")
+    @DeleteMapping(value = "/delete-order/{idOrder}")
     @ApiOperation(value = "Supprimer un order par son ID",
             notes = "Cette méthode permet de supprimer un order  par son ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le order a été supprimé")
     })
     void deleteCommande(@PathVariable("idOrder") Long idOrder);
-
 }

@@ -41,11 +41,9 @@ public class FournisseurServiceImpl implements FournisseurService {
             throw new ResourceNotFoundException("Fournisseur not found");
         }
         Optional<Fournisseur> optionalFournisseur = fournisseurRepository.findById(fourId);
-
         if (!optionalFournisseur.isPresent()) {
             throw new ResourceNotFoundException("Fournisseur not found");
         }
-
         FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(optionalFournisseur.get());
         fournisseurDtoResult.setReference(fournisseurDto.getReference());
         fournisseurDtoResult.setFirstName(fournisseurDto.getFirstName());
@@ -54,7 +52,6 @@ public class FournisseurServiceImpl implements FournisseurService {
         fournisseurDtoResult.setEmail(fournisseurDto.getEmail());
         fournisseurDtoResult.setProductDto(fournisseurDto.getProductDto());
         fournisseurDtoResult.setStateDto(fournisseurDto.getStateDto());
-
         return FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
                         FournisseurDto.fromDtoToEntity(fournisseurDtoResult)
@@ -69,35 +66,10 @@ public class FournisseurServiceImpl implements FournisseurService {
             return null;
         }
         Optional<Fournisseur> optionalFournisseur = fournisseurRepository.findById(fourId);
-
         return Optional.of(FournisseurDto.fromEntityToDto(optionalFournisseur.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Fournisseur avec l'Id = " + fourId + "n'a été trouvé")
         );
-    }
-
-
-    @Override
-    public List<FournisseurDto> findAllFournisseurs() {
-        return fournisseurRepository.findAll().stream()
-                .map(FournisseurDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<FournisseurDto> findFournisseurByOrderByIdDesc() {
-        return fournisseurRepository.findByOrderByIdDesc().stream()
-                .map(FournisseurDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long fourId) {
-        if (fourId == null) {
-            log.error("Fournisseur not found");
-            return;
-        }
-        fournisseurRepository.deleteById(fourId);
     }
 
     @Override
@@ -120,7 +92,7 @@ public class FournisseurServiceImpl implements FournisseurService {
             return;
         }
         Fournisseur fournisseur = fournisseurRepository.findById(fourId).get();
-        fournisseur.setActif(true);
+        fournisseur.setActif(false);
         fournisseurRepository.save(fournisseur);
     }
 }

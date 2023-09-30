@@ -102,7 +102,7 @@ public class FournisseurServiceTest {
 
         when(fournisseurRepository.findAll()).thenReturn(singletonList(fournisseur));
 
-        List<FournisseurDto> fournisseurList = fournisseurService.findAllFournisseurs();
+        List<FournisseurDto> fournisseurList = fournisseurService.findAllActiveFournisseurs();
 
         assertThat(fournisseurList).isNotNull();
         assertThat(fournisseurList).hasSize(1);
@@ -120,7 +120,7 @@ public class FournisseurServiceTest {
 
         when(fournisseurRepository.findByOrderByIdDesc()).thenReturn(singletonList(fournisseur));
 
-        List<FournisseurDto> fournisseurList = fournisseurService.findFournisseurByOrderByIdDesc();
+        List<FournisseurDto> fournisseurList = fournisseurService.findAllActiveFournisseurs();
 
         assertThat(fournisseurList).isNotNull();
         assertThat(fournisseurList).hasSize(1);

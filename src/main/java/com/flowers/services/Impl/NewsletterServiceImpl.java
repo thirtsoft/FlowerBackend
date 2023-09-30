@@ -27,7 +27,6 @@ public class NewsletterServiceImpl implements NewsletterService {
         this.newsletterRepository = newsletterRepository;
     }
 
-
     @Override
     public NewsletterDto save(NewsletterDto newsletterDto) {
         newsletterDto.setActif(true);
@@ -39,46 +38,8 @@ public class NewsletterServiceImpl implements NewsletterService {
     }
 
     @Override
-    public NewsletterDto findById(Long id) {
-        if (id == null) {
-            log.error("Newsletter Id is null");
-            return null;
-        }
-
-        Optional<Newsletter> optionalNewsletter = newsletterRepository.findById(id);
-
-        return Optional.of(NewsletterDto.fromEntityToDto(optionalNewsletter.get())).orElseThrow(() ->
-                new ResourceNotFoundException(
-                        "Aucnun Newsletter avec l'Id = " + id + "n'a été trouvé")
-        );
-    }
-
-    @Override
-    public List<NewsletterDto> findAll() {
-        return newsletterRepository.findAll().stream()
-                .map(NewsletterDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<NewsletterDto> findByOrderByIdDesc() {
-        return newsletterRepository.findByOrderByIdDesc().stream()
-                .map(NewsletterDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public BigDecimal countNumberOfNewsletters() {
         return newsletterRepository.countNumberOfNewsletters();
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Newsletter not found");
-            return;
-        }
-        newsletterRepository.deleteById(id);
     }
 
     @Override

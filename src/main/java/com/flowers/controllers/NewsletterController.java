@@ -25,7 +25,6 @@ public class NewsletterController implements NewsletterApi {
         this.newsletterService = newsletterService;
     }
 
-
     @Override
     public ResponseEntity<NewsletterDto> saveNewsletter(NewsletterDto newsletterDto) {
         newsletterDto.setCode("Inscription_" + Math.random() * 1000);
@@ -35,31 +34,8 @@ public class NewsletterController implements NewsletterApi {
     }
 
     @Override
-    public ResponseEntity<NewsletterDto> getNewsletterById(Long id) {
-        NewsletterDto newsletterDtoResult = newsletterService.findById(id);
-        return new ResponseEntity<>(newsletterDtoResult, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<NewsletterDto>> getAllNewsletters() {
-        List<NewsletterDto> newsletterDtoList = newsletterService.findAll();
-        return new ResponseEntity<>(newsletterDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<NewsletterDto>> getAllNewslettersOrderByIdDesc() {
-        List<NewsletterDto> newsletterDtoList = newsletterService.findByOrderByIdDesc();
-        return new ResponseEntity<>(newsletterDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public BigDecimal countNumberOfNewsletter() {
         return newsletterService.countNumberOfNewsletters();
-    }
-
-    @Override
-    public void delete(Long id) {
-        newsletterService.delete(id);
     }
 
     @Override

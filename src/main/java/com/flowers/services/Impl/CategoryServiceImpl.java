@@ -43,24 +43,18 @@ public class CategoryServiceImpl implements CategoryService {
         if (!categoryRepository.existsById(catId)) {
             throw new ResourceNotFoundException("Category not found");
         }
-
         Optional<Category> category = categoryRepository.findById(catId);
-
         if (!category.isPresent()) {
             throw new ResourceNotFoundException("Category not found");
         }
-
         CategoryDto categoryResult = CategoryDto.fromEntityToDto(category.get());
-
         categoryResult.setCategoryName(categoryDto.getCategoryName());
         categoryResult.setDescription(categoryDto.getDescription());
-
         return CategoryDto.fromEntityToDto(
                 categoryRepository.save(
                         CategoryDto.fromDtoToEntity(categoryResult)
                 )
         );
-
     }
 
     @Override
@@ -69,36 +63,11 @@ public class CategoryServiceImpl implements CategoryService {
             log.error("Category Id is null");
             return null;
         }
-
         Optional<Category> category = categoryRepository.findById(catId);
-
         return Optional.of(CategoryDto.fromEntityToDto(category.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun categorie avec l'Id = " + catId + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<CategoryDto> findAllCategories() {
-        return categoryRepository.findAll().stream()
-                .map(CategoryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CategoryDto> findCategoryByOrderByIdDesc() {
-        return categoryRepository.findByOrderByIdDesc().stream()
-                .map(CategoryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long catId) {
-        if (catId == null) {
-            log.error("Category Id is null");
-            return;
-        }
-        categoryRepository.deleteById(catId);
     }
 
     @Override

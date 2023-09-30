@@ -153,7 +153,7 @@ public class LigneCommandeRepositoryTest {
         ligneCommande.setQuantity(10);
         ligneCommandeRepository.save(ligneCommande);
 
-        List<LigneCommande> ligneCommandeList = ligneCommandeRepository.findByOrderByIdDesc();
+        List<LigneCommande> ligneCommandeList = ligneCommandeRepository.findAll();
 
         assertThat(ligneCommandeList.size()).isNotNull();
         assertThat(ligneCommandeList.size()).isGreaterThan(0);

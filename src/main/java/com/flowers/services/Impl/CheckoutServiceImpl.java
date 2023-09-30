@@ -1,7 +1,5 @@
 package com.flowers.services.Impl;
 
-import com.flowers.dtos.HistoriqueCommandeDto;
-import com.flowers.dtos.HistoriqueLoginDto;
 import com.flowers.dtos.checkout.Purchase;
 import com.flowers.dtos.checkout.PurchaseResponse;
 import com.flowers.models.*;
@@ -52,45 +50,48 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public PurchaseResponse placeToOrder(Purchase purchase) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         String login = authentication.getName();
-
         String currentPrincipalName = authentication.getName();
-
         System.out.println(purchase);
         // retrieve the order from dto
-        Commande commande = purchase.getCommande();
-
-        // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
+        Commande commande = purchase.getCommande();
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setStatus(status);
         commande.setDateCommande(new Date());
         commande.setActif(true);
-
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-       // ligneCommandeList.forEach(item -> commande.add(item));
+        // ligneCommandeList.forEach(item -> commande.add(item));
         if (ligneCommandeList != null) {
             ligneCommandeList.forEach(ligCmdClt -> {
                 ligCmdClt.setActif(true);
                 commande.add(ligCmdClt);
             });
         }
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commande);
+        historiqueCommande.setAction("Commande Ajoutée");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommande.setActif(true);
+        historiqueCommandeRepository.save(historiqueCommande);
 
         // populate order with shippingAddress and billingAddress
-        commande.setBillingAddress(purchase.getBillingAddress());
-    //    commande.setShippingAddress(purchase.getShippingAddress());
+        Address billingAddress = purchase.getBillingAddress();
+        billingAddress.setActif(true);
+        commande.setBillingAddress(billingAddress);
+      //  commande.setBillingAddress(purchase.getBillingAddress());
+
+        Address shippingAddress = purchase.getShippingAddress();
+        shippingAddress.setActif(true);
+        commande.setShippingAddress(shippingAddress);
+     //   commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();
         client.setActif(true);
         client.add(commande);
-
-        // save customer to database
         clientRepository.save(client);
-
-        // return response
         return new PurchaseResponse(orderTrackingNumber);
     }
 
@@ -99,10 +100,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         System.out.println(purchase);
         // retrieve the order from dto
         Commande commande = purchase.getCommande();
-
         Utilisateur utilisateur = purchase.getUtilisateur();
-
-        // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         Long numCommande = generateNumeroCommande();
         commande.setOrderTrackingNumber(orderTrackingNumber);
@@ -116,7 +114,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-       // ligneCommandeList.forEach(item -> commande.add(item));
+        // ligneCommandeList.forEach(item -> commande.add(item));
         if (ligneCommandeList != null) {
             ligneCommandeList.forEach(ligCmdClt -> {
                 ligCmdClt.setActif(true);
@@ -124,24 +122,34 @@ public class CheckoutServiceImpl implements CheckoutService {
             });
         }
 
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commande);
+        historiqueCommande.setAction("Commande Ajoutée");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommande.setActif(true);
+        historiqueCommandeRepository.save(historiqueCommande);
+
         // populate order with shippingAddress and billingAddress
-        commande.setBillingAddress(purchase.getBillingAddress());
-    //    commande.setShippingAddress(purchase.getShippingAddress());
+        // populate order with shippingAddress and billingAddress
+        Address billingAddress = purchase.getBillingAddress();
+        billingAddress.setActif(true);
+        commande.setBillingAddress(billingAddress);
+        //  commande.setBillingAddress(purchase.getBillingAddress());
+
+        Address shippingAddress = purchase.getShippingAddress();
+        shippingAddress.setActif(true);
+        commande.setShippingAddress(shippingAddress);
+        //   commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();
         client.setActif(true);
         client.add(commande);
-
-        // save customer to database
         clientRepository.save(client);
-
-        // return response
         return new PurchaseResponse(orderTrackingNumber);
     }
 
     private String generateOrderTrackingNumber() {
-        // generate a random UUID (UUID version-4)
         return UUID.randomUUID().toString();
     }
 
@@ -149,5 +157,4 @@ public class CheckoutServiceImpl implements CheckoutService {
         final String FORMAT = "yyyyMMddHHmmss";
         return Long.parseLong(DateTimeFormat.forPattern(FORMAT).print(LocalDateTime.now()));
     }
-
 }

@@ -3,7 +3,11 @@ package com.flowers.services.Impl;
 import com.flowers.dtos.CommandeDto;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Commande;
+import com.flowers.models.HistoriqueCommande;
+import com.flowers.models.LigneCommande;
 import com.flowers.reposiory.CommandeRepository;
+import com.flowers.reposiory.HistoriqueCommandeRepository;
+import com.flowers.reposiory.LigneCommandeRepository;
 import com.flowers.services.CommandeService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -27,6 +31,10 @@ public class CommandeServiceImpl implements CommandeService {
 
     private final CommandeRepository commandeRepository;
 
+    private final LigneCommandeRepository ligneCommandeRepository;
+
+    private final HistoriqueCommandeRepository historiqueCommandeRepository;
+
     private final String status = "ENCOURS";
 
     double total = 0;
@@ -34,67 +42,23 @@ public class CommandeServiceImpl implements CommandeService {
     Logger logger = LoggerFactory.getLogger(CommandeServiceImpl.class);
 
     @Autowired
-    public CommandeServiceImpl(CommandeRepository commandeRepository
-    ) {
+    public CommandeServiceImpl(CommandeRepository commandeRepository,
+                               LigneCommandeRepository ligneCommandeRepository, HistoriqueCommandeRepository historiqueCommandeRepository) {
         this.commandeRepository = commandeRepository;
-    }
-
-
-    @Override
-    public CommandeDto saveOrder(CommandeDto commandeDto) {
-        System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
-        logger.info("CommandeDto {}", commandeDto);
-        commandeDto.setActif(true);
-
-        Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
-
-        savedCmdClt.setTotalCommande(total);
-        savedCmdClt.setStatus(status);
-        savedCmdClt.setDateCommande(new Date());
-
-        return CommandeDto.fromEntityToDto(savedCmdClt);
-
-    }
-
-    @Override
-    public CommandeDto updateOrder(Long Id, CommandeDto commandeDto) {
-        if (!commandeRepository.existsById(Id)) {
-            throw new ResourceNotFoundException("Commande not found");
-        }
-
-        Optional<Commande> commandeOptional = commandeRepository.findById(Id);
-
-        if (!commandeOptional.isPresent()) {
-            throw new ResourceNotFoundException("Commande not found");
-        }
-
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
-        commandeDtoResult.setNumeroCommande(commandeDto.getNumeroCommande());
-        commandeDtoResult.setTotalQuantity(commandeDto.getTotalQuantity());
-        commandeDtoResult.setTotalQuantity(commandeDto.getTotalQuantity());
-        commandeDtoResult.setTotalCommande(commandeDto.getTotalCommande());
-        commandeDtoResult.setOrderTrackingNumber(commandeDto.getOrderTrackingNumber());
-        commandeDtoResult.setSessionId(commandeDto.getSessionId());
-        commandeDtoResult.setStatus(commandeDto.getStatus());
-        commandeDtoResult.setClientDto(commandeDto.getClientDto());
-        commandeDtoResult.setBillingAddressDto(commandeDto.getBillingAddressDto());
-        commandeDtoResult.setDateCommande(commandeDto.getDateCommande());
-
-        return CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDtoResult)
-                )
-        );
+        this.ligneCommandeRepository = ligneCommandeRepository;
+        this.historiqueCommandeRepository = historiqueCommandeRepository;
     }
 
     @Override
     public CommandeDto updateStatusOfOrder(String status, String id) {
         Optional<Commande> commandeOptional = commandeRepository.findById(Long.valueOf(id));
-
         CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
-
         commandeDtoResult.setStatus(status);
-
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(CommandeDto.fromDtoToEntity(commandeDtoResult));
+        historiqueCommande.setAction("MODIFICATION STATUS COMMANDE");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommandeRepository.save(historiqueCommande);
         return CommandeDto.fromEntityToDto(
                 commandeRepository.save(
                         CommandeDto.fromDtoToEntity(commandeDtoResult)
@@ -108,27 +72,11 @@ public class CommandeServiceImpl implements CommandeService {
             log.error("Commande Id is null");
             return null;
         }
-
         Optional<Commande> commande = commandeRepository.findById(id);
-
         return Optional.of(CommandeDto.fromEntityToDto(commande.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Commande avec l'Id = " + id + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<CommandeDto> findAllOrders() {
-        return commandeRepository.findAll().stream()
-                .map(CommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CommandeDto> findByOrderByIdDesc() {
-        return commandeRepository.findByOrderByIdDesc().stream()
-                .map(CommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -223,16 +171,6 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
-    public void deleteOrder(Long Id) {
-        if (Id == null) {
-            log.error("Commande Id is null");
-            return;
-        }
-        commandeRepository.deleteById(Id);
-
-    }
-
-    @Override
     public List<CommandeDto> findAllActiveCommandes() {
         return commandeRepository.findAll().stream()
                 .map(CommandeDto::fromEntityToDto)
@@ -245,7 +183,19 @@ public class CommandeServiceImpl implements CommandeService {
             log.error("Commande Id is null");
         }
         Commande commande = commandeRepository.findById(comId).get();
-        commande.setActif(true);
+        commande.setActif(false);
+        List<LigneCommande> ligneCommandeList = commande.getLcomms();
+        if (ligneCommandeList != null) {
+            ligneCommandeList.forEach(ligCmdClt -> {
+                ligCmdClt.setActif(false);
+                ligneCommandeRepository.save(ligCmdClt);
+            });
+        }
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commande);
+        historiqueCommande.setAction("SUPPRESSION COMMANDE");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommandeRepository.save(historiqueCommande);
         commandeRepository.save(commande);
 
     }

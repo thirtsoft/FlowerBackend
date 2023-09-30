@@ -17,7 +17,7 @@ public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> 
 
     List<Fournisseur> findByOrderByIdDesc();
 
-    @Query("Select DISTINCT act from Fournisseur act where act.actif=1 ORDER BY act.id desc ")
+    @Query("Select DISTINCT act from Fournisseur act where act.actif=1 ORDER BY act.firstName asc ")
     List<Fournisseur> findAll();
 
 }

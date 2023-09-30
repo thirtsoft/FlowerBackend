@@ -151,7 +151,7 @@ public class RatingRepositoryTest {
         rating.setObservation("bien");
         ratingRepository.save(rating);
 
-        List<Rating> ratingList = ratingRepository.findByOrderByIdDesc();
+        List<Rating> ratingList = ratingRepository.findAll();
 
         assertThat(ratingList.size()).isNotNull();
         assertThat(ratingList.size()).isGreaterThanOrEqualTo(0);

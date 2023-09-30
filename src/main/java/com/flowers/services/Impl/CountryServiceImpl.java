@@ -40,15 +40,12 @@ public class CountryServiceImpl implements CountryService {
             throw new ResourceNotFoundException("Country not found");
         }
         Optional<Country> optionalCountry = countryRepository.findById(countryId);
-
         if (!optionalCountry.isPresent()) {
             throw new ResourceNotFoundException("Country not found");
         }
-
         CountryDto countryDtoResult = CountryDto.fromEntityToDto(optionalCountry.get());
         countryDtoResult.setCode(countryDto.getCode());
         countryDtoResult.setName(countryDto.getName());
-
         return CountryDto.fromEntityToDto(
                 countryRepository.save(
                         CountryDto.fromDtoToEntity(countryDtoResult)
@@ -62,36 +59,11 @@ public class CountryServiceImpl implements CountryService {
             log.error("Country Id is null");
             return null;
         }
-
         Optional<Country> optionalCountry = countryRepository.findById(countryId);
-
         return Optional.of(CountryDto.fromEntityToDto(optionalCountry.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Country avec l'Id = " + countryId + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<CountryDto> findAllCountries() {
-        return countryRepository.findAll().stream()
-                .map(CountryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CountryDto> findCountryByOrderByIdDesc() {
-        return countryRepository.findByOrderByIdDesc().stream()
-                .map(CountryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long countryId) {
-        if (countryId == null) {
-            log.error("Country Id is null");
-            return;
-        }
-        countryRepository.deleteById(countryId);
     }
 
     @Override
@@ -110,6 +82,5 @@ public class CountryServiceImpl implements CountryService {
         Country country = countryRepository.findById(countryId).get();
         country.setActif(false);
         countryRepository.save(country);
-
     }
 }

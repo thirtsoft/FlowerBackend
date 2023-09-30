@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -20,11 +21,8 @@ public class NewsletterDto {
     private String code;
 
     @NotNull
+    @Email
     private String customerEmail;
-
-    private String subject;
-
-    private String message;
 
     private Date dateInscription;
 
@@ -52,8 +50,6 @@ public class NewsletterDto {
                 .id(newsletter.getId())
                 .code(newsletter.getCode())
                 .customerEmail(newsletter.getCustomerEmail())
-                .subject(newsletter.getSubject())
-                .message(newsletter.getMessage())
                 .dateInscription(newsletter.getDateInscription())
                 .actif(newsletter.getActif())
                 .build();
@@ -68,8 +64,6 @@ public class NewsletterDto {
         newsletter.setId(newsletterDto.getId());
         newsletter.setCode(newsletterDto.getCode());
         newsletter.setCustomerEmail(newsletterDto.getCustomerEmail());
-        newsletter.setSubject(newsletterDto.getSubject());
-        newsletter.setMessage(newsletterDto.getMessage());
         newsletter.setDateInscription(newsletterDto.getDateInscription());
         newsletter.setActif(newsletterDto.isActif());
         return newsletter;

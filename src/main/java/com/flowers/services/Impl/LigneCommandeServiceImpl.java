@@ -27,29 +27,12 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     }
 
     @Override
-    public LigneCommandeDto saveOrderItem(LigneCommandeDto ligneCommandeDto) {
-        ligneCommandeDto.setActif(true);
-        return LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
-    }
-
-    @Override
-    public LigneCommandeDto updateOrderItem(Long Id, LigneCommandeDto ligneCommandeDto) {
-        return null;
-    }
-
-    @Override
     public LigneCommandeDto findOrderItemById(Long id) {
         if (id == null) {
             log.error("LigneCommande Id is null");
             return null;
         }
-
         Optional<LigneCommande> ligneCommande = ligneCommandeRepository.findById(id);
-
         return Optional.of(LigneCommandeDto.fromEntityToDto(ligneCommande.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun LigneCommande avec l'Id = " + id + "n'a été trouvé")
@@ -67,13 +50,6 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     @Override
     public List<LigneCommandeDto> findArticlesGroupByProductId() {
         return ligneCommandeRepository.findArticlesGroupByProductId().stream()
-                .map(LigneCommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<LigneCommandeDto> findByOrderByIdDesc() {
-        return ligneCommandeRepository.findByOrderByIdDesc().stream()
                 .map(LigneCommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -107,29 +83,9 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     }
 
     @Override
-    public void deleteOrderItem(Long Id) {
-        if (Id == null) {
-            log.error("OrderItem not found");
-            return;
-        }
-        ligneCommandeRepository.deleteById(Id);
-    }
-
-    @Override
     public List<LigneCommandeDto> findAllActiveLigneCommandes() {
         return ligneCommandeRepository.findAll().stream()
                 .map(LigneCommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void deleteLigneCommande(Long lcomId) {
-        if (lcomId == null) {
-            log.error("OrderItem not found");
-            return;
-        }
-        LigneCommande ligneCommande = ligneCommandeRepository.findById(lcomId).get();
-        ligneCommande.setActif(false);
-        ligneCommandeRepository.save(ligneCommande);
     }
 }

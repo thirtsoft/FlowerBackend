@@ -62,33 +62,4 @@ public class AddressControllerTest {
         address = null;
     }
 
-
-    @Test
-    public void should_save_address() throws Exception {
-        when(addressService.saveAddress(any())).thenReturn(address);
-        mockMvc.perform(post("/**/addresses/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(address)))
-                .andExpect(status().isOk());
-        verify(addressService, times(1)).saveAddress(any());
-    }
-
-
-    @Test
-    void should_on_save_one_address() throws Exception {
-        AddressDto address = new AddressDto();
-        address.setRue("SN");
-        address.setZipcode("Dakar");
-        address.setCity("SENEGAL");
-        when(addressService.saveAddress(any(AddressDto.class))).thenReturn(address);
-
-        mockMvc.perform(post(APP_ROOT + "/**/addresses/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(address)))
-                .andExpect(status().isCreated());
-        verify(addressService, times(1)).saveAddress(any());
-
-    }
-
-
 }

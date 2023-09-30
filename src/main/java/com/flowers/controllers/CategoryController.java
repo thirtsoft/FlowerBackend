@@ -19,7 +19,6 @@ public class CategoryController implements CategoryApi {
 
     private final CategoryService categoryService;
 
-
     @Override
     public ResponseEntity<CategoryDto> saveCategory(CategoryDto categoryDto) {
         CategoryDto categoryDtoResult = categoryService.saveCategory(categoryDto);
@@ -37,43 +36,6 @@ public class CategoryController implements CategoryApi {
     public ResponseEntity<CategoryDto> getCategoryById(Long catId) {
         CategoryDto categoryDtoResult = categoryService.findCategoryById(catId);
         return new ResponseEntity<>(categoryDtoResult, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<CategoryDto> getCategoryByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<CategoryDto> getCategoryByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<CategoryDto> categoryDtoList = categoryService.findAllCategories();
-        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<CategoryDto>> getAllCategoriesOrderByIdDesc() {
-        List<CategoryDto> categoryDtoList = categoryService.findCategoryByOrderByIdDesc();
-        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<CategoryDto>> getListCategoriesByCode(String code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<CategoryDto>> getListCategoriesByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public void delete(Long catId) {
-        categoryService.delete(catId);
     }
 
     @Override

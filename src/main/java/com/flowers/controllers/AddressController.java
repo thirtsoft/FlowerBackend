@@ -20,39 +20,9 @@ public class AddressController implements AddressApi {
 
 
     @Override
-    public ResponseEntity<AddressDto> saveAddress(AddressDto addressDto) {
-        AddressDto addressDtoResult = addressService.saveAddress(addressDto);
-        return new ResponseEntity<>(addressDtoResult, HttpStatus.CREATED);
-    }
-
-    @Override
-    public ResponseEntity<AddressDto> updateAddress(Long addId, AddressDto addressDto) {
-        addressDto.setId(addId);
-        AddressDto addressDtoResult = addressService.saveAddress(addressDto);
-        return new ResponseEntity<>(addressDtoResult, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<AddressDto> getAddressById(Long addId) {
         AddressDto addressDtoResult = addressService.findAddressById(addId);
         return new ResponseEntity<>(addressDtoResult, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<AddressDto>> getAllAddresses() {
-        List<AddressDto> addressDtoList = addressService.findAllAddresses();
-        return new ResponseEntity<>(addressDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<AddressDto>> getAllAddressesOrderByIdDesc() {
-        List<AddressDto> addressDtoList = addressService.findAddressesByOrderByIdDesc();
-        return new ResponseEntity<>(addressDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long addId) {
-        addressService.delete(addId);
     }
 
     @Override

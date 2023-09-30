@@ -94,7 +94,7 @@ public class CategoryRepositoryTest {
         category.setDescription("Categories categories");
         categoryRepository.save(category);
 
-        List<Category> categoryList = categoryRepository.findByOrderByIdDesc();
+        List<Category> categoryList = categoryRepository.findAll();
 
         assertThat(categoryList.size()).isNotNull();
         assertThat(categoryList.size()).isGreaterThan(0);

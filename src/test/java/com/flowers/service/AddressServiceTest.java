@@ -37,27 +37,6 @@ public class AddressServiceTest {
 
     @Mock private StateRepository stateRepository;
 
-
-    @Test
-    public void should_save_one_address() {
-        State state = new State();
-        state.setName("Dakar");
-        stateRepository.save(state);
-        Address address = new Address();
-        address.setRue("Rue 140 SN");
-        address.setCity("Dakar");
-        address.setState(state);
-        when(addressRepository.save(any(Address.class))).thenReturn(address);
-
-        AddressDto addressDto = addressService.saveAddress(AddressDto.fromEntityToDto(new Address()));
-
-        Address addressResult = AddressDto.fromDtoToEntity(addressDto);
-
-        assertThat(addressResult).usingRecursiveComparison().isEqualTo(address);
-        verify(addressRepository, times(1)).save(any(Address.class));
-        verifyNoMoreInteractions(addressRepository);
-    }
-
     @Test
     public void should_find_and_return_one_address() {
         Address address = new Address();
@@ -76,28 +55,6 @@ public class AddressServiceTest {
     }
 
     @Test
-    public void should_update_address() {
-        Address address = new Address();
-        address.setRue("Rue 140 SN");
-        address.setCity("Dakar");
-
-        when(addressRepository.findById(anyLong())).thenReturn(Optional.of(address));
-
-        AddressDto addressDtoResult =  addressService.findAddressById(anyLong());
-
-        Address addressGet = AddressDto.fromDtoToEntity(addressDtoResult);
-        addressGet.setCity("Bignona");
-
-        AddressDto addressDto = addressService.saveAddress(AddressDto.fromEntityToDto(addressGet));
-
-        Address addressResult = AddressDto.fromDtoToEntity(addressDto);
-
-        assertThat(addressResult).isNull();
-
-    }
-
-
-    @Test
     public void should_find_and_return_all_address() {
         Address address = new Address();
         address.setRue("Rue 140 SN");
@@ -105,7 +62,7 @@ public class AddressServiceTest {
 
         when(addressRepository.findAll()).thenReturn(singletonList(address));
 
-        List<AddressDto> addressList = addressService.findAllAddresses();
+        List<AddressDto> addressList = addressService.findAllActiveAddress();
 
         assertThat(addressList).isNotNull();
         assertThat(addressList).hasSize(1);
@@ -119,12 +76,12 @@ public class AddressServiceTest {
         address.setRue("Rue 140 SN");
         address.setCity("Dakar");
 
-        when(addressRepository.findByOrderByIdDesc()).thenReturn(singletonList(address));
+        when(addressRepository.findAll()).thenReturn(singletonList(address));
 
-        List<AddressDto> addressList = addressService.findAddressesByOrderByIdDesc();
+        List<AddressDto> addressList = addressService.findAllActiveAddress();
 
         assertThat(addressList).hasSize(1);
-        verify(addressRepository, times(1)).findByOrderByIdDesc();
+        verify(addressRepository, times(1)).findAll();
         verifyNoMoreInteractions(addressRepository);
     }
 

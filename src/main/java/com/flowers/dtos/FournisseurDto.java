@@ -30,10 +30,6 @@ public class FournisseurDto {
     @NotNull
     private String telephone;
 
-    private String subject;
-
-    private String message;
-
     @NotNull
     private ProductDto productDto;
 
@@ -78,8 +74,6 @@ public class FournisseurDto {
                 .lastName(fournisseur.getLastName())
                 .email(fournisseur.getEmail())
                 .telephone(fournisseur.getTelephone())
-                .subject(fournisseur.getSubject())
-                .message(fournisseur.getMessage())
                 .actif(fournisseur.getActif())
                 .productDto(ProductDto.fromEntityToDto(fournisseur.getProduct()))
                 .stateDto(StateDto.fromEntityToDto(fournisseur.getState()))
@@ -97,8 +91,6 @@ public class FournisseurDto {
         fournisseur.setLastName(fournisseurDto.getLastName());
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setTelephone(fournisseurDto.getTelephone());
-        fournisseur.setSubject(fournisseurDto.getSubject());
-        fournisseur.setMessage(fournisseurDto.getMessage());
         fournisseur.setActif(fournisseurDto.isActif());
         fournisseur.setProduct(ProductDto.fromDtoToEntity(fournisseurDto.getProductDto()));
         fournisseur.setState(StateDto.fromDtoToEntity(fournisseurDto.getStateDto()));

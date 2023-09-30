@@ -151,7 +151,7 @@ public class ProductServiceTest {
 
         when(productRepository.findByOrderByIdDesc()).thenReturn(singletonList(product));
 
-        List<ProductDto> productList = productService.findByOrderByIdDesc();
+        List<ProductDto> productList = productService.findAllActiveProducts();
 
         assertThat(productList).isNotNull();
         assertThat(productList).hasSize(1);
@@ -238,20 +238,6 @@ public class ProductServiceTest {
         assertThat(productList.size()).isNotNull();
         assertThat(productList.size()).isGreaterThanOrEqualTo(0);
         verify(productRepository, times(1)).findProductBySubcategory(catId);
-        verifyNoMoreInteractions(productRepository);
-    }
-
-    @Test
-    public void should_and_return_products_groupe_by_price() {
-        double price = 1L;
-        when(productRepository.findProductGroupByPrice(price)).thenReturn(singletonList(any()));
-
-        List<ProductDto> productList = productService.findListProductGroupByPrice(price);
-
-        assertThat(productList).hasSize(1);
-        assertThat(productList.size()).isNotNull();
-        assertThat(productList.size()).isGreaterThanOrEqualTo(0);
-        verify(productRepository, times(1)).findProductGroupByPrice(price);
         verifyNoMoreInteractions(productRepository);
     }
 
@@ -367,8 +353,7 @@ public class ProductServiceTest {
     @Test
     public void should_delete_one_product() {
         doNothing().when(productRepository).deleteById(anyLong());
-
-        productService.delete(anyLong());
+        productService.deleteProduct(anyLong());
         verify(productRepository, times(1)).deleteById(anyLong());
         verifyNoMoreInteractions(productRepository);
     }

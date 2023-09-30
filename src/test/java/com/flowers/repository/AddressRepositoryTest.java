@@ -92,7 +92,7 @@ public class AddressRepositoryTest {
         address.setRue("Rue 10");
         address.setCity("Address01");
         addressRepository.save(address);
-        List<Address> addressList = addressRepository.findByOrderByIdDesc();
+        List<Address> addressList = addressRepository.findAll();
         assertThat(addressList.size()).isNotNull();
         assertThat(addressList.size()).isGreaterThan(0);
     }

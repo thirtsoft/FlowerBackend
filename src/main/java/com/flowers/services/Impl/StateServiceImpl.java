@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StateServiceImpl implements StateService {
 
-    @Autowired
     private final StateRepository stateRepository;
 
     @Override
@@ -39,24 +38,18 @@ public class StateServiceImpl implements StateService {
         if (!stateRepository.existsById(stateId)) {
             throw new ResourceNotFoundException("State not found");
         }
-
         Optional<State> optionalState = stateRepository.findById(stateId);
-
         if (!optionalState.isPresent()) {
             throw new ResourceNotFoundException("State not found");
         }
-
         StateDto stateDtoResult = StateDto.fromEntityToDto(optionalState.get());
-
         stateDtoResult.setName(stateDto.getName());
         stateDtoResult.setCountryDto(stateDto.getCountryDto());
-
         return StateDto.fromEntityToDto(
                 stateRepository.save(
                         StateDto.fromDtoToEntity(stateDtoResult)
                 )
         );
-
     }
 
     @Override
@@ -65,9 +58,7 @@ public class StateServiceImpl implements StateService {
             log.error("State Id is null");
             return null;
         }
-
         Optional<State> optionalState = stateRepository.findById(stateId);
-
         return Optional.of(StateDto.fromEntityToDto(optionalState.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun State avec l'Id = " + stateId + "n'a été trouvé")
@@ -75,33 +66,10 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
-    public List<StateDto> findAllStates() {
-        return stateRepository.findAll().stream()
-                .map(StateDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<StateDto> findStateByOrderByIdDesc() {
-        return stateRepository.findByOrderByIdDesc().stream()
-                .map(StateDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<StateDto> findAllStateByCountryCode(String code) {
         return stateRepository.findAllStateByCountryCode(code).stream()
                 .map(StateDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long stateId) {
-        if (stateId == null) {
-            log.error("State not found");
-            return;
-        }
-        stateRepository.deleteById(stateId);
     }
 
     @Override

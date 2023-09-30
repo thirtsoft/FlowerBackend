@@ -43,36 +43,6 @@ public class LigneCommandeServiceTest {
     private ProductRepository productRepository;
 
     @Test
-    public void should_save_one_ligne_commande() {
-        Commande commande = new Commande();
-        commande.setNumeroCommande(45L);
-        commande.setTotalCommande(45000);
-        commande.setStatus("VALIDE");
-        commandeRepository.save(commande);
-        Product product = new Product();
-        product.setReference("PROD1");
-        product.setDesignation("Product1");
-        productRepository.save(product);
-
-        LigneCommande ligneCommande = new LigneCommande();
-        ligneCommande.setId(1L);
-        ligneCommande.setPrice(45000);
-        ligneCommande.setQuantity(4);
-        ligneCommande.setCommande(commande);
-        ligneCommande.setProduct(product);
-
-        when(ligneCommandeRepository.save(any(LigneCommande.class))).thenReturn(ligneCommande);
-
-        LigneCommandeDto ligneCommandeDto = ligneCommandeService.saveOrderItem(LigneCommandeDto.fromEntityToDto(new LigneCommande()));
-
-        LigneCommande ligneCommandeResult = LigneCommandeDto.fromDtoToEntity(ligneCommandeDto);
-
-        assertThat(ligneCommandeResult).usingRecursiveComparison().isEqualTo(ligneCommande);
-        verify(ligneCommandeRepository, times(1)).save(any(LigneCommande.class));
-        verifyNoMoreInteractions(ligneCommandeRepository);
-    }
-
-    @Test
     public void should_find_and_return_one_ligne_commande() {
         Commande commande = new Commande();
         commande.setNumeroCommande(455L);
@@ -101,39 +71,6 @@ public class LigneCommandeServiceTest {
         verify(ligneCommandeRepository, times(1)).findById(anyLong());
         verifyNoMoreInteractions(ligneCommandeRepository);
     }
-
-    @Test
-    public void should_update_ligne_commande() {
-        Commande commande = new Commande();
-        commande.setNumeroCommande(405L);
-        commande.setTotalCommande(450);
-        commande.setStatus("ENCOURS");
-        commandeRepository.save(commande);
-        Product product = new Product();
-        product.setReference("PRODUpdated");
-        product.setDesignation("Product001");
-        productRepository.save(product);
-
-        LigneCommande ligneCommande = new LigneCommande();
-        ligneCommande.setId(3L);
-        ligneCommande.setPrice(40500);
-        ligneCommande.setQuantity(3);
-        ligneCommande.setCommande(commande);
-        ligneCommande.setProduct(product);
-
-        when(ligneCommandeRepository.findById(anyLong())).thenReturn(Optional.of(ligneCommande));
-
-        LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.findOrderItemById(anyLong());
-        ligneCommandeDtoResult.setPrice(550000);
-        ligneCommandeService.saveOrderItem(ligneCommandeDtoResult);
-
-        LigneCommande ligneCommandeResult = LigneCommandeDto.fromDtoToEntity(ligneCommandeDtoResult);
-
-        assertThat(ligneCommandeResult).usingRecursiveComparison().isNotEqualTo(ligneCommande);
-        assertThat(ligneCommandeResult.getPrice()).isEqualTo(550000);
-
-    }
-
 
     @Test
     public void should_find_and_return_all_ligne_commandes() {
@@ -183,13 +120,13 @@ public class LigneCommandeServiceTest {
         ligneCommande.setCommande(commande);
         ligneCommande.setProduct(product);
 
-        when(ligneCommandeRepository.findByOrderByIdDesc()).thenReturn(singletonList(ligneCommande));
+        when(ligneCommandeRepository.findAll()).thenReturn(singletonList(ligneCommande));
 
-        List<LigneCommandeDto> ligneCommandeList = ligneCommandeService.findByOrderByIdDesc();
+        List<LigneCommandeDto> ligneCommandeList = ligneCommandeService.findAllActiveLigneCommandes();
 
         assertThat(ligneCommandeList).isNotNull();
         assertThat(ligneCommandeList).hasSize(1);
-        verify(ligneCommandeRepository, times(1)).findByOrderByIdDesc();
+        verify(ligneCommandeRepository, times(1)).findAll();
         verifyNoMoreInteractions(ligneCommandeRepository);
     }
 
@@ -263,15 +200,5 @@ public class LigneCommandeServiceTest {
         verify(ligneCommandeRepository, times(1)).ListOrderItemByOrderId(comId);
         verifyNoMoreInteractions(ligneCommandeRepository);
     }
-
-    @Test
-    public void should_delete_one_ligne_commande() {
-        doNothing().when(ligneCommandeRepository).deleteById(anyLong());
-
-        ligneCommandeService.deleteOrderItem(anyLong());
-        verify(ligneCommandeRepository, times(1)).deleteById(anyLong());
-        verifyNoMoreInteractions(ligneCommandeRepository);
-    }
-
 
 }

@@ -15,21 +15,13 @@ public interface EmailService {
 
     void sendEmailConfirmation(EmailDto emailDto) throws MailException;
 
-    void sendEmailToProvider(FournisseurDto fournisseurDto) throws MailException;
+    void sendEmailToProvider(FournisseurDto emailDto) throws MailException;
 
-    void sendEmailToNewsletter(NewsletterDto newsletterDto) throws MailException;
+    void sendEmailToNewsletter(NewsletterDto emailDto) throws MailException;
 
-    void sendMailToAllNewsletters(NewsletterDto newsletterDto);
-
-    EmailDto findEmailById(Long mailId);
+    void sendMailToAllNewsletters(EmailDto emailDto);
 
     BigDecimal countNumberOfEmailInMonth();
-
-    List<EmailDto> findAll();
-
-    List<EmailDto> findByOrderByIdDesc();
-
-    void delete(Long id);
 
     List<EmailDto> findAllActiveEmails();
 

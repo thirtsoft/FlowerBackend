@@ -1,14 +1,12 @@
 package com.flowers.services;
 
-import com.flowers.dtos.BlogDto;
 import com.flowers.dtos.CategoryDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CategoryService {
 
-    List<CategoryDto> findAllCategories();
+    List<CategoryDto> findAllActiveCategories();
 
     CategoryDto saveCategory(CategoryDto categoryDto);
 
@@ -16,13 +14,5 @@ public interface CategoryService {
 
     CategoryDto updateCategory(Long catId, CategoryDto categoryDto);
 
-    List<CategoryDto> findCategoryByOrderByIdDesc();
-
-    void delete(Long catId);
-
-    List<CategoryDto> findAllActiveCategories();
-
     void deleteCategory(Long catId);
-
-
 }

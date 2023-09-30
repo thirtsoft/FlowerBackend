@@ -8,6 +8,7 @@ import com.flowers.models.Utilisateur;
 import com.flowers.reposiory.RoleRepository;
 import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.services.UtilisateurService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 @Slf4j
 public class UtilisateurServiceImpl implements UtilisateurService {
 
@@ -29,19 +31,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final RoleRepository roleRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
-    @Autowired
-    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, RoleRepository roleRepository) {
-        this.utilisateurRepository = utilisateurRepository;
-        this.roleRepository = roleRepository;
-    }
-
 
     @Override
     public UtilisateurDto saveUtilisateur(UtilisateurDto utilisateurDto) {
@@ -56,9 +48,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public void addRoleToUser(String username, RoleName roleName) {
         Role role = roleRepository.findByName(roleName).get();
-
         Utilisateur utilisateur = utilisateurRepository.findByUsername(username).get();
-
         utilisateur.getRoles().add(role);
     }
 
@@ -68,9 +58,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             log.error("Utilisateur Id is null");
             return null;
         }
-
         Optional<Utilisateur> utilisateur = utilisateurRepository.findById(userId);
-
         return Optional.of(UtilisateurDto.fromEntityToDto(utilisateur.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Utilisateur avec l'Id = " + userId + "n'a été trouvé")
@@ -83,9 +71,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             log.error("Utilisateur with this username is null");
             return null;
         }
-
         Optional<Utilisateur> utilisateur = utilisateurRepository.findByUsername(username);
-
         return Optional.of(UtilisateurDto.fromEntityToDto(utilisateur.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Utilisateur avec l'Id = " + username + "n'a été trouvé")
@@ -97,40 +83,21 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         if (!utilisateurRepository.existsById(userId)) {
             throw new ResourceNotFoundException("Utilisateur not found");
         }
-
         Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userId);
-
         if (!optionalUtilisateur.isPresent()) {
             throw new ResourceNotFoundException("Utilisateur not found");
         }
-
         UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(optionalUtilisateur.get());
-
         utilisateurDtoResult.setName(utilisateurDto.getName());
         utilisateurDtoResult.setUsername(utilisateurDto.getUsername());
         utilisateurDtoResult.setEmail(utilisateurDto.getEmail());
         utilisateurDtoResult.setMobile(utilisateurDto.getMobile());
         utilisateurDtoResult.setPassword(bCryptPasswordEncoder.encode(utilisateurDto.getPassword()));
-
         return UtilisateurDto.fromEntityToDto(
                 utilisateurRepository.save(
                         UtilisateurDto.fromDtoToEntity(utilisateurDtoResult)
                 )
         );
-    }
-
-    @Override
-    public List<UtilisateurDto> findAllUtilisateurs() {
-        return utilisateurRepository.findAll().stream()
-                .map(UtilisateurDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UtilisateurDto> findUtilisateurByOrderByIdDesc() {
-        return utilisateurRepository.findByOrderByIdDesc().stream()
-                .map(UtilisateurDto::fromEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -167,7 +134,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur user;
         if (existsUser.isPresent()) {
             user = existsUser.get();
-
             if (passwordEncoder.matches(oldPass, user.getPassword())) {
                 user.setPassword(passwordEncoder.encode(newPass));
                 this.utilisateurRepository.save(user);
@@ -183,7 +149,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur user;
         if (existsUser.isPresent()) {
             user = existsUser.get();
-
             if (passwordEncoder.matches(oldPass, user.getPassword())) {
                 user.setPassword(passwordEncoder.encode(newPass));
                 this.utilisateurRepository.save(user);
@@ -203,11 +168,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             user.setUsername(newUsername);
             user.setEmail(email);
             user.setMobile(mobile);
-
             utilisateurRepository.save(user);
-
             return true;
-
         }
         return false;
     }
@@ -217,7 +179,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(Long.valueOf(id));
         Utilisateur utilisateur = optionalUtilisateur.get();
         utilisateur.setActive(Boolean.valueOf(isActive));
-
         return UtilisateurDto.fromEntityToDto(utilisateurRepository.save(utilisateur));
     }
 
@@ -229,15 +190,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public List<?> countNumberOfRegisterUsersPeerMonth() {
         return utilisateurRepository.countNumberOfRegisterUserByMonth();
-    }
-
-    @Override
-    public void delete(Long userId) {
-        if (userId == null) {
-            log.error("Utilisateur not found");
-            return;
-        }
-        utilisateurRepository.deleteById(userId);
     }
 
     @Override

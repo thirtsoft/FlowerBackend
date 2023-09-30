@@ -19,9 +19,10 @@ import java.util.List;
 
 import static com.flowers.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/utilisateurs")
 public interface UtilisateurApi {
 
-    @PostMapping(value = APP_ROOT + "/utilisateurs/create",
+    @PostMapping(value = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une Utilisateur",
             notes = "Cette méthode permet d'ajouter un Utilisateur", response = UtilisateurDto.class)
@@ -32,7 +33,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<UtilisateurDto> saveUtilisateur(@RequestBody UtilisateurDto utilisateurDto);
 
-    @PutMapping(value = APP_ROOT + "/utilisateurs/update/{userId}",
+    @PutMapping(value = "/update/{userId}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une Utilisateur",
             notes = "Cette méthode permet de modifier une Utilisateur", response = UtilisateurDto.class)
@@ -43,7 +44,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<UtilisateurDto> updateUtilisateur(@PathVariable(value = "userId") Long userId, @RequestBody UtilisateurDto utilisateurDto);
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/findById/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findById/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Chercher une Utilisateur",
             notes = "Cette méthode permet de chercher et de renvoyer une Utilisateur", response = UtilisateurDto.class)
     @ApiResponses(value = {
@@ -52,7 +53,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable(value = "userId") Long userId);
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/searchUtilisateurByUsername", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-utilisateur-by-username", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une utilisateur par son username",
             notes = "Cette méthode permet de chercher un utilisateur par son nom d'utilisateur", response = UtilisateurDto.class
     )
@@ -63,23 +64,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<UtilisateurDto> getUtilisateurByUsername(@RequestParam(value = "username") String username);
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Utilisateur",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Utilisateur", responseContainer = "List<UtilisateurDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Utilisateur / une liste vide")
-    })
-    ResponseEntity<List<UtilisateurDto>> getAllUtilisateurs();
-
-    @GetMapping(value = APP_ROOT + "/utilisateurs/searchAllUtilisateursOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Utilisateur par ordre decroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Utilisateur par ordre decroissante", responseContainer = "List<UtilisateurDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Utilisateur / une liste vide")
-    })
-    ResponseEntity<List<UtilisateurDto>> getAllUtilisateursOrderByIdDesc();
-
-    @PatchMapping(value = APP_ROOT + "/utilisateurs/updateUsernameOfUserByUsername")
+    @PatchMapping(value = "/update-username-of-user-by-username")
     @ApiOperation(value = "Modifier le username par son username",
             notes = "Cette méthode permet de modifier le nom d'utilisateur d'un utilisateur par son username", response = UtilisateurDto.class)
     @ApiResponses(value = {
@@ -88,7 +73,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Boolean> updateUsername(@RequestBody ObjectNode json);
 
-    @PatchMapping(value = APP_ROOT + "/utilisateurs/updateUsernameOfUserById")
+    @PatchMapping(value = "/update-username-of-user-by-id")
     @ApiOperation(value = "Modifier le username par son ID",
             notes = "Cette méthode permet de modifier le nom d'utilisateur d'un utilisateur par son ID", response = UtilisateurDto.class)
     @ApiResponses(value = {
@@ -97,7 +82,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Boolean> updateUsernameByUserId(@RequestBody ObjectNode json);
 
-    @PatchMapping(value = APP_ROOT + "/utilisateurs/updatePasswordByUsername")
+    @PatchMapping(value = "/update-password-by-username")
     @ApiOperation(value = "Modifier le mot de passe par son Username ",
             notes = "Cette méthode permet de modifier le mot de passe d'un utilisateur par son Username", response = UtilisateurDto.class)
     @ApiResponses(value = {
@@ -106,7 +91,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Boolean> updatePasswordByUsername(@RequestBody ObjectNode json);
 
-    @PatchMapping(value = APP_ROOT + "/utilisateurs/updatePasswordByUserId")
+    @PatchMapping(value = "/update-password-by-user-id")
     @ApiOperation(value = "Modifier le mot de passe par son ID ",
             notes = "Cette méthode permet de modifier le mot de passe d'un utilisateur par son ID", response = UtilisateurDto.class)
     @ApiResponses(value = {
@@ -115,7 +100,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Boolean> updatePasswordByUserId(@RequestBody ObjectNode json);
 
-    @PatchMapping(value = APP_ROOT + "/utilisateurs/updateCustomerProfileByUsername")
+    @PatchMapping(value = "/update-customer-profile-by-username")
     @ApiOperation(value = "Modifier le mot de passe par son username ",
             notes = "Cette méthode permet de modifier le mot de passe d'un utilisateur par son username", response = UtilisateurDto.class)
     @ApiResponses(value = {
@@ -124,7 +109,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<Boolean> updateCustomerProfileByUsername(@RequestBody ObjectNode json);
 
-    @PatchMapping(value = APP_ROOT + "/utilisateurs/activatedUser/{id}")
+    @PatchMapping(value = "/activated-user/{id}")
     @ApiOperation(value = "Activer un utilisateur",
             notes = "Cette méthode permet d'activer le compter d'un utilisateur pour se connecter")
     @ApiResponses(value = {
@@ -133,7 +118,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<?> activatedUser(@RequestParam("isActive") String isActive, @PathVariable("id") String id);
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/avatar/{id}")
+    @GetMapping(value = "/avatar/{id}")
     @ApiOperation(value = "Recupérer une photo par ID",
             notes = "Cette méthode permet de chercher et d'afficher la photo d'un Utilisateur par son ID"
     )
@@ -144,7 +129,7 @@ public interface UtilisateurApi {
     })
     byte[] getPhoto(@PathVariable("id") Long id) throws Exception;
 
-    @PostMapping(value = APP_ROOT + "/utilisateurs/uploadUserPhoto/{id}")
+    @PostMapping(value = "/upload-userPhoto/{id}")
     @ApiOperation(value = "Enregistrer une photo dans un dossier",
             notes = "Cette méthode permet d'enregistrer la photo d'un utilisateur dans un dossier externe utilisateur")
     @ApiResponses(value = {
@@ -152,7 +137,7 @@ public interface UtilisateurApi {
     })
     void uploadUserPhoto(MultipartFile file, @PathVariable("id") Long id) throws IOException;
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/countNumberOfRegisterInMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-register-in-month", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre d'inscrit dans le moi",
             notes = "Cette méthode permet de chercher et renvoyer le nombre d'inscrit dans e moi")
     @ApiResponses(value = {
@@ -160,7 +145,7 @@ public interface UtilisateurApi {
     })
     BigDecimal countNumberOfRegisterInMonth();
 
-    @GetMapping(value = APP_ROOT + "/utilisateurs/countNumberOfRegisterPeerMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-register-peer-month", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre d'inscrit par mois",
             notes = "Cette méthode permet de chercher et renvoyer le nombre d'inscrit par mois")
     @ApiResponses(value = {
@@ -168,15 +153,7 @@ public interface UtilisateurApi {
     })
     List<?> countNumberOfRegisterUsersPeerMonth();
 
-    @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete/{userId}")
-    @ApiOperation(value = "Supprimer un Utilisateur par son ID",
-            notes = "Cette méthode permet de supprimer une Country par son ID", response = UtilisateurDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Le Utilisateur a été supprimé")
-    })
-    void delete(@PathVariable(name = "userId") Long userId);
-
-    @GetMapping(value = APP_ROOT + "/utilisateurs/search-all-active-utilisateurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-all-active-utilisateurs", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des vutilisateurs actives",
             notes = "Cette méthode permet de chercher et renvoyer la liste des utilisateurs actives",
             responseContainer = "List<UtilisateurDto>")
@@ -185,7 +162,7 @@ public interface UtilisateurApi {
     })
     ResponseEntity<List<UtilisateurDto>> getAllActiveUtilisateurs();
 
-    @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete-utilisateur/{userId}")
+    @DeleteMapping(value = "/delete-utilisateur/{userId}")
     @ApiOperation(value = "Supprimer un utilisateur par son ID",
             notes = "Cette méthode permet de supprimer un utilisateur  par son ID")
     @ApiResponses(value = {

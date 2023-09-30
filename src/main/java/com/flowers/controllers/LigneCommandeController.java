@@ -18,36 +18,11 @@ import java.util.List;
 public class LigneCommandeController implements LigneCommandeApi {
 
     private final LigneCommandeService ligneCommandeService;
-
-    @Override
-    public ResponseEntity<LigneCommandeDto> saveLigneCommande(LigneCommandeDto ligneCommandeDto) {
-        LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.saveOrderItem(ligneCommandeDto);
-        return new ResponseEntity<>(ligneCommandeDtoResult, HttpStatus.CREATED);
-    }
-
-    @Override
-    public ResponseEntity<LigneCommandeDto> updateLigneCommande(Long id, LigneCommandeDto ligneCommandeDto) {
-        ligneCommandeDto.setId(id);
-        LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.saveOrderItem(ligneCommandeDto);
-        return new ResponseEntity<>(ligneCommandeDtoResult, HttpStatus.OK);
-    }
-
+    
     @Override
     public ResponseEntity<LigneCommandeDto> getOrderItemById(Long id) {
         LigneCommandeDto ligneCommandeDtoResult = ligneCommandeService.findOrderItemById(id);
         return new ResponseEntity<>(ligneCommandeDtoResult, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<LigneCommandeDto>> getAllOrderItems() {
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllOrderItems();
-        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<LigneCommandeDto>> getAllOrderItemOrderByIdDesc() {
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findByOrderByIdDesc();
-        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -81,18 +56,9 @@ public class LigneCommandeController implements LigneCommandeApi {
     }
 
     @Override
-    public void delete(Long id) {
-        ligneCommandeService.deleteOrderItem(id);
-    }
-
-    @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes() {
         List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllActiveLigneCommandes();
         return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
-    @Override
-    public void deleteLigneCommande(Long idOrderItem) {
-        ligneCommandeService.deleteLigneCommande(idOrderItem);
-    }
 }

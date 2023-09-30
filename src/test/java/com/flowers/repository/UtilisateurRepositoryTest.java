@@ -136,7 +136,7 @@ public class UtilisateurRepositoryTest {
         utilisateur.setUsername("thirById");
         utilisateur.setMobile("7794147540310");
         utilisateurRepository.save(utilisateur);
-        List<Utilisateur> utilisateurList = utilisateurRepository.findByOrderByIdDesc();
+        List<Utilisateur> utilisateurList = utilisateurRepository.findAll();
 
         assertThat(utilisateurList.size()).isNotNull();
         assertThat(utilisateurList.size()).isGreaterThan(0);

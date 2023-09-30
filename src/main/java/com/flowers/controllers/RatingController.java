@@ -56,40 +56,13 @@ public class RatingController implements RatingApi {
 
     @Override
     public ResponseEntity<RatingDto> saveRating(RatingDto ratingDto, String reference, Long id) {
-
-    //    Product product = Optional.of(ProductDto.fromDtoToEntity(productService.findByReference(reference))).get();
-
         ProductDto productDto = productService.findByReference(reference);
-
-    //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findUtilisateurById(id))).get();
-
         UtilisateurDto utilisateurDto = utilisateurService.findUtilisateurById(id);
-
         ratingDto.setProductDto(productDto);
         ratingDto.setUtilisateurDto(utilisateurDto);
         ratingDto.setCreatedDate(new Date());
-
         RatingDto ratingDtoResult = ratingService.save(ratingDto);
-
         return new ResponseEntity<>(ratingDtoResult, HttpStatus.CREATED);
-    }
-
-    @Override
-    public ResponseEntity<RatingDto> getRatingById(Long id) {
-        RatingDto ratingDtoResult = ratingService.findById(id);
-        return new ResponseEntity<>(ratingDtoResult, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<RatingDto>> getAllRatings() {
-        List<RatingDto> ratingDtoList = ratingService.findAll();
-        return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<RatingDto>> getAllRatingsOrderByIdDesc() {
-        List<RatingDto> ratingDtoList = ratingService.findByOrderByIdDesc();
-        return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -106,11 +79,6 @@ public class RatingController implements RatingApi {
     public ResponseEntity<List<RatingDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
         List<RatingDto> ratingDtoList = ratingService.findTop4ByOrderByCreatedDateDescByProductId(prodRef);
         return new ResponseEntity<>(ratingDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long id) {
-        ratingService.delete(id);
     }
 
     @Override

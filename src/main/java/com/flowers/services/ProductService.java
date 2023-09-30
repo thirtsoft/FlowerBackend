@@ -1,11 +1,8 @@
 package com.flowers.services;
 
-import com.flowers.dtos.NewsletterDto;
 import com.flowers.dtos.ProductDto;
-import com.flowers.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -33,15 +30,11 @@ public interface ProductService {
 
     List<ProductDto> findListProductByKeyword(String keyword);
 
-    List<ProductDto> findListProductGroupByPrice(double price);
-
     List<ProductDto> findListProductBySelected();
 
     List<ProductDto> findListProductByPromo();
 
     List<ProductDto> findTop24ByOrderByCreateDateDesc();
-
-    List<ProductDto> findByOrderByIdDesc();
 
     List<ProductDto> findTop3ByOrderByIdDesc();
 
@@ -49,13 +42,9 @@ public interface ProductService {
 
     List<ProductDto> findTop8ByOrderByIdDesc();
 
-    List<ProductDto> findListProductByPriceMinMax(double min, double max);
-
     Page<ProductDto> findProductByPageable(Pageable pageable);
 
     Page<ProductDto> findProductBySubCategoryPageable(Long scatId, Pageable pageable);
-
-    Page<ProductDto> findProductBySamePricePageable(double price, Pageable pageable);
 
     List<ProductDto> findProductByPageable(int page, int size);
 
@@ -72,8 +61,6 @@ public interface ProductService {
     long getProductSizeByKey(String key);
 
     long getAllProductsSize();
-
-    void delete(Long id);
 
     List<ProductDto> findAllActiveProducts();
 

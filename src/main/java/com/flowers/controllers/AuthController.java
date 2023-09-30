@@ -14,7 +14,8 @@ import com.flowers.reposiory.RoleRepository;
 import com.flowers.reposiory.UtilisateurRepository;
 import com.flowers.security.jwt.JwtsProvider;
 import com.flowers.security.services.UserPrinciple;
-import com.flowers.services.HistoriqueLoginService;
+import com.flowers.services.HistoriqueService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,23 +37,20 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = {"https://fleurpourtous.com", "https://portail.fleurpourtous.com"})
 //@CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@AllArgsConstructor
 public class AuthController implements AuthApi {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    UtilisateurRepository userRepository;
+    private UtilisateurRepository userRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    PasswordEncoder encoder;
-    @Autowired
-    JwtsProvider jwtProvider;
-    @Autowired
-    private HistoriqueLoginService historiqueLoginService;
+    private RoleRepository roleRepository;
 
+    private PasswordEncoder encoder;
+
+    private JwtsProvider jwtProvider;
+
+    private final HistoriqueService historiqueService;
 
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
@@ -76,9 +74,9 @@ public class AuthController implements AuthApi {
         HistoriqueLoginDto historiqueLogin = new HistoriqueLoginDto();
         historiqueLogin.setUtilisateurDto(utilisateurDto);
         historiqueLogin.setAction("SE CONNECTER");
+        historiqueLogin.setActif(true);
         historiqueLogin.setCreatedDate(new Date());
-        historiqueLoginService.saveHistoriqueLogin(historiqueLogin);
-
+        historiqueService.saveHistoriqueLogin(historiqueLogin);
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
@@ -91,29 +89,23 @@ public class AuthController implements AuthApi {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
-
         // Creating user's account
         Utilisateur user = new Utilisateur(signUpRequest.getName(),
                 signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
-
         // Set<String> strRoles = signUpRequest.getRole();
         String[] strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
-
         if (strRoles == null) {
             Role userRole = (roleRepository.findByName(RoleName.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
             roles.add(userRole);
-
         }
-
         for (String role : strRoles) {
             switch (role.toLowerCase()) {
                 case "admin":
@@ -139,17 +131,10 @@ public class AuthController implements AuthApi {
 
         user.setRoles(roles);
         user.setActive(true);
+        user.setActif(true);
         user.setCreatedDate(new Date());
-
         userRepository.save(user);
-
         return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.CREATED);
-
-    }
-
-    @Override
-    public ResponseEntity<?> registerUser(SignUpForm signUpForm) {
-        return null;
     }
 
     @Override

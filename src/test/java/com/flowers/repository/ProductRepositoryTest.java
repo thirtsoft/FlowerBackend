@@ -215,29 +215,10 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    @Order(13)
-    public void should_and_return_products_groupe_by_price_Test() {
-        double price = 15000L;
-        List<Product> productList = productRepository.findProductGroupByPrice(price);
-        assertThat(productList.size()).isNotNull();
-        assertThat(productList.size()).isGreaterThanOrEqualTo(0);
-    }
-
-    @Test
     @Order(14)
     public void should_and_return_products_by_keyword_Test() {
         String keyword = "Fleur de mariage";
         List<Product> productList = productRepository.findProductByKeyword(keyword);
-        assertThat(productList.size()).isNotNull();
-        assertThat(productList.size()).isGreaterThanOrEqualTo(0);
-    }
-
-    @Test
-    @Order(15)
-    public void should_and_return_products_by_price_min_max_Test() {
-        double priceMin = 15000;
-        double priceMax = 25000;
-        List<Product> productList = productRepository.findListProductByPriceMinMax(priceMin, priceMax);
         assertThat(productList.size()).isNotNull();
         assertThat(productList.size()).isGreaterThanOrEqualTo(0);
     }

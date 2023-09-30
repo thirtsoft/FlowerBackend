@@ -100,7 +100,7 @@ public class NewsletterRepositoryTest {
         newsletter.setDateInscription(new Date());
         newsletterRepository.save(newsletter);
 
-        List<Newsletter> newsletterList = newsletterRepository.findByOrderByIdDesc();
+        List<Newsletter> newsletterList = newsletterRepository.findAll();
 
         assertThat(newsletterList.size()).isNotNull();
         assertThat(newsletterList.size()).isGreaterThan(0);

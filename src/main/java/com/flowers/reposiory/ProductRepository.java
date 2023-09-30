@@ -1,8 +1,6 @@
 package com.flowers.reposiory;
 
-import com.flowers.models.Newsletter;
 import com.flowers.models.Product;
-import com.flowers.models.Rating;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,9 +21,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName like :subcatName")
     List<Product> findProductBySubcategoryName(@Param("subcatName") String subcatName);
-
-    @Query("select art from Product art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
-    List<Product> findProductGroupByPrice(@Param("price") double price);
 
     @Query("select art from Product art where art.actif=1 and art.isSelected = true")
     List<Product> findProductBySelected();
@@ -58,9 +53,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select count(id) from Product where designation LIKE %?1%")
     long getOrderSizeByKey(String key);
 
-    @Query("select p from Product p where p.actif=1 and p.price between :min and :max")
-    List<Product> findListProductByPriceMinMax(@Param("min") double min, @Param("max") double max);
-
     @Query("select art from Product art where art.actif=1 and art.designation like :x")
     List<Product> findProductByKeyword(@Param("x") String mc);
 
@@ -73,9 +65,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName =:subcatName")
     Page<Product> findProductBySubcategoryNameByPageable(@Param("subcatName") String subcatName, Pageable pageable);
 
-    @Query("select art from Product art where art.price like :price GROUP BY (art.price, art.id) ")
-    Page<Product> findProductPageableGroupByPrice(@Param("price") double price, Pageable pageable);
-
-    @Query("Select DISTINCT act from Product act where act.actif=1 ORDER BY act.designation")
+    @Query("Select DISTINCT act from Product act where act.actif=1 ORDER BY act.designation asc")
     List<Product> findAll();
 }

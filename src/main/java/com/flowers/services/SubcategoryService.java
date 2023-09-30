@@ -1,16 +1,10 @@
 package com.flowers.services;
 
-import com.flowers.dtos.StateDto;
 import com.flowers.dtos.SubCategoryDto;
-import com.flowers.models.State;
-import com.flowers.models.Subcategory;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SubcategoryService {
-
-    List<SubCategoryDto> findAllSubcategories();
 
     SubCategoryDto findSubcategoryById(Long subCatId);
 
@@ -20,13 +14,7 @@ public interface SubcategoryService {
 
     List<SubCategoryDto> findSubcategoryByCategoryId(Long catId);
 
-    List<SubCategoryDto> findSubcategoryByOrderByIdDesc();
-
-    void delete(Long subCatId);
-
     List<SubCategoryDto> findAllActiveSubCategories();
 
     void deleteSubcategory(Long subcatId);
-
-
 }

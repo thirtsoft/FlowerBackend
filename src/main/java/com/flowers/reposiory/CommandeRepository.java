@@ -15,25 +15,25 @@ import java.util.List;
 @Repository
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
-    @Query("select count(p) from Commande p ")
+    @Query("select count(p) from Commande p where  p.actif=1")
     BigDecimal countNumberOfOrder();
 
-    @Query("select count(c) from Commande c where month(c.dateCommande) = month(current_date)")
+    @Query("select count(c) from Commande c where c.actif=1 and month(c.dateCommande) = month(current_date)")
     BigDecimal countNumberOfOrdersInMonth();
 
-    @Query("select count(c) from Commande c where c.status = 'ENCOURS' ")
+    @Query("select count(c) from Commande c where c.status = 'ENCOURS' and c.actif=1 ")
     BigDecimal countNumberOfOrdersByStatusPending();
 
-    @Query("select sum(c.totalCommande) from Commande c where c.dateCommande > current_date")
+    @Query("select sum(c.totalCommande) from Commande c where c.actif=1 and c.dateCommande > current_date")
     BigDecimal sumTotalOfOrderByDay();
 
-    @Query("select sum(c.totalCommande) from Commande c where month(c.dateCommande) = month(current_date)")
+    @Query("select sum(c.totalCommande) from Commande c where c.actif=1 and month(c.dateCommande) = month(current_date)")
     BigDecimal sumTotalOfOrdersByMonth();
 
-    @Query("select sum(c.totalCommande) from Commande c where month(c.dateCommande) = month(current_date)")
+    @Query("select sum(c.totalCommande) from Commande c where c.actif=1 and month(c.dateCommande) = month(current_date)")
     BigDecimal sumTotaleOfOrderByMonth();
 
-    @Query("select sum(c.totalCommande) from Commande c where year(c.dateCommande) = year(current_date)")
+    @Query("select sum(c.totalCommande) from Commande c where c.actif=1 and year (c.dateCommande) = year(current_date)")
     BigDecimal sumTotalOfOrdersByYear();
 
     @Query("select c from Commande c where c.actif=1 and c.status = 'ENCOURS' order by c.id Desc ")
@@ -42,18 +42,16 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select c from Commande c where c.actif=1 and c.status = 'PAYEE' order by c.id Desc ")
     List<Commande> findListOrderByStatusPayed();
 
-    List<Commande> findByOrderByIdDesc();
-
-    @Query("select EXTRACT(day from(c.dateCommande)), count(c) from Commande c group by EXTRACT(day from(c.dateCommande))")
+    @Query("select EXTRACT(day from(c.dateCommande)), count(c) from Commande c  where c.actif=1 group by EXTRACT(day from(c.dateCommande))")
     List<?> countNumberOfOrderByDay();
 
-    @Query("select EXTRACT(month from(c.dateCommande)), count(c) from Commande c group by EXTRACT(month from(c.dateCommande))")
+    @Query("select EXTRACT(month from(c.dateCommande)), count(c) from Commande c where c.actif=1 group by EXTRACT(month from(c.dateCommande))")
     List<?> countNumberOfOrderByMonth();
 
-    @Query("select EXTRACT(month from(c.dateCommande)), sum(c.totalCommande) from Commande c group by EXTRACT(month from(c.dateCommande))")
+    @Query("select EXTRACT(month from(c.dateCommande)), sum(c.totalCommande) from Commande c where c.actif=1 group by EXTRACT(month from(c.dateCommande))")
     List<?> sumTotalOfOrderByMonth();
 
-    @Query("select EXTRACT(year from(v.dateCommande)), sum(v.totalCommande) from Commande v group by EXTRACT(year from(v.dateCommande))")
+    @Query("select EXTRACT(year from(v.dateCommande)), sum(v.totalCommande) from Commande v where v.actif=1 group by EXTRACT(year from(v.dateCommande))")
     List<?> sumTotalOfOrderByYears();
 
     @Query("select p from Commande p where p.actif=1 and p.utilisateur.id =:user order by p.id Desc")
@@ -68,7 +66,7 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select com from Commande com where com.actif=1 and com.utilisateur.id =:userId")
     Page<Commande> findOrderByUtilisateurPageables(@Param("userId") Long userId, Pageable pageable);
 
-    @Query("Select DISTINCT act from Commande act where act.actif=1 ORDER BY act.id desc")
+    @Query("Select DISTINCT act from Commande act where act.actif=1 ORDER BY act.numeroCommande asc")
     List<Commande> findAll();
 
 }

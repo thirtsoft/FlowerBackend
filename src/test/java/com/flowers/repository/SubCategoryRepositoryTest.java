@@ -114,7 +114,7 @@ public class SubCategoryRepositoryTest {
         subcategory.setCategory(category);
         subcategoryRepository.save(subcategory);
 
-        List<Subcategory> subcategoryList = subcategoryRepository.findByOrderByIdDesc();
+        List<Subcategory> subcategoryList = subcategoryRepository.findAll();
 
         assertThat(subcategoryList.size()).isNotNull();
         assertThat(subcategoryList.size()).isGreaterThan(0);

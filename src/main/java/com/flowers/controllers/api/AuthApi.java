@@ -11,15 +11,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
 import static com.flowers.utils.Constants.APP_ROOT;
 
+
+@RequestMapping(value = APP_ROOT + "/auth")
 public interface AuthApi {
 
-    @PostMapping(value = APP_ROOT + "/auth/authenticated")
+    @PostMapping(value = "/authenticated")
     @ApiOperation(value = "S'authentifier",
             notes = "Cette méthode permet à un utilisateur de s'authentifier", response = LoginForm.class)
     @ApiResponses(value = {
@@ -28,8 +31,7 @@ public interface AuthApi {
     })
     ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginForm);
 
-
-    @PostMapping(value = APP_ROOT + "/auth/signUp", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create Account",
             notes = "Cette méthode permet à un utilisateur de créer un compte une Category", response = SignUpForm.class)
     @ApiResponses(value = {
@@ -38,17 +40,7 @@ public interface AuthApi {
     })
     ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpForm);
 
-
-    @PostMapping(value = APP_ROOT + "/auth/registerUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Create Account",
-            notes = "Cette méthode permet à un utilisateur de créer un compte une Category", response = Utilisateur.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Le compte a été crée"),
-            @ApiResponse(code = 400, message = "Aucun Compte  crée / modifié")
-    })
-    ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpForm);
-
-    @GetMapping(value = APP_ROOT + "/auth/currentUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/currentUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get Current User",
             notes = "Cette méthode permet de récuperer l'utilisateur courrant", response = Utilisateur.class)
     @ApiResponses(value = {
@@ -57,7 +49,7 @@ public interface AuthApi {
     })
     String getcurrentUserName(Principal principal);
 
-    @GetMapping(value = APP_ROOT + "/auth/currentLogginUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/currentLogginUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get Current User",
             notes = "Cette méthode permet de récuperer l'utilisateur courrant", response = Utilisateur.class)
     @ApiResponses(value = {
@@ -65,5 +57,4 @@ public interface AuthApi {
             @ApiResponse(code = 400, message = "Aucun Compte  crée / modifié")
     })
     String getcurrentUser();
-
 }

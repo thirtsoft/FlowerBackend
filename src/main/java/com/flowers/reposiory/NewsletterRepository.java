@@ -11,10 +11,8 @@ import java.util.List;
 @Repository
 public interface NewsletterRepository extends JpaRepository<Newsletter, Long> {
 
-    @Query("select count(p) from Newsletter p ")
+    @Query("select count(p) from Newsletter p where p.actif=1")
     BigDecimal countNumberOfNewsletters();
-
-    List<Newsletter> findByOrderByIdDesc();
 
     @Query("Select DISTINCT act from Newsletter act where act.actif=1 ORDER BY act.id desc")
     List<Newsletter> findAll();

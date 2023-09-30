@@ -115,7 +115,7 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<NewsletterDto> sendMailToAllCustomers(NewsletterDto newsletterDto) {
+    public ResponseEntity<EmailDto> sendMailToAllCustomers(EmailDto newsletterDto) {
         try {
             emailService.sendMailToAllNewsletters(newsletterDto);
             return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
@@ -125,31 +125,8 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<EmailDto> getEmailById(Long id) {
-        EmailDto emailDto = emailService.findEmailById(id);
-        return new ResponseEntity<>(emailDto, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<EmailDto>> getAllEmails() {
-        List<EmailDto> emailDtoList = emailService.findAll();
-        return new ResponseEntity(emailDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<EmailDto>> getAllEmailOrderByIdDesc() {
-        List<EmailDto> emailDtoList = emailService.findByOrderByIdDesc();
-        return new ResponseEntity(emailDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public BigDecimal countNumberOfEmail() {
         return emailService.countNumberOfEmailInMonth();
-    }
-
-    @Override
-    public void delete(Long id) {
-        emailService.delete(id);
     }
 
     @Override

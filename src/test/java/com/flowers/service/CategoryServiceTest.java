@@ -98,27 +98,11 @@ public class CategoryServiceTest {
 
         when(categoryRepository.findAll()).thenReturn(singletonList(category));
 
-        List<CategoryDto> categoryList = categoryService.findAllCategories();
+        List<CategoryDto> categoryList = categoryService.findAllActiveCategories();
 
         assertThat(categoryList).isNotNull();
         assertThat(categoryList).hasSize(1);
         verify(categoryRepository, times(1)).findAll();
-        verifyNoMoreInteractions(categoryRepository);
-    }
-
-    @Test
-    public void should_find_and_return_all_categories_by_IdDesc() {
-        Category category = new Category();
-        category.setId(4L);
-        category.setCategoryName("Fleur04");
-        category.setDescription("Cat04");
-
-        when(categoryRepository.findByOrderByIdDesc()).thenReturn(singletonList(category));
-
-        List<CategoryDto> categoryList = categoryService.findCategoryByOrderByIdDesc();
-
-        assertThat(categoryList).hasSize(1);
-        verify(categoryRepository, times(1)).findByOrderByIdDesc();
         verifyNoMoreInteractions(categoryRepository);
     }
 

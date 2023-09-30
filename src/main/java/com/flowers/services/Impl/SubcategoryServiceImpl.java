@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SubcategoryServiceImpl implements SubcategoryService {
 
-    @Autowired
     private final SubcategoryRepository subcategoryRepository;
 
     @Override
@@ -38,25 +37,19 @@ public class SubcategoryServiceImpl implements SubcategoryService {
         if (!subcategoryRepository.existsById(subCatId)) {
             throw new ResourceNotFoundException("SubCategory not found");
         }
-
         Optional<Subcategory> optionalSubcategory = subcategoryRepository.findById(subCatId);
-
         if (!optionalSubcategory.isPresent()) {
             throw new ResourceNotFoundException("SubCategory not found");
         }
-
         SubCategoryDto subCategoryDtoResult = SubCategoryDto.fromEntityToDto(optionalSubcategory.get());
-
         subCategoryDtoResult.setSubCategoryName(subCategoryDto.getSubCategoryName());
         subCategoryDtoResult.setDescription(subCategoryDto.getDescription());
         subCategoryDtoResult.setCategoryDto(subCategoryDto.getCategoryDto());
-
         return SubCategoryDto.fromEntityToDto(
                 subcategoryRepository.save(
                         SubCategoryDto.fromDtoToEntity(subCategoryDtoResult)
                 )
         );
-
     }
 
     @Override
@@ -65,9 +58,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
             log.error("SubCategory Id is null");
             return null;
         }
-
         Optional<Subcategory> optionalSubcategory = subcategoryRepository.findById(subCatId);
-
         return Optional.of(SubCategoryDto.fromEntityToDto(optionalSubcategory.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun SubCategory avec l'Id = " + subCatId + "n'a été trouvé")
@@ -75,33 +66,10 @@ public class SubcategoryServiceImpl implements SubcategoryService {
     }
 
     @Override
-    public List<SubCategoryDto> findAllSubcategories() {
-        return subcategoryRepository.findAll().stream()
-                .map(SubCategoryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<SubCategoryDto> findSubcategoryByCategoryId(Long catId) {
         return subcategoryRepository.findSubcategoryByCategoryId(catId).stream()
                 .map(SubCategoryDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SubCategoryDto> findSubcategoryByOrderByIdDesc() {
-        return subcategoryRepository.findByOrderByIdDesc().stream()
-                .map(SubCategoryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long subCatId) {
-        if (subCatId == null) {
-            log.error("Subcategory not found");
-            return;
-        }
-        subcategoryRepository.deleteById(subCatId);
     }
 
     @Override

@@ -135,7 +135,7 @@ public class CommandeRepositoryTest {
         commande.setStatus("waiting");
         commandeRepository.save(commande);
 
-        List<Commande> commandeList = commandeRepository.findByOrderByIdDesc();
+        List<Commande> commandeList = commandeRepository.findAll();
 
         assertThat(commandeList.size()).isNotNull();
         assertThat(commandeList.size()).isGreaterThan(0);

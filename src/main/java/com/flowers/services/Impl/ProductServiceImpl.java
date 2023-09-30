@@ -153,13 +153,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findListProductGroupByPrice(double price) {
-        return productRepository.findProductGroupByPrice(price).stream()
-                .map(ProductDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<ProductDto> findListProductBySelected() {
         return productRepository.findProductBySelected().stream()
                 .map(ProductDto::fromEntityToDto)
@@ -176,13 +169,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> findTop24ByOrderByCreateDateDesc() {
         return productRepository.findTop24ByOrderByCreatedDateDesc().stream()
-                .map(ProductDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ProductDto> findByOrderByIdDesc() {
-        return productRepository.findByOrderByIdDesc().stream()
                 .map(ProductDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -209,13 +195,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findListProductByPriceMinMax(double min, double max) {
-        return productRepository.findListProductByPriceMinMax(min, max).stream()
-                .map(ProductDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public Page<ProductDto> findProductByPageable(Pageable pageable) {
         return productRepository.findProductByPageable(pageable)
                 .map(ProductDto::fromEntityToDto);
@@ -225,21 +204,6 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDto> findProductBySubCategoryPageable(Long scatId, Pageable pageable) {
         return productRepository.findBySubcategory(scatId, pageable)
                 .map(ProductDto::fromEntityToDto);
-    }
-
-    @Override
-    public Page<ProductDto> findProductBySamePricePageable(double price, Pageable pageable) {
-        return productRepository.findProductPageableGroupByPrice(price, pageable)
-                .map(ProductDto::fromEntityToDto);
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Product not found");
-            return;
-        }
-        productRepository.deleteById(id);
     }
 
     @Override

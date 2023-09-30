@@ -40,26 +40,9 @@ public class SubcategoryController implements SubcategoryApi {
     }
 
     @Override
-    public ResponseEntity<List<SubCategoryDto>> getAllSubcategories() {
-        List<SubCategoryDto> subCategoryDtoList = subcategoryService.findAllSubcategories();
-        return new ResponseEntity<>(subCategoryDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<SubCategoryDto>> getAllSubcategoriesOrderByIdDesc() {
-        List<SubCategoryDto> subCategoryDtoList = subcategoryService.findSubcategoryByOrderByIdDesc();
-        return new ResponseEntity<>(subCategoryDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<List<SubCategoryDto>> getSubcategoryByCategoryId(Long catId) {
         List<SubCategoryDto> subCategoryDtoList = subcategoryService.findSubcategoryByCategoryId(catId);
         return new ResponseEntity<>(subCategoryDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long id) {
-        subcategoryService.delete(id);
     }
 
     @Override

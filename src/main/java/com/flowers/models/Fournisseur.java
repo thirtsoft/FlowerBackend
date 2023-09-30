@@ -32,13 +32,6 @@ public class Fournisseur implements Serializable {
     @Column(name = "telephone", length = 30)
     private String telephone;
 
-    @Column(name = "subject", length = 90)
-    private String subject;
-
-    @Column(name = "message")
-    @Lob
-    private String message;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stateId")
     private State state;
@@ -149,22 +142,6 @@ public class Fournisseur implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public State getState() {

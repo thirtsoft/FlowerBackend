@@ -2,8 +2,6 @@ package com.flowers.controllers;
 
 import com.flowers.controllers.api.StateApi;
 import com.flowers.dtos.StateDto;
-import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.State;
 import com.flowers.services.StateService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,26 +40,9 @@ public class StateController implements StateApi {
     }
 
     @Override
-    public ResponseEntity<List<StateDto>> getAllStates() {
-        List<StateDto> stateDtoList = stateService.findAllStates();
-        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc() {
-        List<StateDto> stateDtoList = stateService.findStateByOrderByIdDesc();
-        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<List<StateDto>> getAllStateByCountryCode(String code) {
         List<StateDto> stateDtoList = stateService.findAllStateByCountryCode(code);
         return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long stateId) {
-     stateService.delete(stateId);
     }
 
     @Override

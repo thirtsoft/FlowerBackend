@@ -114,7 +114,7 @@ public class StateServiceTest {
 
         when(stateRepository.findAll()).thenReturn(singletonList(state));
 
-        List<StateDto> stateList = stateService.findAllStates();
+        List<StateDto> stateList = stateService.findAllActiveStates();
 
         assertThat(stateList).isNotNull();
         assertThat(stateList).hasSize(1);
@@ -130,7 +130,7 @@ public class StateServiceTest {
 
         when(stateRepository.findByOrderByIdDesc()).thenReturn(singletonList(state));
 
-        List<StateDto> stateList = stateService.findStateByOrderByIdDesc();
+        List<StateDto> stateList = stateService.findAllActiveStates();
 
         assertThat(stateList).isNotNull();
         assertThat(stateList).hasSize(1);
