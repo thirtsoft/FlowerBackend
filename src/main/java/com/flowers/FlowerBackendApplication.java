@@ -25,7 +25,7 @@ public class FlowerBackendApplication implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(FlowerBackendApplication.class);
 
    @Autowired
-   RoleRepository roleRepository;
+   private RoleRepository roleRepository;
    @Autowired
    PasswordEncoder encoder;
     @Autowired
@@ -34,12 +34,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired private UtilisateurService utilisateurService;
-
-    /*
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    */
-
 
     public static void main(String[] args) {
         SpringApplication.run(FlowerBackendApplication.class, args);
@@ -93,15 +87,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
         bertin.setActive(true);
         bertin.setPassword(bCryptPasswordEncoder.encode("fleurpourtous@2022"));
         utilisateurRepository.save(bertin);
-
-        Utilisateur adama = new Utilisateur();
-        adama.setId(3L);
-        adama.setUsername("thir");
-        adama.setName("Tairou Diallo");
-        adama.setActive(true);
-        adama.setPassword(bCryptPasswordEncoder.encode("Windev2018"));
-        utilisateurRepository.save(adama);
-
 /*
         Utilisateur admin = new Utilisateur();
         admin.setId(4L);
@@ -110,8 +95,6 @@ public class FlowerBackendApplication implements CommandLineRunner {
         admin.setActive(true);
         admin.setPassword(bCryptPasswordEncoder.encode("Admin123456"));
         utilisateurRepository.save(admin);
-
-        utilisateurService.addRoleToUser("Vendor", RoleName.ROLE_VENDOR);
         utilisateurService.addRoleToUser("Bertin", RoleName.ROLE_MANAGER);
         utilisateurService.addRoleToUser("thir", RoleName.ROLE_ADMIN);
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
