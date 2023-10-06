@@ -76,17 +76,21 @@ public class CheckoutServiceImpl implements CheckoutService {
         historiqueCommande.setActif(true);
         historiqueCommandeRepository.save(historiqueCommande);
 
-        // populate order with shippingAddress and billingAddress
-        Address billingAddress = purchase.getBillingAddress();
-        billingAddress.setActif(true);
-        commande.setBillingAddress(billingAddress);
-      //  commande.setBillingAddress(purchase.getBillingAddress());
-
-        Address shippingAddress = purchase.getShippingAddress();
-        shippingAddress.setActif(true);
-        commande.setShippingAddress(shippingAddress);
-     //   commande.setShippingAddress(purchase.getShippingAddress());
-
+        Address addressLivraison = purchase.getShippingAddress();
+        Address addressLivraison02 = purchase.getBillingAddress();
+        if (addressLivraison != addressLivraison02) {
+            commande.setShippingAddress(addressLivraison);
+            addressLivraison.setActif(true);
+            addressLivraison.setIsBillingAddress(0);
+            commande.setBillingAddress(addressLivraison02);
+            addressLivraison02.setActif(true);
+            addressLivraison02.setIsBillingAddress(1);
+        }else {
+            commande.setShippingAddress(addressLivraison);
+            addressLivraison.setActif(true);
+            addressLivraison.setIsBillingAddress(0);
+            commande.setBillingAddress(null);
+        }
         // populate customer with order
         Client client = purchase.getClient();
         client.setActif(true);
@@ -114,7 +118,6 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-        // ligneCommandeList.forEach(item -> commande.add(item));
         if (ligneCommandeList != null) {
             ligneCommandeList.forEach(ligCmdClt -> {
                 ligCmdClt.setActif(true);
@@ -131,15 +134,21 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with shippingAddress and billingAddress
         // populate order with shippingAddress and billingAddress
-        Address billingAddress = purchase.getBillingAddress();
-        billingAddress.setActif(true);
-        commande.setBillingAddress(billingAddress);
-        //  commande.setBillingAddress(purchase.getBillingAddress());
-
-        Address shippingAddress = purchase.getShippingAddress();
-        shippingAddress.setActif(true);
-        commande.setShippingAddress(shippingAddress);
-        //   commande.setShippingAddress(purchase.getShippingAddress());
+        Address addressLivraison = purchase.getShippingAddress();
+        Address addressLivraison02 = purchase.getBillingAddress();
+        if (addressLivraison != addressLivraison02) {
+            commande.setShippingAddress(addressLivraison);
+            addressLivraison.setActif(true);
+            addressLivraison.setIsBillingAddress(0);
+            commande.setBillingAddress(addressLivraison02);
+            addressLivraison02.setActif(true);
+            addressLivraison02.setIsBillingAddress(1);
+        }else {
+            commande.setShippingAddress(addressLivraison);
+            addressLivraison.setActif(true);
+            addressLivraison.setIsBillingAddress(0);
+            commande.setBillingAddress(null);
+        }
 
         // populate customer with order
         Client client = purchase.getClient();

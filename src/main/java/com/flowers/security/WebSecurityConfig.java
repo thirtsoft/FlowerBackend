@@ -93,6 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/products/all").permitAll()
                 .antMatchers("/**/products/search-all-active-products").permitAll()
                 .antMatchers("/**/products/products-by-subcategories/{subCatId}").permitAll()
+                .antMatchers("/**/products/products-by-fournisseur/{fournisseurId}").permitAll()
                 .antMatchers("/**/products/products-by-subcategory-name/{subCatName}").permitAll()
                 .antMatchers("/**/products/search-product-by-keyword").permitAll()
                 .antMatchers("/**/products/search-top3-product-by-orderIdDesc").permitAll()

@@ -250,4 +250,10 @@ public class ProductController implements ProductApi {
         productService.deleteProduct(idProduct);
     }
 
+    @Override
+    public ResponseEntity<List<ProductDto>> getListProductsByFournisseur(Long fournisseurId) {
+        List<ProductDto> productDtoList = productService.findListProductsByFournisseur(fournisseurId);
+        return new ResponseEntity<>(productDtoList, HttpStatus.OK);
+    }
+
 }

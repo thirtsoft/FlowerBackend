@@ -39,23 +39,16 @@ public class FournisseurRepositoryTest {
     @Order(1)
     @Rollback(value = false)
     public void save_fournisseur_Test() {
-        Product product = new Product();
-        product.setId(1L);
-        product.setReference("PROD01");
-        product.setDesignation("Prod01");
-        productRepository.save(product);
         State state = new State();
         state.setId(1L);
         state.setName("Bignona");
         stateRepository.save(state);
-
         Fournisseur fournisseur = new Fournisseur();
         fournisseur.setId(1L);
         fournisseur.setFirstName("Tairou");
         fournisseur.setLastName("Diallo");
         fournisseur.setReference("FOUR01");
         fournisseur.setTelephone("779440310");
-        fournisseur.setProduct(product);
         fournisseur.setState(state);
 
         assertThat(fournisseur.getId()).isGreaterThan(0);
@@ -102,11 +95,6 @@ public class FournisseurRepositoryTest {
     @Test
     @Order(5)
     public void should_and_return_all_fournisseurs_Test() {
-        Product product = new Product();
-        product.setId(1L);
-        product.setReference("PROD01");
-        product.setDesignation("Prod01");
-        productRepository.save(product);
         State state = new State();
         state.setId(1L);
         state.setName("Bignona");
@@ -117,7 +105,6 @@ public class FournisseurRepositoryTest {
         fournisseur.setLastName("Diallo");
         fournisseur.setReference("FOUR05");
         fournisseur.setTelephone("7790440310");
-        fournisseur.setProduct(product);
         fournisseur.setState(state);
         fournisseurRepository.save(fournisseur);
 
@@ -130,11 +117,6 @@ public class FournisseurRepositoryTest {
     @Test
     @Order(6)
     public void should_and_return_all_fourisseurs_by_IdDesc_Test() {
-        Product product = new Product();
-        product.setId(1L);
-        product.setReference("PROD01");
-        product.setDesignation("Prod01");
-        productRepository.save(product);
         State state = new State();
         state.setId(1L);
         state.setName("Bignona");
@@ -145,7 +127,6 @@ public class FournisseurRepositoryTest {
         fournisseur.setLastName("Diallo");
         fournisseur.setReference("FOUR05");
         fournisseur.setTelephone("7790440310");
-        fournisseur.setProduct(product);
         fournisseur.setState(state);
         fournisseurRepository.save(fournisseur);
 

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -44,7 +46,15 @@ public class ProductDto {
     @NotNull
     private String photo;
 
+    @NotNull(message = "La sous-catégorie de l'article ne doit pas etre vide")
+    @NotEmpty(message = "La sous-catégorie de l'article ne doit pas etre vide")
+    @NotBlank(message = "La sous-catégorie de l'article ne doit pas etre vide")
     private SubCategoryDto subCategoryDto;
+
+    @NotNull(message = "Le fournisseur de l'article ne doit pas etre vide")
+    @NotEmpty(message = "Le fournisseur de l'article ne doit pas etre vide")
+    @NotBlank(message = "Le fournisseur de l'article ne doit pas etre vide")
+    private FournisseurDto fournisseurDto;
 
     private int actif;
 
@@ -88,11 +98,8 @@ public class ProductDto {
         this.quantity = quantity;
         this.quantite = quantite;
         this.price = price;
-        this.currentPrice = currentPrice;
-        this.promo = promo;
         this.selected = selected;
         this.description = description;
-        this.manufactured = manufactured;
         this.photo = photo;
         this.subCategoryDto = subCategoryDto;
     }
@@ -101,7 +108,6 @@ public class ProductDto {
         if (product == null) {
             return null;
         }
-
         return ProductDto.builder()
                 .id(product.getId())
                 .reference(product.getReference())
@@ -117,6 +123,7 @@ public class ProductDto {
                 .photo(product.getImageUrl())
                 .actif(product.getActif())
                 .subCategoryDto(SubCategoryDto.fromEntityToDto(product.getSubcategory()))
+                .fournisseurDto(FournisseurDto.fromEntityToDto(product.getFournisseur()))
                 .build();
     }
 
@@ -124,7 +131,6 @@ public class ProductDto {
         if (productDto == null) {
             return null;
         }
-
         Product product = new Product();
         product.setId(productDto.getId());
         product.setReference(productDto.getReference());
@@ -140,6 +146,7 @@ public class ProductDto {
         product.setImageUrl(productDto.getPhoto());
         product.setActif(productDto.isActif());
         product.setSubcategory(SubCategoryDto.fromDtoToEntity(productDto.getSubCategoryDto()));
+        product.setFournisseur(FournisseurDto.fromDtoToEntity(productDto.getFournisseurDto()));
         return product;
     }
 }

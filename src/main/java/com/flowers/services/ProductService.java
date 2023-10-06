@@ -64,6 +64,8 @@ public interface ProductService {
 
     List<ProductDto> findAllActiveProducts();
 
+    List<ProductDto> findListProductsByFournisseur(Long fournisseurId);
+
     void deleteProduct(Long prodId);
 
 }

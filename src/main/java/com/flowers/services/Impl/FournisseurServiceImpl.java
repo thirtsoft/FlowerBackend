@@ -50,7 +50,6 @@ public class FournisseurServiceImpl implements FournisseurService {
         fournisseurDtoResult.setLastName(fournisseurDto.getLastName());
         fournisseurDtoResult.setTelephone(fournisseurDtoResult.getTelephone());
         fournisseurDtoResult.setEmail(fournisseurDto.getEmail());
-        fournisseurDtoResult.setProductDto(fournisseurDto.getProductDto());
         fournisseurDtoResult.setStateDto(fournisseurDto.getStateDto());
         return FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(

@@ -19,6 +19,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.actif=1 and p.subcategory.id =:subCat")
     List<Product> findProductBySubcategory(@Param("subCat") Long subCatId);
 
+    @Query("select p from Product p where p.actif=1 and p.fournisseur.id =:four")
+    List<Product> findProductByFournisseur(@Param("four") Long fourId);
+
     @Query("select p from Product p where p.actif=1 and p.subcategory.subCategoryName like :subcatName")
     List<Product> findProductBySubcategoryName(@Param("subcatName") String subcatName);
 

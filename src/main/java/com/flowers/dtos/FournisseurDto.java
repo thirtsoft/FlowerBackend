@@ -30,9 +30,6 @@ public class FournisseurDto {
     @NotNull
     private String telephone;
 
-    @NotNull
-    private ProductDto productDto;
-
     private StateDto stateDto;
 
     private int actif;
@@ -52,15 +49,13 @@ public class FournisseurDto {
     }
 
     public FournisseurDto(Long id, String reference, String firstName, String lastName,
-                          String email, String telephone,
-                          ProductDto productDto) {
+                          String email, String telephone) {
         this.id = id;
         this.reference = reference;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.telephone = telephone;
-        this.productDto = productDto;
     }
 
     public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
@@ -75,7 +70,6 @@ public class FournisseurDto {
                 .email(fournisseur.getEmail())
                 .telephone(fournisseur.getTelephone())
                 .actif(fournisseur.getActif())
-                .productDto(ProductDto.fromEntityToDto(fournisseur.getProduct()))
                 .stateDto(StateDto.fromEntityToDto(fournisseur.getState()))
                 .build();
     }
@@ -92,7 +86,6 @@ public class FournisseurDto {
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setTelephone(fournisseurDto.getTelephone());
         fournisseur.setActif(fournisseurDto.isActif());
-        fournisseur.setProduct(ProductDto.fromDtoToEntity(fournisseurDto.getProductDto()));
         fournisseur.setState(StateDto.fromDtoToEntity(fournisseurDto.getStateDto()));
         return fournisseur;
     }

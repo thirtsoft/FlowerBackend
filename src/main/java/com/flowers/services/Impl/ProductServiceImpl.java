@@ -214,6 +214,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDto> findListProductsByFournisseur(Long fournisseurId) {
+        return productRepository.findProductByFournisseur(fournisseurId).stream()
+                .map(ProductDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void deleteProduct(Long prodId) {
         if (prodId == null) {
             log.error("Product not found");

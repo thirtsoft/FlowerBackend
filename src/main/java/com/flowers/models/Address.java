@@ -30,13 +30,15 @@ public class Address implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "stateId")
-    // @JsonIgnore
     private State state;
 
     @OneToOne
     @PrimaryKeyJoinColumn
     @JsonIgnore
     private Commande commande;
+
+    @Column(name = "isBillingAddress", columnDefinition = "int default 0")
+    private int isBillingAddress;
 
     @Column(name = "actif")
     private int actif;
@@ -54,7 +56,6 @@ public class Address implements Serializable {
         else
             return false;
     }
-
 
     public Address(Long id, String city, String rue, State state) {
         this.id = id;

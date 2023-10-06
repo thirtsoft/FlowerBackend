@@ -301,4 +301,12 @@ public interface ProductApi {
     })
     void deleteProduct(@PathVariable("idProduct") Long idProduct);
 
+    @GetMapping(value = "/products-by-fournisseur/{fournisseurId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des products par Fournisseur",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des products par Fournisseur", responseContainer = "List<ProductDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des products par Fournisseur / une liste vide")
+    })
+    ResponseEntity<List<ProductDto>> getListProductsByFournisseur(@PathVariable("fournisseurId") Long fournisseurId);
+
 }

@@ -36,10 +36,6 @@ public class Fournisseur implements Serializable {
     @JoinColumn(name = "stateId")
     private State state;
 
-    @ManyToOne
-    @JoinColumn(name = "prodId", nullable = false)
-    private Product product;
-
     @Column(name = "actif")
     private int actif;
 
@@ -60,16 +56,16 @@ public class Fournisseur implements Serializable {
     public Fournisseur() {
     }
 
-    public Fournisseur(Long id, String reference, String firstName, String lastName, String telephone, Product product) {
+    public Fournisseur(Long id, String reference, String firstName, String lastName, String telephone) {
         this.id = id;
         this.reference = reference;
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephone = telephone;
-        this.product = product;
     }
 
-    public Fournisseur(Long id, String reference, String firstName, String lastName, String address, String email, String telephone, Product product) {
+    public Fournisseur(Long id, String reference, String firstName, String lastName, String address,
+                       String email, String telephone) {
         this.id = id;
         this.reference = reference;
         this.firstName = firstName;
@@ -77,7 +73,6 @@ public class Fournisseur implements Serializable {
         this.address = address;
         this.email = email;
         this.telephone = telephone;
-        this.product = product;
     }
 
     public Long getId() {
@@ -134,14 +129,6 @@ public class Fournisseur implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public State getState() {

@@ -22,6 +22,8 @@ public class AddressDto {
 
     private StateDto stateDto;
 
+    private int isBillingAddress;
+
     private int actif;
 
     public void setActif(boolean actif) {
@@ -47,6 +49,7 @@ public class AddressDto {
                 .zipcode(address.getZipcode())
                 .city(address.getCity())
                 .rue(address.getRue())
+                .isBillingAddress(address.getIsBillingAddress())
                 .actif(address.getActif())
                 .stateDto(StateDto.fromEntityToDto(address.getState()))
                 .build();
@@ -61,6 +64,7 @@ public class AddressDto {
         address.setCity(addressDto.getCity());
         address.setRue(addressDto.getRue());
         address.setZipcode(addressDto.getZipcode());
+        address.setIsBillingAddress(address.getIsBillingAddress());
         address.setActif(addressDto.isActif());
         address.setState(StateDto.fromDtoToEntity(addressDto.getStateDto()));
         return address;

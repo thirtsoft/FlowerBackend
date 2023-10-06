@@ -76,6 +76,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "scatId")
     private Subcategory subcategory;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fournisseur_uid")
+    private Fournisseur fournisseur;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Rating> ratingList;
@@ -266,6 +270,14 @@ public class Product implements Serializable {
 
     public void setSubcategory(Subcategory subcategory) {
         this.subcategory = subcategory;
+    }
+
+    public Fournisseur getFournisseur() {
+        return fournisseur;
+    }
+
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
     }
 
     public List<Rating> getRatingList() {
