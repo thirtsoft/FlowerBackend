@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -29,6 +30,11 @@ public class FournisseurDto {
 
     @NotNull
     private String telephone;
+
+    @NotNull
+    private String telephone2;
+
+    private String telephone3;
 
     private StateDto stateDto;
 
@@ -69,6 +75,8 @@ public class FournisseurDto {
                 .lastName(fournisseur.getLastName())
                 .email(fournisseur.getEmail())
                 .telephone(fournisseur.getTelephone())
+                .telephone2(fournisseur.getTelephone2())
+                .telephone3(fournisseur.getTelephone3())
                 .actif(fournisseur.getActif())
                 .stateDto(StateDto.fromEntityToDto(fournisseur.getState()))
                 .build();
@@ -85,6 +93,8 @@ public class FournisseurDto {
         fournisseur.setLastName(fournisseurDto.getLastName());
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setTelephone(fournisseurDto.getTelephone());
+        fournisseur.setTelephone2(fournisseurDto.getTelephone2());
+        fournisseur.setTelephone3(fournisseurDto.getTelephone3());
         fournisseur.setActif(fournisseurDto.isActif());
         fournisseur.setState(StateDto.fromDtoToEntity(fournisseurDto.getStateDto()));
         return fournisseur;

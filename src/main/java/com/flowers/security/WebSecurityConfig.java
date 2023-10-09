@@ -185,6 +185,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/states/search-state-by-country-code/**").permitAll()
                 .antMatchers("/**/states/delete-state/{stateId}").permitAll()
 
+                .antMatchers("/**/zonelivraison/create").permitAll()
+                .antMatchers("/**/zonelivraison/update/{zoneId}").permitAll()
+                .antMatchers("/**/zonelivraison/findById/{zoneId}").permitAll()
+                .antMatchers("/**/zonelivraison/search-all-active-zone-livraisons").permitAll()
+                .antMatchers("/**/zonelivraison/delete-zone-livraison/{zoneId}").permitAll()
+
                 .antMatchers("/**/wishlists/create").permitAll()
              //   .antMatchers("/**/wishlists/update/{idWishlist}").permitAll()
              //   .antMatchers("/**/wishlists/findById/{idWishlist}").permitAll()

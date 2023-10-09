@@ -48,7 +48,9 @@ public class FournisseurServiceImpl implements FournisseurService {
         fournisseurDtoResult.setReference(fournisseurDto.getReference());
         fournisseurDtoResult.setFirstName(fournisseurDto.getFirstName());
         fournisseurDtoResult.setLastName(fournisseurDto.getLastName());
-        fournisseurDtoResult.setTelephone(fournisseurDtoResult.getTelephone());
+        fournisseurDtoResult.setTelephone(fournisseurDto.getTelephone());
+        fournisseurDtoResult.setTelephone2(fournisseurDto.getTelephone2());
+        fournisseurDtoResult.setTelephone3(fournisseurDto.getTelephone3());
         fournisseurDtoResult.setEmail(fournisseurDto.getEmail());
         fournisseurDtoResult.setStateDto(fournisseurDto.getStateDto());
         return FournisseurDto.fromEntityToDto(
@@ -82,7 +84,6 @@ public class FournisseurServiceImpl implements FournisseurService {
     public BigDecimal countNumberOfFournisseur() {
         return fournisseurRepository.countNumberOfFournisseur();
     }
-
 
     @Override
     public void deleteFournisseur(Long fourId) {

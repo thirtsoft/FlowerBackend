@@ -29,8 +29,14 @@ public class Fournisseur implements Serializable {
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "telephone", length = 30)
+    @Column(name = "telephone_wave", length = 30)
     private String telephone;
+
+    @Column(name = "telephone_orange_money", length = 30)
+    private String telephone2;
+
+    @Column(name = "telephone_free", length = 30)
+    private String telephone3;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stateId")
@@ -129,6 +135,22 @@ public class Fournisseur implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getTelephone2() {
+        return telephone2;
+    }
+
+    public void setTelephone2(String telephone2) {
+        this.telephone2 = telephone2;
+    }
+
+    public String getTelephone3() {
+        return telephone3;
+    }
+
+    public void setTelephone3(String telephone3) {
+        this.telephone3 = telephone3;
     }
 
     public State getState() {
