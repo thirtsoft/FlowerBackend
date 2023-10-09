@@ -24,6 +24,9 @@ public class Commande implements Serializable {
     @Column(name = "totalCommande")
     private double totalCommande;
 
+    @Column(name = "montant_livraison")
+    private double montantLivraison;
+
     @Column(name = "totalQuantity", length = 150)
     private int totalQuantity;
 

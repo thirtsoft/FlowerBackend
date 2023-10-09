@@ -25,6 +25,10 @@ public class State implements Serializable {
     @JoinColumn(name = "countryId")
     private Country country;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "zone_livraison_uid")
+    private ZoneLivraison zoneLivraison;
+
     @Column(name = "actif")
     private int actif;
 

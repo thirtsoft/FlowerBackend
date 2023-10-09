@@ -26,6 +26,8 @@ public class CommandeDto {
     @NotNull
     private double totalCommande;
 
+    private double montantLivraison;
+
     private int totalQuantity;
 
     private String orderTrackingNumber;
@@ -69,6 +71,7 @@ public class CommandeDto {
                 .id(commande.getId())
                 .numeroCommande(commande.getNumeroCommande())
                 .totalCommande(commande.getTotalCommande())
+                .montantLivraison(commande.getMontantLivraison())
                 .totalQuantity(commande.getTotalQuantity())
                 .dateCommande(commande.getDateCommande())
                 .status(commande.getStatus())
@@ -86,13 +89,13 @@ public class CommandeDto {
         if (commandeDto == null) {
             return null;
         }
-
         Commande commande = new Commande();
         commande.setId(commandeDto.getId());
         commande.setNumeroCommande(commandeDto.getNumeroCommande());
         commande.setDateCommande(commandeDto.getDateCommande());
         commande.setOrderTrackingNumber(commandeDto.getOrderTrackingNumber());
         commande.setTotalCommande(commandeDto.getTotalCommande());
+        commande.setMontantLivraison(commandeDto.getMontantLivraison());
         commande.setTotalQuantity(commandeDto.getTotalQuantity());
         commande.setStatus(commandeDto.getStatus());
         commande.setActif(commandeDto.isActif());

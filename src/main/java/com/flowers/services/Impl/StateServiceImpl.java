@@ -7,7 +7,6 @@ import com.flowers.reposiory.StateRepository;
 import com.flowers.services.StateService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,6 +44,7 @@ public class StateServiceImpl implements StateService {
         StateDto stateDtoResult = StateDto.fromEntityToDto(optionalState.get());
         stateDtoResult.setName(stateDto.getName());
         stateDtoResult.setCountryDto(stateDto.getCountryDto());
+        stateDtoResult.setZoneLivraisonDto(stateDto.getZoneLivraisonDto());
         return StateDto.fromEntityToDto(
                 stateRepository.save(
                         StateDto.fromDtoToEntity(stateDtoResult)

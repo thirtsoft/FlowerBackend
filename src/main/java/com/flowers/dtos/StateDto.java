@@ -22,6 +22,8 @@ public class StateDto {
     @NotNull
     private CountryDto countryDto;
 
+    private ZoneLivraisonDto zoneLivraisonDto;
+
     private int actif;
 
     public void setActif(boolean actif) {
@@ -48,6 +50,7 @@ public class StateDto {
                 .name(state.getName())
                 .actif(state.getActif())
                 .countryDto(CountryDto.fromEntityToDto(state.getCountry()))
+                .zoneLivraisonDto(ZoneLivraisonDto.fromEntityToDto(state.getZoneLivraison()))
                 .build();
     }
 
@@ -61,6 +64,7 @@ public class StateDto {
         state.setName(stateDto.getName());
         state.setActif(stateDto.isActif());
         state.setCountry(CountryDto.fromDtoToEntity(stateDto.getCountryDto()));
+        state.setZoneLivraison(ZoneLivraisonDto.fromDtoToEntity(stateDto.getZoneLivraisonDto()));
         return state;
     }
 }
