@@ -110,6 +110,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setNumeroCommande(numCommande);
         commande.setStatus(status);
+        commande.setMontantLivraison(0);
         commande.setDateCommande(new Date());
         commande.setActif(true);
 
