@@ -47,19 +47,22 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Like  key%  %key  %key%
     Page<Product> findByDesignationContaining(String designation, Pageable pageable);
 
-    @Query("select count(id) from Product where subcategory.id = ?1")
+    @Query("select count(prod) from Product prod  where prod.actif=1")
+    long countProductsSize();
+
+    @Query("select count(p) from Product p where p.actif=1 and p.subcategory.id = ?1")
     long getOrderLengthBySubcategoryId(long id);
 
-    @Query("select count(prod.id) from Product prod  where prod.actif=1 and prod.subcategory.subCategoryName LIKE %?1%")
+    @Query("select count(prod) from Product prod  where prod.actif=1 and prod.subcategory.subCategoryName LIKE %?1%")
     long getOrderLengthBySubcategoryName(String subcatName);
 
-    @Query("select count(id) from Product where designation LIKE %?1%")
+    @Query("select count(p) from Product p where p.actif=1 and p.designation LIKE %?1%")
     long getOrderSizeByKey(String key);
 
     @Query("select art from Product art where art.actif=1 and art.designation like :x")
     List<Product> findProductByKeyword(@Param("x") String mc);
 
-    @Query("select p from Product p")
+    @Query("select p from Product p where p.actif=1")
     Page<Product> findProductByPageable(Pageable pageable);
 
     @Query("select p from Product p where p.actif=1 and p.subcategory.id =:subCat")

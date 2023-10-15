@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -16,10 +18,14 @@ public class StateDto {
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Le nom de la vielle ne doit pas etre vide")
+    @NotEmpty(message = "Le nom de la vielle ne doit pas etre vide")
+    @NotBlank(message = "Le nom de la vielle ne doit pas etre vide")
     private String name;
 
-    @NotNull
+    @NotNull(message = "La région ou se trouve la vielle ne doit pas etre vide")
+    @NotEmpty(message = "La région ou se trouve la vielle ne doit pas etre vide")
+    @NotBlank(message = "La région ou se trouve la vielle ne doit pas etre vide")
     private CountryDto countryDto;
 
     private ZoneLivraisonDto zoneLivraisonDto;

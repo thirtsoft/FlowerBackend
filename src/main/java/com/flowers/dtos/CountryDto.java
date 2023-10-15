@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -16,10 +18,14 @@ public class CountryDto {
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Le code de la region ne doit pas etre vide")
+    @NotEmpty(message = "Le code de la region ne doit pas etre vide")
+    @NotBlank(message = "Le code de la region ne doit pas etre vide")
     private String code;
 
-    @NotNull
+    @NotNull(message = "Le nom de la region ne doit pas etre vide")
+    @NotEmpty(message = "Le nom de la region ne doit pas etre vide")
+    @NotBlank(message = "Le nom de la region ne doit pas etre vide")
     private String name;
 
     private int actif;

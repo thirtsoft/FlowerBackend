@@ -277,7 +277,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public long getAllProductsSize() {
-        return productRepository.count();
+        return productRepository.countProductsSize();
     }
 
 

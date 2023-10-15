@@ -72,50 +72,77 @@ INSERT INTO product(id,reference,designation,price,current_price,quantity,image_
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif) VALUES(18,'prod17','Fleur-18',1700,1800.0,32,'20.jpg', true, true,true, 'prod1','prod1', '2023-06-17 12:36:48','2023-06-17 12:36:48',5,1);
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif) VALUES(19,'prod19','Fleur-19',1700,1800.0,32,'28.jpg', true, true,true, 'prod1','prod1', '2023-06-17 12:36:48','2023-06-17 12:36:48',1,1);
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif) VALUES(20,'prod20','Fleur-20',1700,1800.0,32,'34.jpg', true, true,true, 'prod1','prod1', '2023-06-17 12:36:48','2023-06-17 12:36:48',6,1);
+7
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(61,'bienvenue','Bienvenue',33000,33000,32,'bienvenu.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance d\'un garçon','Bouquet naissance garçon', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(62,'sucrerie','Sucrerie',27000,27000,32,'sucrerie.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(63,'acapulco','Acapulco',37000,37000,32,'acapulco.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(64,'happiness','Happiness',27000,27000,32,'happiness.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(65,'coeur-rouge','Coeur rouge',37000,37000,32,'coeur-rouge.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(52,'naissance-garçon','Naissace garçon',33000,33000,32,'naissance-garçon.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance d\'un garçon','Bouquet naissance garçon', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
-INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(53,'naissance-fille','Naissace fille',27000,27000,32,'naissance-fille.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
-INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(54,'florale-rose','Florale rose gm',37000,37000,32,'florale-rose-gm.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
-INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(54,'florale-rose-pm','Florale rose pm',27000,27000,32,'florale-rose-pm.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
-INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(55,'rode-stabilise','Rode stabilise ave chaine',37000,37000,32,'rode-stabilise.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(66,'ecolo','Ecolo',18500,18500,32,'ecolo.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(56,'bambou-nain','Bambous nains',18500,18500,32,'bambou-nain.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(67,'alchimie','Alchimie',27500,27500,32,'alchimie.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(57,'rode-stabilise','Rode stabilise ave chaine',37000,37000,32,'rode-stabilise.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(68,'mignon','Mignon',29000,29000,32,'mignon.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(58,'florale-rose-blanc','Florale rose blanche',27500,27500,32,'florale-rose-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(69,'rencontre','Rencontre',27500,27500,32,'rencontre.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(59,'rond-rose','Rond rose',29000,29000,32,'rond-rose.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(70,'espoir','Espoir',55000,55000,32,'espoir.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(60,'rond-margueritte','Rond margueritte',27500,27500,32,'rond-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(71,'eblouissant','Eblouissant',22500,22500,32,'eblouissant.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(61,'centre-table','Centre table allonge',53000,53000,32,'rond-rose.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(72,'fudji','Fudji',37000,37000,32,'fudji.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(62,'florale-multicolore','Florale multicolore',22500,22500,32,'florale-multicolore.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(73,'belle-naissance','Belle naissance',53500,53500,32,'belle-naissance.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(63,'florale-amour','Florale amour',37000,37000,32,'floral-amour.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(74,'rond-rose-marguerite','Rond rose margueritte',16500,16500,32,'rond-rose-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(64,'naissance-fille-decore','Naissance fille rose blanche',53500,53500,32,'naissance-fille-rose-blanc.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(75,'joyeuse','Joyeuse',33000,33000,32,'joyeuse.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(65,'rond-rose-marguerite','Rond rose margueritte',16500,16500,32,'rond-rose-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(76,'malibu','Malibu',23000,23000,32,'malibu.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
-VALUES(66,'rond-rose-jaune-margueritte','Rond rose jaune margueritte',33000,33000,32,'rond-rose-jaune-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+VALUES(77,'sagesse','Sagesse',25000,25000,32,'sagesse.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(78,'coccinelles','Coccinelles',30000,30000,32,'coccinelles.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(79,'alegria','Alegria',44000,44000,32,'alegria.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(80,'rose','La rose',4500,4500,32,'rose.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(81,'marguerrite','Le margueritte',7000,7000,32,'margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(82,'bambou-pm','Bambou simple',27500,27500,32,'bambou-pm.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(83,'bambou-gm','Bambou robuste',53000,53000,32,'bambou-gm.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(84,'rose-margueritte','Rose margueritte',15500,15500,32,'rose-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
+
+INSERT INTO product(id,reference,designation,price,current_price,quantity,image_url,is_selected,is_promo,is_in_stock,description,manufactured,created_date,last_up_dated,scat_id,actif)
+VALUES(85,'love-margueritte','Love margueritte',21500,21500,32,'love-margueritte.jpg', true, true,true, 'Bouquets de fleurs pour cadeau de naissance fille','Bouquet naissance fille', '2023-09-10 12:36:48','2023-09-10 12:36:48',12,1);
 
 /* REGIONS */
 INSERT INTO country(id,code,name,actif) VALUES(1,'DK','Dakar',1);

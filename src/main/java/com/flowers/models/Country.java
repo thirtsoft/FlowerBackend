@@ -16,10 +16,10 @@ public class Country implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", length = 30)
+    @Column(name = "code_quartier", length = 30, unique = true)
     private String code;
 
-    @Column(name = "name", length = 90)
+    @Column(name = "nom_region", nullable = false, length = 90, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "country")

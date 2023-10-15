@@ -18,7 +18,7 @@ public class State implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 90)
+    @Column(name = "nom_quartier", nullable = false, length = 90, unique = true)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
