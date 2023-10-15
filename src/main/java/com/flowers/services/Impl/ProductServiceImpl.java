@@ -106,13 +106,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto findByReference(String reference) {
-
         if (!StringUtils.hasLength(reference)) {
             log.error("Article REFERENCE is null");
         }
-
         Optional<Product> optionalProduct = productRepository.findProductByReference(reference);
-
         return Optional.of(ProductDto.fromEntityToDto(optionalProduct.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Product avec l'Id = " + reference + "n'a été trouvé")
@@ -121,7 +118,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public long countNumberTotalOfProduct() {
-        return productRepository.count();
+        return productRepository.countProductsSize();
     }
 
     @Override
@@ -234,7 +231,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> findProductByPageable(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return productRepository.findAll(pageable)
+        return productRepository.findProductByPageable(pageable)
                 .map(ProductDto::fromEntityToDto).getContent();
     }
 

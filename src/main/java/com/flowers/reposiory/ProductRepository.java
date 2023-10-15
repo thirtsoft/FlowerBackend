@@ -42,6 +42,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByOrderByIdDesc();
 
+    @Query("select p from Product p where p.actif=1 and p.subcategory.id =:id")
     Page<Product> findBySubcategory(Long id, Pageable pageable);
 
     // Like  key%  %key  %key%
