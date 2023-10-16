@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -18,24 +20,38 @@ public class FournisseurDto {
 
     private Long id;
 
+    @NotNull(message = "La reference du fournisseur ne doit pas etre null")
+    @NotEmpty(message = "La reference du fournisseur ne doit pas etre vide")
+    @NotBlank(message = "La reference du fournisseur ne doit pas avoir dd'espace vie")
     private String reference;
 
-    @NotNull
+    @NotNull(message = "Le prenom du fournisseur ne doit pas etre null")
+    @NotEmpty(message = "Le prenom du fournisseur ne doit pas etre vide")
+    @NotBlank(message = "Le prenom du fournisseur ne doit pas avoir d'espace vide")
     private String firstName;
 
-    @NotNull
+    @NotNull(message = "Le nom du fournisseur ne doit pas etre null")
+    @NotEmpty(message = "Le nom du fournisseur ne doit pas etre vide")
+    @NotBlank(message = "Le nom du fournisseur ne doit pas avoir d'espace vide")
     private String lastName;
 
     private String email;
 
-    @NotNull
+    @NotNull(message = "Le téléphone wave du fournisseur ne doit pas etre null")
+    @NotEmpty(message = "Le téléphone wave du fournisseur ne doit pas etre vide")
+    @NotBlank(message = "Le téléphone wave du fournisseur ne doit pas avoir d'espace vide")
     private String telephone;
 
-    @NotNull
+    @NotNull(message = "Le téléphone orange money du fournisseur ne doit pas etre null")
+    @NotEmpty(message = "Le téléphone orange money du fournisseur ne doit pas etre vide")
+    @NotBlank(message = "Le téléphone orange money du fournisseur ne doit pas avoir d'espace vide")
     private String telephone2;
 
     private String telephone3;
 
+    @NotNull(message = "L'addresse du fournisseur ne doit pas etre null")
+    @NotEmpty(message = "L'addresse du fournisseur ne doit pas etre vide")
+    @NotBlank(message = "L'addresse du fournisseur ne doit pas avoir d'espace vide")
     private StateDto stateDto;
 
     private int actif;
