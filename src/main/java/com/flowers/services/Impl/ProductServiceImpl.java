@@ -75,6 +75,7 @@ public class ProductServiceImpl implements ProductService {
         productDtoResult.setDesignation(productDto.getDesignation());
         productDtoResult.setPrice(productDto.getPrice());
         productDtoResult.setCurrentPrice(productDto.getCurrentPrice());
+        productDtoResult.setPrice_fournisseur(productDto.getPrice_fournisseur());
         productDtoResult.setQuantity(productDto.getQuantity());
         productDtoResult.setPhoto(productDto.getPhoto());
         productDtoResult.setSelected(productDto.isSelected());
@@ -95,9 +96,7 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(id)) {
             throw new ResourceNotFoundException("Product not found");
         }
-
         Optional<Product> optionalProduct = productRepository.findById(id);
-
         return Optional.of(ProductDto.fromEntityToDto(optionalProduct.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Product avec l'Id = " + id + "n'a été trouvé")

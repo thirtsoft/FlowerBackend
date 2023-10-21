@@ -37,6 +37,9 @@ public class Product implements Serializable {
     @Column(name = "currentPrice", nullable = false, length = 70)
     private double currentPrice;
 
+    @Column(name = "prix_du_fournisseur", nullable = false, length = 70)
+    private double price_fournisseur;
+
     @Column(name = "quantity", nullable = false, length = 30)
     private int quantity;
 
@@ -109,7 +112,8 @@ public class Product implements Serializable {
     }
 
     public Product(Long id, String reference, String designation, int quantity,
-                   double price, double currentPrice, boolean isPromo, boolean isSelected,
+                   double price, double currentPrice, double price_fournisseur,
+                   boolean isPromo, boolean isSelected,
                    String description, String imageUrl, Subcategory subcategory) {
         this.id = id;
         this.reference = reference;
@@ -117,6 +121,7 @@ public class Product implements Serializable {
         this.quantity = quantity;
         this.price = price;
         this.currentPrice = currentPrice;
+        this.price_fournisseur = price_fournisseur;
         this.isPromo = isPromo;
         this.isSelected = isSelected;
         this.description = description;
@@ -125,7 +130,7 @@ public class Product implements Serializable {
     }
 
     public Product(Long id, String reference, String designation,
-                   double price, double currentPrice, int quantity,
+                   double price, double currentPrice, double price_fournisseur, int quantity,
                    String imageUrl, boolean isSelected,
                    boolean isPromo, boolean isInstock,
                    String description, String manufactured, Subcategory subcategory) {
@@ -134,6 +139,7 @@ public class Product implements Serializable {
         this.designation = designation;
         this.price = price;
         this.currentPrice = currentPrice;
+        this.price_fournisseur = price_fournisseur;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
         this.isSelected = isSelected;
@@ -182,6 +188,13 @@ public class Product implements Serializable {
 
     public void setCurrentPrice(double currentPrice) {
         this.currentPrice = currentPrice;
+    }
+
+    public double getPrice_fournisseur() {
+        return price_fournisseur;
+    }
+    public void setPrice_fournisseur(double price_fournisseur) {
+        this.price_fournisseur = price_fournisseur;
     }
 
     public int getQuantity() {

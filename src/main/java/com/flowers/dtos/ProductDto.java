@@ -18,27 +18,37 @@ public class ProductDto {
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "La reference du produit ne doit pas etre null")
+    @NotEmpty(message = "La reference du produit ne doit pas etre vide")
+    @NotBlank(message = "La reference du produit ne doit pas avoir dd'espace vide")
     private String reference;
 
-    @NotNull
+    @NotNull(message = "La désignation du produit ne doit pas etre null")
+    @NotEmpty(message = "La désignation du produit ne doit pas etre vide")
+    @NotBlank(message = "La désignation du produit ne doit pas avoir dd'espace vide")
     private String designation;
 
     private int quantity;
 
     private int quantite;
 
-    @NotNull
+    @NotNull(message = "Le prix du produit ne doit pas etre null")
+    @NotEmpty(message = "Le prix du produit ne doit pas etre vide")
+    @NotBlank(message = "Le prix du produit ne doit pas avoir dd'espace vide")
     private double price;
 
     @NotNull
     private double currentPrice;
 
+    @NotNull(message = "Le prix du fournisseur du produit ne doit pas etre null")
+    @NotEmpty(message = "Le prix du fournisseur du produit ne doit pas etre vide")
+    @NotBlank(message = "Le prix du fournisseur du produit ne doit pas avoir dd'espace vide")
+    private double price_fournisseur;
+
     private boolean promo;
 
     private boolean selected;
 
-    @NotNull
     private String description;
 
     private String manufactured;
@@ -73,7 +83,7 @@ public class ProductDto {
     }
 
     public ProductDto(long id, String reference, String designation, int quantity,
-                      double price, double currentPrice, boolean promo, boolean selected,
+                      double price, double currentPrice, double price_fournisseur, boolean promo, boolean selected,
                       String description, String photo, SubCategoryDto subCategoryDto) {
         this.id = id;
         this.reference = reference;
@@ -81,6 +91,7 @@ public class ProductDto {
         this.quantity = quantity;
         this.price = price;
         this.currentPrice = currentPrice;
+        this.price_fournisseur = price_fournisseur;
         this.promo = promo;
         this.selected = selected;
         this.description = description;
@@ -116,6 +127,7 @@ public class ProductDto {
                 .quantite(product.getQuantite())
                 .price(product.getPrice())
                 .currentPrice(product.getCurrentPrice())
+                .price_fournisseur(product.getPrice_fournisseur())
                 .promo(product.isPromo())
                 .selected(product.isSelected())
                 .description(product.getDescription())
@@ -139,6 +151,7 @@ public class ProductDto {
         product.setQuantite(productDto.getQuantite());
         product.setPrice(productDto.getPrice());
         product.setCurrentPrice(productDto.getCurrentPrice());
+        product.setPrice_fournisseur(productDto.getPrice_fournisseur());
         product.setPromo(productDto.isPromo());
         product.setSelected(productDto.isSelected());
         product.setDescription(productDto.getDescription());

@@ -22,7 +22,7 @@ public class FournisseurDto {
 
     @NotNull(message = "La reference du fournisseur ne doit pas etre null")
     @NotEmpty(message = "La reference du fournisseur ne doit pas etre vide")
-    @NotBlank(message = "La reference du fournisseur ne doit pas avoir dd'espace vie")
+    @NotBlank(message = "La reference du fournisseur ne doit pas avoir dd'espace vide")
     private String reference;
 
     @NotNull(message = "Le prenom du fournisseur ne doit pas etre null")

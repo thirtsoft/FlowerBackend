@@ -1,9 +1,7 @@
 package com.flowers.services.Impl;
 
-import com.flowers.dtos.FournisseurDto;
 import com.flowers.dtos.ZoneLivraisonDto;
 import com.flowers.exceptions.ResourceNotFoundException;
-import com.flowers.models.Fournisseur;
 import com.flowers.models.ZoneLivraison;
 import com.flowers.reposiory.ZoneLivraisonRepository;
 import com.flowers.services.ZoneLivraisonService;
@@ -45,6 +43,7 @@ public class ZoneLivraisonServiceImpl implements ZoneLivraisonService {
         ZoneLivraisonDto zoneLivraisonDtoResult = ZoneLivraisonDto.fromEntityToDto(optionalZoneLivraison.get());
         zoneLivraisonDtoResult.setId(zoneLivraisonDto.getId());
         zoneLivraisonDtoResult.setLibelle(zoneLivraisonDto.getLibelle());
+        zoneLivraisonDtoResult.setPrix_zone(zoneLivraisonDto.getPrix_zone());
         return ZoneLivraisonDto.fromEntityToDto(
                 zoneLivraisonRepository.save(
                         ZoneLivraisonDto.fromDtoToEntity(zoneLivraisonDtoResult)
