@@ -24,6 +24,8 @@ public class ZoneLivraisonDto {
     @NotBlank(message = "Le libelle de zone ne doit pas etre vide")
     private String libelle;
 
+    private String prix_zone;
+
     private int actif;
 
     public void setActif(boolean actif) {
@@ -47,6 +49,7 @@ public class ZoneLivraisonDto {
         return ZoneLivraisonDto.builder()
                 .id(zoneLivraison.getId())
                 .libelle(zoneLivraison.getLibelle())
+                .prix_zone(zoneLivraison.getPrix_zone())
                 .build();
     }
 
@@ -57,6 +60,7 @@ public class ZoneLivraisonDto {
         ZoneLivraison zoneLivraison = new ZoneLivraison();
         zoneLivraison.setId(zoneLivraisonDto.getId());
         zoneLivraison.setLibelle(zoneLivraisonDto.getLibelle());
+        zoneLivraison.setPrix_zone(zoneLivraisonDto.getPrix_zone());
         return zoneLivraison;
     }
 }

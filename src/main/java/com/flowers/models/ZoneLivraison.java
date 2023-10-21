@@ -21,6 +21,9 @@ public class ZoneLivraison implements Serializable {
     @Column(name = "libelle_zone", nullable = false, length = 50, unique = true)
     private String libelle;
 
+    @Column(name = "prix_zone_livraison", length = 50, unique = true)
+    private String prix_zone;
+
     @Column(name = "actif")
     private int actif;
 

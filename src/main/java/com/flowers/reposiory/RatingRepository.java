@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 
-    @Query("select count(c) from Rating c where month(c.createdDate) = month(current_date)")
+    @Query("select count(c) from Rating c where c.actif=1 and month(c.createdDate) = month(current_date)")
     BigDecimal countNumberOfRating();
 
     @Query("select count(c) from Rating c where c.actif=1 and c.product.reference =:prod")
