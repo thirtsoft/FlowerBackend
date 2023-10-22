@@ -1,6 +1,7 @@
 package com.flowers.services.Impl;
 
 import com.flowers.dtos.CommandeDto;
+import com.flowers.enums.Statuscommande;
 import com.flowers.exceptions.ResourceNotFoundException;
 import com.flowers.models.Commande;
 import com.flowers.models.HistoriqueCommande;
@@ -198,5 +199,55 @@ public class CommandeServiceImpl implements CommandeService {
         historiqueCommandeRepository.save(historiqueCommande);
         commandeRepository.save(commande);
 
+    }
+
+    @Override
+    public void payerCommande(Long id) {
+        Commande commandeOptional = commandeRepository.findById(id).get();
+        commandeOptional.setStatus(String.valueOf(Statuscommande.PAYEE));
+        commandeRepository.save(commandeOptional);
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commandeOptional);
+        historiqueCommande.setAction("Pyement Commande");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommandeRepository.save(historiqueCommande);
+    }
+
+    @Override
+    public void validerCommande(Long id) {
+        Commande commandeOptional = commandeRepository.findById(id).get();
+        commandeOptional.setStatus(String.valueOf(Statuscommande.VALIDEE));
+        commandeRepository.save(commandeOptional);
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commandeOptional);
+        historiqueCommande.setAction("Validation Commande");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommandeRepository.save(historiqueCommande);
+    }
+
+    @Override
+    public void rejeterCommande(Long id) {
+        Commande commandeOptional = commandeRepository.findById(id).get();
+        commandeOptional.setStatus(String.valueOf(Statuscommande.REJETEE));
+        commandeOptional.setActif(false);
+        commandeRepository.save(commandeOptional);
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commandeOptional);
+        historiqueCommande.setAction("Rejet Commande");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommandeRepository.save(historiqueCommande);
+    }
+
+    @Override
+    public void annulerCommande(Long id) {
+        Commande commandeOptional = commandeRepository.findById(id).get();
+        commandeOptional.setStatus(String.valueOf(Statuscommande.ANNULEE));
+        commandeOptional.setActif(false);
+        commandeRepository.save(commandeOptional);
+        HistoriqueCommande historiqueCommande = new HistoriqueCommande();
+        historiqueCommande.setCommande(commandeOptional);
+        historiqueCommande.setAction("Annulation Commande");
+        historiqueCommande.setCreatedDate(new Date());
+        historiqueCommandeRepository.save(historiqueCommande);
     }
 }

@@ -49,4 +49,12 @@ public interface CommandeService {
 
     void deleteCommande(Long comId);
 
+    void payerCommande(Long id);
+
+    void validerCommande(Long id);
+
+    void rejeterCommande(Long id);
+
+    void annulerCommande(Long id);
+
 }

@@ -2,6 +2,7 @@ package com.flowers.services.Impl;
 
 import com.flowers.dtos.checkout.Purchase;
 import com.flowers.dtos.checkout.PurchaseResponse;
+import com.flowers.enums.Statuscommande;
 import com.flowers.models.*;
 import com.flowers.reposiory.ClientRepository;
 import com.flowers.reposiory.HistoriqueCommandeRepository;
@@ -57,7 +58,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         String orderTrackingNumber = generateOrderTrackingNumber();
         Commande commande = purchase.getCommande();
         commande.setOrderTrackingNumber(orderTrackingNumber);
-        commande.setStatus(status);
+     //   commande.setStatus(status);
+        commande.setStatus(String.valueOf(Statuscommande.ENCOURS));
         commande.setDateCommande(new Date());
         commande.setActif(true);
         // populate order with orderItems

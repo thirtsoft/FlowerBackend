@@ -1,6 +1,7 @@
 package com.flowers.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.flowers.enums.Statuscommande;
 import lombok.Data;
 
 import javax.persistence.*;

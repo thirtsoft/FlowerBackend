@@ -3,9 +3,13 @@ package com.flowers.security;
 import com.flowers.security.jwt.JwtAuthEntryPoint;
 import com.flowers.security.jwt.JwtAuthTokenFilter;
 import com.flowers.security.services.UserDetailsServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -144,6 +150,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/orders/sum-total-of-order-by-month-by-list").permitAll()
                 .antMatchers("/**/orders/ sum-total-of-order-by-year-list").permitAll()
                 .antMatchers("/**/orders/delete-order/*").permitAll()
+                .antMatchers("/**/orders/payer-order/*").permitAll()
+                .antMatchers("/**/orders/valider-order/*").permitAll()
+                .antMatchers("/**/orders/rejeter-order/*").permitAll()
+                .antMatchers("/**/orders/annuler-order/*").permitAll()
 
                 .antMatchers("/**/orderItems/findById/{idOrderItem}").permitAll()
                 .antMatchers("/**/orderItems/find-all-orderItems-group-by-IdDesc").permitAll()
@@ -153,9 +163,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/orderItems/search-top8-orderItems-order-by-IdDesc").permitAll()
                 .antMatchers("/**/orderItems/search-top3-orderItems-order-by-IdDesc").permitAll()
 
-
-                //        .antMatchers("/**/checkout/placeToOrder").permitAll()
-                //        .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrderWithLoginUser/**").permitAll()
 

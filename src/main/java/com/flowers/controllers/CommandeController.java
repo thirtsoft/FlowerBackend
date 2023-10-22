@@ -131,4 +131,28 @@ public class CommandeController implements CommandeApi {
     public void deleteCommande(Long idOrder) {
         commandeService.deleteCommande(idOrder);
     }
+
+    @Override
+    public ResponseEntity payerOrder(Long id) {
+        commandeService.payerCommande(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity validerOrder(Long id) {
+        commandeService.validerCommande(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity rejeterOrder(Long id) {
+        commandeService.rejeterCommande(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity annulerOrder(Long id) {
+        commandeService.annulerCommande(id);
+        return ResponseEntity.ok().build();
+    }
 }

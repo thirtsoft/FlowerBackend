@@ -180,4 +180,37 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "Le order a été supprimé")
     })
     void deleteCommande(@PathVariable("idOrder") Long idOrder);
+
+    @PatchMapping(value = "/payer-order/{id}")
+    @ApiOperation(value = "Modifier status commande à payer",
+            notes = "Cette méthode permet de modifier le status de la Commande à payée")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
+    })
+    ResponseEntity payerOrder(@PathVariable("id") Long id);
+
+    @PatchMapping(value = "/valider-order/{id}")
+    @ApiOperation(value = "Modifier status commande à valider",
+            notes = "Cette méthode permet de modifier le status de la Commande à valider")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
+    })
+    ResponseEntity validerOrder(@PathVariable("id") Long id);
+
+    @PatchMapping(value = "/rejeter-order/{id}")
+    @ApiOperation(value = "Modifier status commande à rejetée",
+            notes = "Cette méthode permet de modifier le status de la Commande à rejetée")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
+    })
+    ResponseEntity rejeterOrder(@PathVariable("id") Long id);
+
+    @PatchMapping(value = "/annuler-order/{id}")
+    @ApiOperation(value = "Modifier status commande à anullée",
+            notes = "Cette méthode permet de modifier le status de la Commande à anullée")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
+    })
+    ResponseEntity annulerOrder(@PathVariable("id") Long id);
+
 }
